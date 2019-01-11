@@ -1,9 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QMenu, QApplication, QMessageBox, QComboBox, QLabel, QLineEdit, QInputDialog, QFileDialog, QTabWidget, QVBoxLayout, QGridLayout, QProgressBar
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot, QObject
-from PyQt5 import QtCore, QtGui, QtWidgets, QtWebEngineWidgets
-import pandas
+from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QComboBox, QLabel, QLineEdit,  QTabWidget, QVBoxLayout, QProgressBar
+from PyQt5 import QtCore, QtWidgets
 import openpyxl
 import xlrd
 import win32com.client as win32
@@ -363,7 +360,7 @@ class Application(QWidget):
         tab.myTextBox5.move(200, 80)
         tab.myTextBox5.setReadOnly(True)
 
-        tab.link2 = QLabel('''<a href='http://www.google.com'>DocInfo Reference: Google</a>''',tab)
+        tab.link2 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'>DocInfo Reference: 02043_18_05471</a>''',tab)
         tab.link2.setOpenExternalLinks(True)
         tab.link2.move(720, 85)
 
@@ -382,7 +379,7 @@ class Application(QWidget):
         tab.myTextBox4.move(200, 140)
         tab.myTextBox4.setReadOnly(True)
 
-        tab.link1 = QLabel('''<a href='http://www.google.com'>DocInfo Reference: Google</a>''', tab)
+        tab.link1 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05472/v.vc/pj'>DocInfo Reference: 02043_18_05472</a>''', tab)
         tab.link1.setOpenExternalLinks(True)
         tab.link1.move(720, 145)
 
@@ -401,7 +398,7 @@ class Application(QWidget):
         tab.myTextBox6.move(200, 200)
         tab.myTextBox6.setReadOnly(True)
 
-        tab.link3 = QLabel('''<a href='http://www.google.com'>DocInfo Reference: Google</a>''', tab)
+        tab.link3 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05499/v.vc/pj'>DocInfo Reference: 02043_18_05499</a>''', tab)
         tab.link3.setOpenExternalLinks(True)
         tab.link3.move(720, 205)
 
@@ -420,7 +417,7 @@ class Application(QWidget):
         tab.myTextBox9.move(200,260)
         tab.myTextBox9.setReadOnly(True)
 
-        tab.link4 = QLabel('''<a href='http://docinfogroupe.inetpsa.com/ead/doc/ref.02016_11_04964/v.vc/fiche'>DocInfo Reference: 02016_11_04964</a>''',tab)
+        tab.link4 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02016_11_04964/v.vc/pj'>DocInfo Reference: 02016_11_04964</a>''',tab)
         tab.link4.setOpenExternalLinks(True)
         tab.link4.move(720, 265)
 
@@ -859,16 +856,6 @@ class Test(Application):
             return 1
         else:
             return 0
-
-
-    def Test_02043_18_04939_STRUCT_0065_XLS(self, workBook):
-        return
-
-
-    def TestTest_02043_18_04939_STRUCT_0065_XLSX_XLSM(self, workBook):
-        return
-
-
 
 
     def buttonClicked(self):
