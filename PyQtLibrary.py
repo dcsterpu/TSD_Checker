@@ -530,6 +530,7 @@ class Test(Application):
         elif self.diagnosticMatrixFileExtension is "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
 
+#Requirements for General structure
     def Test_02043_18_04939_STRUCT_0000_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
@@ -650,7 +651,7 @@ class Test(Application):
 
         row = workSheet.row(1)
         for cell in row:
-            if cell.value.casefold() in {"Référence de la ligne", "Line number"}:
+            if cell.value.casefold() in {"référence de la ligne", "line number"}:
                 return 1
         return 0
 
@@ -663,7 +664,7 @@ class Test(Application):
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cell in row:
-            if cell.value.casefold() in {"Référence de la ligne", "Line number"}:
+            if cell.value.casefold() in {"référence de la ligne", "line number"}:
                 return 1
         return 0
 
@@ -676,7 +677,7 @@ class Test(Application):
 
         row = workSheet.row(1)
         for cell in row:
-            if cell.value.casefold() in {"Version du TSD", "Version of the document"}:
+            if cell.value.casefold() in {"version du tsd", "version of the document"}:
                 return 1
         return 0
 
@@ -688,7 +689,7 @@ class Test(Application):
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cell in row:
-            if cell.value.casefold() in {"Version du TSD", "Version of the document"}:
+            if cell.value.casefold() in {"version du tsd", "version of the document"}:
                 return 1
         return 0
 
@@ -701,7 +702,7 @@ class Test(Application):
 
         row = workSheet.row(1)
         for cell in row:
-            if cell.value.casefold() in {"Justification de la modification", "Change reason"}:
+            if cell.value.casefold() in {"justification de la modification", "change reason"}:
                 return 1
         return 0
 
@@ -713,7 +714,7 @@ class Test(Application):
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cell in row:
-            if cell.value.casefold() in {"Justification de la modification", "Change reason"}:
+            if cell.value.casefold() in {"justification de la modification", "change reason"}:
                 return 1
         return 0
 
@@ -856,6 +857,74 @@ class Test(Application):
             return 1
         else:
             return 0
+
+#Requirements for [DOC4]
+
+    def Test_02043_18_04939_STRUCT_0410_XLS(self, workBook):
+
+        cellNamesRow3 = ["Version", "To diagnose", "Supplier system", "Logical flow", "Physical flow", "Client system",
+                         "Type of connection", "Type", "Logical failure mode", "Physical failure mode", "Wiring harness cause",
+                         "Other cause", "Operation situation / Scenario", "system effect", "Customer effect", "Comment",
+                         "Feared event", "Severity", "Level", "target","Safety measure (G4) / Functional diagnostic(G3,G2,G1)",
+                         "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+                         "Requirement N° to the Design Document", "Requirement N° from Design document",
+                         "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)","High level test",
+                         "Diagnosis needs", "Comments"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("table")
+        workSheet = workBook.sheets[index]
+        rowsIterator = workSheet.rows(2)
+        row3CellValues = list()
+        for cell in rowsIterator:
+            row3CellValues.append(cell.value.casefold())
+        row3NumbersOfValues = len(cellNamesRow3)
+        trueCases = 0
+        for value in cellNamesRow3:
+            if value.casefold() in row3CellValues:
+                if row3CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+            if "reference" in row3CellValues:
+                if row3CellValues.count("reference") is 2:
+                    trueCases = trueCases + 1
+            if not trueCases is row3NumbersOfValues + 1:
+                return 0
+
+
+
+    def Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(self, workBook):
+
+        cellNamesRow3 = ["Version", "To diagnose", "Supplier system", "Logical flow", "Physical flow", "Client system",
+                         "Type of connection", "Type", "Logical failure mode", "Physical failure mode", "Wiring harness cause",
+                         "Other cause", "Operation situation / Scenario", "system effect", "Customer effect", "Comment",
+                         "Feared event", "Severity", "Level", "target", "Safety measure (G4) / Functional diagnostic(G3,G2,G1)",
+                         "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+                         "Requirement N° to the Design Document", "Requirement N° from Design document",
+                         "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
+                         "Diagnosis needs", "Comments"]
+
+        sheetNames = workBook.sheetnames()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("table")
+        workSheet = workBook.sheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=3, max_row=3)
+        row3CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
+        row3NumberOfValues = len(cellNamesRow3)
+        trueCases = 0
+        for value in cellNamesRow3:
+            if value.casefold() in row3CellValues:
+                if row3CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if "reference" in row3CellValues:
+            if row3CellValues.count("reference") is 2:
+                trueCases = trueCases +1
+        if not trueCases is row3NumberOfValues + 1:
+            return 0
+
 
 
     def buttonClicked(self):
