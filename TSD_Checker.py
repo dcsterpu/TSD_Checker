@@ -577,7 +577,7 @@ class Test(Application):
     def Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(self, workBook):
 
         workSheet = workBook.worksheets[0]
-        if workSheet.cell(52, 2).value[0] is "=":
+        if workSheet.cell(52,2) is "=":
             return 0
         else:
             return 1
