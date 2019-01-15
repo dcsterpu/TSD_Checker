@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QComboBox, QLabel, QLineEdit,  QTabWidget, QVBoxLayout, QProgressBar
+from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QComboBox, QLabel, QLineEdit,  QTabWidget, QVBoxLayout, QProgressBar, QRadioButton
 from PyQt5 import QtCore, QtWidgets
 import openpyxl
 import xlrd
@@ -19,6 +19,10 @@ class Application(QWidget):
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
+        self.CesareLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
+        self.TSDConfigLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05472/v.vc/pj'''
+        self.CustomerEffectLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05499/v.vc/pj'''
+        self.DiversityLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02016_11_04964/v.vc/pj'''
         self.tabs.addTab(self.tab1, "TSD Checker")
         self.tabs.addTab(self.tab2, "Options")
         self.initUI(self.tab1)
@@ -27,54 +31,68 @@ class Application(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
+    def ToggleLink(self):
+        if self.tab2.RadioButtonInternet.isChecked() == True:
+            self.CesareLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
+            self.TSDConfigLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05472/v.vc/pj'''
+            self.CustomerEffectLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05499/v.vc/pj'''
+            self.DiversityLink = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02016_11_04964/v.vc/pj'''
+            self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
+            self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
+            self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
+            self.tab2.link4.setText('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''')
+        if self.tab2.RadioButtonIntranet.isChecked() == True:
+            self.CesareLink = ""
+            self.TSDConfigLink = " "
+            self.CustomerEffectLink = ""
+            self.DiversityLink = ""
+            self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
+            self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
+            self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
+            self.tab2.link4.setText('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''')
+
+
+
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox1.setText(fileName1)
         self.tab1.textbox.setText("next file")
 
     def openFileNameDialog2(self):
-        fileName2, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox2.setText(fileName2)
-
-
+        fileName2, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox2.setText(fileName2)
 
     def openFileNameDialog3(self):
-        fileName3, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox3.setText(fileName3)
-
+        fileName3, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox3.setText(fileName3)
 
     def openFileNameDialog4(self):
-        fileName4, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox4.setText(fileName4)
-
+        fileName4, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox4.setText(fileName4)
 
     def openFileNameDialog5(self):
-        fileName5, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox5.setText(fileName5)
-
+        fileName5, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox5.setText(fileName5)
 
     def openFileNameDialog6(self):
-        fileName6, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox6.setText(fileName6)
-
+        fileName6, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox6.setText(fileName6)
 
     def openFileNameDialog7(self):
-        fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox7.setText(fileName7)
-
+        fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox7.setText(fileName7)
 
     def openFileNameDialog8(self):
-        fileName8, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox8.setText(fileName8)
+        fileName8, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox8.setText(fileName8)
 
     def openFileNameDialog9(self):
-        fileName9, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox9.setText(fileName9)
+        fileName9, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox9.setText(fileName9)
 
     def openFileNameDialog10(self):
-        fileName10, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab.myTextBox10.setText(fileName10)
-
+        fileName10, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab1.myTextBox10.setText(fileName10)
 
     def ButtonReportClick(self):
         self.popUp = QWidget()
@@ -86,9 +104,6 @@ class Application(QWidget):
         self.popUp.show()
 
     def buttonClicked(self):
-        return
-
-    def colorButton(self):
         return
 
     def download_file(self, url):
@@ -142,8 +157,6 @@ class Application(QWidget):
             for chuck in response.iter_content(chunk_size=128):
                 f.write(chuck)
                 return FilePath
-
-
 
     def initUI(self, tab):
 
@@ -201,11 +214,9 @@ class Application(QWidget):
         tab.lbl = QLabel("Check level", tab)
 
         tab.combo = QComboBox(tab)
-        tab.combo.addItem("   Option1   ")
-        tab.combo.addItem("   Option2   ")
-        tab.combo.addItem("   Option3   ")
-        tab.combo.addItem("   Option4   ")
-        tab.combo.addItem("   Option5   ")
+        tab.combo.addItem("   Previsional   ")
+        tab.combo.addItem("   Consolidated   ")
+        tab.combo.addItem("   Validated   ")
         tab.combo.resize(508, 20.4)  #rezise the drop down list
         tab.combo.move(200, 190)
         tab.lbl.move(5, 195)
@@ -313,15 +324,10 @@ class Application(QWidget):
 
     # Check button
         button = QPushButton('Check', tab)
-        button.move(390, 360)
+        button.move(310, 360)
         button.resize(90,25)
         button.clicked.connect(self.buttonClicked)
         button.setStyleSheet('QPushButton {background-color: white; color: black;}')
-        buttonStruct = QPushButton("Check Structure", tab)
-        buttonStruct.move(270, 360)
-        buttonStruct.resize(90, 25)
-        buttonStruct.clicked.connect(self.colorButton)
-
         buttonNew = QPushButton("Open \nReport", tab)
         buttonNew.resize(80, 40)
         buttonNew.move(710, 260)
@@ -333,18 +339,15 @@ class Application(QWidget):
 
     def initUIOptions(self, tab):
 
-        hdd_path = " C:/Users/u409465/AppData/Local/Temp/TSD_Checker/ "
-        file_url = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.01272_18_00096/v.vc/pj"
-
         tab.lblUser = QLabel("USER:", tab)
-        tab.lblUser.move(155,25)
+        tab.lblUser.move(165,25)
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
-        tab.lblPass.move(420,25)
+        tab.lblPass.move(450,25)
         tab.TextBoxPass = QtWidgets.QLineEdit(tab)
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
@@ -354,59 +357,59 @@ class Application(QWidget):
 
         # File Selectiom Dialog5
         tab.lbl6 = QLabel("Famille/Sous-Famille list export(CESARE):", tab)
-        tab.lbl6.move(5, 85)
+        tab.lbl6.move(5, 145)
         tab.myTextBox5 = QtWidgets.QTextEdit(tab)
         tab.myTextBox5.resize(460, 25)
-        tab.myTextBox5.move(200, 80)
+        tab.myTextBox5.move(200, 140)
         tab.myTextBox5.setReadOnly(True)
 
-        tab.link2 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'>DocInfo Reference: 02043_18_05471</a>''',tab)
+        tab.link2 = QLabel('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''', tab)
         tab.link2.setOpenExternalLinks(True)
-        tab.link2.move(720, 85)
+        tab.link2.move(720, 145)
 
 
         tab.button5 = QPushButton('...', tab)
-        tab.button5.move(660, 80)
+        tab.button5.move(660, 140)
         tab.button5.resize(45, 22)
 
 
 
         # File Selectiom Dialog4
         tab.lbl5 = QLabel("TSD configuration file:", tab)
-        tab.lbl5.move(5,145)
+        tab.lbl5.move(5,185)
         tab.myTextBox4 = QtWidgets.QTextEdit(tab)
         tab.myTextBox4.resize(460, 25)
-        tab.myTextBox4.move(200, 140)
+        tab.myTextBox4.move(200, 180)
         tab.myTextBox4.setReadOnly(True)
 
-        tab.link1 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05472/v.vc/pj'>DocInfo Reference: 02043_18_05472</a>''', tab)
+        tab.link1 = QLabel('''<a href='''+self.TSDConfigLink+'''>DocInfo Reference: 02043_18_05472</a>''', tab)
         tab.link1.setOpenExternalLinks(True)
-        tab.link1.move(720, 145)
+        tab.link1.move(720, 185)
 
         tab.button4 = QPushButton('...', tab)
         tab.button4.clicked.connect(self.openFileNameDialog4)
-        tab.button4.move(660, 140)
+        tab.button4.move(660, 180)
         tab.button4.resize(45, 22)
 
 
 
         # File Selectiom Dialog6
         tab.lbl7 = QLabel("Customer effect file:", tab)
-        tab.lbl7.move(5, 205)
+        tab.lbl7.move(5, 225)
         tab.myTextBox6 = QtWidgets.QTextEdit(tab)
         tab.myTextBox6.resize(460, 25)
-        tab.myTextBox6.move(200, 200)
+        tab.myTextBox6.move(200, 220)
         tab.myTextBox6.setReadOnly(True)
 
-        tab.link3 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05499/v.vc/pj'>DocInfo Reference: 02043_18_05499</a>''', tab)
+        tab.link3 = QLabel('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''', tab)
         tab.link3.setOpenExternalLinks(True)
-        tab.link3.move(720, 205)
+        tab.link3.move(720, 225)
 
 
 
         tab.button6 = QPushButton('...', tab)
         tab.button6.clicked.connect(self.openFileNameDialog6)
-        tab.button6.move(660, 200)
+        tab.button6.move(660, 220)
         tab.button6.resize(45, 22)
 
         # File Selectiom Dialog9
@@ -417,7 +420,7 @@ class Application(QWidget):
         tab.myTextBox9.move(200,260)
         tab.myTextBox9.setReadOnly(True)
 
-        tab.link4 = QLabel('''<a href='https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02016_11_04964/v.vc/pj'>DocInfo Reference: 02016_11_04964</a>''',tab)
+        tab.link4 = QLabel('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''', tab)
         tab.link4.setOpenExternalLinks(True)
         tab.link4.move(720, 265)
 
@@ -427,18 +430,31 @@ class Application(QWidget):
         tab.button9.move(660, 260)
         tab.button9.resize(45, 22)
 
+        tab.labelInternetAndIntranet = QLabel("Network Type:", tab)
+        tab.labelInternetAndIntranet.move(130, 60)
+        tab.RadioButtonInternet = QRadioButton(self.tab2)
+        tab.RadioButtonInternet.setText("Internet link")
+        tab.RadioButtonInternet.setChecked(True)
+        tab.RadioButtonIntranet = QRadioButton(self.tab2)
+        tab.RadioButtonIntranet.setText("Intranet link")
+        tab.RadioButtonInternet.toggled.connect(self.ToggleLink)
+        tab.RadioButtonIntranet.toggled.connect(self.ToggleLink)
+        tab.RadioButtonInternet.move(210, 58)
+        tab.RadioButtonIntranet.move(210, 90)
 
     def onActivated(self):
         return
 
-
 class Test(Application):
-    Application.tsdFileExtension = str()
-    Application.tsdVehicleFunctionFileExtension = str()
-    Application.tsdSystemFileExtension = str()
-    Application.amdecFileExtension = str()
-    Application.exportMedialecMatriceFileExtension = str()
-    Application.diagnosticMatrixFileExtension = str()
+
+    def __init__(self):
+        super().__init__()
+        self.tsdFileExtension = str()
+        self.tsdVehicleFunctionFileExtension = str()
+        self.tsdSystemFileExtension = str()
+        self.amdecFileExtension = str()
+        self.exportMedialecMatriceFileExtension = str()
+        self.diagnosticMatrixFileExtension = str()
 
     def GetTsdFileExtension(self):
         fileName = self.tab1.myTextBox1.toPlainText()
@@ -531,6 +547,7 @@ class Test(Application):
             return openpyxl.load_workbook(fileName, keep_vba=True)
 
 #Requirements for General structure
+
     def Test_02043_18_04939_STRUCT_0000_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
@@ -546,7 +563,6 @@ class Test(Application):
             return 1
         else:
             return 0
-
 
     def Test_02043_18_04939_STRUCT_0005_XLS(self, workBook):
 
@@ -573,7 +589,6 @@ class Test(Application):
         else:
             return 0
 
-
     def Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(self, workBook):
 
         workSheet = workBook.worksheets[0]
@@ -589,8 +604,6 @@ class Test(Application):
         else:
             return 0
 
-
-
     def Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(self, workBook):
 
         workSheet = workBook.worksheets[0]
@@ -599,7 +612,6 @@ class Test(Application):
         else:
             return 0
 
-
     def Test_02043_18_04939_STRUCT_0020_XLS(self, workBook):
 
         if "suppression" in workBook.sheet_names().casefold():
@@ -607,14 +619,12 @@ class Test(Application):
         else:
             return 0
 
-
     def  Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(self, workBook):
 
          if "suppression" in workBook.sheetnames.casefold():
              return 1
          else:
              return 0
-
 
     def Test_02043_18_04939_STRUCT_0025_XLS(self, workBook):
         try:
@@ -628,8 +638,6 @@ class Test(Application):
                 return 1
         return 0
 
-
-
     def Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(self, workBook):
         try:
             workSheet = workBook.get_sheet_by_name("Suppression")
@@ -641,7 +649,6 @@ class Test(Application):
             if cell.value.casefold() in {"sheet", "onglet"}:
                 return 1
         return 0
-
 
     def Test_02043_18_04939_STRUCT_0030_XLS(self, workBook):
         try:
@@ -655,7 +662,6 @@ class Test(Application):
                 return 1
         return 0
 
-
     def Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(self, workBook):
         try:
             workSheet = workBook.get_sheet_by_name("Suppression")
@@ -667,7 +673,6 @@ class Test(Application):
             if cell.value.casefold() in {"référence de la ligne", "line number"}:
                 return 1
         return 0
-
 
     def Test_02043_18_04939_STRUCT_0035_XLS(self, workBook):
         try:
@@ -692,7 +697,6 @@ class Test(Application):
             if cell.value.casefold() in {"version du tsd", "version of the document"}:
                 return 1
         return 0
-
 
     def Test_02043_18_04939_STRUCT_0040_XLS(self, workBook):
         try:
@@ -860,6 +864,20 @@ class Test(Application):
 
 #Requirements for [DOC4]
 
+    def Test_02043_18_04939_STRUCT_0400_XLS(self, workBook):
+
+        if "table" in workBook.sheet_names().casefold() or "tableau" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0400_XLSX_XLSM(self, workBook):
+
+        if "table" in workBook.sheetnames.casefold() or "tableau" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
     def Test_02043_18_04939_STRUCT_0410_XLS(self, workBook):
 
         cellNamesRow3 = ["Version", "To diagnose", "Supplier system", "Logical flow", "Physical flow", "Client system",
@@ -871,10 +889,31 @@ class Test(Application):
                          "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)","High level test",
                          "Diagnosis needs", "Comments"]
 
+        cellHeaderFlow = ["Supplier system", "Logical flow", "Physical flow", "Client system", "Type of connection"]
+        cellHeaderFlowPosition = []
+        cellHeaderFailureModes = ["Logical failure mode", "Physical failure mode", "Wiring harness cause",
+                                  "Other cause"]
+        cellHeaderFailureModesPosition = []
+        cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
+        cellHeaderEffectsPosition = []
+        cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
+        cellHeaderFearedEventsPosition = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)",]
+        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+                                    "Requirement N° to the Design Document", "Requirement N° from Design document"]
+        cellHeaderSafetyMeasuresPosition = []
+        cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
+                               "Diagnosis needs", "Comments"]
+        cellHeaderDiagnosisPosition = []
+
+# check if row 3 is OK
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("table")
-        workSheet = workBook.sheets[index]
+        try:
+            index = sheetNames.index("table")
+        except:
+            index = sheetNames.index("tableau")
+        workSheet = workBook.sheet_by_index(index)
         rowsIterator = workSheet.rows(2)
         row3CellValues = list()
         for cell in rowsIterator:
@@ -891,7 +930,96 @@ class Test(Application):
             if not trueCases is row3NumbersOfValues + 1:
                 return 0
 
+        for value in cellHeaderFlow:
+            cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderFailureModes:
+            cellHeaderFailureModesPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderEffects:
+            cellHeaderEffectsPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderFearedEvents:
+            cellHeaderFearedEventsPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderSafetyMeasures:
+            cellHeaderSafetyMeasuresPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderDiagnosis:
+            cellHeaderDiagnosisPosition.append(row3CellValues.index(value.casefold()))
 
+# sort index
+
+        cellHeaderFlowPosition.sort()
+        cellHeaderFailureModesPosition.sort()
+        cellHeaderEffectsPosition.sort()
+        cellHeaderFearedEventsPosition.sort()
+        cellHeaderSafetyMeasuresPosition.sort()
+        cellHeaderDiagnosisPosition.sort()
+        tempList = []
+        tempList.append(row3CellValues.index("type"))
+
+# see if subcells of headers are together
+
+        for listIndex in range(1, len(cellHeaderFlowPosition)):
+            if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex - 1] > 1:
+                return 0
+        for listIndex in range(1, len(cellHeaderFailureModesPosition)):
+            if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex - 1] > 1:
+                return 0
+        for listIndex in range(1, len(cellHeaderEffectsPosition)):
+            if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex - 1] > 1:
+                return 0
+        for listIndex in range(1, len(cellHeaderFearedEventsPosition)):
+            if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex - 1] > 1:
+                return 0
+        for listIndex in range(1, len(cellHeaderSafetyMeasuresPosition)):
+            if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex - 1] > 1:
+                return 0
+        for listIndex in range(1, len(cellHeaderDiagnosisPosition)):
+            if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex - 1] > 1:
+                return 0
+
+# get second row
+
+        rowsIterator = workSheet.rows(1)
+        row3CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
+
+# see if headers are OK
+
+        for value in cellHeaderFlowPosition:
+            if row3CellValues[value] != "flow":
+                return 0
+        for value in cellHeaderFailureModesPosition:
+            if row3CellValues[value] != "failures modes":
+                return 0
+        for value in cellHeaderEffectsPosition:
+            if row3CellValues[value] != "effects":
+                return 0
+        for value in cellHeaderFearedEventsPosition:
+            if row3CellValues[value] != "feared events":
+                return 0
+        for value in cellHeaderSafetyMeasuresPosition:
+            if row3CellValues[value] != "safety measure (G4) / functional diagnostic(G3,G2,G1)":
+                return 0
+
+# get first row
+
+        rowsIterator = workSheet.rows(0)
+        row3CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
+
+# see if main headers are OK
+
+        cellHeaderFMEAPosition = cellHeaderFlowPosition + cellHeaderFailureModesPosition + cellHeaderEffectsPosition \
+                                 + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition + tempList
+        for value in cellHeaderFMEAPosition:
+            if row3CellValues[value] != "fmea":
+                return 0
+        for value in cellHeaderDiagnosisPosition:
+            if row3CellValues[value] != "diagnosis":
+                return 0
+        return 1
 
     def Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(self, workBook):
 
@@ -904,10 +1032,30 @@ class Test(Application):
                          "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
                          "Diagnosis needs", "Comments"]
 
-        sheetNames = workBook.sheetnames()
+        cellHeaderFlow = ["Supplier system", "Logical flow", "Physical flow", "Client system", "Type of connection"]
+        cellHeaderFlowPosition = []
+        cellHeaderFailureModes = ["Logical failure mode", "Physical failure mode", "Wiring harness cause", "Other cause"]
+        cellHeaderFailureModesPosition = []
+        cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
+        cellHeaderEffectsPosition = []
+        cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
+        cellHeaderFearedEventsPosition = []
+        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+                                    "Requirement N° to the Design Document", "Requirement N° from Design document"]
+        cellHeaderSafetyMeasuresPosition = []
+        cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
+                               "Diagnosis needs", "Comments"]
+        cellHeaderDiagnosisPosition = []
+
+# check if row 3 is OK
+
+        sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("table")
-        workSheet = workBook.sheets[index]
+        try:
+            index = sheetNames.index("table")
+        except:
+            index = sheetNames.index("tableau")
+        workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=3, max_row=3)
         row3CellValues = list()
         for row in rowsIterator:
@@ -925,69 +1073,418 @@ class Test(Application):
         if not trueCases is row3NumberOfValues + 1:
             return 0
 
+# get index of different headers in sheet
 
+        for value in cellHeaderFlow:
+            cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderFailureModes:
+            cellHeaderFailureModesPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderEffects:
+            cellHeaderEffectsPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderFearedEvents:
+            cellHeaderFearedEventsPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderSafetyMeasures:
+            cellHeaderSafetyMeasuresPosition.append(row3CellValues.index(value.casefold()))
+        for value in cellHeaderDiagnosis:
+            cellHeaderDiagnosisPosition.append(row3CellValues.index(value.casefold()))
+
+# sort index
+
+        cellHeaderFlowPosition.sort()
+        cellHeaderFailureModesPosition.sort()
+        cellHeaderEffectsPosition.sort()
+        cellHeaderFearedEventsPosition.sort()
+        cellHeaderSafetyMeasuresPosition.sort()
+        cellHeaderDiagnosisPosition.sort()
+        tempList = []
+        tempList.append(row3CellValues.index("type"))
+
+# see if subcells of headers are together
+
+        for listIndex in range(1,len(cellHeaderFlowPosition)):
+            if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex-1] > 1:
+                return 0
+        for listIndex in range(1,len(cellHeaderFailureModesPosition)):
+            if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex-1] > 1:
+                return 0
+        for listIndex in range(1,len(cellHeaderEffectsPosition)):
+            if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex-1] > 1:
+                return 0
+        for listIndex in range(1,len(cellHeaderFearedEventsPosition)):
+            if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex-1] > 1:
+                return 0
+        for listIndex in range(1,len(cellHeaderSafetyMeasuresPosition)):
+            if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex-1] > 1:
+                return 0
+        for listIndex in range(1,len(cellHeaderDiagnosisPosition)):
+            if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex-1] > 1:
+                return 0
+
+# get second row
+
+        rowsIterator = workSheet.iter_rows(min_row=2, max_row=2)
+        row3CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
+
+# see if headers are OK
+
+        for value in cellHeaderFlowPosition:
+            if row3CellValues[value] != "flow":
+                return 0
+        for value in cellHeaderFailureModesPosition:
+            if row3CellValues[value] != "failures modes":
+                return 0
+        for value in cellHeaderEffectsPosition:
+            if row3CellValues[value] != "effects":
+                return 0
+        for value in cellHeaderFearedEventsPosition:
+            if row3CellValues[value] != "feared events":
+                return 0
+        for value in cellHeaderSafetyMeasuresPosition:
+            if row3CellValues[value] != "safety measure (G4) / functional diagnostic(G3,G2,G1)":
+                return 0
+
+# get first row
+
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row3CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
+
+# see if main headers are OK
+
+        cellHeaderFMEAPosition = cellHeaderFlowPosition + cellHeaderFailureModesPosition + cellHeaderEffectsPosition \
+                + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition + tempList
+        for value in cellHeaderFMEAPosition:
+            if row3CellValues[value] != "fmea":
+                return 0
+        for value in cellHeaderDiagnosisPosition:
+            if row3CellValues[value] != "diagnosis":
+                return 0
+
+        return 1
+
+    def Test_02043_18_04939_STRUCT_0420_XLS(self, workBook):
+
+        if "diagnostic needs" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0420_XLSX_XLSM(self, workBook):
+
+        if "diagnostic needs" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0430_XLS(self, workBook):
+
+        cellNamesRow1 = ["Reference", "Version", "Label", "Description", "Situation during which the diagnosis is active",
+                         "Technical Effect covers by the need", "Diversity", "Allocated to the system", "Upstream requirements",
+                         "Taken into account", "comment"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("diagnostic needs")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0430_XLSX_XLSM(self, workBook):
+
+        cellNamesRow1 = ["Reference", "Version", "Label", "Description", "Situation during which the diagnosis is active",
+                         "Technical Effect covers by the need", "Diversity", "Allocated to the system", "Upstream requirements",
+                         "Taken into account", "comment"]
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("diagnostic needs")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0440_XLS(self, workBook):
+
+        if "customer effects" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0440_XLSX_XLSM(self, workBook):
+
+        if "customer effects" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0450_XLS(self, workBook):
+
+        cellNamesRow1 = ["Taken into account", "Diagnosticability synthesis", "Comments"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("customer effects")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0450_XLSX_XLSM(self, workBook):
+
+        cellNamesRow1 = ["Taken into account", "Diagnosticability synthesis", "Comments"]
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("customer effects")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0460_XLS(self, workBook):
+
+        if "feared events" in workBook.sheet_names().casefold() or "er" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0460_XLSX_XLSM(self, workBook):
+
+        if "feared events" in workBook.sheetnames.casefold() or "er" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0470_XLS(self, workBook):
+
+        cellNamesRow1 = ["Reference", "Severity", "Level", "Taken into account",
+                         "Justification for not taking into account the dread Event", "Commentaire"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("feared events")
+        except:
+            index = sheetNames.index("er")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0470_XLSX_XLSM(self, workBook):
+
+        cellNamesRow1 = ["Reference", "Severity", "Level", "Taken into account",
+                         "Justification for not taking into account the dread Event", "Commentaire"]
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("feared events")
+        except:
+            index = sheetNames.index("er")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0480_XLS(self, workBook):
+
+        if "system" in workBook.sheet_names().casefold() or "système" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(self, workBook):
+
+        if "system" in workBook.sheetnames.casefold() or "système" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0490_XLS(self, workBook):
+
+        cellNamesRow1 = ["Description", "Taken into account"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("system")
+        except:
+            index = sheetNames.index("système")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(self, workBook):
+
+        cellNamesRow1 = ["Description", "Taken into account"]
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("system")
+        except:
+            index = sheetNames.index("système")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0480_XLS(self, workBook):
+
+        if "operation situation" in workBook.sheet_names().casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(self, workBook):
+
+        if "operation situation" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0490_XLS(self, workBook):
+
+        cellNamesRow1 = ["Description", "Taken into account", "Comments"]
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("operation situation")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(self, workBook):
+
+        cellNamesRow1 = ["Description", "Taken into account", "Comments"]
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("operation situation")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
 
     def buttonClicked(self):
-        if not self.tab2.myTextBox5.toPlainText():
-            self.download_file("https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.01272_18_00096/v.vc/pj")
-        return
-
-    def __init__(self):
-        super().__init__()
-
-
-
-    def colorButton(self):
         self.tab1.colorTextBox1.setStyleSheet('background-color: green')
         self.tab1.colorTextBox2.setStyleSheet('background-color: green')
         self.tab1.colorTextBox3.setStyleSheet('background-color: green')
         self.tab1.colorTextBox4.setStyleSheet('background-color: green')
         self.tab1.colorTextBox5.setStyleSheet('background-color: green')
         self.tab1.colorTextBox6.setStyleSheet('background-color: green')
-
-
-    def readExcel(self, fileName):
-        if fileName.endswith(".xls"):
-            import xlrd as reader
-            def openExcel(filename):
-                return reader.open_workbook(filename)
-
-            def getSheetNames(workbook):
-                return workbook.sheet_names()
-
-            self.excelExtension = ".xls"
-
-        elif fileName.endswith((".xlsx", ".xlsm")):
-            import openpyxl.reader as reader
-            from openpyxl import load_workbook
-            def openExcel(filename):
-                if filename.endswith(".xlsm"):
-                    return load_workbook(filename, keep_vba=True)
-                else:
-                    return load_workbook(filename)
-
-            def getSheetNames(workbook):
-                return workbook.sheetnames
-
-            self.excelExtension = fileName[-5:]
-
-        else:
-            self.tab1.textbox.setText("Invalid file format")
-            return
-
-        workBook = openExcel(fileName)
-        self.excelFile = workBook
-        sheetNamesList = getSheetNames(workBook)
-        sheetNamesString = str()
-        for sheetNames in sheetNamesList:
-            sheetNamesString = sheetNamesString + " " + sheetNames
-
-        self.tab1.textbox.setText(sheetNamesString)
+        if not self.tab2.myTextBox5.toPlainText():
+            self.download_file("https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.01272_18_00096/v.vc/pj")
         return
-
-
-
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
