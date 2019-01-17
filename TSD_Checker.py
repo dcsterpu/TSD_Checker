@@ -14,8 +14,8 @@ class Application(QWidget):
         super().__init__()
         self.left = 200
         self.top = 200
-        self.width = 1000
-        self.height = 450
+        self.width = 900
+        self.height = 650
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
@@ -161,17 +161,22 @@ class Application(QWidget):
     def initUI(self, tab):
 
     # Create a textbox
-        tab.message = "message"
+        tab.message = ""
         tab.textbox = QtWidgets.QTextEdit(self.tab1)
         tab.textbox.setText(tab.message)
         tab.textbox.move(10, 260)
-        tab.textbox.resize(700, 40)
+        tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
 
+        sb = tab.textbox.verticalScrollBar()
+        sb.setValue(sb.minimum())
+
+    #create a progress bar
         tab.pbar = QProgressBar(self.tab1)
         tab.pbar.setGeometry(10, 310, 700, 20)
         tab.pbar.setAlignment(QtCore.Qt.AlignCenter)
         tab.pbar.setValue(0)
+        tab.pbar.move(10, 400)
 
     #Create a color textbox1
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
@@ -324,15 +329,14 @@ class Application(QWidget):
 
     # Check button
         button = QPushButton('Check', tab)
-        button.move(310, 360)
+        button.move(310, 500)
         button.resize(90,25)
         button.clicked.connect(self.buttonClicked)
         button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         buttonNew = QPushButton("Open \nReport", tab)
-        buttonNew.resize(80, 40)
-        buttonNew.move(710, 260)
+        buttonNew.resize(90, 60)
+        buttonNew.move(710, 300)
         buttonNew.clicked.connect(self.ButtonReportClick)
-
 
 
         self.show()
@@ -352,7 +356,6 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-
 
 
         # File Selectiom Dialog5
@@ -455,8 +458,188 @@ class Test(Application):
         self.amdecFileExtension = str()
         self.exportMedialecMatriceFileExtension = str()
         self.diagnosticMatrixFileExtension = str()
+        self.pbvalue = 0
+
+    def TestGeneralStructureXLS(self, workBook, fileName):
+
+        flag = True
+        if self.Test_02043_18_04939_STRUCT_0000_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0005_XLS(fileName) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0010_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0011_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0020_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0025_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0051_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nhe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+        return flag
+
+    def TestGeneralStructureXLSX_XLSM(self, workBook):
+
+        flag = True
+
+        if self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nThe document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nhe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        return flag
 
     def GetTsdFileExtension(self):
+
         fileName = self.tab1.myTextBox1.toPlainText()
         tokens = fileName.split(".")
         self.tsdFileExtension = tokens[-1]
@@ -464,27 +647,69 @@ class Test(Application):
     def GetTsdFileWorkbook(self):
 
         fileName = self.tab1.myTextBox1.toPlainText()
-        if self.tsdFileExtension is "xls":
+        fileName = fileName.replace("\\","/")
+        if self.tsdFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.tsdFileExtension is "xlsx":
+        elif self.tsdFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.tsdFileExtension is "xlsm":
+        elif self.tsdFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
+
+    def TestTsdFile(self):
+
+        self.GetTsdFileExtension()
+        flag = True
+        if self.tsdFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting TSD FILE ----------------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetTsdFileWorkbook()
+            if self.tsdFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox1.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox1.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox1.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
 
     def GetTsdVehicleFunctionFileExtension(self):
         fileName = self.tab1.myTextBox2.toPlainText()
         tokens = fileName.split(".")
-        self.tsdVehicleFucntionFileExtension = tokens[-1]
+        self.tsdVehicleFunctionFileExtension = tokens[-1]
 
     def GetTsdVehicleFunctionFileWorkbook(self):
 
         fileName = self.tab1.myTextBox2.toPlainText()
-        if self.tsdVehicleFunctionFileExtension is "xls":
+        if self.tsdVehicleFunctionFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.tsdVehicleFunctionFileExtension is "xlsx":
+        elif self.tsdVehicleFunctionFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
         elif self.tsdVehicleFunctionFileExtension is "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
+
+    def TestTsdVehicleFunctionFile(self):
+
+        self.GetTsdVehicleFunctionFileExtension()
+        if self.tsdVehicleFunctionFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting TSD Vehicle Function FILE --------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetTsdVehicleFunctionFileWorkbook()
+            if self.tsdVehicleFunctionFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox2.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox2.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox2.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
 
     def GetTsdSystemFileExtension(self):
         fileName = self.tab1.myTextBox3.toPlainText()
@@ -494,12 +719,32 @@ class Test(Application):
     def GetTsdSystemFileWorkbook(self):
 
         fileName = self.tab1.myTextBox3.toPlainText()
-        if self.tsdSystemFileExtension is "xls":
+        if self.tsdSystemFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.tsdSystemFileExtension is "xlsx":
+        elif self.tsdSystemFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.tsdSystemFileExtension is "xlsm":
+        elif self.tsdSystemFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
+
+    def TestTsdSystemFile(self):
+
+        self.GetTsdSystemFileExtension()
+        if self.tsdSystemFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting TSD System FILE ---------------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetTsdSystemFileWorkbook()
+            if self.tsdSystemFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox3.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox3.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox3.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
 
     def GetAmdecFileExtension(self):
         fileName = self.tab1.myTextBox7.toPlainText()
@@ -509,12 +754,32 @@ class Test(Application):
     def GetAmdecFileWorkbook(self):
 
         fileName = self.tab1.myTextBox7.toPlainText()
-        if self.amdecFileExtension is "xls":
+        if self.amdecFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.amdecFileExtension is "xlsx":
+        elif self.amdecFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.amdecFileExtension is "xlsm":
+        elif self.amdecFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
+
+    def TestAmdecFile(self):
+
+        self.GetAmdecFileExtension()
+        if self.amdecFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting AMDEC FILE -------------------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetAmdecFileWorkbook()
+            if self.tsdFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox7.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox4.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox4.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
 
     def GetExportMedialecMatriceFileExtension(self):
         fileName = self.tab1.myTextBox8.toPlainText()
@@ -524,27 +789,67 @@ class Test(Application):
     def GetExportMedialecMatriceFileWorkbook(self):
 
         fileName = self.tab1.myTextBox8.toPlainText()
-        if self.exportMedialecMatriceFileExtension is "xls":
+        if self.exportMedialecMatriceFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.exportMedialecMatriceFileExtension is "xlsx":
+        elif self.exportMedialecMatriceFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.exportMedialecMatriceFileExtension is "xlsm":
+        elif self.exportMedialecMatriceFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
 
+    def TestExportMedialecMatriceFile(self):
+
+        self.GetExportMedialecMatriceFileExtension()
+        if self.exportMedialecMatriceFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting Export Medialec Matrice FILE --------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetExportMedialecMatriceFileWorkbook()
+            if self.tsdFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox8.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox5.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox5.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
+
     def GetDiagnosticMatrixFileExtension(self):
-        fileName = self.tab1.myTextBox9.toPlainText()
+        fileName = self.tab1.myTextBox10.toPlainText()
         tokens = fileName.split(".")
         self.diagnosticMatrixFileExtension = tokens[-1]
 
     def GetDiagnosticMatrixFileWorkbook(self):
 
         fileName = self.tab1.myTextBox9.toPlainText()
-        if self.diagnosticMatrixFileExtension is "xls":
+        if self.diagnosticMatrixFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
-        elif self.diagnosticMatrixFileExtension is "xlsx":
+        elif self.diagnosticMatrixFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.diagnosticMatrixFileExtension is "xlsm":
+        elif self.diagnosticMatrixFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
+
+    def TestDiagnosticMatrixFile(self):
+
+        self.GetDiagnosticMatrixFileExtension()
+        if self.diagnosticMatrixFileExtension:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\n\tTesting Diagnostic Matrix FILE ---------------------------------\n"
+            self.tab1.textbox.setText(text)
+            workBook = self.GetDiagnosticMatrixFileWorkbook()
+            if self.tsdFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox9.toPlainText())
+            else:
+                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+            if flag == True:
+                self.tab1.colorTextBox6.setStyleSheet('background-color: green')
+            else:
+                self.tab1.colorTextBox6.setStyleSheet('background-color: red')
+        else:
+            self.pbvalue = self.pbvalue + 2.38*7
+            self.tab1.pbar.setValue(self.pbvalue)
 
 #Requirements for General structure
 
@@ -583,8 +888,12 @@ class Test(Application):
             return 1
 
     def Test_02043_18_04939_STRUCT_0010_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(52,2), str) and workSheet.cell_value(52,2):
+        workSheet = workBook.sheet_by_index(0)
+        uygvdag = " "
+        value = workSheet.cell_value(51,1)
+        boolval = isinstance(workSheet.cell_value(51, 1), str)
+        boolval2 = workSheet.cell_value(51, 1) != uygvdag
+        if isinstance(workSheet.cell_value(51, 1), str) and workSheet.cell_value(51, 1) and not workSheet.cell_value(51, 1).isspace():
             return 1
         else:
             return 0
@@ -592,14 +901,14 @@ class Test(Application):
     def Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(self, workBook):
 
         workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(52, 2).value , str) and workSheet.cell(52, 2).value:
+        if isinstance(workSheet.cell(52, 2).value, str) and workSheet.cell(52, 2).value and not workSheet.cell(52,2).value.isspace():
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0011_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if workSheet.cell_value(52,2) in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"}:
+        workSheet = workBook.sheet_by_index(0)
+        if workSheet.cell_value(51, 1) in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"}:
             return 1
         else:
             return 0
@@ -614,250 +923,329 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0020_XLS(self, workBook):
 
-        if "suppression" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "suppression" in sheetNames:
             return 1
         else:
             return 0
 
     def  Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(self, workBook):
 
-         if "suppression" in workBook.sheetnames.casefold():
+         sheetNames = [x.casefold() for x in workBook.sheetnames]
+         if "suppression" in sheetNames:
              return 1
          else:
              return 0
 
     def Test_02043_18_04939_STRUCT_0025_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.sheet_by_index(index)
         try:
-            workSheet = workBook.sheet_by_name("Suppression")
+            row = workSheet.row(0)
         except:
-            workSheet = workBook.sheet_by_name("suppression")
-
-        row = workSheet.row(1)
+            return 0
         for cell in row:
-            if cell.value.casefold() in {"sheet", "ongle"}:
+            if cell.value.strip().casefold() in {"sheet", "onglet"}:
                 return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(self, workBook):
-        try:
-            workSheet = workBook.get_sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.get_sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.worksheets[index]
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
-        for cell in row:
-            if cell.value.casefold() in {"sheet", "onglet"}:
-                return 1
+        for cellRow in row:
+            for cell in cellRow:
+                if cell.value.casefold() in {"sheet", "onglet"}:
+                    return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0030_XLS(self, workBook):
-        try:
-            workSheet = workBook.sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.sheet_by_index(index)
 
-        row = workSheet.row(1)
+        try:
+            row = workSheet.row(0)
+        except:
+            return 0
         for cell in row:
-            if cell.value.casefold() in {"référence de la ligne", "line number"}:
+            if cell.value.strip().casefold() in {"référence de la ligne", "line number"}:
                 return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(self, workBook):
-        try:
-            workSheet = workBook.get_sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.get_sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.worksheets[index]
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
-        for cell in row:
-            if cell.value.casefold() in {"référence de la ligne", "line number"}:
-                return 1
+        for cellRow in row:
+            for cell in cellRow:
+               if cell.value.casefold() in {"référence de la ligne", "line number"}:
+                   return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0035_XLS(self, workBook):
-        try:
-            workSheet = workBook.sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.sheet_by_index(index)
 
-        row = workSheet.row(1)
+        try:
+            row = workSheet.row(0)
+        except:
+            return 0
         for cell in row:
             if cell.value.casefold() in {"version du tsd", "version of the document"}:
                 return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(self, workBook):
-        try:
-            workSheet = workBook.get_sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.get_sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.worksheets[index]
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
-        for cell in row:
-            if cell.value.casefold() in {"version du tsd", "version of the document"}:
-                return 1
+        for cellRow in row:
+            for cell in cellRow:
+                if cell.value.casefold() in {"version du tsd", "version of the document"}:
+                   return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0040_XLS(self, workBook):
-        try:
-            workSheet = workBook.sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.sheet_by_index(index)
 
-        row = workSheet.row(1)
+        try:
+            row = workSheet.row(0)
+        except:
+            return 0
         for cell in row:
             if cell.value.casefold() in {"justification de la modification", "change reason"}:
                 return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(self, workBook):
-        try:
-            workSheet = workBook.get_sheet_by_name("Suppression")
-        except:
-            workSheet = workBook.get_sheet_by_name("suppression")
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("suppression")
+        workSheet = workBook.worksheets[index]
 
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
-        for cell in row:
-            if cell.value.casefold() in {"justification de la modification", "change reason"}:
-                return 1
+        for cellRow in row:
+            for cell in cellRow:
+                 if cell.value.casefold() in {"justification de la modification", "change reason"}:
+                    return 1
         return 0
 
     def Test_02043_18_04939_STRUCT_0051_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(62, 5), str) and workSheet.cell_value(62, 5):
-            return 1
-        else:
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0,indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0,len(colName)):
+            if colName[index].value.strip().casefold() == "vehicle architecture schematic" or colName[index].value.strip().casefold() == "planche d'architecture véhicule":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index, colReferenceIndex)   and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(62, 5).value, str) and workSheet.cell(62, 5).value:
-            return 1
-        else:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "vehicle architecture schematic" or str(cellObject.value).strip().casefold() == "planche d'architecture véhicule":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row, colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0052_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(63, 5), str) and workSheet.cell_value(63, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(6, 3), str) and workSheet.cell_value(6, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(63, 5).value, str) and workSheet.cell(63, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(6, 3).value, str) and workSheet.cell(6, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0053_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(64, 5), str) and workSheet.cell_value(64, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(7, 3), str) and workSheet.cell_value(7, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(64, 5).value, str) and workSheet.cell(64, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(7, 3).value, str) and workSheet.cell(7, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0054_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(65, 5), str) and workSheet.cell_value(65, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(8, 3), str) and workSheet.cell_value(8, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(65, 5).value, str) and workSheet.cell(65, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(8, 3).value, str) and workSheet.cell(8, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0055_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(66, 5), str) and workSheet.cell_value(66, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(9, 3), str) and workSheet.cell_value(9, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(66, 5).value, str) and workSheet.cell(66, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(9, 3).value, str) and workSheet.cell(9, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0056_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(67, 5), str) and workSheet.cell_value(67, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(10, 3), str) and workSheet.cell_value(10, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(67, 5).value, str) and workSheet.cell(67, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(10, 3).value, str) and workSheet.cell(10, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0057_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(68, 5), str) and workSheet.cell_value(68, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(11, 3), str) and workSheet.cell_value(11, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(68, 5).value, str) and workSheet.cell(68, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(11, 3).value, str) and workSheet.cell(11, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0058_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(69, 5), str) and workSheet.cell_value(69, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(12, 3), str) and workSheet.cell_value(12, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(69, 5).value, str) and workSheet.cell(69, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(12, 3).value, str) and workSheet.cell(12, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0059_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(70, 5), str) and workSheet.cell_value(70, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(13, 3), str) and workSheet.cell_value(13, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(70, 5).value, str) and workSheet.cell(70, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(13, 3).value, str) and workSheet.cell(13, 3).value:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0060_XLS(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell_value(71, 5), str) and workSheet.cell_value(71, 5):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.sheet_by_index(index)
+        if isinstance(workSheet.cell_value(14, 3), str) and workSheet.cell_value(14, 3):
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(self, workBook):
-        workSheet = workBook.worksheets[0]
-        if isinstance(workSheet.cell(71, 5).value, str) and workSheet.cell(71, 5).value:
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        index = sheetNames.index("reference docs")
+        workSheet = workBook.get_sheet_by_index(index)
+        if isinstance(workSheet.cell(14, 3).value, str) and workSheet.cell(14, 3).value:
             return 1
         else:
             return 0
@@ -1476,15 +1864,22 @@ class Test(Application):
             return 0
 
     def buttonClicked(self):
-        self.tab1.colorTextBox1.setStyleSheet('background-color: green')
-        self.tab1.colorTextBox2.setStyleSheet('background-color: green')
-        self.tab1.colorTextBox3.setStyleSheet('background-color: green')
-        self.tab1.colorTextBox4.setStyleSheet('background-color: green')
-        self.tab1.colorTextBox5.setStyleSheet('background-color: green')
-        self.tab1.colorTextBox6.setStyleSheet('background-color: green')
+
         if not self.tab2.myTextBox5.toPlainText():
-            self.download_file("https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.01272_18_00096/v.vc/pj")
-        return
+            self.download_file(self.CesareLink)
+        if not self.tab2.myTextBox4.toPlainText():
+            self.download_file(self.TSDConfigLink)
+        if not self.tab2.myTextBox6.toPlainText():
+            self.download_file(self.CustomerEffectLink)
+        if not self.tab2.myTextBox9.toPlainText():
+            self.download_file(self.DiversityLink)
+
+        self.TestTsdFile()
+        self.TestTsdVehicleFunctionFile()
+        self.TestTsdSystemFile()
+        self.TestAmdecFile()
+        self.TestExportMedialecMatriceFile()
+        self.TestDiagnosticMatrixFile()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
