@@ -630,7 +630,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nhe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            text = text + "\nThe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -684,16 +684,18 @@ class Test(Application):
     def GetTsdVehicleFunctionFileWorkbook(self):
 
         fileName = self.tab1.myTextBox2.toPlainText()
+        fileName = fileName.replace("\\", "/")
         if self.tsdVehicleFunctionFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdVehicleFunctionFileExtension == "xlsx":
             return openpyxl.load_workbook(fileName)
-        elif self.tsdVehicleFunctionFileExtension is "xlsm":
+        elif self.tsdVehicleFunctionFileExtension == "xlsm":
             return openpyxl.load_workbook(fileName, keep_vba=True)
 
     def TestTsdVehicleFunctionFile(self):
 
         self.GetTsdVehicleFunctionFileExtension()
+        flag = True
         if self.tsdVehicleFunctionFileExtension:
             text = self.tab1.textbox.toPlainText()
             text = text + "\n\tTesting TSD Vehicle Function FILE --------------------------\n"
@@ -769,7 +771,7 @@ class Test(Application):
             text = text + "\n\tTesting AMDEC FILE -------------------------------------\n"
             self.tab1.textbox.setText(text)
             workBook = self.GetAmdecFileWorkbook()
-            if self.tsdFileExtension == "xls":
+            if self.amdecFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox7.toPlainText())
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
@@ -804,7 +806,7 @@ class Test(Application):
             text = text + "\n\tTesting Export Medialec Matrice FILE --------------------------\n"
             self.tab1.textbox.setText(text)
             workBook = self.GetExportMedialecMatriceFileWorkbook()
-            if self.tsdFileExtension == "xls":
+            if self.exportMedialecMatriceFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox8.toPlainText())
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
@@ -823,7 +825,7 @@ class Test(Application):
 
     def GetDiagnosticMatrixFileWorkbook(self):
 
-        fileName = self.tab1.myTextBox9.toPlainText()
+        fileName = self.tab1.myTextBox10.toPlainText()
         if self.diagnosticMatrixFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.diagnosticMatrixFileExtension == "xlsx":
@@ -839,8 +841,8 @@ class Test(Application):
             text = text + "\n\tTesting Diagnostic Matrix FILE ---------------------------------\n"
             self.tab1.textbox.setText(text)
             workBook = self.GetDiagnosticMatrixFileWorkbook()
-            if self.tsdFileExtension == "xls":
-                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox9.toPlainText())
+            if self.diagnosticMatrixFileExtension == "xls":
+                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox10.toPlainText())
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
             if flag == True:
@@ -958,7 +960,7 @@ class Test(Application):
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cellRow in row:
             for cell in cellRow:
-                if cell.value.casefold() in {"sheet", "onglet"}:
+                if str(cell.value).casefold() in {"sheet", "onglet"}:
                     return 1
         return 0
 
@@ -984,7 +986,7 @@ class Test(Application):
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cellRow in row:
             for cell in cellRow:
-               if cell.value.casefold() in {"référence de la ligne", "line number"}:
+               if str(cell.value).casefold() in {"référence de la ligne", "line number"}:
                    return 1
         return 0
 
@@ -1010,7 +1012,7 @@ class Test(Application):
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cellRow in row:
             for cell in cellRow:
-                if cell.value.casefold() in {"version du tsd", "version of the document"}:
+                if str(cell.value).casefold() in {"version du tsd", "version of the document"}:
                    return 1
         return 0
 
@@ -1036,7 +1038,7 @@ class Test(Application):
         row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
         for cellRow in row:
             for cell in cellRow:
-                 if cell.value.casefold() in {"justification de la modification", "change reason"}:
+                 if str(cell.value).casefold() in {"justification de la modification", "change reason"}:
                     return 1
         return 0
 
@@ -1090,178 +1092,450 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0052_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(6, 3), str) and workSheet.cell_value(6, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "diagnostic matrix" or colName[index].value.strip().casefold() == "matrice diag":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(6, 3).value, str) and workSheet.cell(6, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "diagnostic matrix" or str(cellObject.value).strip().casefold() == "matrice diag":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row, colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0053_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(7, 3), str) and workSheet.cell_value(7, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "fault tree" or colName[index].value.strip().casefold() == "amdec":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(7, 3).value, str) and workSheet.cell(7, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "fault tree" or str(cellObject.value).strip().casefold() == "amdec":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0054_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(8, 3), str) and workSheet.cell_value(8, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "ecu schematic" or colName[index].value.strip().casefold() == "synoptique ecu":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(8, 3).value, str) and workSheet.cell(8, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "ecu schematic" or str(cellObject.value).strip().casefold() == "synoptique ecu":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0055_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(9, 3), str) and workSheet.cell_value(9, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "std":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(9, 3).value, str) and workSheet.cell(9, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "std":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0056_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(10, 3), str) and workSheet.cell_value(10, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "complexity matrix (decli ee)":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(10, 3).value, str) and workSheet.cell(10, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "complexity matrix (decli ee)":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0057_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(11, 3), str) and workSheet.cell_value(11, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "décli":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(11, 3).value, str) and workSheet.cell(11, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "décli":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0058_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(12, 3), str) and workSheet.cell_value(12, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "dcee":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(12, 3).value, str) and workSheet.cell(12, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "dcee":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0059_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(13, 3), str) and workSheet.cell_value(13, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "eead":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(13, 3).value, str) and workSheet.cell(13, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "eead":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
     def Test_02043_18_04939_STRUCT_0060_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.sheet_by_index(index)
-        if isinstance(workSheet.cell_value(14, 3), str) and workSheet.cell_value(14, 3):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+        indexCol = workSheet.ncols
+        for index in range(0, indexCol):
+            column = workSheet.col(index)
+            for cell in column:
+                if str(cell.value).strip().casefold() == "name":
+                    colNameIndex = index
+                if str(cell.value).strip().casefold() == "reference":
+                    colReferenceIndex = index
+        colName = workSheet.col(colNameIndex)
+        for index in range(0, len(colName)):
+            if colName[index].value.strip().casefold() == "tfd":
+                if isinstance(workSheet.cell_value(index, colReferenceIndex), str) and workSheet.cell_value(index,colReferenceIndex) and not workSheet.cell_value(index, colReferenceIndex).isspace():
+                    return 1
+                else:
+                    return 0
 
     def Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheetnames]
-        index = sheetNames.index("reference docs")
-        workSheet = workBook.get_sheet_by_index(index)
-        if isinstance(workSheet.cell(14, 3).value, str) and workSheet.cell(14, 3).value:
-            return 1
-        else:
+        try:
+            index = sheetNames.index("reference docs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+        indexCol = workSheet.max_column
+        for index in range(1, indexCol + 1):
+            column = workSheet.iter_cols(min_col=index, max_col=index)
+            for cellColumn in column:
+                for cell in cellColumn:
+                    if str(cell.value).strip().casefold() == "name":
+                        colNameIndex = index
+                    if str(cell.value).strip().casefold() == "reference":
+                        colReferenceIndex = index
+        colName = workSheet.iter_cols(min_col=colNameIndex, max_col=colNameIndex)
+        for cellObjectTuple in colName:
+            for cellObject in cellObjectTuple:
+                if str(cellObject.value).strip().casefold() == "tfd":
+                    if isinstance(workSheet.cell(cellObject.row, colReferenceIndex).value, str) and workSheet.cell(cellObject.row, colReferenceIndex).value and not workSheet.cell(cellObject.row,colReferenceIndex).value.isspace():
+                        return 1
+                    else:
+                        return 0
 
 #Requirements for [DOC4]
 
     def Test_02043_18_04939_STRUCT_0400_XLS(self, workBook):
 
-        if "table" in workBook.sheet_names().casefold() or "tableau" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "table" in sheetNames or "tableau" in sheetNames:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0400_XLSX_XLSM(self, workBook):
 
-        if "table" in workBook.sheetnames.casefold() or "tableau" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "table" in sheetNames or "tableau" in sheetNames:
             return 1
         else:
             return 0
@@ -1557,7 +1831,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0420_XLS(self, workBook):
 
-        if "diagnostic needs" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "diagnostic needs" in sheetNames:
             return 1
         else:
             return 0
@@ -1619,7 +1894,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0440_XLS(self, workBook):
 
-        if "customer effects" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "customer effects" in sheetNames:
             return 1
         else:
             return 0
@@ -1677,7 +1953,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0460_XLS(self, workBook):
 
-        if "feared events" in workBook.sheet_names().casefold() or "er" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "feared events" in sheetNames or "er" in sheetNames:
             return 1
         else:
             return 0
@@ -1743,7 +2020,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0480_XLS(self, workBook):
 
-        if "system" in workBook.sheet_names().casefold() or "système" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "system" in sheetNames or "système" in sheetNames:
             return 1
         else:
             return 0
@@ -1805,21 +2083,22 @@ class Test(Application):
         else:
             return 0
 
-    def Test_02043_18_04939_STRUCT_0480_XLS(self, workBook):
+    def Test_02043_18_04939_STRUCT_0500_XLS(self, workBook):
 
-        if "operation situation" in workBook.sheet_names().casefold():
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "operation situation" in sheetNames:
             return 1
         else:
             return 0
 
-    def Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(self, workBook):
+    def Test_02043_18_04939_STRUCT_0500_XLSX_XLSM(self, workBook):
 
         if "operation situation" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
 
-    def Test_02043_18_04939_STRUCT_0490_XLS(self, workBook):
+    def Test_02043_18_04939_STRUCT_0510_XLS(self, workBook):
 
         cellNamesRow1 = ["Description", "Taken into account", "Comments"]
 
@@ -1841,7 +2120,7 @@ class Test(Application):
         else:
             return 0
 
-    def Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(self, workBook):
+    def Test_02043_18_04939_STRUCT_0510_XLSX_XLSM(self, workBook):
 
         cellNamesRow1 = ["Description", "Taken into account", "Comments"]
 
@@ -1862,6 +2141,62 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    def Test_02043_18_04939_STRUCT_0520_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "req. of tech. effects" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0520_XLSX_XLSM(self, workBook):
+
+        if "req. of tech. effects" in workBook.sheetnames.casefold():
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0530_XLS(self, workBook):
+        cellNamesRow1 = ["Reference", "version", "Description", "technical effect", "Allocated to", "Tracability with the TSD"]
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("req. of tech. effects")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.rows(0)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0530_XLSX_XLSM(self, workBook):
+        cellNamesRow1 = ["Reference", "version", "Description", "technical effect", "Allocated to", "Tracability with the TSD"]
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("req. of tech. effects")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cell in rowsIterator:
+            row1CellValues.append(cell.value.casefold())
+        trueCases = 0
+        for value in cellNamesRow1:
+            if value.casefold() in row3CellValues:
+                if row1CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases == len(cellNamesRow1):
+            return 1
+        else:
+            return 0
+
 
     def buttonClicked(self):
 
