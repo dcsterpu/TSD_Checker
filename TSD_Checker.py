@@ -651,9 +651,9 @@ class Test(Application):
         if self.tsdFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdFileExtension == "xlsx":
-            return openpyxl.load_workbook(fileName)
+            return openpyxl.load_workbook(fileName, read_only=True)
         elif self.tsdFileExtension == "xlsm":
-            return openpyxl.load_workbook(fileName, keep_vba=True)
+            return openpyxl.load_workbook(fileName, keep_vba=True, read_only=True)
 
     def TestTsdFile(self):
 
@@ -2196,6 +2196,304 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    # Requirements for [DOC3]
+
+    def Test_02043_18_04939_STRUCT_0100_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "table" in sheetNames or "tableau" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0110_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "table" in sheetNames or "tableau" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0120_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "codes défauts" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "codes défauts" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    # def Test_02043_18_04939_STRUCT_0130_XLS(self, workBook):_
+    #
+    #     cellNamesRow3 = ["Version", "To diagnose", "Supplier system", "Logical flow", "Physical flow", "Client system",
+    #                      "Type of connection", "Type", "Logical failure mode", "Physical failure mode",
+    #                      "Wiring harness cause",
+    #                      "Other cause", "Operation situation / Scenario", "system effect", "Customer effect", "Comment",
+    #                      "Feared event", "Severity", "Level", "target",
+    #                      "Safety measure (G4) / Functional diagnostic(G3,G2,G1)",
+    #                      "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+    #                      "Requirement N° to the Design Document", "Requirement N° from Design document",
+    #                      "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)",
+    #                      "High level test",
+    #                      "Diagnosis needs", "Comments"]
+    #
+    #     cellHeaderFlow = ["Supplier system", "Logical flow", "Physical flow", "Client system", "Type of connection"]
+    #     cellHeaderFlowPosition = []
+    #     cellHeaderFailureModes = ["Logical failure mode", "Physical failure mode", "Wiring harness cause",
+    #                               "Other cause"]
+    #     cellHeaderFailureModesPosition = []
+    #     cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
+    #     cellHeaderEffectsPosition = []
+    #     cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
+    #     cellHeaderFearedEventsPosition = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)", ]
+    #     cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency",
+    #                                 "recovering mode",
+    #                                 "Requirement N° to the Design Document", "Requirement N° from Design document"]
+    #     cellHeaderSafetyMeasuresPosition = []
+    #     cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)",
+    #                            "High level test",
+    #                            "Diagnosis needs", "Comments"]
+    #     cellHeaderDiagnosisPosition = []
+    #
+    #     # check if row 3 is OK
+    #
+    #     sheetNames = workBook.sheet_names()
+    #     sheetNames = [x.casefold() for x in sheetNames]
+    #     try:
+    #         index = sheetNames.index("table")
+    #     except:
+    #         index = sheetNames.index("tableau")
+    #     workSheet = workBook.sheet_by_index(index)
+    #     rowsIterator = workSheet.rows(2)
+    #     row3CellValues = list()
+    #     for cell in rowsIterator:
+    #         row3CellValues.append(cell.value.casefold())
+    #     row3NumbersOfValues = len(cellNamesRow3)
+    #     trueCases = 0
+    #     for value in cellNamesRow3:
+    #         if value.casefold() in row3CellValues:
+    #             if row3CellValues.count(value.casefold()) is 1:
+    #                 trueCases = trueCases + 1
+    #         if "reference" in row3CellValues:
+    #             if row3CellValues.count("reference") is 2:
+    #                 trueCases = trueCases + 1
+    #         if not trueCases is row3NumbersOfValues + 1:
+    #             return 0
+    #
+    #     for value in cellHeaderFlow:
+    #         cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
+    #     for value in cellHeaderFailureModes:
+    #         cellHeaderFailureModesPosition.append(row3CellValues.index(value.casefold()))
+    #     for value in cellHeaderEffects:
+    #         cellHeaderEffectsPosition.append(row3CellValues.index(value.casefold()))
+    #     for value in cellHeaderFearedEvents:
+    #         cellHeaderFearedEventsPosition.append(row3CellValues.index(value.casefold()))
+    #     for value in cellHeaderSafetyMeasures:
+    #         cellHeaderSafetyMeasuresPosition.append(row3CellValues.index(value.casefold()))
+    #     for value in cellHeaderDiagnosis:
+    #         cellHeaderDiagnosisPosition.append(row3CellValues.index(value.casefold()))
+    #
+    #     # sort index
+    #
+    #     cellHeaderFlowPosition.sort()
+    #     cellHeaderFailureModesPosition.sort()
+    #     cellHeaderEffectsPosition.sort()
+    #     cellHeaderFearedEventsPosition.sort()
+    #     cellHeaderSafetyMeasuresPosition.sort()
+    #     cellHeaderDiagnosisPosition.sort()
+    #     tempList = []
+    #     tempList.append(row3CellValues.index("type"))
+    #
+    #     # see if subcells of headers are together
+    #
+    #     for listIndex in range(1, len(cellHeaderFlowPosition)):
+    #         if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex - 1] > 1:
+    #             return 0
+    #     for listIndex in range(1, len(cellHeaderFailureModesPosition)):
+    #         if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex - 1] > 1:
+    #             return 0
+    #     for listIndex in range(1, len(cellHeaderEffectsPosition)):
+    #         if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex - 1] > 1:
+    #             return 0
+    #     for listIndex in range(1, len(cellHeaderFearedEventsPosition)):
+    #         if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex - 1] > 1:
+    #             return 0
+    #     for listIndex in range(1, len(cellHeaderSafetyMeasuresPosition)):
+    #         if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex - 1] > 1:
+    #             return 0
+    #     for listIndex in range(1, len(cellHeaderDiagnosisPosition)):
+    #         if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex - 1] > 1:
+    #             return 0
+    #
+    #     # get second row
+    #
+    #     rowsIterator = workSheet.rows(1)
+    #     row3CellValues = list()
+    #     for row in rowsIterator:
+    #         for cell in row:
+    #             row3CellValues.append(cell.value.casefold())
+    #
+    #     # see if headers are OK
+    #
+    #     for value in cellHeaderFlowPosition:
+    #         if row3CellValues[value] != "flow":
+    #             return 0
+    #     for value in cellHeaderFailureModesPosition:
+    #         if row3CellValues[value] != "failures modes":
+    #             return 0
+    #     for value in cellHeaderEffectsPosition:
+    #         if row3CellValues[value] != "effects":
+    #             return 0
+    #     for value in cellHeaderFearedEventsPosition:
+    #         if row3CellValues[value] != "feared events":
+    #             return 0
+    #     for value in cellHeaderSafetyMeasuresPosition:
+    #         if row3CellValues[value] != "safety measure (G4) / functional diagnostic(G3,G2,G1)":
+    #             return 0
+    #
+    #     # get first row
+    #
+    #     rowsIterator = workSheet.rows(0)
+    #     row3CellValues = list()
+    #     for row in rowsIterator:
+    #         for cell in row:
+    #             row3CellValues.append(cell.value.casefold())
+    #
+    #     # see if main headers are OK
+    #
+    #     cellHeaderFMEAPosition = cellHeaderFlowPosition + cellHeaderFailureModesPosition + cellHeaderEffectsPosition \
+    #                              + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition + tempList
+    #     for value in cellHeaderFMEAPosition:
+    #         if row3CellValues[value] != "fmea":
+    #             return 0
+    #     for value in cellHeaderDiagnosisPosition:
+    #         if row3CellValues[value] != "diagnosis":
+    #             return 0
+    #     return 1
+
+    def Test_02043_18_04939_STRUCT_0140_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "mesures et commandes" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "mesures et commandes" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0160_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "diagnostic débarqués" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "diagnostic débarqués" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0180_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "effets clients" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "effets clients" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0200_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "er" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "er" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0220_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "constituants" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "constituants" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0240_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "situations de vie" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "situations de vie" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0260_XLS(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "liste mdd" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "liste mdd" in sheetNames:
+            return 1
+        else:
+            return 0
+
+
+
+
 
 
     def buttonClicked(self):

@@ -26,15 +26,11 @@ class Test_02043_18_04939_STRUCT_0000(unittest.TestCase):
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLS(self.workbook), 1)
 
     def test_notok_xls(self):
-        self.workbook = xlrd.open_workbook(
-            "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_xls.xls",
-            formatting_info=True)
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_xls.xls",formatting_info=True)
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLS(self.workbook), False)
 
     def test_notok_french_xls(self):
-        self.workbook = xlrd.open_workbook(
-            "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_french_xls.xls",
-            formatting_info=True)
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_french_xls.xls",formatting_info=True)
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLS(self.workbook), False)
 
 
@@ -53,20 +49,17 @@ class Test_02043_18_04939_STRUCT_0000(unittest.TestCase):
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(self.workbook), 1)
 
     def test_notok_xlsx(self):
-        self.workbook = openpyxl.load_workbook(
-            "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_xlsx.xlsx")
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_xlsx.xlsx")
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(self.workbook), False)
 
     def test_notok_french_xlsx(self):
-        self.workbook = openpyxl.load_workbook(
-            "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_french_xlsx.xlsx")
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_notok_french_xlsx.xlsx")
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(self.workbook), False)
 
 
 
     def test_ok_xlsm(self):
-        self.workbook = openpyxl.load_workbook(
-            "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_ok_xlsm.xlsm")
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0000/doc4_ok_xlsm.xlsm")
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(self.workbook), 1)
 
     def test_ok_uppercase_xlsm(self):
@@ -581,7 +574,6 @@ class Test_02043_18_04939_STRUCT_0400(unittest.TestCase):
     def test_notok_xls(self):
         self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0400/doc4_notok_xls.xls", formatting_info=True)
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0400_XLS(self.workbook), 0)
-
 
 
 if __name__ == '__main__':
