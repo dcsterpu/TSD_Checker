@@ -15,7 +15,7 @@ class Application(QWidget):
         self.left = 200
         self.top = 200
         self.width = 900
-        self.height = 650
+        self.height = 550
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
@@ -42,15 +42,18 @@ class Application(QWidget):
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''')
-        if self.tab2.RadioButtonIntranet.isChecked() == True:
-            self.CesareLink = ""
-            self.TSDConfigLink = " "
-            self.CustomerEffectLink = ""
-            self.DiversityLink = ""
+        elif self.tab2.RadioButtonIntranet.isChecked() == True:
+            self.CesareLink = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05471/v.vc/pj"
+            self.TSDConfigLink = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05472/v.vc/pj"
+            self.CustomerEffectLink = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05499/v.vc/pj"
+            self.DiversityLink = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02016_11_04964/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''')
+
+        else:
+            self.tab1.setText("ERROR: Incorrect network type")
 
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
@@ -117,7 +120,7 @@ class Application(QWidget):
             self.errorPopUp = QWidget()
             self.errorPopUp.setWindowTitle("ERRROR")
             self.errorPopUp.Label = QLabel(self.errorPopUp)
-            self.errorPopUp.Label.setText("Missing Username or Password")
+            self.tab1.textbox.setText("Missing Username or Password")
             self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
             self.errorPopUp.setGeometry(550, 550, 200, 50)
             self.errorPopUp.show()
@@ -144,7 +147,7 @@ class Application(QWidget):
             self.errorPopUp = QWidget()
             self.errorPopUp.setWindowTitle("ERRROR")
             self.errorPopUp.Label = QLabel(self.errorPopUp)
-            self.errorPopUp.Label.setText("Username or Password Incorrect")
+            self.tab1.textbox.setText("Username or Password Incorrect")
             self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
             self.errorPopUp.setGeometry(550, 550, 200, 50)
             self.errorPopUp.show()
@@ -152,7 +155,10 @@ class Application(QWidget):
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
         FilePath = out_path + "/" + FileName
+        success_download = self.tab1.textbox.toPlainText()
+        success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
         print("Saving file to location:" + FilePath)
+        self.tab1.textbox.setText(success_download)
         with open(FilePath, 'wb') as f:
             for chuck in response.iter_content(chunk_size=128):
                 f.write(chuck)
@@ -164,7 +170,7 @@ class Application(QWidget):
         tab.message = ""
         tab.textbox = QtWidgets.QTextEdit(self.tab1)
         tab.textbox.setText(tab.message)
-        tab.textbox.move(10, 260)
+        tab.textbox.move(10, 270)
         tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
 
@@ -176,7 +182,7 @@ class Application(QWidget):
         tab.pbar.setGeometry(10, 310, 700, 20)
         tab.pbar.setAlignment(QtCore.Qt.AlignCenter)
         tab.pbar.setValue(0)
-        tab.pbar.move(10, 400)
+        tab.pbar.move(10, 410)
 
     #Create a color textbox1
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
@@ -223,8 +229,8 @@ class Application(QWidget):
         tab.combo.addItem("   Consolidated   ")
         tab.combo.addItem("   Validated   ")
         tab.combo.resize(508, 20.4)  #rezise the drop down list
-        tab.combo.move(200, 190)
-        tab.lbl.move(5, 195)
+        tab.combo.move(200, 200)
+        tab.lbl.move(5, 205)
         tab.combo.activated[str].connect(self.onActivated)
 
 
@@ -235,8 +241,8 @@ class Application(QWidget):
         tab.combo1.addItem("   Generic   ")
         tab.combo1.addItem("   All   ")
         tab.combo1.resize(378, 20.4)  # rezise the drop down list
-        tab.combo1.move(200, 220)
-        tab.lbl1.move(5, 225)
+        tab.combo1.move(200, 230)
+        tab.lbl1.move(5, 235)
         tab.combo1.activated[str].connect(self.onActivated)
 
         self.setGeometry(self.left, self.top, self.width, self.height)
@@ -245,7 +251,7 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project Names")
         tab.importNames.resize(120, 20.4)
-        tab.importNames.move(585, 220)
+        tab.importNames.move(585, 230)
 
 
         #File Selectiom Dialog1
@@ -255,6 +261,7 @@ class Application(QWidget):
         tab.myTextBox1.resize(460, 25)
         tab.myTextBox1.move(200, 10)
         tab.myTextBox1.setReadOnly(True)
+        tab.myTextBox1.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button1 = QPushButton('...',tab)
         tab.button1.clicked.connect(self.openFileNameDialog1)
         tab.button1.move(660, 10)
@@ -267,6 +274,7 @@ class Application(QWidget):
         tab.myTextBox2.resize(460, 25)
         tab.myTextBox2.move(200, 40)
         tab.myTextBox2.setReadOnly(True)
+        tab.myTextBox2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button2 = QPushButton('...', tab)
         tab.button2.clicked.connect(self.openFileNameDialog2)
         tab.button2.move(660, 40)
@@ -279,6 +287,7 @@ class Application(QWidget):
         tab.myTextBox3.resize(460, 25)
         tab.myTextBox3.move(200, 70)
         tab.myTextBox3.setReadOnly(True)
+        tab.myTextBox3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button3 = QPushButton('...', tab)
         tab.button3.clicked.connect(self.openFileNameDialog3)
         tab.button3.move(660, 70)
@@ -292,8 +301,8 @@ class Application(QWidget):
         tab.myTextBox7 = QtWidgets.QTextEdit(tab)
         tab.myTextBox7.resize(460, 25)
         tab.myTextBox7.move(200, 100)
-
         tab.myTextBox7.setReadOnly(True)
+        tab.myTextBox7.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button7 = QPushButton('...', tab)
         tab.button7.clicked.connect(self.openFileNameDialog7)
         tab.button7.move(660, 100)
@@ -310,6 +319,7 @@ class Application(QWidget):
         tab.button8.clicked.connect(self.openFileNameDialog8)
         tab.button8.move(660, 130)
         tab.button8.resize(45, 22)
+        tab.myTextBox8.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
 
 
@@ -324,18 +334,19 @@ class Application(QWidget):
         tab.button10.clicked.connect(self.openFileNameDialog10)
         tab.button10.move(660, 160)
         tab.button10.resize(45, 22)
+        tab.myTextBox10.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
 
 
     # Check button
         button = QPushButton('Check', tab)
-        button.move(310, 500)
+        button.move(310, 470)
         button.resize(90,25)
         button.clicked.connect(self.buttonClicked)
         button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         buttonNew = QPushButton("Open \nReport", tab)
         buttonNew.resize(90, 60)
-        buttonNew.move(710, 300)
+        buttonNew.move(710, 310)
         buttonNew.clicked.connect(self.ButtonReportClick)
 
 
@@ -478,7 +489,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -490,7 +501,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -502,7 +513,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -514,7 +525,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -526,7 +537,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -538,7 +549,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -550,7 +561,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nhe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
@@ -2419,9 +2430,6 @@ class Test(Application):
             return 1
         else:
             return 0
-
-
-
 
 
 
