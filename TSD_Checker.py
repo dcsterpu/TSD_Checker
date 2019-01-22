@@ -111,8 +111,9 @@ class Application(QWidget):
         user = str(user)
         password = self.tab2.TextBoxPass.text()
         password = str(password)
-        out_path = "C:/Users/" + "admacesanu" + "/AppData/Local/Temp/TSD_Checker/"
-        user_path = "C:/Users/" + "admacesanu"
+        username = os.environ['USERNAME']
+        out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
+        user_path = "C:/Users/" + username
         if not user or not password:
             self.errorPopUp = QWidget()
             self.errorPopUp.setWindowTitle("ERRROR")
