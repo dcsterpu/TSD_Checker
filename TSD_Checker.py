@@ -459,8 +459,8 @@ class Test(Application):
         self.exportMedialecMatriceFileExtension = str()
         self.diagnosticMatrixFileExtension = str()
         self.pbvalue = 0
-        username = os.environ['USERNAME']
-        out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
+        usernames = os.environ['USERNAME']
+        out_path = "C:/Users/" + usernames + "/AppData/Local/Temp/TSD_Checker/"
         try:
             os.stat(out_path)
             filelist = [file for file in os.listdir(out_path)]
