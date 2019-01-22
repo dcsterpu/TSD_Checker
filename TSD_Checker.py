@@ -52,8 +52,6 @@ class Application(QWidget):
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DiversityLink + '''>DocInfo Reference: 02016_11_04964</a>''')
 
-
-
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox1.setText(fileName1)
@@ -158,7 +156,7 @@ class Application(QWidget):
         with open(FilePath, 'wb') as f:
             for chuck in response.iter_content(chunk_size=128):
                 f.write(chuck)
-                return FilePath
+        return FilePath
 
     def initUI(self, tab):
 
@@ -889,8 +887,10 @@ class Test(Application):
         ws = wb.Worksheets(1)
         if ws.Cells(52,2).HasFormula is False:
             return 1
+            excel.Application.Quit()
         else:
             return 0
+            excel.Application.Quit()
 
     def Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(self, workBook):
 
@@ -2277,11 +2277,6 @@ class Test(Application):
         for value in cellHeaderListe:
             cellHeaderListePosition.append(row2CellValues.index(value.casefold()))
 
-        # sort index
-
-        cellHeaderListPosition.sort()
-        tempList = []
-        tempList.append(row2CellValues.index("type"))
 
         # see if subcells of headers are together
 
@@ -2290,7 +2285,7 @@ class Test(Application):
                 return 0
 
 
-        # get second row
+        # get first row
 
         rowsIterator = workSheet.rows(0)
         row2CellValues = list()
@@ -2432,6 +2427,7 @@ class Test(Application):
 
     def buttonClicked(self):
 
+        self.tab1.textbox.setText("")
         if not self.tab2.myTextBox5.toPlainText():
             self.download_file(self.CesareLink)
         if not self.tab2.myTextBox4.toPlainText():
