@@ -30,6 +30,7 @@ class Application(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+        self.setWindowTitle("TSD Checker  V0.2")
 
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
@@ -460,6 +461,15 @@ class Test(Application):
         self.exportMedialecMatriceFileExtension = str()
         self.diagnosticMatrixFileExtension = str()
         self.pbvalue = 0
+        username = os.environ['USERNAME']
+        out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
+        try:
+            os.stat(out_path)
+            filelist = [file for file in os.listdir(out_path)]
+            for filename in filelist:
+                os.remove(out_path + filename)
+        except:
+            os.mkdir(out_path)
 
     def TestGeneralStructureXLS(self, workBook, fileName):
 
@@ -2302,7 +2312,6 @@ class Test(Application):
         for row in rowsIterator:
             for cell in row:
                 row2CellValues.append(cell.value.casefold())
-
 
     def Test_02043_18_04939_STRUCT_0140_XLS(self, workBook):
 
