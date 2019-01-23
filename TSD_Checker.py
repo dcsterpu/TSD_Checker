@@ -6,6 +6,12 @@ import xlrd
 import win32com.client as win32
 import requests
 import os
+from win32ui import FindWindow
+from ctypes import windll
+
+
+
+
 
 
 class Application(QWidget):
@@ -117,13 +123,7 @@ class Application(QWidget):
         out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
         user_path = "C:/Users/" + username
         if not user or not password:
-            self.errorPopUp = QWidget()
-            self.errorPopUp.setWindowTitle("ERRROR")
-            self.errorPopUp.Label = QLabel(self.errorPopUp)
             self.tab1.textbox.setText("Missing Username or Password")
-            self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
-            self.errorPopUp.setGeometry(550, 550, 200, 50)
-            self.errorPopUp.show()
             return
         ''' try:
             os.stat(user_path)
@@ -144,13 +144,7 @@ class Application(QWidget):
         response = requests.get(url, stream=True, auth=(user, password))
         status = response.status_code
         if status == 401:
-            self.errorPopUp = QWidget()
-            self.errorPopUp.setWindowTitle("ERRROR")
-            self.errorPopUp.Label = QLabel(self.errorPopUp)
             self.tab1.textbox.setText("Username or Password Incorrect")
-            self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
-            self.errorPopUp.setGeometry(550, 550, 200, 50)
-            self.errorPopUp.show()
             return
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
@@ -2453,10 +2447,16 @@ class Test(Application):
         self.TestDiagnosticMatrixFile()
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    apel = Test()
-    myQLabel = QLabel()
-    sys.exit(app.exec_())
+
+    try:
+        FindWindow(None, "TSD Checker  V0.2")
+        windll.user32.MessageBoxW(0, "Application already running", "Warning", 0|48)
+
+    except:
+        app = QApplication(sys.argv)
+        apel = Test()
+        myQLabel = QLabel()
+        sys.exit(app.exec_())
 
 
 
