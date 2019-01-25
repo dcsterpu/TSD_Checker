@@ -560,7 +560,7 @@ class Test_02043_18_04939_STRUCT_0051(unittest.TestCase):
         self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0051_52_53_..._60/doc_notok_xlsx.xlsx")
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(self.workbook), 0)
 
-#Requirements for [DOC4]
+#Requirements [DOC4]
 
 class Test_02043_18_04939_STRUCT_0400(unittest.TestCase):
     def setUp(self):

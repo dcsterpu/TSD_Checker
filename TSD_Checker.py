@@ -867,7 +867,7 @@ class Test(Application):
             self.pbvalue = self.pbvalue + 2.38*7
             self.tab1.pbar.setValue(self.pbvalue)
 
-#Requirements for General structure
+#Requirements  General structure
 
     def Test_02043_18_04939_STRUCT_0000_XLS(self, workBook):
 
