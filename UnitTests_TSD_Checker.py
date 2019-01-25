@@ -576,5 +576,230 @@ class Test_02043_18_04939_STRUCT_0400(unittest.TestCase):
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0400_XLS(self.workbook), 0)
 
 
+##Requirements for [DOC3]
+
+
+class Test_02043_18_04939_STRUCT_0100(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLS(self.workbook), 1)
+
+    def test_ok_english_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_ok_english_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLS(self.workbook), 1)
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(self.workbook), 1)
+
+    def test_ok_english_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_ok_english_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0100/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0120(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0120_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0120_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(self.workbook), 0)
+
+class Test_02043_18_04939_STRUCT_0140(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0140/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0140_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0140/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0140_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0140/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0140/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0160(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0160/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0120_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0160/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0160_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0160/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0160/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0180(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0180/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0180_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0180/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0180_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0180/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0180/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0200(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0200/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0200_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0200/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0200_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0200/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0200/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0220(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0220/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0220_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0220/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0220_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0220/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0220/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(self.workbook), 0)
+
+
+
+class Test_02043_18_04939_STRUCT_0240(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0240/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0240_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0240/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0240_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0240/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0240/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(self.workbook), 0)
+
+
+class Test_02043_18_04939_STRUCT_0260(unittest.TestCase):
+    def setUp(self):
+        self.app = TSD_Checker.QApplication(TSD_Checker.sys.argv)
+        self.TSD_checker = TSD_Checker.Test()
+
+
+    def test_ok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0260/doc_ok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0260_XLS(self.workbook), 1)
+
+
+    def test_notok_xls(self):
+        self.workbook = xlrd.open_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0260/doc_notok_xls.xls", formatting_info=True)
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0260_XLS(self.workbook), 0)
+
+    def test_ok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0260/doc_ok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(self.workbook), 1)
+
+    def test_notok_xlsx(self):
+        self.workbook = openpyxl.load_workbook("C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0260/doc_notok_xlsx.xlsx")
+        self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(self.workbook), 0)
+
 if __name__ == '__main__':
     unittest.main()

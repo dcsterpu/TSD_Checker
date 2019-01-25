@@ -131,7 +131,7 @@ class Application(QWidget):
             self.errorPopUp = QWidget()
             self.errorPopUp.setWindowTitle("ERRROR")
             self.errorPopUp.Label = QLabel(self.errorPopUp)
-            self.errorPopUp.Label.setText("Username or Password Incorrect")
+            self.errorPopUp.Label.setText("Username or Password Incorrect") 
             self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
             self.errorPopUp.setGeometry(550, 550, 200, 50)
             self.errorPopUp.show()
@@ -2223,7 +2223,7 @@ class Test(Application):
         else:
             return 0
 
-    def Test_02043_18_04939_STRUCT_0110_XLSX_XLSM(self, workBook):
+    def Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(self, workBook):
 
         sheetNames = [x.casefold() for x in workBook.sheetnames]
         if "table" in sheetNames or "tableau" in sheetNames:
@@ -2264,7 +2264,6 @@ class Test(Application):
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
         index = sheetNames.index("codes défauts")
-
         workSheet = workBook.sheet_by_index(index)
         rowsIterator = workSheet.rows(1)
         row2CellValues = list()
@@ -2301,13 +2300,71 @@ class Test(Application):
         # see if headers are OK
 
         for value in cellHeaderListePosition:
-            if row2CellValues[value] != "liste des codes défauts":
+            if row2CellValues[value] != "liste des codes défauts" or row2CellValues[value] != "applicabilité projet":
                 return 0
 
 
         # get first row
 
         rowsIterator = workSheet.rows(0)
+        row2CellValues = list()
+        for row in rowsIterator:
+            for cell in row:
+                row2CellValues.append(cell.value.casefold())
+
+    def Test_02043_18_04939_STRUCT_0130_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Référence", "Version", "Code défaut", "libellé (signification)", "Flux Fonctionnel", "Description de la strategie pour détecter le défaut",
+                         "Seuil de détection  /  valeur  du défaut ", "Temps de confirmation du défaut",
+                         "Description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut",
+                         "Situation de vie véhicule pour faire remonter le code défaut", "Mode dégradé", "Taux de remonté du code défaut",
+                         "Voyant", "Accès scantool", "Groupe de contextes associés", "Diversité", "Applicabilité usine",
+                         "condition d'applicabilité en usine", "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
+                          "Référence amont", "Version de la référence amont", "Pris en compte", "Justification de la modification",
+                          "Validation"]
+
+        cellHeaderPosition = []
+
+        # check if row 2 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("codes défauts")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=2, max_row=2)
+        cellHeaderList = list()
+        for row in rowsIterator:
+            for cell in row:
+                cellHeaderList.append(cell.value.casefold())
+        row2NumberOfValues = len(cellHeaderList)
+        trueCases = 0
+        for value in cellHeaderList:
+            if value.casefold() in cellHeaderList:
+                if cellHeaderList.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if not trueCases is row2NumberOfValues + 1:
+            return 0
+
+        # get index of different headers in sheet
+
+        for value in cellHeaderFlow:
+            cellHeaderPosition.append(row2CellValues.index(value.casefold()))
+
+        # sort index
+
+        cellHeaderPosition.sort()
+        tempList = []
+        tempList.append(row2CellValues.index("type"))
+
+        # see if subcells of headers are together
+
+        for listIndex in range(1, len(cellHeaderPosition)):
+            if cellHeaderPosition[listIndex] - cellHeaderPosition[listIndex - 1] > 1:
+                return 0
+
+        # get second row
+
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
         for row in rowsIterator:
             for cell in row:
