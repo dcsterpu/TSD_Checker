@@ -2419,7 +2419,7 @@ class Test(Application):
 
         cellHeaderList = ["Référence", "Version", "Type (choix par menu)", "libellé (signification)", "Description",
                           "Situation pendant laquelle la mesure ou commande est utilisable", "Statut",
-                          "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement /npour O Control/nlecture /nsortie effective/commande",
+                          "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement /npour O Control/nlecture /nsortie effective //commande",
                           "Diversité", "Applicabilité usine", "condition d'applicabilité en usine",
                           "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
                           "Référence amont", "Version de la référence amont", "Pris en compte",
@@ -2445,7 +2445,7 @@ class Test(Application):
 
         for value in cellHeaderList:
             if value.casefold() in row2CellValues:
-                if row2CellValues.count(value.casefold()) is 1:
+                if row2CellValues.count(value.casefold().strip()) is 1:
                     trueCases = trueCases + 1
         if trueCases is not row2NumbersOfValues:
             return 0
@@ -2487,9 +2487,6 @@ class Test(Application):
                           "Applicabilité Usine", "se référer au document spécifiant : (réf & version)",
                           "Pris en compte", "Justification de la modification", "Validation"]
 
-        cellFirstRow = ["mesures et commandes", "Applicabilité projet"]
-        cellFirstRowPosition = []
-
         # check if row 2 is OK
 
         sheetNames = workBook.sheet_names()
@@ -2518,8 +2515,6 @@ class Test(Application):
                           "Applicabilité Usine", "se référer au document spécifiant : (réf & version)",
                           "Pris en compte", "Justification de la modification", "Validation"]
 
-        cellFirstRow = ["mesures et commandes", "Applicabilité projet"]
-        cellFirstRowPosition = []
 
         # check if row 2 is OK
 
@@ -2868,6 +2863,92 @@ class Test(Application):
         else:
             return 0
 
+    def Test_02043_18_04939_STRUCT_0250_XLS(self, workBook):
+
+        cellHeaderListe = ["Situations de vie", "Justification de la modification"]
+
+        cellFirstRow = ["situations de vie de la fonction ou du système:"]
+        cellFirstRowPosition = []
+
+        # check if row 2 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("situations de vie")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(1)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+
+        # get first row
+
+        rowsIterator = workSheet.row(0)
+        row1CellValues = list()
+
+        for cell in rowsIterator:
+            row1CellValues.append(str(cell.value).casefold())
+
+        for value in cellFirstRow:
+            cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
+        for value in cellFirstRowPosition:
+            if row1CellValues[value] != "situations de vie de la fonction ou du système:":
+                return 0
+        return 1
+
+    def Test_02043_18_04939_STRUCT_0250_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Situations de vie", "Justification de la modification"]
+
+        cellFirstRow = ["situations de vie de la fonction ou du système:"]
+        cellFirstRowPosition = []
+
+        # check if row 2 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("situations de vie")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=2, max_row=2)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+
+        # get first row
+
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row1CellValues.append(str(cell.value).casefold())
+
+        for value in cellFirstRow:
+            cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
+        for value in cellFirstRowPosition:
+            if row1CellValues[value] != "situations de vie de la fonction ou du système:":
+                return 0
+        return 1
+
+
     def Test_02043_18_04939_STRUCT_0260_XLS(self, workBook):
 
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
@@ -2883,6 +2964,808 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    def Test_02043_18_04939_STRUCT_0270_XLS(self, workBook):
+
+        cellHeaderListe = ["Modes dégradés:", "Justification de la modification"]
+
+        cellFirstRow = ["modes dégradés:"]
+        cellFirstRowPosition = []
+
+        # check if row 2 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("liste mdd")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(1)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+
+        # get first row
+
+        rowsIterator = workSheet.row(0)
+        row1CellValues = list()
+
+        for cell in rowsIterator:
+            row1CellValues.append(str(cell.value).casefold())
+
+        for value in cellFirstRow:
+            cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
+        for value in cellFirstRowPosition:
+            if row1CellValues[value] != "modes dégradés:":
+                return 0
+        return 1
+
+    def Test_02043_18_04939_STRUCT_0270_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Modes dégradés:", "Justification de la modification"]
+
+        cellFirstRow = ["modes dégradés:"]
+        cellFirstRowPosition = []
+
+        # check if row 2 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("liste mdd")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=2, max_row=2)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+
+        # get first row
+
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row1CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row1CellValues.append(str(cell.value).casefold())
+
+        for value in cellFirstRow:
+            cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
+        for value in cellFirstRowPosition:
+            if row1CellValues[value] != "modes dégradés:":
+                return 0
+        return 1
+
+# Requirements for [DOC5]
+
+    def Test_02043_18_04939_STRUCT_0700_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "table" in sheetNames or "tableau" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0700_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "table" in sheetNames or "tableau" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0720_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "data trouble codes" in sheetNames or "codes défauts" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0720_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "data trouble codes" in sheetNames or "codes défauts" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0730_XLS(self, workBook):
+
+        cellHeaderListe = ["Reference", "Version", "Data trouble code", "Label", "Description of the qualification conditions",
+                           "Detection threshold", "Qualification time",
+                           "Description of the dequalification conditions / Operation to do to check if the defect disappeared",
+                           "Conditions of the diagnostic activation", "Degraded mode", "Failure detection rate",
+                           "Indicateur light", "Visibility of the failure with the Scantool", "Freeze Frame Class",
+                            "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account",
+                           "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("data trouble codes")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0730_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Reference", "Version", "Data trouble code", "Label", "Description of the qualification conditions",
+                           "Detection threshold", "Qualification time",
+                           "Description of the dequalification conditions / Operation to do to check if the defect disappeared",
+                           "Conditions of the diagnostic activation", "Degraded mode", "Failure detection rate",
+                           "Indicateur light", "Visibility of the failure with the Scantool", "Freeze Frame Class",
+                            "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account",
+                           "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("data trouble codes")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0740_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "read data and io control" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0740_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "read data and io control" in sheetNames :
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0750_XLS(self, workBook):
+
+        cellHeaderListe = ["Reference", "Version", "Type of diagnosis", "Label", "Description", "Conditions of the diagnostic activation",
+                           "Status", "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account",
+                           "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("read data and io control")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0750_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Reference", "Version", "Type of diagnosis", "Label", "Description", "Conditions of the diagnostic activation",
+                           "Status", "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account",
+                           "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("read data and io control")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0760_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "not embedded diagnosis" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0760_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "not embedded diagnosis" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0770_XLS(self, workBook):
+
+        cellHeaderListe = ["Reference", "Version", "Label", "Description", "Upstream requirements",
+                           "Taken into account", "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("not embedded diagnosis")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0770_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Reference", "Version", "Label", "Description", "Upstream requirements",
+                           "Taken into account", "B78", "DV", "projet X", "Projet Y"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("not embedded diagnosis")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0780_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "not embedded diagnosis" in sheetNames or "effets clients" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0780_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "not embedded diagnosis" in sheetNames or "effets clients" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0790_XLS(self, workBook):
+
+        cellHeaderListe = ["Name", "Taken into account", "Diagnosticability synthesis"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("customer effect")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0790_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Name", "Taken into account", "Diagnosticability synthesis"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("customer effect")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0800_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "feared events" in sheetNames or "er" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0800_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "feared events" in sheetNames or "er" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0810_XLS(self, workBook):
+
+        cellHeaderListe = ["Description", "Description", "Severity", "Taken into account",
+                           "Justification for not taking into account the dread Event"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("feared events")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0810_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Description", "Description", "Severity", "Taken into account",
+                           "Justification for not taking into account the dread Event"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("feared events")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0820_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "parts" in sheetNames or "constituants" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0820_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "parts" in sheetNames or "constituants" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0830_XLS(self, workBook):
+
+        cellHeaderListe = ["Name", "Description", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("parts")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0830_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Name", "Description", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("parts")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0840_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "situation" in sheetNames or "situations de vie" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0840_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "situation" in sheetNames or "situations de vie" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0850_XLS(self, workBook):
+
+        cellHeaderListe = ["Name", "Description", "Comments"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("situation")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0850_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Description", "Taken into account", "Comments"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("situation")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0860_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "degraded mode" in sheetNames or "liste mdd" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0860_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "degraded mode" in sheetNames or "liste mdd" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0870_XLS(self, workBook):
+
+        cellHeaderListe = ["Modes dégradés:", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("degraded mode")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0870_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Modes dégradés:", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("degraded mode")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0880_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "technical effect" in sheetNames or "effets techniques" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0880_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "technical effect" in sheetNames or "effets techniques" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0890_XLS(self, workBook):
+
+        cellHeaderListe = ["Name", "Taken into account", "Upstream requirements"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("technical effect")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0890_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Name", "Taken into account", "Upstream requirements"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("technical effect")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0900_XLS(self, workBook):
+        sheetNames = [x.casefold() for x in workBook.sheet_names()]
+        if "variant" in sheetNames or "variantes" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0900_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "variant" in sheetNames or "variantes" in sheetNames:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_STRUCT_0910_XLS(self, workBook):
+
+        cellHeaderListe = ["Name", "Description", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("variant")
+        workSheet = workBook.sheet_by_index(index)
+        rowsIterator = workSheet.row(0)
+        row2CellValues = list()
+        for cell in rowsIterator:
+            row2CellValues.append(cell.value.casefold())
+        row2NumbersOfValues = len(cellHeaderListe)
+        trueCases = 0
+        for value in cellHeaderListe:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0910_XLSX_XLSM(self, workBook):
+
+        cellHeaderList = ["Name", "Description", "Taken into account"]
+
+        # check if row 1 is OK
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        index = sheetNames.index("variant")
+        workSheet = workBook.worksheets[index]
+        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
+        row2CellValues = list()
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
+
+        row2NumbersOfValues = len(cellHeaderList)
+        trueCases = 0
+
+        for value in cellHeaderList:
+            if value.casefold() in row2CellValues:
+                if row2CellValues.count(value.casefold()) is 1:
+                    trueCases = trueCases + 1
+        if trueCases is not row2NumbersOfValues:
+            return 0
+        elif trueCases is row2NumbersOfValues:
+            return 1
 
 
 
