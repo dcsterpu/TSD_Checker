@@ -930,5 +930,6 @@ class Test_02043_18_04939_STRUCT_0700(unittest.TestCase):
         self.assertEqual(self.TSD_checker.Test_02043_18_04939_STRUCT_0700_XLSX_XLSM(self.workbook), 0)
 
 
+
 if __name__ == '__main__':
     unittest.main()

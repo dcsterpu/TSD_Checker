@@ -549,6 +549,45 @@ class Test(Application):
         self.pbvalue = self.pbvalue + 2.38
         self.tab1.pbar.setValue(self.pbvalue)
 
+
+        if self.Test_02043_18_04939_STRUCT_0030_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Référence de la ligne” (or “Line number”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0035_XLS(workBook) == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        if self.Test_02043_18_04939_STRUCT_0040_XLS(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly. "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
         if self.Test_02043_18_04939_STRUCT_0051_XLS(workBook) == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
@@ -632,11 +671,50 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
         self.tab1.pbar.setValue(self.pbvalue)
+
+        if self.Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Référence de la ligne” (or “Line number”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        if self.Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        if self.Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040:  The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly. "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         if self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook):
             text = self.tab1.textbox.toPlainText()
@@ -644,13 +722,70 @@ class Test(Application):
             self.tab1.textbox.setText(text)
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nThe “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
             self.tab1.textbox.setText(text)
             flag = False
         self.pbvalue = self.pbvalue + 2.38
         self.tab1.pbar.setValue(self.pbvalue)
 
-        return flag
+
+
+        if self.Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+
+        if self.Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+
+        if self.Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+
+        if self.Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(workBook):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
+            self.tab1.textbox.setText(text)
+            flag = False
+        self.pbvalue = self.pbvalue + 2.38
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+
 
     def GetTsdFileExtension(self):
 
@@ -661,7 +796,7 @@ class Test(Application):
     def GetTsdFileWorkbook(self):
 
         fileName = self.tab1.myTextBox1.toPlainText()
-        fileName = fileName.replace("\\","/")
+        fileName = fileName.replace("\\", "/")
         if self.tsdFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdFileExtension == "xlsx":
@@ -900,7 +1035,7 @@ class Test(Application):
     def Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(self, workBook):
 
         workSheet = workBook.worksheets[0]
-        if workSheet.cell(52,2) is "=":
+        if "=" in str(workSheet.cell(52,2).value):
             return 0
         else:
             return 1
@@ -973,7 +1108,7 @@ class Test(Application):
         index = sheetNames.index("suppression")
         workSheet = workBook.worksheets[index]
 
-        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
+        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=20, max_col=20)
         for cellRow in row:
             for cell in cellRow:
                 if str(cell.value).casefold() in {"sheet", "onglet"}:
@@ -999,7 +1134,7 @@ class Test(Application):
         index = sheetNames.index("suppression")
         workSheet = workBook.worksheets[index]
 
-        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
+        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=10, max_col=10)
         for cellRow in row:
             for cell in cellRow:
                if str(cell.value).casefold() in {"référence de la ligne", "line number"}:
@@ -1025,7 +1160,7 @@ class Test(Application):
         index = sheetNames.index("suppression")
         workSheet = workBook.worksheets[index]
 
-        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
+        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=10, max_col=10)
         for cellRow in row:
             for cell in cellRow:
                 if str(cell.value).casefold() in {"version du tsd", "version of the document"}:
@@ -1051,7 +1186,7 @@ class Test(Application):
         index = sheetNames.index("suppression")
         workSheet = workBook.worksheets[index]
 
-        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=1)
+        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=10, max_col=10)
         for cellRow in row:
             for cell in cellRow:
                  if str(cell.value).casefold() in {"justification de la modification", "change reason"}:
@@ -1575,23 +1710,13 @@ class Test(Application):
         cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
         cellHeaderEffectsPosition = []
         cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
-        cellHeaderFearedEventsPosition = []
-        cellHeaderSafetyMeasures = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)", "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+        cellHeaderFearedEventsPosition = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)",]
+        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
                                     "Requirement N° to the Design Document", "Requirement N° from Design document"]
         cellHeaderSafetyMeasuresPosition = []
         cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
                                "Diagnosis needs", "Comments"]
         cellHeaderDiagnosisPosition = []
-
-        cellNamesRow3 = [x.strip() for x in cellNamesRow3]
-        cellHeaderFlow = [x.strip() for x in cellHeaderFlow]
-        cellHeaderFailureModes = [x.strip() for x in cellHeaderFailureModes]
-        cellHeaderEffects = [x.strip() for x in cellHeaderEffects]
-        cellHeaderFearedEvents = [x.strip() for x in cellHeaderFearedEvents]
-        cellHeaderSafetyMeasures = [x.strip() for x in cellHeaderSafetyMeasures]
-        cellHeaderDiagnosis = [x.strip() for x in cellHeaderDiagnosis]
-
-
 
 # check if row 3 is OK
 
@@ -1605,18 +1730,18 @@ class Test(Application):
         rowsIterator = workSheet.rows(2)
         row3CellValues = list()
         for cell in rowsIterator:
-            row3CellValues.append(str(cell.value).casefold().strip())
+            row3CellValues.append(cell.value.casefold())
         row3NumbersOfValues = len(cellNamesRow3)
         trueCases = 0
         for value in cellNamesRow3:
             if value.casefold() in row3CellValues:
                 if row3CellValues.count(value.casefold()) is 1:
                     trueCases = trueCases + 1
-        if "reference" in row3CellValues:
-            if row3CellValues.count("reference") is 2:
-                trueCases = trueCases + 1
-        if trueCases != row3NumbersOfValues:
-            return 0
+            if "reference" in row3CellValues:
+                if row3CellValues.count("reference") is 2:
+                    trueCases = trueCases + 1
+            if not trueCases is row3NumbersOfValues + 1:
+                return 0
 
         for value in cellHeaderFlow:
             cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
@@ -1641,7 +1766,6 @@ class Test(Application):
         cellHeaderDiagnosisPosition.sort()
         tempList = []
         tempList.append(row3CellValues.index("type"))
-        tempList.append(row3CellValues.index("comment"))
 
 # see if subcells of headers are together
 
@@ -1668,8 +1792,9 @@ class Test(Application):
 
         rowsIterator = workSheet.rows(1)
         row3CellValues = list()
-        for cell in rowsIterator:
-            row3CellValues.append(str(cell.value).casefold().strip())
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
 
 # see if headers are OK
 
@@ -1693,8 +1818,9 @@ class Test(Application):
 
         rowsIterator = workSheet.rows(0)
         row3CellValues = list()
-        for cell in rowsIterator:
-            row3CellValues.append(str(cell.value).casefold().strip())
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
 
 # see if main headers are OK
 
@@ -1727,22 +1853,14 @@ class Test(Application):
         cellHeaderEffectsPosition = []
         cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
         cellHeaderFearedEventsPosition = []
-        cellHeaderSafetyMeasures = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)", "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
                                     "Requirement N° to the Design Document", "Requirement N° from Design document"]
         cellHeaderSafetyMeasuresPosition = []
         cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
                                "Diagnosis needs", "Comments"]
         cellHeaderDiagnosisPosition = []
 
-        cellNamesRow3 = [x.strip() for x in cellNamesRow3]
-        cellHeaderFlow = [x.strip() for x in cellHeaderFlow]
-        cellHeaderFailureModes = [x.strip() for x in cellHeaderFailureModes]
-        cellHeaderEffects = [x.strip() for x in cellHeaderEffects]
-        cellHeaderFearedEvents = [x.strip() for x in cellHeaderFearedEvents]
-        cellHeaderSafetyMeasures = [x.strip() for x in cellHeaderSafetyMeasures]
-        cellHeaderDiagnosis = [x.strip() for x in cellHeaderDiagnosis]
-
-        # check if row 3 is OK
+# check if row 3 is OK
 
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
@@ -1753,8 +1871,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=3, max_row=3)
         row3CellValues = list()
-        for cell in rowsIterator:
-            row3CellValues.append(str(cell.value).casefold().strip())
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
         row3NumberOfValues = len(cellNamesRow3)
         trueCases = 0
         for value in cellNamesRow3:
@@ -1764,7 +1883,7 @@ class Test(Application):
         if "reference" in row3CellValues:
             if row3CellValues.count("reference") is 2:
                 trueCases = trueCases +1
-        if trueCases is not row3NumberOfValues + 1:
+        if not trueCases is row3NumberOfValues + 1:
             return 0
 
 # get index of different headers in sheet
@@ -1792,7 +1911,6 @@ class Test(Application):
         cellHeaderDiagnosisPosition.sort()
         tempList = []
         tempList.append(row3CellValues.index("type"))
-        tempList.append(row3CellValues.index("comment"))
 
 # see if subcells of headers are together
 
@@ -1845,8 +1963,9 @@ class Test(Application):
 
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row3CellValues = list()
-        for cell in rowsIterator:
-             row3CellValues.append(str(cell.value).casefold().strip())
+        for row in rowsIterator:
+            for cell in row:
+                row3CellValues.append(cell.value.casefold())
 
 # see if main headers are OK
 
@@ -1871,8 +1990,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0420_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "diagnostic needs" in sheetNames:
+        if "diagnostic needs" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -1890,7 +2008,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -1914,7 +2032,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -1935,8 +2053,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0440_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "customer effects" in sheetNames:
+        if "customer effects" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -1952,7 +2069,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -1974,7 +2091,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -1995,8 +2112,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0460_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "feared events" in sheetNames or "er" in sheetNames:
+        if "feared events" in workBook.sheetnames.casefold() or "er" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -2016,7 +2132,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2042,7 +2158,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2063,8 +2179,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "system" in sheetNames or "système" in sheetNames:
+        if "system" in workBook.sheetnames.casefold() or "système" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -2083,7 +2198,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2108,7 +2223,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2129,8 +2244,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0500_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "operation situation" in sheetNames:
+        if "operation situation" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -2146,7 +2260,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2168,7 +2282,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2189,8 +2303,7 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0520_XLSX_XLSM(self, workBook):
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
-        if "req. of tech. effects" in sheetNames:
+        if "req. of tech. effects" in workBook.sheetnames.casefold():
             return 1
         else:
             return 0
@@ -2204,7 +2317,7 @@ class Test(Application):
         rowsIterator = workSheet.rows(0)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2224,7 +2337,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(cell.value.casefold())
         trueCases = 0
         for value in cellNamesRow1:
             if value.casefold() in row3CellValues:
@@ -2292,7 +2405,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2309,7 +2422,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold())
+                row1CellValues.append(str(cell.value).casefold())
 
 
         for value in cellFirstRow:
@@ -2360,7 +2473,7 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row1CellValues = list()
         for cellTuple in rowsIterator:
-            for cell in cellTuple:
+             for cell in cellTuple:
                  row1CellValues.append(str(cell.value).casefold())
 
 
@@ -2409,7 +2522,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2427,7 +2540,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold())
+                row1CellValues.append(str(cell.value).casefold())
 
 
         for value in cellFirstRow:
@@ -2460,7 +2573,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row2CellValues.append(str(cell.value).casefold())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2478,7 +2591,7 @@ class Test(Application):
         row1CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row1CellValues.append(str(cell.value).casefold())
+                row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2518,10 +2631,11 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
+            val = value.casefold()
             if value.casefold() in row2CellValues:
                 if row2CellValues.count(value.casefold()) is 1:
                     trueCases = trueCases + 1
@@ -2547,7 +2661,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2593,7 +2707,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2609,7 +2723,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2635,7 +2749,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-                row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2695,7 +2809,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2711,7 +2825,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-             row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2738,7 +2852,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-                row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2756,7 +2870,7 @@ class Test(Application):
         row1CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-                row1CellValues.append(str(cell.value).casefold().strip())
+                row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2798,7 +2912,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2814,7 +2928,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2841,7 +2955,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2859,7 +2973,7 @@ class Test(Application):
         row1CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row1CellValues.append(str(cell.value).casefold().strip())
+                row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2900,7 +3014,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -2916,7 +3030,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2942,7 +3056,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -2960,7 +3074,7 @@ class Test(Application):
         row1CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row1CellValues.append(str(cell.value).casefold().strip())
+                row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -2968,6 +3082,7 @@ class Test(Application):
             if row1CellValues[value] != "situations de vie de la fonction ou du système:":
                 return 0
         return 1
+
 
     def Test_02043_18_04939_STRUCT_0260_XLS(self, workBook):
 
@@ -3001,7 +3116,7 @@ class Test(Application):
         rowsIterator = workSheet.row(1)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3017,7 +3132,7 @@ class Test(Application):
         row1CellValues = list()
 
         for cell in rowsIterator:
-            row1CellValues.append(str(cell.value).casefold().strip())
+            row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -3043,7 +3158,7 @@ class Test(Application):
         row2CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-               row2CellValues.append(str(cell.value).casefold().strip())
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3061,7 +3176,7 @@ class Test(Application):
         row1CellValues = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
-                row1CellValues.append(str(cell.value).casefold().strip())
+                row1CellValues.append(str(cell.value).casefold())
 
         for value in cellFirstRow:
             cellFirstRowPosition.append(row1CellValues.index(value.casefold()))
@@ -3121,7 +3236,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3151,8 +3266,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip)
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3196,7 +3312,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3222,8 +3338,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3266,7 +3383,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3291,8 +3408,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-             row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3334,7 +3452,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3358,8 +3476,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-             row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3402,7 +3521,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3428,7 +3547,8 @@ class Test(Application):
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
         for cellTuple in rowsIterator:
-             row2CellValues.append(str(cell.value).casefold().strip())
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3470,7 +3590,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3494,8 +3614,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3537,7 +3658,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3561,8 +3682,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3604,7 +3726,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3628,8 +3750,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3671,7 +3794,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3695,8 +3818,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
@@ -3738,7 +3862,7 @@ class Test(Application):
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
         for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+            row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
         trueCases = 0
         for value in cellHeaderListe:
@@ -3762,8 +3886,9 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(str(cell.value).casefold().strip())
+        for cellTuple in rowsIterator:
+            for cell in cellTuple:
+                row2CellValues.append(str(cell.value).casefold())
 
         row2NumbersOfValues = len(cellHeaderList)
         trueCases = 0
