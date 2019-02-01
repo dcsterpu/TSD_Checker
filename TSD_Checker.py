@@ -1176,6 +1176,7 @@ class Test(Application):
 
 #Requirements for General structure
 
+'''
     def Test_02043_18_04939_STRUCT_0000_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
@@ -1863,7 +1864,7 @@ class Test(Application):
                 else:
                     return 0
         return 0
-
+'''
 #Requirements for [DOC4]
 
     def Test_02043_18_04939_STRUCT_0400_XLS(self, workBook):
@@ -2556,6 +2557,22 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    def Test_02043_18_04939_STRUCT_0110_XLS(self, workBook):
+        return
+
+    def Test_02043_18_04939_STRUCT_0110_XLSX_XLSM(self, workBook):
+
+        cellNamesRow3 = ["Référence", "Version", "Réf doc", "Variante/\noption", "Version de soft (MOTEUR / BSI,...)",
+                         "sous Fonction de conception incriminée", "Groupe de constituant", "Constituant défaillant détecté",
+                         "Flux fonctionnel", "Défaillance logique", "Défaillance constituant", "PPM réparties",
+                         "poids", "Situation de vie client", "lien vers autre TSD", "Effet(s) client(s)",
+                         "Evenement(s) redouté(s) (ER)", "Voyant(s) ou \nmessage(s)", "Code défaut",
+                         "Code défauts induits", "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence",
+                         "Critère de décision", "DIAGNOSTIC DEBARQUE", "Critère de decision", "Action sur constituant incriminé",
+                         "Statut réunion DSP-DRD", "Action a réaliser / Commentaires", "Référence AMDEC",
+                         "Justification de la modification", "Validation", "Controle Usine", "Pris en compte dans logigramme ",
+                         ]
 
     def Test_02043_18_04939_STRUCT_0120_XLS(self, workBook):
 
