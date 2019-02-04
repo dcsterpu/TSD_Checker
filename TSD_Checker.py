@@ -14,6 +14,7 @@ from ctypes import windll
 
 
 
+
 class Application(QWidget):
 
     def __init__(self):
@@ -36,7 +37,7 @@ class Application(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
-        self.setWindowTitle("TSD Checker  V0.2")
+        self.setWindowTitle("TSD Checker  V0.4")
 
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
@@ -1059,6 +1060,7 @@ class Test(Application):
             workBook = self.GetTsdSystemFileWorkbook()
             if self.tsdSystemFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox3.toPlainText())
+                self.Test_02043_18_04939_STRUCT_0710_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
             if flag == True:
@@ -1176,7 +1178,7 @@ class Test(Application):
 
 #Requirements for General structure
 
-'''
+
     def Test_02043_18_04939_STRUCT_0000_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
@@ -1864,7 +1866,7 @@ class Test(Application):
                 else:
                     return 0
         return 0
-'''
+
 #Requirements for [DOC4]
 
     def Test_02043_18_04939_STRUCT_0400_XLS(self, workBook):
@@ -3393,6 +3395,7 @@ class Test(Application):
                 return 0
         return 1
 
+
 # Requirements for [DOC5]
 
     def Test_02043_18_04939_STRUCT_0700_XLS(self, workBook):
@@ -3409,6 +3412,303 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    def Test_02043_18_04939_STRUCT_0710_XLS(self, workBook):
+
+        cellNamesRow3 = ["Reference", "Version", "Document of reference", "Variant/\noption",
+                         "Sub-function of the system incriminated",
+                         "Module / Group of parts", "Defective part", "Contribution to fonctionnality",
+                         "Logical failure mode",
+                         "Physical failure mode", "Weight", "Situation", "Detailed situation",
+                         "Link to another DST",
+                         "Technical effect", "Customer effect", "Feared events", "Degraded mode",
+                         "HMI\n(Indicator lights/messages)", "Data Trouble code", "Mislead Data trouble code",
+                         "Read data or I/O control", "decision criterion", "Non-embedded diagnosis",
+                         "decision criterion", "Action on the incriminated part", "to do list / Comments",
+                         "FMEA reference"]
+
+        cellHeaderFailureAnalysis = ["Document of reference", "Variant/\noption",
+                                     "Sub-function of the system incriminated",
+                                     "Module / Group of parts", "Defective part", "Contribution to fonctionnality",
+                                     "Logical failure mode",
+                                     "Physical failure mode", "Weight", "Situation", "Detailed situation",
+                                     "Link to another DST"]
+        cellHeaderFailureAnalysisPosition = []
+        cellHeaderCustomerEffects = ["Technical effect", "Customer effect", "Feared events", "Degraded mode",
+                                     "HMI\n(Indicator lights/messages)"]
+        cellHeaderCustomerEffectsPosition = []
+        cellHeaderElementLeading = ["Data Trouble code", "Mislead Data trouble code",
+                                    "Read data or I/O control", "decision criterion"]
+        cellHeaderElementLeadingPosition = []
+        cellHeaderFollowUp = ["Action on the incriminated part", "to do list / Comments",
+                              "FMEA reference"]
+        cellHeaderFollowUpPosition = []
+
+        cellNamesRow3 = [x.strip().casefold() for x in cellNamesRow3]
+        cellHeaderFailureAnalysis = [x.strip().casefold() for x in cellHeaderFailureAnalysis]
+        cellHeaderCustomerEffects = [x.strip().casefold() for x in cellHeaderCustomerEffects]
+        cellHeaderElementLeading = [x.strip().casefold() for x in cellHeaderElementLeading]
+        cellHeaderFollowUp = [x.strip().casefold() for x in cellHeaderFollowUp]
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("table")
+        except:
+            return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        # check if row 3 is ok
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(1)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+       # rowValueList = [str(x).casefold().strip() for x in rowCellsList.value]
+        errorColValueList = list()
+
+        for value in cellNamesRow3:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value)
+
+        rowCellsList = workSheet.row(1)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        if not "Project applicability".casefold().strip() in rowValueList:
+            errorColValueList.append("Project applicability")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = [errorColValueString + ", " + x for x in errorColValueList]
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+
+        # get index of different headers in sheet
+
+        for value in cellHeaderFailureAnalysis:
+            cellHeaderFailureAnalysisPosition.append(rowValueList.index(value))
+        for value in cellHeaderCustomerEffects:
+            cellHeaderCustomerEffectsPosition.append(rowValueList.index(value))
+        for value in cellHeaderElementLeading:
+            cellHeaderElementLeadingPosition.append(rowValueList.index(value))
+        for value in cellHeaderFollowUp:
+            cellHeaderFollowUpPosition.append(rowValueList.index(value))
+
+        # sort index
+
+        cellHeaderFailureAnalysisPosition.sort()
+        cellHeaderCustomerEffectsPosition.sort()
+        cellHeaderElementLeadingPosition.sort()
+        cellHeaderFollowUpPosition.sort()
+
+        # see if subcells of headers are together
+
+        for listIndex in range(1, len(cellHeaderFailureAnalysisPosition)):
+            if cellHeaderFailureAnalysisPosition[listIndex] - cellHeaderFailureAnalysisPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Failure Analysis: "
+                errorColValueString =[errorColValueString + x + ", " for x in cellHeaderFailureAnalysis]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderCustomerEffectsPosition)):
+            if cellHeaderCustomerEffectsPosition[listIndex] - cellHeaderCustomerEffectsPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Customer Effects: "
+                errorColValueString =[errorColValueString + x + ", " for x in cellHeaderCustomerEffects]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderElementLeadingPosition)):
+            if cellHeaderElementLeadingPosition[listIndex] - cellHeaderElementLeadingPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below ELEMENT LEADING TO THE DEFECTIVE PART: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderElementLeading]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderFollowUpPosition)):
+            if cellHeaderFollowUpPosition[listIndex] - cellHeaderFollowUpPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFollowUp]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+
+        #check headers
+
+
+        rowCellsList = workSheet.row(0)
+        rowValueList = [x.casefold().strip() for x in str(rowCellsList.value)]
+        if str(rowValuesList[cellHeaderFailureAnalysisPosition[0]].value).casefold().strip() != "FAILURE ANALYSIS".casefold().strip():
+            errorColValueList.append("FAILURE ANALYSIS")
+
+        if str(rowValuesList[cellHeaderCustomerEffectsPosition[0]].value).casefold().strip() != "CUSTOMER EFFECTS".casefold().strip():
+            errorColValueList.append("CUSTOMER EFFECTS")
+
+
+        if str(rowValuesList[cellHeaderElementLeadingPosition[0]].value).casefold().strip() != "ELEMENT LEADING TO THE DEFECTIVE PART".casefold().strip():
+            errorColValueList.append("ELEMENT LEADING TO THE DEFECTIVE PART")
+
+
+        if str(rowValuesList[cellHeaderFollowUpPosition[0]].value).casefold().strip() != "FOLLOW-UP".casefold().strip():
+            errorColValueList.append("FOLLOW-UP")
+
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = [errorColValueString + ", " + x for x in errorColValueList]
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
+
+    def Test_02043_18_04939_STRUCT_0710_XLSX_XLSM(self, workBook):
+
+
+        cellNamesRow3 = ["Reference", "Version", "Document of reference", "Variant//noption", "Sub-function of the system incriminated",
+                         "Module / Group of parts", "Defective part", "Contribution to fonctionnality", "Logical failure mode",
+                         "Physical failure mode", "Weight", "Situation", "Detailed situation", "Link to another DST", "Technical effect", "Customer effect", "Feared events", "Degraded mode",
+                         "HMI/n(Indicator lights/messages)", "Data Trouble code", "Mislead Data trouble code",
+                         "Read data or I/O control", "decision criterion", "Non-embedded diagnosis",
+                         "decision criterion", "Action on the incriminated part", "to do list / Comments", "FMEA reference"]
+
+        cellHeaderFailureAnalysis = ["Document of reference", "Variant//noption",
+                                     "Sub-function of the system incriminated",
+                                     "Module / Group of parts", "Defective part", "Contribution to fonctionnality",
+                                     "Logical failure mode",
+                                     "Physical failure mode", "Weight", "Situation", "Detailed situation",
+                                     "Link to another DST"]
+        cellHeaderFailureAnalysisPosition = []
+        cellHeaderCustomerEffects = ["Technical effect", "Customer effect", "Feared events", "Degraded mode",
+                                     "HMI/n(Indicator lights/messages)"]
+        cellHeaderCustomerEffectsPosition = []
+        cellHeaderElementLeading = ["Data Trouble code", "Mislead Data trouble code",
+                                    "Read data or I/O control", "decision criterion"]
+        cellHeaderElementLeadingPosition = []
+        cellHeaderFollowUp = ["Action on the incriminated part", "to do list / Comments",
+                              "FMEA reference"]
+        cellHeaderFollowUpPosition = []
+
+        cellNamesRow3 = [x.strip().casefold() for x in cellNamesRow2and3]
+        cellHeaderFailureAnalysis = [x.strip().casefold() for x in cellHeaderFailureAnalysis]
+        cellHeaderCustomerEffects = [x.strip().casefold() for x in cellHeaderCustomerEffects]
+        cellHeaderElementLeading = [x.strip().casefold() for x in cellHeaderElementLeading]
+        cellHeaderFollowUp = [x.strip().casefold() for x in cellHeaderFollowUp]
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("table")
+        except:
+            return 0
+        workSheet = workBook[index]
+
+        # check if row 3 is ok
+
+        rowValuesList = list()
+        rowCellsGenrator = workSheet.iter_rows(3)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow3:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value)
+
+        rowCellsGenrator = workSheet.iter_rows(2)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        if not "Project applicability".casefold().strip() in rowValueList:
+            errorColValueList.append("Project applicability")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = [errorColValueString + ", " + x for x in errorColValueList]
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+
+        # get index of different headers in sheet
+
+        for value in cellHeaderFailureAnalysis:
+            cellHeaderFailureAnalysisPosition.append(rowValueList.index(value))
+        for value in cellHeaderCustomerEffects:
+            cellHeaderCustomerEffectsPosition.append(rowValueList.index(value))
+        for value in cellHeaderElementLeading:
+            cellHeaderElementLeadingPosition.append(rowValueList.index(value))
+        for value in cellHeaderFollowUp:
+            cellHeaderFollowUpPosition.append(rowValueList.index(value))
+
+        # sort index
+
+        cellHeaderFailureAnalysisPosition.sort()
+        cellHeaderCustomerEffectsPosition.sort()
+        cellHeaderElementLeadingPosition.sort()
+        cellHeaderFollowUpPosition.sort()
+
+        # see if subcells of headers are together
+
+        for listIndex in range(1, len(cellHeaderFailureAnalysisPosition)):
+            if cellHeaderFailureAnalysisPosition[listIndex] - cellHeaderFailureAnalysisPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Failure Analysis: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFailureAnalysis]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderCustomerEffectsPosition)):
+            if cellHeaderCustomerEffectsPosition[listIndex] - cellHeaderCustomerEffectsPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Customer Effects: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderCustomerEffects]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderElementLeadingPosition)):
+            if cellHeaderElementLeadingPosition[listIndex] - cellHeaderElementLeadingPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below ELEMENT LEADING TO THE DEFECTIVE PART: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderElementLeading]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        for listIndex in range(1, len(cellHeaderFollowUpPosition)):
+            if cellHeaderFollowUpPosition[listIndex] - cellHeaderFollowUpPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFollowUp]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
+        # check headers
+
+
+        rowCellsGenrator = workSheet.iter_rows(1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        if str(rowValuesList[cellHeaderFailureAnalysisPosition[0]].value).casefold().strip() != "FAILURE ANALYSIS".casefold().strip():
+            errorColValueList.append("FAILURE ANALYSIS")
+
+        if str(rowValuesList[cellHeaderCustomerEffectsPosition[0]].value).casefold().strip() != "CUSTOMER EFFECTS".casefold().strip():
+            errorColValueList.append("CUSTOMER EFFECTS")
+
+        if str(rowValuesList[cellHeaderElementLeadingPosition[0]].value).casefold().strip() != "ELEMENT LEADING TO THE DEFECTIVE PART".casefold().strip():
+            errorColValueList.append("ELEMENT LEADING TO THE DEFECTIVE PART")
+
+        if str(rowValuesList[cellHeaderFollowUpPosition[0]].value).casefold().strip() != "FOLLOW-UP".casefold().strip():
+            errorColValueList.append("FOLLOW-UP")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = [errorColValueString + ", " + x for x in errorColValueList]
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0720_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
@@ -3427,34 +3727,44 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0730_XLS(self, workBook):
 
-        cellHeaderListe = ["Reference", "Version", "Data trouble code", "Label", "Description of the qualification conditions",
-                           "Detection threshold", "Qualification time",
-                           "Description of the dequalification conditions / Operation to do to check if the defect disappeared",
+        cellNamesRow1 = ["Reference", "Version", "Data trouble code", "Label", "Description of the qualification conditions",
+                           "Detection threshold", "Qualification time","Description of the dequalification conditions / Operation to do to check if the defect disappeared",
                            "Conditions of the diagnostic activation", "Degraded mode", "Failure detection rate",
                            "Indicateur light", "Visibility of the failure with the Scantool", "Freeze Frame Class",
-                            "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account",
-                           "B78", "DV", "projet X", "Projet Y"]
+                            "Diversity", "Stored by the ECU", "Upstream requirements", "Taken into account", "B78", "DV", "projet X", "Projet Y"]
 
         # check if row 1 is OK
 
+        # get table sheet
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("data trouble codes")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.row(0)
-        row2CellValues = list()
-        for cell in rowsIterator:
-            row2CellValues.append(cell.value.casefold())
-        row2NumbersOfValues = len(cellHeaderListe)
-        trueCases = 0
-        for value in cellHeaderListe:
-            if value.casefold() in row2CellValues:
-                if row2CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases is not row2NumbersOfValues:
+        try:
+            index = sheetNames.index("data trouble codes")
+        except:
             return 0
-        elif trueCases is row2NumbersOfValues:
+        workSheet = workBook.sheet_by_index(index)
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(2)
+        rowValueList = [x.casefold().strip() for x in str(rowCellsList.value)]
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value)
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “data trouble codes” (or “codes défauts”), the column(s) "
+            errorColValueString = [errorColValueString + ", " + x for x in errorColValueList]
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
             return 1
+
+
 
     def Test_02043_18_04939_STRUCT_0730_XLSX_XLSM(self, workBook):
 
@@ -3474,6 +3784,7 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
         row2CellValues = list()
+        errorColValueList = list()
         for cellTuple in rowsIterator:
             for cell in cellTuple:
                 row2CellValues.append(str(cell.value).casefold())
@@ -3485,10 +3796,12 @@ class Test(Application):
             if value.casefold() in row2CellValues:
                 if row2CellValues.count(value.casefold()) is 1:
                     trueCases = trueCases + 1
-        if trueCases is not row2NumbersOfValues:
-            return 0
-        elif trueCases is row2NumbersOfValues:
+
+
+        if trueCases is row2NumbersOfValues:
             return 1
+        elif trueCases is not row2NumbersOfValues:
+            return 0
 
     def Test_02043_18_04939_STRUCT_0740_XLS(self, workBook):
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
@@ -3519,6 +3832,7 @@ class Test(Application):
         workSheet = workBook.sheet_by_index(index)
         rowsIterator = workSheet.row(0)
         row2CellValues = list()
+        errorColValueList = list()
         for cell in rowsIterator:
             row2CellValues.append(cell.value.casefold())
         row2NumbersOfValues = len(cellHeaderListe)
