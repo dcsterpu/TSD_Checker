@@ -976,6 +976,7 @@ class Test(Application):
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0700","",""])
         else:
+            flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0700", testResult, ""])
 
 
@@ -1150,7 +1151,8 @@ class Test(Application):
 
     def TestGeneralStructure_DOC5_XLSX_XLSM(self, workBook):
 
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\report.xlsx"
+        flag = 1
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportXLSX.xlsx"
         reportWorkBook = openpyxl.Workbook()
         reportWorkSheet1 = reportWorkBook.active
         reportWorkSheet1.title = "Report Information"
@@ -1324,8 +1326,293 @@ class Test(Application):
 
         reportWorkBook.save(filename)
 
+    def TestGeneralStructure_DOC3_XLS(self,workBook):
+
+        flag = 1
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC3_XLS.xlsx"
+        reportWorkBook = openpyxl.Workbook()
+        reportWorkSheet1 = reportWorkBook.active
+        reportWorkSheet1.title = "Report Information"
+        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
+            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        for colIndex in range(1, len(testReportRow1StringList) + 1):
+            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0100_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0100", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0120_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0120", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0130_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0130", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0140_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0140", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0150_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0150", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0160_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0160", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0170_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0170", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0180_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0180", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0190_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0190", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0200_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0210_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0220_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0220", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""])
 
 
+        testResult = self.Test_02043_18_04939_STRUCT_0230_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0230", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""])
+
+
+        testResult = self.Test_02043_18_04939_STRUCT_0240_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0240", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0250_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0250", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""])
+
+
+        testResult = self.Test_02043_18_04939_STRUCT_0260_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0260", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""])
+
+
+        testResult = self.Test_02043_18_04939_STRUCT_0270_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0270", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""])
+
+        reportWorkBook.save(filename)
+
+    def TestGeneralStructure_DOC3_XLSX_XLSM(self,workBook):
+
+        flag = 1
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC3_XLSX_XLSM.xlsx"
+        reportWorkBook = openpyxl.Workbook()
+        reportWorkSheet1 = reportWorkBook.active
+        reportWorkSheet1.title = "Report Information"
+        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
+            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        for colIndex in range(1, len(testReportRow1StringList) + 1):
+            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0100", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0120", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0130_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0130", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0140", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0150_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0150", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0160", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0170_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0170", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0180", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0190_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0190", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0210_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0220", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0230_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0230", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0240", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0250_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0250", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0260", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0270_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0270", "", ""])
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""])
+
+        reportWorkBook.save(filename)
 
     def GetTsdFileExtension(self):
 
@@ -1355,8 +1642,10 @@ class Test(Application):
             workBook = self.GetTsdFileWorkbook()
             if self.tsdFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox1.toPlainText())
+                self.TestGeneralStructure_DOC3_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox1.setStyleSheet('background-color: green')
             else:
@@ -1364,7 +1653,6 @@ class Test(Application):
         else:
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
-
 
     def GetTsdVehicleFunctionFileExtension(self):
         fileName = self.tab1.myTextBox2.toPlainText()
@@ -1403,7 +1691,6 @@ class Test(Application):
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
 
-
     def GetTsdSystemFileExtension(self):
         fileName = self.tab1.myTextBox3.toPlainText()
         tokens = fileName.split(".")
@@ -1441,7 +1728,6 @@ class Test(Application):
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
 
-
     def GetAmdecFileExtension(self):
         fileName = self.tab1.myTextBox7.toPlainText()
         tokens = fileName.split(".")
@@ -1476,7 +1762,6 @@ class Test(Application):
         else:
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
-
 
     def GetExportMedialecMatriceFileExtension(self):
         fileName = self.tab1.myTextBox8.toPlainText()
@@ -1513,7 +1798,6 @@ class Test(Application):
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
 
-
     def GetDiagnosticMatrixFileExtension(self):
         fileName = self.tab1.myTextBox10.toPlainText()
         tokens = fileName.split(".")
@@ -1548,7 +1832,6 @@ class Test(Application):
         else:
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
-
 
 #Requirements for General structure
 
@@ -3114,12 +3397,11 @@ class Test(Application):
     def Test_02043_18_04939_STRUCT_0150_XLS(self, workBook):
 
         cellNamesRow2 = ["Référence", "Version", "Type (choix par menu)", "libellé (signification)", "Description",
-                          "Situation pendant laquelle la mesure ou commande est utilisable", "Statut",
-                          "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement \npour O Control\nlecture \nsortie effective/commande",
-                          "Diversité", "Applicabilité usine", "condition d'applicabilité en usine",
-                          "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
-                          "Référence amont", "Version de la référence amont", "Pris en compte",
-                          "Justification de la modification", "Validation"]
+                         "Situation pendant laquelle la mesure ou commande est utilisable", "Statut",
+                         "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement /npour O Control/nlecture /nsortie effective //commande",
+                         "Diversité", "Applicabilité usine", "condition d'applicabilité en usine",
+                         "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
+                         "Référence amont", "Version de la référence amont", "Pris en compte", "Justification de la modification", "Validation"]
 
         cellNamesRow1 = ["mesures et commandes", "Applicabilité projet"]
 
@@ -3274,7 +3556,7 @@ class Test(Application):
         cellNamesRow2 = [x.strip().casefold() for x in cellNamesRow2]
 
         rowValueList = list()
-        rowCellsList = workSheet.row(0)
+        rowCellsList = workSheet.row(1)
         for cell in rowCellsList:
             rowValueList.append(str(cell.value).casefold().strip())
         errorColValueList = list()
@@ -3313,7 +3595,7 @@ class Test(Application):
         cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
 
         rowValueList = list()
-        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        rowCellsGenrator = workSheet.iter_rows(min_row=2, max_row=2)
         for cellTuple in rowCellsGenrator:
             for cell in cellTuple:
                 rowValueList.append(str(cell.value).casefold().strip())
