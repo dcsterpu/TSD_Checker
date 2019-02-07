@@ -8,8 +8,7 @@ import requests
 import os
 from win32ui import FindWindow
 from ctypes import windll
-
-
+from openpyxl.styles import Color
 
 class Application(QWidget):
 
@@ -100,13 +99,10 @@ class Application(QWidget):
         self.tab1.myTextBox10.setText(fileName10)
 
     def ButtonReportClick(self):
-        self.popUp = QWidget()
-        self.popUp.setWindowTitle("ERRROR")
-        self.popUp.Label = QLabel(self.popUp)
-        self.popUp.Label.setText("No Report")
-        self.popUp.Label.setAlignment(QtCore.Qt.AlignCenter)
-        self.popUp.setGeometry(550, 550, 200, 50)
-        self.popUp.show()
+        fileName = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC3_XLS.xlsx"
+        self.excel = win32.gencache.EnsureDispatch('Excel.Application')
+        self.excel.Visible = True
+        self.excel.Workbooks.Open(fileName)
 
     def buttonClicked(self):
         return
@@ -975,177 +971,246 @@ class Test(Application):
         testResult = self.Test_02043_18_04939_STRUCT_0700_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0700","",""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0700", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0710_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0710","",""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0710", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0720_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0720", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0720", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0730_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0730", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0730", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0740_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0740", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0740", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0750_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0750", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0750", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0760_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0760", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0760", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0770_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0770", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0770", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0780_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0780", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0780", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0790_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0790", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0790", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0800_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0800", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0800", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0810_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0810", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0810", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0820_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0820", "", ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0820", testResult, ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0830_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0830", "", ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0830", testResult, ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0840_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0840", "", ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0840", testResult, ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0850_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0850", "", ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0850", testResult, ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0860_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0860", "", ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0860", testResult, ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0870_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0870", "", ""])
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0870", testResult, ""])
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0880_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0880", "", ""])
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0880", testResult, ""])
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0890_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0890", "", ""])
+            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0890", testResult, ""])
+            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0900_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0900", "", ""])
+            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0900", testResult, ""])
+            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0910_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0910", "", ""])
+            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0910", testResult, ""])
+            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         reportWorkBook.save(filename)
 
@@ -1173,156 +1238,244 @@ class Test(Application):
         testResult = self.Test_02043_18_04939_STRUCT_0700_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0700", "", ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0700", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0710_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0710", "", ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0710", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0720_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0720", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0720", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0730_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0730", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0730", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0740_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0740", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0740", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0750_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0750", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0750", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0760_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0760", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0760", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0770_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0770", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0770", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0780_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0780", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0780", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0790_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0790", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0790", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0800_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0800", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0800", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0810_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0810", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0810", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0820_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0820", "", ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0820", testResult, ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0830_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0830", "", ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0830", testResult, ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0840_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0840", "", ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0840", testResult, ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0850_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0850", "", ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0850", testResult, ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0860_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0860", "", ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0860", testResult, ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0870_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0870", "", ""])
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0870", testResult, ""])
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0880_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0880", "", ""])
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0880", testResult, ""])
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0890_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0890", "", ""])
+            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0890", testResult, ""])
+            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0900_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0900", "", ""])
+            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0900", testResult, ""])
+            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0910_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0910", "", ""])
+            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0910", testResult, ""])
+            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         reportWorkBook.save(filename)
 
@@ -1347,128 +1500,164 @@ class Test(Application):
         for colIndex in range(1, len(testReportRow1StringList) + 1):
             reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
 
+
         testResult = self.Test_02043_18_04939_STRUCT_0100_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0100", "", ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0120_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0120", "", ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0130_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0130", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
 
         testResult = self.Test_02043_18_04939_STRUCT_0140_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0140", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0150_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0150", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0160_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0160", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0170_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0170", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0180_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0180", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0190_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0190", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0200_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0210_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0220_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0220", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0230_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0230", "", ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0240_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0240", "", ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0250_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0250", "", ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0260_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0260", "", ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
 
         testResult = self.Test_02043_18_04939_STRUCT_0270_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0270", "", ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         reportWorkBook.save(filename)
 
@@ -1493,124 +1682,161 @@ class Test(Application):
         for colIndex in range(1, len(testReportRow1StringList) + 1):
             reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
 
+        #reportWorkSheet2.cell(row=1, column=1).font = openpyxl.styles.Font(bold=True, italic=True)
+       # reportWorkSheet2.cell(row=1, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FFFF00", fill_type="solid")
+
         testResult = self.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0100", "", ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0120", "", ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0130_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0130", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0140", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0150_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0150", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0160", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0170_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0170", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0180", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0190_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0190", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0210_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0200", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0220", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0230_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0230", "", ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""])
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0240", "", ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""])
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0250_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0250", "", ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""])
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0260", "", ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""])
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0270_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0270", "", ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""])
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
 
         reportWorkBook.save(filename)
 
