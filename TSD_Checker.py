@@ -99,7 +99,7 @@ class Application(QWidget):
         self.tab1.myTextBox10.setText(fileName10)
 
     def ButtonReportClick(self):
-        fileName = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC3_XLS.xlsx"
+        fileName = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC3_XLSX_XLSM.xlsx"
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
         self.excel.Visible = True
         self.excel.Workbooks.Open(fileName)
@@ -951,7 +951,7 @@ class Test(Application):
     def TestGeneralStructure_DOC5_XLS(self, workBook):
 
         flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\report.xlsx"
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC5_XLS.xlsx"
         reportWorkBook = openpyxl.Workbook()
         reportWorkSheet1 = reportWorkBook.active
         reportWorkSheet1.title = "Report Information"
@@ -1217,7 +1217,7 @@ class Test(Application):
     def TestGeneralStructure_DOC5_XLSX_XLSM(self, workBook):
 
         flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportXLSX.xlsx"
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC5_XLSX_XLSM.xlsx"
         reportWorkBook = openpyxl.Workbook()
         reportWorkSheet1 = reportWorkBook.active
         reportWorkSheet1.title = "Report Information"
@@ -1840,6 +1840,271 @@ class Test(Application):
 
         reportWorkBook.save(filename)
 
+    def TestGeneralStructure_DOC4_XLS(self, workBook):
+
+        flag = 1
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC4_XLS.xlsx"
+        reportWorkBook = openpyxl.Workbook()
+        reportWorkSheet1 = reportWorkBook.active
+        reportWorkSheet1.title = "Report Information"
+        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
+            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        for colIndex in range(1, len(testReportRow1StringList) + 1):
+            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0400_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0400", "", ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0400", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0410_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0410", "", ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0410", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0420_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0420", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0420", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0430_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0430", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0430", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0440_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0440", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0440", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0450_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0450", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0450", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0460_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0460", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0460", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0470_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0470", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0470", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0480_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0480", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0480", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0490_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0490", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0490", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0500_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0500", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0500", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0510_XLS(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0510", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0510", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        reportWorkBook.save(filename)
+
+    def TestGeneralStructure_DOC4_XLSX_XLSM(self, workBook):
+        flag = 1
+        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC4_XLSX_XLSM.xlsx"
+        reportWorkBook = openpyxl.Workbook()
+        reportWorkSheet1 = reportWorkBook.active
+        reportWorkSheet1.title = "Report Information"
+        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+
+        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
+            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        for colIndex in range(1, len(testReportRow1StringList) + 1):
+            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+
+        testResult = self.Test_02043_18_04939_STRUCT_0400_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0400", "", ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0400", testResult, ""])
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0410", "", ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0410", testResult, ""])
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0420_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0420", "", ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0420", testResult, ""])
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0430_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0430", "", ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0430", testResult, ""])
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0440_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0440", "", ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0440", testResult, ""])
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0450_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0450", "", ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0450", testResult, ""])
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0460_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0460", "", ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0460", testResult, ""])
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0470_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0470", "", ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0470", testResult, ""])
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0480", "", ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0480", testResult, ""])
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0490", "", ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0490", testResult, ""])
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0500_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0500", "", ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0500", testResult, ""])
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+        testResult = self.Test_02043_18_04939_STRUCT_0510_XLSX_XLSM(workBook)
+        if testResult == 1:
+            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0510", "", ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+        else:
+            flag = 0
+            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0510", testResult, ""])
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+
+
+        reportWorkBook.save(filename)
+
+
+
     def GetTsdFileExtension(self):
 
         fileName = self.tab1.myTextBox1.toPlainText()
@@ -1869,9 +2134,11 @@ class Test(Application):
             if self.tsdFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox1.toPlainText())
                 self.TestGeneralStructure_DOC3_XLS(workBook)
+                flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
                 self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
+                flag = flag and self.TestGeneralStructure_DOC5_XLS(workBook)
             if flag == True:
                 self.tab1.colorTextBox1.setStyleSheet('background-color: green')
             else:
@@ -1907,8 +2174,10 @@ class Test(Application):
             workBook = self.GetTsdVehicleFunctionFileWorkbook()
             if self.tsdVehicleFunctionFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox2.toPlainText())
+                self.TestGeneralStructure_DOC4_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                self.TestGeneralStructure_DOC4_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox2.setStyleSheet('background-color: green')
             else:
@@ -1942,9 +2211,11 @@ class Test(Application):
             workBook = self.GetTsdSystemFileWorkbook()
             if self.tsdSystemFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox3.toPlainText())
+                self.TestGeneralStructure_DOC5_XLS(workBook)
                 flag = flag and self.TestGeneralStructure_DOC5_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
                 flag = flag and self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox3.setStyleSheet('background-color: green')
@@ -2786,54 +3057,87 @@ class Test(Application):
         cellHeaderFailureModesPosition = []
         cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
         cellHeaderEffectsPosition = []
-        cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
-        cellHeaderFearedEventsPosition = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)",]
-        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+        cellHeaderFearedEvents = ["Feared event", "Reference" "Severity", "Level", "target"]
+        cellHeaderFearedEventsPosition = []
+        cellHeaderSafetyMeasures = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)", "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
                                     "Requirement N° to the Design Document", "Requirement N° from Design document"]
         cellHeaderSafetyMeasuresPosition = []
         cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
                                "Diagnosis needs", "Comments"]
         cellHeaderDiagnosisPosition = []
+        cellReferencePosition = []
 
-# check if row 3 is OK
+        cellNamesRow3 = [x.strip().casefold() for x in cellNamesRow3]
+        cellHeaderFlow = [x.strip().casefold() for x in cellHeaderFlow]
+        cellHeaderFailureModes = [x.strip().casefold() for x in cellHeaderFailureModes]
+        cellHeaderEffects = [x.strip().casefold() for x in cellHeaderEffects]
+        cellHeaderFearedEvents = [x.strip().casefold() for x in cellHeaderFearedEvents]
+        cellHeaderSafetyMeasures = [x.strip().casefold() for x in cellHeaderSafetyMeasures]
+        cellHeaderDiagnosis = [x.strip().casefold() for x in cellHeaderDiagnosis]
+
+
+# get table sheet
 
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("table")
         except:
-            index = sheetNames.index("tableau")
+            return 0
         workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(2)
-        row3CellValues = list()
-        for cell in rowsIterator:
-            row3CellValues.append(cell.value.casefold())
-        row3NumbersOfValues = len(cellNamesRow3)
-        trueCases = 0
+
+        # check if row 3 is ok
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(2)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
         for value in cellNamesRow3:
-            if value.casefold() in row3CellValues:
-                if row3CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-            if "reference" in row3CellValues:
-                if row3CellValues.count("reference") is 2:
-                    trueCases = trueCases + 1
-            if not trueCases is row3NumbersOfValues + 1:
-                return 0
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            elif value == "reference" and value in rowValueList and rowValueList.count(value) == 2:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        rowCellsList = workSheet.row(1)
+        tempList = list()
+        for cell in rowCellsList:
+            tempList.append(str(cell.value).casefold().strip())
+        if not "Project applicability".casefold().strip() in tempList:
+            errorColValueList.append("Project applicability")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+
+        # get index of different headers in sheet
 
         for value in cellHeaderFlow:
-            cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
+            cellHeaderFlowPosition.append(rowValueList.index(value))
         for value in cellHeaderFailureModes:
-            cellHeaderFailureModesPosition.append(row3CellValues.index(value.casefold()))
+            cellHeaderFailureModesPosition.append(rowValueList.index(value))
         for value in cellHeaderEffects:
-            cellHeaderEffectsPosition.append(row3CellValues.index(value.casefold()))
+            cellHeaderEffectsPosition.append(rowValueList.index(value))
         for value in cellHeaderFearedEvents:
-            cellHeaderFearedEventsPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderSafetyMeasures:
-            cellHeaderSafetyMeasuresPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderDiagnosis:
-            cellHeaderDiagnosisPosition.append(row3CellValues.index(value.casefold()))
+            if value == "reference":
+                for index, string in enumerate(rowValueList):
+                    if string == "reference":
+                        cellHeaderFearedEventsPosition.append(index)
 
-# sort index
+            else:
+                cellHeaderFearedEventsPosition.append(rowValueList.index(value))
+        for value in cellHeaderSafetyMeasures:
+            cellHeaderSafetyMeasuresPosition.append(rowValueList.index(value))
+        for value in cellHeaderDiagnosis:
+            cellHeaderDiagnosisPosition.append(rowValueList.index(value))
+
+
+        # sort index
 
         cellHeaderFlowPosition.sort()
         cellHeaderFailureModesPosition.sort()
@@ -2841,144 +3145,187 @@ class Test(Application):
         cellHeaderFearedEventsPosition.sort()
         cellHeaderSafetyMeasuresPosition.sort()
         cellHeaderDiagnosisPosition.sort()
-        tempList = []
-        tempList.append(row3CellValues.index("type"))
 
-# see if subcells of headers are together
+        # see if subcells of headers are together
 
         for listIndex in range(1, len(cellHeaderFlowPosition)):
             if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Failure Analysis: "
+                errorColValueString =[errorColValueString + x + ", " for x in cellHeaderFlow]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
         for listIndex in range(1, len(cellHeaderFailureModesPosition)):
             if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Customer Effects: "
+                errorColValueString =[errorColValueString + x + ", " for x in cellHeaderFailureModes]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
         for listIndex in range(1, len(cellHeaderEffectsPosition)):
             if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below ELEMENT LEADING TO THE DEFECTIVE PART: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderEffects]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
         for listIndex in range(1, len(cellHeaderFearedEventsPosition)):
             if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFearedEvents]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
         for listIndex in range(1, len(cellHeaderSafetyMeasuresPosition)):
             if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderSafetyMeasures]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
+
         for listIndex in range(1, len(cellHeaderDiagnosisPosition)):
             if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex - 1] > 1:
-                return 0
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderDiagnosis]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-# get second row
 
-        rowsIterator = workSheet.rows(1)
-        row3CellValues = list()
-        for row in rowsIterator:
-            for cell in row:
-                row3CellValues.append(cell.value.casefold())
+        #check headers
 
-# see if headers are OK
 
-        for value in cellHeaderFlowPosition:
-            if row3CellValues[value] != "flow":
-                return 0
-        for value in cellHeaderFailureModesPosition:
-            if row3CellValues[value] != "failures modes":
-                return 0
-        for value in cellHeaderEffectsPosition:
-            if row3CellValues[value] != "effects":
-                return 0
-        for value in cellHeaderFearedEventsPosition:
-            if row3CellValues[value] != "feared events":
-                return 0
-        for value in cellHeaderSafetyMeasuresPosition:
-            if row3CellValues[value] != "safety measure (G4) / functional diagnostic(G3,G2,G1)":
-                return 0
+        rowCellsList = workSheet.row(0)
 
-# get first row
+        tempindex = cellHeaderFailureAnalysisPosition[0]
+        tempcell = rowCellsList[tempindex]
+        tempstring = str(tempcell.value)
 
-        rowsIterator = workSheet.rows(0)
-        row3CellValues = list()
-        for row in rowsIterator:
-            for cell in row:
-                row3CellValues.append(cell.value.casefold())
+        if str(rowCellsList[cellHeaderFlowPosition[0]].value).casefold().strip() != "Flow".casefold().strip():
+            errorColValueList.append("Flow")
 
-# see if main headers are OK
+        if str(rowCellsList[cellHeaderFailureModesPosition[0]].value).casefold().strip() != "Failures modes".casefold().strip():
+            errorColValueList.append("Failures modes")
+
+
+        if str(rowCellsList[cellHeaderEffectsPosition[0]].value).casefold().strip() != "Effects".casefold().strip():
+            errorColValueList.append("Effects")
+
+
+        if str(rowCellsList[cellHeaderFearedEventsPosition[0]].value).casefold().strip() != "feared events".casefold().strip():
+            errorColValueList.append("feared events")
+
+
+        if str(rowCellsList[cellHeaderSafetyMeasuresPosition[0]].value).casefold().strip() != "Safety measure (G4) / Functional diagnostic(G3,G2,G1)".casefold().strip():
+            errorColValueList.append("Safety measure (G4) / Functional diagnostic(G3,G2,G1)")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+
+        # see if main headers are OK
 
         cellHeaderFMEAPosition = cellHeaderFlowPosition + cellHeaderFailureModesPosition + cellHeaderEffectsPosition \
-                                 + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition + tempList
-        for value in cellHeaderFMEAPosition:
-            if row3CellValues[value] != "fmea":
-                return 0
-        for value in cellHeaderDiagnosisPosition:
-            if row3CellValues[value] != "diagnosis":
-                return 0
-        return 1
+                                     + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition
 
     def Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(self, workBook):
 
         cellNamesRow3 = ["Version", "To diagnose", "Supplier system", "Logical flow", "Physical flow", "Client system",
-                         "Type of connection", "Type", "Logical failure mode", "Physical failure mode", "Wiring harness cause",
+                         "Type of connection", "Type", "Logical failure mode", "Physical failure mode",
+                         "Wiring harness cause",
                          "Other cause", "Operation situation / Scenario", "system effect", "Customer effect", "Comment",
-                         "Feared event", "Severity", "Level", "target", "Safety measure (G4) / Functional diagnostic(G3,G2,G1)",
+                         "Feared event", "Severity", "Level", "target",
+                         "Safety measure (G4) / Functional diagnostic(G3,G2,G1)",
                          "Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
                          "Requirement N° to the Design Document", "Requirement N° from Design document",
-                         "research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
+                         "research time allocated to the system (in minutes)", "HMI/n(Indicators/messages)",
+                         "High level test",
                          "Diagnosis needs", "Comments"]
 
         cellHeaderFlow = ["Supplier system", "Logical flow", "Physical flow", "Client system", "Type of connection"]
         cellHeaderFlowPosition = []
-        cellHeaderFailureModes = ["Logical failure mode", "Physical failure mode", "Wiring harness cause", "Other cause"]
+        cellHeaderFailureModes = ["Logical failure mode", "Physical failure mode", "Wiring harness cause",
+                                  "Other cause"]
         cellHeaderFailureModesPosition = []
         cellHeaderEffects = ["Operation situation / Scenario", "system effect", "Customer effect", "Comment"]
         cellHeaderEffectsPosition = []
         cellHeaderFearedEvents = ["Feared event", "Severity", "Level", "target"]
         cellHeaderFearedEventsPosition = []
-        cellHeaderSafetyMeasures = ["Type of failure", "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
+        cellHeaderSafetyMeasures = ["Safety measure (G4) / Functional diagnostic(G3,G2,G1)", "Type of failure",
+                                    "Degraded mode /Safe state", "lead time", "Efficiency", "recovering mode",
                                     "Requirement N° to the Design Document", "Requirement N° from Design document"]
         cellHeaderSafetyMeasuresPosition = []
-        cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI\n(Indicators/messages)", "High level test",
+        cellHeaderDiagnosis = ["research time allocated to the system (in minutes)", "HMI/n(Indicators/messages)",
+                               "High level test",
                                "Diagnosis needs", "Comments"]
         cellHeaderDiagnosisPosition = []
+        cellReferencePosition = []
 
-# check if row 3 is OK
+        cellNamesRow3 = [x.strip().casefold() for x in cellNamesRow3]
+        cellHeaderFlow = [x.strip().casefold() for x in cellHeaderFlow]
+        cellHeaderFailureModes = [x.strip().casefold() for x in cellHeaderFailureModes]
+        cellHeaderEffects = [x.strip().casefold() for x in cellHeaderEffects]
+        cellHeaderFearedEvents = [x.strip().casefold() for x in cellHeaderFearedEvents]
+        cellHeaderSafetyMeasures = [x.strip().casefold() for x in cellHeaderSafetyMeasures]
+        cellHeaderDiagnosis = [x.strip().casefold() for x in cellHeaderDiagnosis]
+
+# get table sheet
 
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("table")
         except:
-            index = sheetNames.index("tableau")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=3, max_row=3)
-        row3CellValues = list()
-        for row in rowsIterator:
-            for cell in row:
-                row3CellValues.append(cell.value.casefold())
-        row3NumberOfValues = len(cellNamesRow3)
-        trueCases = 0
-        for value in cellNamesRow3:
-            if value.casefold() in row3CellValues:
-                if row3CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if "reference" in row3CellValues:
-            if row3CellValues.count("reference") is 2:
-                trueCases = trueCases +1
-        if not trueCases is row3NumberOfValues + 1:
             return 0
+        workSheet = workBook.worksheets[index]
 
-# get index of different headers in sheet
+    # check if row 3 is ok
 
-        for value in cellHeaderFlow:
-            cellHeaderFlowPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderFailureModes:
-            cellHeaderFailureModesPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderEffects:
-            cellHeaderEffectsPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderFearedEvents:
-            cellHeaderFearedEventsPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderSafetyMeasures:
-            cellHeaderSafetyMeasuresPosition.append(row3CellValues.index(value.casefold()))
-        for value in cellHeaderDiagnosis:
-            cellHeaderDiagnosisPosition.append(row3CellValues.index(value.casefold()))
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=3, max_row=3)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
 
-# sort index
+        for value in cellNamesRow3:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        rowCellsGenrator = workSheet.iter_rows(min_row=2, max_row=2)
+        tempList = list()
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                tempList.append(str(cell.value).casefold().strip())
+        if not "Project applicability".casefold().strip() in tempList:
+            errorColValueList.append("Project applicability")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+
+
+    # get index of different headers in sheet
+
+            for value in cellHeaderFlow:
+                cellHeaderFlowPosition.append(rowValueList.index(value))
+            for value in cellHeaderFailureModes:
+                cellHeaderFailureModesPosition.append(rowValueList.index(value))
+            for value in cellHeaderEffects:
+                cellHeaderEffectsPosition.append(rowValueList.index(value))
+            for value in cellHeaderFearedEvents:
+                cellHeaderFearedEventsPosition.append(rowValueList.index(value))
+            for value in cellHeaderSafetyMeasures:
+                cellHeaderSafetyMeasuresPosition.append(rowValueList.index(value))
+            for value in cellHeaderDiagnosis:
+                cellHeaderDiagnosisPosition.append(rowValueList.index(value))
+
+        # sort index
 
         cellHeaderFlowPosition.sort()
         cellHeaderFailureModesPosition.sort()
@@ -2986,76 +3333,83 @@ class Test(Application):
         cellHeaderFearedEventsPosition.sort()
         cellHeaderSafetyMeasuresPosition.sort()
         cellHeaderDiagnosisPosition.sort()
-        tempList = []
-        tempList.append(row3CellValues.index("type"))
 
-# see if subcells of headers are together
+        # see if subcells of headers are together
 
-        for listIndex in range(1,len(cellHeaderFlowPosition)):
-            if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex-1] > 1:
-                return 0
-        for listIndex in range(1,len(cellHeaderFailureModesPosition)):
-            if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex-1] > 1:
-                return 0
-        for listIndex in range(1,len(cellHeaderEffectsPosition)):
-            if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex-1] > 1:
-                return 0
-        for listIndex in range(1,len(cellHeaderFearedEventsPosition)):
-            if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex-1] > 1:
-                return 0
-        for listIndex in range(1,len(cellHeaderSafetyMeasuresPosition)):
-            if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex-1] > 1:
-                return 0
-        for listIndex in range(1,len(cellHeaderDiagnosisPosition)):
-            if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex-1] > 1:
-                return 0
+        for listIndex in range(1, len(cellHeaderFlowPosition)):
+            if cellHeaderFlowPosition[listIndex] - cellHeaderFlowPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Failure Analysis: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFlow]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-# get second row
+        for listIndex in range(1, len(cellHeaderFailureModesPosition)):
+            if cellHeaderFailureModesPosition[listIndex] - cellHeaderFailureModesPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below Customer Effects: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFailureModes]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-        rowsIterator = workSheet.iter_rows(min_row=2, max_row=2)
-        row3CellValues = list()
-        for row in rowsIterator:
-            for cell in row:
-                row3CellValues.append(cell.value.casefold())
+        for listIndex in range(1, len(cellHeaderEffectsPosition)):
+            if cellHeaderEffectsPosition[listIndex] - cellHeaderEffectsPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below ELEMENT LEADING TO THE DEFECTIVE PART: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderEffects]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-# see if headers are OK
+        for listIndex in range(1, len(cellHeaderFearedEventsPosition)):
+            if cellHeaderFearedEventsPosition[listIndex] - cellHeaderFearedEventsPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderFearedEvents]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-        for value in cellHeaderFlowPosition:
-            if row3CellValues[value] != "flow":
-                return 0
-        for value in cellHeaderFailureModesPosition:
-            if row3CellValues[value] != "failures modes":
-                return 0
-        for value in cellHeaderEffectsPosition:
-            if row3CellValues[value] != "effects":
-                return 0
-        for value in cellHeaderFearedEventsPosition:
-            if row3CellValues[value] != "feared events":
-                return 0
-        for value in cellHeaderSafetyMeasuresPosition:
-            if row3CellValues[value] != "safety measure (G4) / functional diagnostic(G3,G2,G1)":
-                return 0
+        for listIndex in range(1, len(cellHeaderSafetyMeasuresPosition)):
+            if cellHeaderSafetyMeasuresPosition[listIndex] - cellHeaderSafetyMeasuresPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderSafetyMeasures]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-# get first row
+        for listIndex in range(1, len(cellHeaderDiagnosisPosition)):
+            if cellHeaderDiagnosisPosition[listIndex] - cellHeaderDiagnosisPosition[listIndex - 1] > 1:
+                errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) below FOLLOW-UP: "
+                errorColValueString = [errorColValueString + x + ", " for x in cellHeaderDiagnosis]
+                errorColValueString = errorColValueString + "are not adjacent"
+                return errorColValueString
 
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row3CellValues = list()
-        for row in rowsIterator:
-            for cell in row:
-                row3CellValues.append(cell.value.casefold())
+        # check headers
 
-# see if main headers are OK
+        rowCellsGenrator = workSheet.iter_rows(min_row=2, max_row=2)
+        rowValueList = list()
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
 
-        cellHeaderFMEAPosition = cellHeaderFlowPosition + cellHeaderFailureModesPosition + cellHeaderEffectsPosition \
-                + cellHeaderFearedEventsPosition + cellHeaderSafetyMeasuresPosition + tempList
-        for value in cellHeaderFMEAPosition:
-            if row3CellValues[value] != "fmea":
-                return 0
-        for value in cellHeaderDiagnosisPosition:
-            if row3CellValues[value] != "diagnosis":
-                return 0
+        if str(rowCellsList[cellHeaderFlowPosition[0]].value).casefold().strip() != "Flow".casefold().strip():
+            errorColValueList.append("Flow")
 
-        return 1
+        if str(rowCellsList[
+                   cellHeaderFailureModesPosition[0]].value).casefold().strip() != "Failures modes".casefold().strip():
+            errorColValueList.append("Failures modes")
+
+        if str(rowCellsList[cellHeaderEffectsPosition[0]].value).casefold().strip() != "Effects".casefold().strip():
+            errorColValueList.append("Effects")
+
+        if str(rowCellsList[
+                   cellHeaderFearedEventsPosition[0]].value).casefold().strip() != "feared events".casefold().strip():
+            errorColValueList.append("feared events")
+
+        if str(rowCellsList[cellHeaderSafetyMeasuresPosition[0]].value).casefold().strip() != "Safety measure (G4) / Functional diagnostic(G3,G2,G1)".casefold().strip():
+            errorColValueList.append("Safety measure (G4) / Functional diagnostic(G3,G2,G1)")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “tableau” (or “tableau”), the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0420_XLS(self, workBook):
 
@@ -3067,7 +3421,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0420_XLSX_XLSM(self, workBook):
 
-        if "diagnostic needs" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "diagnostic needs" in sheetNames:
             return 1
         else:
             return 0
@@ -3078,23 +3433,37 @@ class Test(Application):
                          "Technical Effect covers by the need", "Diversity", "Allocated to the system", "Upstream requirements",
                          "Taken into account", "comment"]
 
+        # check if row 1 is OK
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("diagnostic needs")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("diagnostic needs")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “diagnostic needs” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0430_XLSX_XLSM(self, workBook):
 
@@ -3102,23 +3471,38 @@ class Test(Application):
                          "Technical Effect covers by the need", "Diversity", "Allocated to the system", "Upstream requirements",
                          "Taken into account", "comment"]
 
+        # check if row 1 is OK
+
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("diagnostic needs")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("diagnostic needs")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “diagnostic needs”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0440_XLS(self, workBook):
 
@@ -3130,54 +3514,84 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0440_XLSX_XLSM(self, workBook):
 
-        if "customer effects" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "customer effects" in sheetNames:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0450_XLS(self, workBook):
 
-        cellNamesRow1 = ["Taken into account", "Diagnosticability synthesis", "Comments"]
+        cellNamesRow1 = ["Name", "Taken into account", "Diagnosticability synthesis", "Comments"]
+
+        # check if row 1 is OK
 
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("customer effects")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("customer effects")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “customer effects” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0450_XLSX_XLSM(self, workBook):
 
-        cellNamesRow1 = ["Taken into account", "Diagnosticability synthesis", "Comments"]
+        cellNamesRow1 = ["Name", "Taken into account", "Diagnosticability synthesis", "Comments"]
+
+        # check if row 1 is OK
 
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("customer effects")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("customer effects")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “customer effects”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0460_XLS(self, workBook):
 
@@ -3189,62 +3603,86 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0460_XLSX_XLSM(self, workBook):
 
-        if "feared events" in workBook.sheetnames.casefold() or "er" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "feared events" in sheetNames or "er" in sheetNames:
             return 1
         else:
             return 0
 
     def Test_02043_18_04939_STRUCT_0470_XLS(self, workBook):
 
-        cellNamesRow1 = ["Reference", "Severity", "Level", "Taken into account",
+        cellNamesRow1 = ["Description", "Reference", "Severity", "Level", "Taken into account",
                          "Justification for not taking into account the dread Event", "Commentaire"]
+
+        # check if row 1 is OK
 
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("feared events")
         except:
-            index = sheetNames.index("er")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “feared events” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0470_XLSX_XLSM(self, workBook):
 
-        cellNamesRow1 = ["Reference", "Severity", "Level", "Taken into account",
+        cellNamesRow1 = ["Description", "Reference", "Severity", "Level", "Taken into account",
                          "Justification for not taking into account the dread Event", "Commentaire"]
+
+        # check if row 1 is OK
 
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("feared events")
         except:
-            index = sheetNames.index("er")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
             return 0
+        workSheet = workBook.worksheets[index]
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “feared events”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0480_XLS(self, workBook):
 
@@ -3256,7 +3694,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(self, workBook):
 
-        if "system" in workBook.sheetnames.casefold() or "système" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "system" in sheetNames or "système" in sheetNames:
             return 1
         else:
             return 0
@@ -3265,51 +3704,74 @@ class Test(Application):
 
         cellNamesRow1 = ["Description", "Taken into account"]
 
+        # check if row 1 is OK
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("system")
         except:
-            index = sheetNames.index("système")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “system” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(self, workBook):
 
         cellNamesRow1 = ["Description", "Taken into account"]
+
+        # check if row 1 is OK
 
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("system")
         except:
-            index = sheetNames.index("système")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
             return 0
+        workSheet = workBook.worksheets[index]
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “system”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0500_XLS(self, workBook):
 
@@ -3321,7 +3783,8 @@ class Test(Application):
 
     def Test_02043_18_04939_STRUCT_0500_XLSX_XLSM(self, workBook):
 
-        if "operation situation" in workBook.sheetnames.casefold():
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        if "operation situation" in sheetNames:
             return 1
         else:
             return 0
@@ -3330,47 +3793,76 @@ class Test(Application):
 
         cellNamesRow1 = ["Description", "Taken into account", "Comments"]
 
+        # check if row 1 is OK
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("operation situation")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("operation situation")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “operation situation” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0510_XLSX_XLSM(self, workBook):
 
         cellNamesRow1 = ["Description", "Taken into account", "Comments"]
 
+        # check if row 1 is OK
+
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("operation situation")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("operation situation")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
 
-    def Test_02043_18_04939_STRUCT_0520_XLS(self, workBook):
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “operation situation”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
+
+    '''def Test_02043_18_04939_STRUCT_0520_XLS(self, workBook):
 
         sheetNames = [x.casefold() for x in workBook.sheet_names()]
         if "req. of tech. effects" in sheetNames:
@@ -3383,47 +3875,76 @@ class Test(Application):
         if "req. of tech. effects" in workBook.sheetnames.casefold():
             return 1
         else:
-            return 0
+            return 0'''
 
-    def Test_02043_18_04939_STRUCT_0530_XLS(self, workBook):
+    '''def Test_02043_18_04939_STRUCT_0530_XLS(self, workBook):
         cellNamesRow1 = ["Reference", "version", "Description", "technical effect", "Allocated to", "Tracability with the TSD"]
+
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("req. of tech. effects")
-        workSheet = workBook.sheet_by_index(index)
-        rowsIterator = workSheet.rows(0)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("req. of tech. effects")
+        except:
             return 0
+        workSheet = workBook.sheet_by_index(index)
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsList = workSheet.row(0)
+        for cell in rowCellsList:
+            rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “req. of tech. effects” the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1
 
     def Test_02043_18_04939_STRUCT_0530_XLSX_XLSM(self, workBook):
         cellNamesRow1 = ["Reference", "version", "Description", "technical effect", "Allocated to", "Tracability with the TSD"]
+
+        # check if row 1 is OK
+
         sheetNames = workBook.sheetnames
         sheetNames = [x.casefold() for x in sheetNames]
-        index = sheetNames.index("req. of tech. effects")
-        workSheet = workBook.worksheets[index]
-        rowsIterator = workSheet.iter_rows(min_row=1, max_row=1)
-        row1CellValues = list()
-        for cell in rowsIterator:
-            row1CellValues.append(cell.value.casefold())
-        trueCases = 0
-        for value in cellNamesRow1:
-            if value.casefold() in row3CellValues:
-                if row1CellValues.count(value.casefold()) is 1:
-                    trueCases = trueCases + 1
-        if trueCases == len(cellNamesRow1):
-            return 1
-        else:
+        try:
+            index = sheetNames.index("req. of tech. effects")
+        except:
             return 0
+        workSheet = workBook.worksheets[index]
+
+        cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
+
+        rowValueList = list()
+        rowCellsGenrator = workSheet.iter_rows(min_row=1, max_row=1)
+        for cellTuple in rowCellsGenrator:
+            for cell in cellTuple:
+                rowValueList.append(str(cell.value).casefold().strip())
+        errorColValueList = list()
+
+        for value in cellNamesRow1:
+            if value in rowValueList and rowValueList.count(value) == 1:
+                pass
+            else:
+                errorColValueList.append(value + ", ")
+
+        if errorColValueList:
+            errorColValueString = "In the sheet “req. of tech. effects”, the column(s) "
+            errorColValueString = errorColValueString + "".join(errorColValueList)
+            errorColValueString = errorColValueString + " is(are) not present or not written correctly as in the document [DOC3]."
+            return errorColValueString
+        else:
+            return 1'''
 
     # Requirements for [DOC3]
 
@@ -3624,7 +4145,7 @@ class Test(Application):
 
         cellNamesRow2 = ["Référence", "Version", "Type (choix par menu)", "libellé (signification)", "Description",
                          "Situation pendant laquelle la mesure ou commande est utilisable", "Statut",
-                         "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement /npour O Control/nlecture /nsortie effective //commande",
+                         "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement \npour O Control\nlecture \nsortie effective /commande",
                          "Diversité", "Applicabilité usine", "condition d'applicabilité en usine",
                          "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
                          "Référence amont", "Version de la référence amont", "Pris en compte", "Justification de la modification", "Validation"]
@@ -3684,7 +4205,7 @@ class Test(Application):
 
         cellNamesRow2 = ["Référence", "Version", "Type (choix par menu)", "libellé (signification)", "Description",
                           "Situation pendant laquelle la mesure ou commande est utilisable", "Statut",
-                          "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement /npour O Control/nlecture /nsortie effective //commande",
+                          "Taux de fiabilité du test (50%, 100%)", "Flux fonctionnel", "Uniquement \npour O Control\nlecture \nsortie effective /commande",
                           "Diversité", "Applicabilité usine", "condition d'applicabilité en usine",
                           "supporté par constituant (s)", "se référer au document spécifiant DRD : (réf & version)",
                           "Référence amont", "Version de la référence amont", "Pris en compte",
