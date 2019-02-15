@@ -6,11 +6,11 @@ import xlrd
 import win32com.client as win32
 import requests
 import os
+import io
 from win32ui import FindWindow
 from ctypes import windll
 from openpyxl.styles import Color
-from xlutils.copy import copy as xl_copy
-from pathlib import Path
+
 
 class Application(QWidget):
 
@@ -30,6 +30,7 @@ class Application(QWidget):
         self.DOC3Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.AEEV_IAEE07_0033/v.vc/pj'''
         self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
         self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
+        self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
         self.tabs.addTab(self.tab1, "TSD Checker")
         self.tabs.addTab(self.tab2, "Options")
         self.initUI(self.tab1)
@@ -48,6 +49,7 @@ class Application(QWidget):
             self.DOC3Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.AEEV_IAEE07_0033/v.vc/pj'''
             self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
             self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
+            self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -60,6 +62,7 @@ class Application(QWidget):
             self.DOC3Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.AEEV_IAEE07_0033/v.vc/pj'''
             self.DOC4Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
             self.DOC5Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
+            self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -125,6 +128,39 @@ class Application(QWidget):
     def buttonClicked(self):
         return
 
+    def download_doc9(self, url):
+
+        user = self.tab2.TextBoxUser.text()
+        user = str(user)
+        password = self.tab2.TextBoxPass.text()
+        password = str(password)
+        username = os.environ['USERNAME']
+        out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
+        if not user or not password:
+            self.tab1.textbox.setText("Missing Username or Password")
+            return
+
+        try:
+            os.stat(out_path)
+        except:
+            os.mkdir(out_path)
+
+        response = requests.get(url, stream=True, auth=(user, password))
+        status = response.status_code
+        if status == 401:
+            self.tab1.textbox.setText("Username or Password Incorrect")
+            return
+
+        FileName = response.headers['Content-Disposition'].split('"')[1]
+        FilePath = out_path + "/" + FileName
+        success_download = self.tab1.textbox.toPlainText()
+        success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
+        print("Saving file to location:" + FilePath)
+        self.tab1.textbox.setText(success_download)
+        with open(FilePath, 'wb') as f:
+            for chuck in response.iter_content(chunk_size=128):
+                f.write(chuck)
+        return FilePath
 
     def download_templates(self, url):
         user = self.tab2.TextBoxUser.text()
@@ -402,6 +438,7 @@ class Application(QWidget):
         tab.lblUser.move(165,25)
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
+        tab.TextBoxUser.setText("E518720")
         tab.TextBoxUser.move(200, 20)
 
 
@@ -410,6 +447,7 @@ class Application(QWidget):
         tab.TextBoxPass = QtWidgets.QLineEdit(tab)
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
+        tab.TextBoxPass.setText("Cst78788")
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
 
 
@@ -516,6 +554,7 @@ class Test(Application):
         self.pbvalue = 0
         username = os.environ['USERNAME']
         out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
+
         try:
             os.stat(out_path)
             filelist = [file for file in os.listdir(out_path)]
@@ -523,6 +562,7 @@ class Test(Application):
                 os.remove(out_path + filename)
         except:
             os.mkdir(out_path)
+
 
     def TestGeneralStructureXLS(self, workBook, fileName):
 
@@ -1005,7 +1045,6 @@ class Test(Application):
         self.tab1.pbar.setValue(self.pbvalue)
         return flag
 
-
     def TestGeneralStructure_XLS(self, workBook, fileName):
         flag = 1
         filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\Report.xlsx"
@@ -1013,7 +1052,8 @@ class Test(Application):
         reportWorkSheet1 = reportWorkBook.active
         reportWorkSheet1.title = "Report Information"
         reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "",
+                                           "Extract CESARE file:",
                                            "Customer effects file:", "check level:", "", "Date of the test:",
                                            "Time of the test:",
                                            "", "TSD file checked:", "TSD function file checked:",
@@ -1026,177 +1066,214 @@ class Test(Application):
         for colIndex in range(1, len(testReportRow1StringList) + 1):
             reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
 
-
         testResult = self.Test_02043_18_04939_STRUCT_0000_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0000", "", ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0000", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0005_XLS(fileName)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0005", "", ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0005", testResult, ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0010_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0010", "", ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0010", testResult, ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0011_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0011", "", ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0011", testResult, ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0020_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0020", "", ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0020", testResult, ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0025_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0025", "", ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0025", testResult, ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0030_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0030", "", ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0030", testResult, ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0035_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0035", "", ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0035", testResult, ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0040_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0040", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0040", testResult, ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0051_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0051", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0051", testResult, ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0052_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0052", "", ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0052", testResult, ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0053_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0053", "", ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0053", testResult, ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0054_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0054", "", ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0054", testResult, ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0055_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0055", "", ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0055", testResult, ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0056_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0056", "", ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0056", testResult, ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0057_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0057", "", ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0057", testResult, ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0058_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0058", "", ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0058", testResult, ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0059_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0059", "", ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0059", testResult, ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0060_XLS(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0060", "", ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                             fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0060", testResult, ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                             fill_type="solid")
 
         reportWorkBook.save(filename)
 
@@ -1207,7 +1284,8 @@ class Test(Application):
         reportWorkSheet1 = reportWorkBook.active
         reportWorkSheet1.title = "Report Information"
         reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "",
+                                           "Extract CESARE file:",
                                            "Customer effects file:", "check level:", "", "Date of the test:",
                                            "Time of the test:",
                                            "", "TSD file checked:", "TSD function file checked:",
@@ -1223,11 +1301,13 @@ class Test(Application):
         testResult = self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook)
         if testResult == 1:
             reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0000", "", ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",
+                                                                                            fill_type="solid")
         else:
             flag = 0
             reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0000", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",
+                                                                                            fill_type="solid")
 
         testResult = self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook)
         if testResult == 1:
@@ -1443,6 +1523,544 @@ class Test(Application):
         if not reportWorkSheet1:
             workSheetsNumber = reportWorkBook.Sheets.Count
             sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet1.Name = "Report Information"
+
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(reportInformationCol1StringList):
+            reportWorkSheet1.Cells(i + 1, 1).Value = name
+        reportWorkSheet1.Columns.AutoFit()
+        reportWorkSheet1.Columns.Font.Bold = True
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 10 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0100_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0110_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0120_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0130_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0140_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0150_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0160_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0170_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0180_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0190_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0200_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0210_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0220_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0230_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0240_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0250_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0260_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0270_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+
+    def TestGeneralStructure_DOC3_XLSX_XLSM(self,workBook):
+
+        flag = 1
+        fileName = self.tab1.myTextBox1.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet1 = None
+        reportWorkSheet2 = None
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Report Information":
+                reportWorkSheet1 = sheet
+        if not reportWorkSheet1:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet1.Name = "Report Information"
+
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(reportInformationCol1StringList):
+            reportWorkSheet1.Cells(i + 1, 1).Value = name
+        reportWorkSheet1.Columns.AutoFit()
+        reportWorkSheet1.Columns.Font.Bold = True
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 10 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0110_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0130_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0150_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0170_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0190_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0210_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0230_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0250_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0270_XLSX_XLSM(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+
+    def TestGeneralStructure_DOC4_XLS(self, workBook):
+
+        flag = 1
+        fileName = self.tab1.myTextBox2.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet1 = None
+        reportWorkSheet2 = None
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Report Information":
+                reportWorkSheet1 = sheet
+        if not reportWorkSheet1:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
             reportWorkSheet1 = reportWorkBook.Worksheets.Add(None,sheetAfter)
             reportWorkSheet1.Name = "Report Information"
 
@@ -1476,188 +2094,188 @@ class Test(Application):
         reportWorkSheet2.Columns.AutoFit()
         reportWorkSheet2.Columns.Font.Bold = True
 
-        testResult = self.Test_02043_18_04939_STRUCT_0100_XLS(workBook)
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 40 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0400_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0100", "", ""]):
-                 reportWorkSheet2.Cells(2, i+1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""]):
-                reportWorkSheet2.Cells(2, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0110_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0410_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0110", "", ""]):
-                reportWorkSheet2.Cells(3, i + 1).Value = name
-
-            # reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0110", testResult, ""]):
-                reportWorkSheet2.Cells(3, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0120_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0420_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0120", "", ""]):
-                reportWorkSheet2.Cells(4, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""]):
-                reportWorkSheet2.Cells(4, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0130_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0430_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0130", "", ""]):
-                reportWorkSheet2.Cells(5, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""]):
-                reportWorkSheet2.Cells(5, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-
-        testResult = self.Test_02043_18_04939_STRUCT_0140_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0440_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0140", "", ""]):
-                reportWorkSheet2.Cells(6, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""]):
-                reportWorkSheet2.Cells(6, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0150_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0450_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0150", "", ""]):
-                reportWorkSheet2.Cells(7, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""]):
-                reportWorkSheet2.Cells(7, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0160_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0460_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0160", "", ""]):
-                reportWorkSheet2.Cells(8, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""]):
-                reportWorkSheet2.Cells(8, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0170_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0470_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0170", "", ""]):
-                reportWorkSheet2.Cells(9, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""]):
-                reportWorkSheet2.Cells(9, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0180_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0480_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0180", "", ""]):
-                reportWorkSheet2.Cells(10, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""]):
-                reportWorkSheet2.Cells(10, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0190_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0490_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0190", "", ""]):
-                reportWorkSheet2.Cells(11, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""]):
-                reportWorkSheet2.Cells(11, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0200_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0500_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0200", "", ""]):
-                reportWorkSheet2.Cells(12, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""]):
-                reportWorkSheet2.Cells(12, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0210_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0510_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0210", "", ""]):
-                reportWorkSheet2.Cells(13, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0210", testResult, ""]):
-                reportWorkSheet2.Cells(13, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        testResult = self.Test_02043_18_04939_STRUCT_0220_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0520_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0220", "", ""]):
-                reportWorkSheet2.Cells(14, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""]):
-                reportWorkSheet2.Cells(14, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-
-        testResult = self.Test_02043_18_04939_STRUCT_0230_XLS(workBook)
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0530_XLS(workBook)
         if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0230", "", ""]):
-                reportWorkSheet2.Cells(15, i + 1).Value = name
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""]):
-                reportWorkSheet2.Cells(15, i + 1).Value = name
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
 
-        testResult = self.Test_02043_18_04939_STRUCT_0240_XLS(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0240", "", ""]):
-                reportWorkSheet2.Cells(16, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""]):
-                reportWorkSheet2.Cells(16, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0250_XLS(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0250", "", ""]):
-                reportWorkSheet2.Cells(17, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""]):
-                reportWorkSheet2.Cells(17, i + 1).Value = name
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0260_XLS(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0260", "", ""]):
-                reportWorkSheet2.Cells(18, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""]):
-                reportWorkSheet2.Cells(18, i + 1).Value = name
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0270_XLS(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0270", "", ""]):
-                reportWorkSheet2.Cells(19, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""]):
-                reportWorkSheet2.Cells(19, i + 1).Value = name
-
-        reportWorkBook.Save()
-
-    def TestGeneralStructure_DOC3_XLSX_XLSM(self,workBook):
-
+    def TestGeneralStructure_DOC4_XLSX_XLSM(self, workBook):
         flag = 1
-        fileName = "C:/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/proba.xlsx"
+        fileName = self.tab1.myTextBox2.toPlainText()
         excel = win32.gencache.EnsureDispatch('Excel.Application')
         reportWorkBook = excel.Workbooks.Open(fileName)
-        reportWorkBook.Worksheets.Add()
-        excel.DisplayAlerts = False
-        reportWorkBook.SaveAs("/Users/admacesanu/Desktop/EXCEL_TEST/02043_18_04939_STRUCT_0120/proba.xlsx")
-        excel.DisplayAlerts = True
-        excel.Application.Quit()
         reportWorkSheet1 = None
         reportWorkSheet2 = None
         for sheet in reportWorkBook.Worksheets:
@@ -1666,7 +2284,7 @@ class Test(Application):
         if not reportWorkSheet1:
             workSheetsNumber = reportWorkBook.Sheets.Count
             sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
-            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None,sheetAfter)
             reportWorkSheet1.Name = "Report Information"
 
         reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
@@ -1677,12 +2295,12 @@ class Test(Application):
                                            "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
         testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
 
+
         for i, name in enumerate(reportInformationCol1StringList):
             reportWorkSheet1.Cells(i + 1, 1).Value = name
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
 
-        reportWorkBook.Save()
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -1690,1013 +2308,867 @@ class Test(Application):
         if not reportWorkSheet2:
             workSheetsNumber = reportWorkBook.Sheets.Count
             sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
-            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None,sheetAfter)
             reportWorkSheet2.Name = "Test Report"
 
+
         for i, name in enumerate(testReportRow1StringList):
-            reportWorkSheet2.Cells(1, i + 1).Value = name
+            reportWorkSheet2.Cells(1,i + 1).Value = name
         reportWorkSheet2.Columns.AutoFit()
         reportWorkSheet2.Columns.Font.Bold = True
 
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0100_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0100", "", ""]):
-                reportWorkSheet2.Cells(2, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0100", testResult, ""]):
-                reportWorkSheet2.Cells(2, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0110_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0110", "", ""]):
-                reportWorkSheet2.Cells(3, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0110", testResult, ""]):
-                reportWorkSheet2.Cells(3, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0120_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0120", "", ""]):
-                reportWorkSheet2.Cells(4, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0120", testResult, ""]):
-                reportWorkSheet2.Cells(4, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0130_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0130", "", ""]):
-                reportWorkSheet2.Cells(5, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0130", testResult, ""]):
-                reportWorkSheet2.Cells(5, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0140_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0140", "", ""]):
-                reportWorkSheet2.Cells(6, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0140", testResult, ""]):
-                reportWorkSheet2.Cells(6, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0150_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0150", "", ""]):
-                reportWorkSheet2.Cells(7, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0150", testResult, ""]):
-                reportWorkSheet2.Cells(7, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0160_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0160", "", ""]):
-                reportWorkSheet2.Cells(8, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0160", testResult, ""]):
-                reportWorkSheet2.Cells(8, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0170_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0170", "", ""]):
-                reportWorkSheet2.Cells(9, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0170", testResult, ""]):
-                reportWorkSheet2.Cells(9, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0180_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0180", "", ""]):
-                reportWorkSheet2.Cells(10, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0180", testResult, ""]):
-                reportWorkSheet2.Cells(10, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0190_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0190", "", ""]):
-                reportWorkSheet2.Cells(11, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0190", testResult, ""]):
-                reportWorkSheet2.Cells(11, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0200_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0200", "", ""]):
-                reportWorkSheet2.Cells(12, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0200", testResult, ""]):
-                reportWorkSheet2.Cells(12, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0210_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0210", "", ""]):
-                reportWorkSheet2.Cells(13, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0210", testResult, ""]):
-                reportWorkSheet2.Cells(13, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0220_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0220", "", ""]):
-                reportWorkSheet2.Cells(14, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0220", testResult, ""]):
-                reportWorkSheet2.Cells(14, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0230_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0230", "", ""]):
-                reportWorkSheet2.Cells(15, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0230", testResult, ""]):
-                reportWorkSheet2.Cells(15, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0240_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0240", "", ""]):
-                reportWorkSheet2.Cells(16, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0240", testResult, ""]):
-                reportWorkSheet2.Cells(16, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0250_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0250", "", ""]):
-                reportWorkSheet2.Cells(17, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0250", testResult, ""]):
-                reportWorkSheet2.Cells(17, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0260_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0260", "", ""]):
-                reportWorkSheet2.Cells(18, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0260", testResult, ""]):
-                reportWorkSheet2.Cells(18, i + 1).Value = name
-
-        testResult = self.Test_02043_18_04939_STRUCT_0270_XLSX_XLSM(workBook)
-        if testResult == 1:
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0270", "", ""]):
-                reportWorkSheet2.Cells(19, i + 1).Value = name
-        else:
-            flag = 0
-            for i, name in enumerate(["Blocking", "02043_18_04939_STRUCT_0270", testResult, ""]):
-                reportWorkSheet2.Cells(19, i + 1).Value = name
-
-        reportWorkBook.Saved = 0
-        reportWorkBook.Save()
-        reportWorkBook.Close(SaveChanges = True)
-        os.system("taskkill /f /im EXCEL.EXE")
-
-    def TestGeneralStructure_DOC4_XLS(self, workBook):
-
-        flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC4_XLS.xlsx"
-        reportWorkBook = openpyxl.Workbook()
-        reportWorkSheet1 = reportWorkBook.active
-        reportWorkSheet1.title = "Report Information"
-        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
-                                           "Customer effects file:", "check level:", "", "Date of the test:",
-                                           "Time of the test:",
-                                           "", "TSD file checked:", "TSD function file checked:",
-                                           "TSD system file checked:",
-                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
-            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
-
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
-        for colIndex in range(1, len(testReportRow1StringList) + 1):
-            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
-
-        testResult = self.Test_02043_18_04939_STRUCT_0400_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0400", "", ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0400", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0410_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0410", "", ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0410", testResult, ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0420_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0420", "", ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0420", testResult, ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0430_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0430", "", ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0430", testResult, ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0440_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0440", "", ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0440", testResult, ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0450_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0450", "", ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0450", testResult, ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0460_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0460", "", ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0460", testResult, ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0470_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0470", "", ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0470", testResult, ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0480_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0480", "", ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0480", testResult, ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0490_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0490", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0490", testResult, ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0500_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0500", "", ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0500", testResult, ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0510_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0510", "", ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0510", testResult, ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0520_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0520", "", ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0520", testResult, ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
-
-        testResult = self.Test_02043_18_04939_STRUCT_0530_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0530", "", ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0530", testResult, ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
-
-        reportWorkBook.save(filename)
-
-    def TestGeneralStructure_DOC4_XLSX_XLSM(self, workBook):
-        flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC4_XLSX_XLSM.xlsx"
-        reportWorkBook = openpyxl.Workbook()
-        reportWorkSheet1 = reportWorkBook.active
-        reportWorkSheet1.title = "Report Information"
-        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
-                                           "Customer effects file:", "check level:", "", "Date of the test:",
-                                           "Time of the test:",
-                                           "", "TSD file checked:", "TSD function file checked:",
-                                           "TSD system file checked:",
-                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-
-        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
-            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
-
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
-        for colIndex in range(1, len(testReportRow1StringList) + 1):
-            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 40 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
 
         testResult = self.Test_02043_18_04939_STRUCT_0400_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0400", "", ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0400", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0410", "", ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0410", testResult, ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0420_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0420", "", ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0420", testResult, ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0430_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0430", "", ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0430", testResult, ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0440_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0440", "", ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0440", testResult, ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0450_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0450", "", ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0450", testResult, ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0460_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0460", "", ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0460", testResult, ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0470_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0470", "", ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0470", testResult, ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0480_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0480", "", ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0480", testResult, ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0490_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0490", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0490", testResult, ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0500_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0500", "", ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0500", testResult, ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0510_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0510", "", ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0510", testResult, ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0520_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0520", "", ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0520", testResult, ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0530_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0530", "", ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0530", testResult, ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000", fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        reportWorkBook.save(filename)
+        reportWorkBook.Save()
 
     def TestGeneralStructure_DOC5_XLS(self, workBook):
 
         flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC5_XLS.xlsx"
-        reportWorkBook = openpyxl.Workbook()
-        reportWorkSheet1 = reportWorkBook.active
-        reportWorkSheet1.title = "Report Information"
-        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
-                                           "Customer effects file:", "check level:", "", "Date of the test:", "Time of the test:",
-                                           "", "TSD file checked:", "TSD function file checked:", "TSD system file checked:",
-                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-        for rowIndex in range(1, len(reportInformationCol1StringList)+1):
-            reportWorkSheet1.cell(row = rowIndex, column = 1, value = reportInformationCol1StringList[rowIndex-1])
+        fileName = self.tab1.myTextBox3.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet1 = None
+        reportWorkSheet2 = None
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Report Information":
+                reportWorkSheet1 = sheet
+        if not reportWorkSheet1:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None,sheetAfter)
+            reportWorkSheet1.Name = "Report Information"
 
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
-        for colIndex in range(1, len(testReportRow1StringList)+1):
-            reportWorkSheet2.cell(row = 1, column = colIndex, value = testReportRow1StringList[colIndex-1])
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0700_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0700","",""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0700", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0710_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0710","",""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0710", testResult, ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0720_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0720", "", ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0720", testResult, ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0730_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0730", "", ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00", fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0730", testResult, ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0740_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0740", "", ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0740", testResult, ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0750_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0750", "", ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0750", testResult, ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0760_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0760", "", ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0760", testResult, ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0770_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0770", "", ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0770", testResult, ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0780_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0780", "", ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0780", testResult, ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0790_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0790", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0790", testResult, ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0800_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0800", "", ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0800", testResult, ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0810_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0810", "", ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0810", testResult, ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0820_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0820", "", ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0820", testResult, ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0830_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0830", "", ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0830", testResult, ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0840_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0840", "", ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0840", testResult, ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0850_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0850", "", ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0850", testResult, ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0860_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0860", "", ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0860", testResult, ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0870_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0870", "", ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0870", testResult, ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0880_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0880", "", ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0880", testResult, ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0890_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0890", "", ""])
-            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0890", testResult, ""])
-            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0900_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0900", "", ""])
-            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0900", testResult, ""])
-            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-
-        testResult = self.Test_02043_18_04939_STRUCT_0910_XLS(workBook)
-        if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0910", "", ""])
-            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
-        else:
-            flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0910", testResult, ""])
-            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
-
-
-        reportWorkBook.save(filename)
-
-    def TestGeneralStructure_DOC5_XLSX_XLSM(self, workBook):
-
-        flag = 1
-        filename = "C:\\Users\\admacesanu\\Desktop\\Python_Project\\reportDOC5_XLSX_XLSM.xlsx"
-        reportWorkBook = openpyxl.Workbook()
-        reportWorkSheet1 = reportWorkBook.active
-        reportWorkSheet1.title = "Report Information"
-        reportWorkSheet2 = reportWorkBook.create_sheet("Test Report")
         reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
                                            "Customer effects file:", "check level:", "", "Date of the test:",
                                            "Time of the test:",
                                            "", "TSD file checked:", "TSD function file checked:",
                                            "TSD system file checked:",
                                            "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-        for rowIndex in range(1, len(reportInformationCol1StringList) + 1):
-            reportWorkSheet1.cell(row=rowIndex, column=1, value=reportInformationCol1StringList[rowIndex - 1])
-
         testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
-        for colIndex in range(1, len(testReportRow1StringList) + 1):
-            reportWorkSheet2.cell(row=1, column=colIndex, value=testReportRow1StringList[colIndex - 1])
+
+
+        for i, name in enumerate(reportInformationCol1StringList):
+            reportWorkSheet1.Cells(i + 1, 1).Value = name
+        reportWorkSheet1.Columns.AutoFit()
+        reportWorkSheet1.Columns.Font.Bold = True
+
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None,sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1,i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 70 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0700_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0710_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0720_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0730_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0740_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0750_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0760_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0770_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0780_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0790_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0800_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0810_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0820_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0830_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0840_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0850_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0860_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0870_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0880_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0890_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0900_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0910_XLS(workBook)
+        if testResult == 1:
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            flag = 0
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        reportWorkBook.Save()
+
+    def TestGeneralStructure_DOC5_XLSX_XLSM(self, workBook):
+
+
+        flag = 1
+        fileName = self.tab1.myTextBox3.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet1 = None
+        reportWorkSheet2 = None
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Report Information":
+                reportWorkSheet1 = sheet
+        if not reportWorkSheet1:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None,sheetAfter)
+            reportWorkSheet1.Name = "Report Information"
+
+        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
+                                           "Customer effects file:", "check level:", "", "Date of the test:",
+                                           "Time of the test:",
+                                           "", "TSD file checked:", "TSD function file checked:",
+                                           "TSD system file checked:",
+                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+
+        for i, name in enumerate(reportInformationCol1StringList):
+            reportWorkSheet1.Cells(i + 1, 1).Value = name
+        reportWorkSheet1.Columns.AutoFit()
+        reportWorkSheet1.Columns.Font.Bold = True
+
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None,sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1,i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+
+        row = 2
+        str1 = "02043_18_04939_STRUCT_0"
+        stringInt = 70 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
 
         testResult = self.Test_02043_18_04939_STRUCT_0700_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0700", "", ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0700", testResult, ""])
-            reportWorkSheet2.cell(row=2, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0710_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0710", "", ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0710", testResult, ""])
-            reportWorkSheet2.cell(row=3, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0720_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0720", "", ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0720", testResult, ""])
-            reportWorkSheet2.cell(row=4, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0730_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0730", "", ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0730", testResult, ""])
-            reportWorkSheet2.cell(row=5, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0740_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0740", "", ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0740", testResult, ""])
-            reportWorkSheet2.cell(row=6, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0750_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0750", "", ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0750", testResult, ""])
-            reportWorkSheet2.cell(row=7, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0760_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0760", "", ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0760", testResult, ""])
-            reportWorkSheet2.cell(row=8, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0770_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0770", "", ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0770", testResult, ""])
-            reportWorkSheet2.cell(row=9, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0780_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0780", "", ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0780", testResult, ""])
-            reportWorkSheet2.cell(row=10, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0790_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0790", "", ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0790", testResult, ""])
-            reportWorkSheet2.cell(row=11, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0800_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0800", "", ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0800", testResult, ""])
-            reportWorkSheet2.cell(row=12, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0810_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0810", "", ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0810", testResult, ""])
-            reportWorkSheet2.cell(row=13, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0820_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0820", "", ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0820", testResult, ""])
-            reportWorkSheet2.cell(row=14, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0830_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0830", "", ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0830", testResult, ""])
-            reportWorkSheet2.cell(row=15, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
-
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0840_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0840", "", ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0840", testResult, ""])
-            reportWorkSheet2.cell(row=16, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0850_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0850", "", ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0850", testResult, ""])
-            reportWorkSheet2.cell(row=17, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0860_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0860", "", ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0860", testResult, ""])
-            reportWorkSheet2.cell(row=18, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0870_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0870", "", ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0870", testResult, ""])
-            reportWorkSheet2.cell(row=19, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0880_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0880", "", ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0880", testResult, ""])
-            reportWorkSheet2.cell(row=20, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0890_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0890", "", ""])
-            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0890", testResult, ""])
-            reportWorkSheet2.cell(row=21, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0900_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0900", "", ""])
-            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0900", testResult, ""])
-            reportWorkSheet2.cell(row=22, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0910_XLSX_XLSM(workBook)
         if testResult == 1:
-            reportWorkSheet2.append(["Good", "02043_18_04939_STRUCT_0910", "", ""])
-            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="00FF00",fill_type="solid")
-
+            for i, name in enumerate(["Good", String, "", ""]):
+                 reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             flag = 0
-            reportWorkSheet2.append(["Blocking", "02043_18_04939_STRUCT_0910", testResult, ""])
-            reportWorkSheet2.cell(row=23, column=1).fill = openpyxl.styles.fills.PatternFill(fgColor="FF0000",fill_type="solid")
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
-        reportWorkBook.save(filename)
+        reportWorkBook.Save()
 
     def GetTsdFileExtension(self):
 
@@ -2711,8 +3183,12 @@ class Test(Application):
         if self.tsdFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdFileExtension == "xlsx":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, read_only=True)
         elif self.tsdFileExtension == "xlsm":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, keep_vba=True, read_only=True)
 
     def TestTsdFile(self):
@@ -2731,7 +3207,7 @@ class Test(Application):
                 flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM(workBook)
-              self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
+                self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
                 self.TestGeneralStructure_XLSX_XLSM(workBook)
                 flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             if flag == True:
@@ -2754,8 +3230,12 @@ class Test(Application):
         if self.tsdVehicleFunctionFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdVehicleFunctionFileExtension == "xlsx":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, read_only=True)
         elif self.tsdVehicleFunctionFileExtension == "xlsm":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, keep_vba=True, read_only=True)
 
     def TestTsdVehicleFunctionFile(self):
@@ -2794,8 +3274,12 @@ class Test(Application):
         if self.tsdSystemFileExtension == "xls":
             return xlrd.open_workbook(fileName,  formatting_info=True)
         elif self.tsdSystemFileExtension == "xlsx":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, read_only=True)
         elif self.tsdSystemFileExtension == "xlsm":
+            with open(fileName, "rb") as fileReader:
+                fileName = io.BytesIO(fileReader.read())
             return openpyxl.load_workbook(fileName, keep_vba=True, read_only=True)
 
     def TestTsdSystemFile(self):
@@ -3700,8 +4184,6 @@ class Test(Application):
         else:
             return 1
 
-
-
     def Test_02043_18_04939_STRUCT_0410_XLSX_XLSM(self, workBook):
 
 
@@ -3984,7 +4466,10 @@ class Test(Application):
         try:
             index = sheetNames.index("feared events")
         except:
-            index = sheetNames.index("er")
+            try:
+                index = sheetNames.index("er")
+            except:
+                return 0
         workSheet = workBook.sheet_by_index(index)
 
         cellNamesRow1 = [x.strip().casefold() for x in cellNamesRow1]
@@ -4075,7 +4560,10 @@ class Test(Application):
         try:
             index = sheetNames.index("system")
         except:
-            index = sheetNames.index("système")
+            try:
+                index = sheetNames.index("système")
+            except:
+                return 0
 
         workSheet = workBook.sheet_by_index(index)
 
@@ -4457,7 +4945,6 @@ class Test(Application):
             return errorColValueString
         else:
             return 1
-
 
     def Test_02043_18_04939_STRUCT_0120_XLS(self, workBook):
 
@@ -6776,6 +7263,32 @@ class Test(Application):
         if self.tab1.myTextBox2.toPlainText():
             self.download_templates(self.DOC4Link)
 
+        filePath = "C:/Users/admacesanu/AppData/Local/Temp/TSD_Checker/02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx"
+
+        self.download_doc9(self.DOC9Link)
+        self.testReqDict = dict()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(filePath)
+        workSheet = workBook.Sheets(1)
+        for row in workSheet.Rows:
+            if workSheet.Cells(row.Row, 1).Value == "Requirements":
+                rowStartIndex = row.Row
+            if workSheet.Cells(row.Row, 1).Value == "02043_18_04939_COH_2130 ":
+                break
+
+        cellRange = workSheet.Range(workSheet.Cells(rowStartIndex+1,1), workSheet.Cells(row.Row, 4))
+        for row in cellRange.Rows:
+            dictTemp = dict()
+            dictTemp["Previsional"] = workSheet.Cells(row.Row, 2).Value
+            dictTemp["Consolidated"] = workSheet.Cells(row.Row, 3).Value
+            dictTemp["Validated"] = workSheet.Cells(row.Row, 4).Value
+            self.testReqDict[str(workSheet.Cells(row.Row, 1).Value).strip()] = dictTemp
+
+        self.checkLevel = str(self.tab1.combo.currentText()).strip()
+        b = "02043_18_04939_COH_2130"
+        c = "Previsional"
+
+        a = self.testReqDict[b][c]
 
         self.TestTsdFile()
         self.TestTsdVehicleFunctionFile()
@@ -6783,6 +7296,8 @@ class Test(Application):
         self.TestAmdecFile()
         self.TestExportMedialecMatriceFile()
         self.TestDiagnosticMatrixFile()
+
+        os.system("taskkill /f /im EXCEL.EXE")
 
 if __name__ == '__main__':
 
