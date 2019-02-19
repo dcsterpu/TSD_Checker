@@ -146,7 +146,7 @@ class Application(QWidget):
         out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
         if not user or not password:
             self.tab1.textbox.setText("Missing Username or Password")
-            return
+            return "False"
 
         try:
             os.stat(out_path)
@@ -157,7 +157,7 @@ class Application(QWidget):
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
-            return
+            return "False"
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
         FilePath = out_path + FileName
@@ -170,7 +170,6 @@ class Application(QWidget):
                 f.write(chuck)
         return FilePath
 
-
     def download_DOC3(self, url):
         user = self.tab2.TextBoxUser.text()
         user = str(user)
@@ -179,8 +178,9 @@ class Application(QWidget):
         username = os.environ['USERNAME']
         out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
         if not user or not password:
-            self.tab1.textbox.setText("Missing Username or Password")
-            return
+            if not user or not password:
+                self.tab1.textbox.setText("Missing Username or Password")
+                return "False"
 
         try:
             os.stat(out_path)
@@ -191,7 +191,7 @@ class Application(QWidget):
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
-            return
+            return "False"
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
 
@@ -206,7 +206,6 @@ class Application(QWidget):
                 f.write(chuck)
         return FilePath
 
-
     def download_DOC4(self, url):
         user = self.tab2.TextBoxUser.text()
         user = str(user)
@@ -216,7 +215,7 @@ class Application(QWidget):
         out_path = "C:/Users/" + username + "/AppData/Local/Temp/TSD_Checker/"
         if not user or not password:
             self.tab1.textbox.setText("Missing Username or Password")
-            return
+            return "False"
 
         try:
             os.stat(out_path)
@@ -227,7 +226,7 @@ class Application(QWidget):
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
-            return
+            return "False"
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
 
@@ -252,18 +251,7 @@ class Application(QWidget):
         user_path = "C:/Users/" + username
         if not user or not password:
             self.tab1.textbox.setText("Missing Username or Password")
-            return
-        ''' try:
-            os.stat(user_path)
-          except:
-            self.errorPopUp = QWidget()
-            self.errorPopUp.setWindowTitle("ERRROR")
-            self.errorPopUp.Label = QLabel(self.errorPopUp)
-            self.errorPopUp.Label.setText("Username or Password Incorrect") 
-            self.errorPopUp.Label.setAlignment(QtCore.Qt.AlignCenter)
-            self.errorPopUp.setGeometry(550, 550, 200, 50)
-            self.errorPopUp.show()
-            return '''
+            return "False"
         try:
             os.stat(out_path)
         except:
@@ -273,7 +261,7 @@ class Application(QWidget):
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
-            return
+            return "False"
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
         FilePath = out_path + FileName
@@ -9329,17 +9317,19 @@ class Test(Application):
         self.tab1.pbar.setValue(0)
         self.pbvalue = 0
         if not self.tab2.myTextBox5.toPlainText():
-            self.download_file(self.CesareLink)
+            result = self.download_file(self.CesareLink)
         if not self.tab2.myTextBox4.toPlainText():
-            self.download_file(self.TSDConfigLink)
+            result = self.download_file(self.TSDConfigLink)
         if not self.tab2.myTextBox6.toPlainText():
-            self.download_file(self.CustomerEffectLink)
+            result = self.download_file(self.CustomerEffectLink)
         if not self.tab2.myTextBox9.toPlainText():
-            self.download_file(self.DiversityLink)
+            result = self.download_file(self.DiversityLink)
         if self.tab1.myTextBox1.toPlainText():
-            self.download_DOC3(self.DOC3Link)
+            result = self.download_DOC3(self.DOC3Link)
         if self.tab1.myTextBox2.toPlainText():
-            self.download_DOC4(self.DOC4Link)
+            result = self.download_DOC4(self.DOC4Link)
+        if result == "False":
+            return
 
 
         filePath = self.download_doc9(self.DOC9Link)
