@@ -9,6 +9,7 @@ import os
 import io
 from win32ui import FindWindow
 from ctypes import windll
+import datetime
 from openpyxl.styles import Color
 
 
@@ -159,7 +160,7 @@ class Application(QWidget):
             return
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
-        FilePath = out_path + "/" + FileName
+        FilePath = out_path + FileName
         success_download = self.tab1.textbox.toPlainText()
         success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
         print("Saving file to location:" + FilePath)
@@ -198,7 +199,7 @@ class Application(QWidget):
             FileName_new = "DOC3" + os.path.splitext(FileName)[1]
 
         # change file extension
-        FilePath = out_path + "/" + os.path.splitext(FileName_new)[0] + ".xls"
+        FilePath = out_path + os.path.splitext(FileName_new)[0] + ".xls"
 
         with open(FilePath, 'wb') as f:
             for chuck in response.iter_content(chunk_size=128):
@@ -234,7 +235,7 @@ class Application(QWidget):
             FileName_new = "DOC4" + os.path.splitext(FileName)[1]
 
         # change file extension
-        FilePath = out_path + "/" + os.path.splitext(FileName_new)[0] + ".xls"
+        FilePath = out_path + os.path.splitext(FileName_new)[0] + ".xls"
 
         with open(FilePath, 'wb') as f:
             for chuck in response.iter_content(chunk_size=128):
@@ -275,7 +276,7 @@ class Application(QWidget):
             return
 
         FileName = response.headers['Content-Disposition'].split('"')[1]
-        FilePath = out_path + "/" + FileName
+        FilePath = out_path + FileName
         success_download = self.tab1.textbox.toPlainText()
         success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
         print("Saving file to location:" + FilePath)
@@ -346,9 +347,9 @@ class Application(QWidget):
         tab.lbl = QLabel("Check level", tab)
 
         tab.combo = QComboBox(tab)
-        tab.combo.addItem("   Previsional   ")
-        tab.combo.addItem("   Consolidated   ")
-        tab.combo.addItem("   Validated   ")
+        tab.combo.addItem("Previsional")
+        tab.combo.addItem("Consolidated")
+        tab.combo.addItem("Validated")
         tab.combo.resize(508, 20.4)  #rezise the drop down list
         tab.combo.move(200, 200)
         tab.lbl.move(5, 205)
@@ -479,7 +480,6 @@ class Application(QWidget):
         tab.lblUser.move(165,25)
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
-        tab.TextBoxUser.setText("E518720")
         tab.TextBoxUser.move(200, 20)
 
 
@@ -488,7 +488,6 @@ class Application(QWidget):
         tab.TextBoxPass = QtWidgets.QLineEdit(tab)
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
-        tab.TextBoxPass.setText("Cst78788")
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
 
 
@@ -604,516 +603,12 @@ class Test(Application):
         except:
             os.mkdir(out_path)
 
-
-    def TestGeneralStructureXLS(self, workBook, fileName):
-
-        flag = True
-        if self.Test_02043_18_04939_STRUCT_0000_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0005_XLS(fileName) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0010_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0011_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0020_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0025_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0030_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Référence de la ligne” (or “Line number”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0035_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0040_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly. "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0051_XLS(workBook) == 1:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0052_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0053_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0054_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0055_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0056_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0057_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0058_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0058:  The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0059_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0060_XLS(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-        return flag
-
-    def TestGeneralStructureXLSX_XLSM(self, workBook):
-
-        flag = True
-
-        if self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Référence de la ligne” (or “Line number”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0040:  The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly. "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-        if self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-
-        if self.Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-
-        if self.Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-
-        if self.Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-
-
-        if self.Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0058:  The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-
-        if self.Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(workBook):
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
-            self.tab1.textbox.setText(text)
-        else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 "
-            self.tab1.textbox.setText(text)
-            flag = False
-        self.pbvalue = self.pbvalue + 0.8772
-        self.tab1.pbar.setValue(self.pbvalue)
-        return flag
-
-    def TestGeneralStructure_XLS(self, workBook, fileName):
+    def TestGeneralStructureXLS_DOC3(self, workBook, fileName):
         flag = 1
         fileName = self.tab1.myTextBox1.toPlainText()
         excel = win32.gencache.EnsureDispatch('Excel.Application')
         reportWorkBook = excel.Workbooks.Open(fileName)
-        #reportWorkSheet1 = None
         reportWorkSheet2 = None
-        '''for sheet in reportWorkBook.Worksheets:
-            if sheet.Name == "Report Information":
-                reportWorkSheet1 = sheet
-        if not reportWorkSheet1:
-            workSheetsNumber = reportWorkBook.Sheets.Count
-            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
-            reportWorkSheet1 = reportWorkBook.Worksheets.Add(None, sheetAfter)
-            reportWorkSheet1.Name = "Report Information"
-
-        reportInformationCol1StringList = ["Tool version:", "Criticity configuration file:", "", "Extract CESARE file:",
-                                           "Customer effects file:", "check level:", "", "Date of the test:",
-                                           "Time of the test:",
-                                           "", "TSD file checked:", "TSD function file checked:",
-                                           "TSD system file checked:",
-                                           "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
-
-        for i, name in enumerate(reportInformationCol1StringList):
-            reportWorkSheet1.Cells(i + 1, 1).Value = name
-        reportWorkSheet1.Columns.AutoFit()
-        reportWorkSheet1.Columns.Font.Bold = True'''
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -1140,260 +635,412 @@ class Test(Application):
 
         testResult = self.Test_02043_18_04939_STRUCT_0000_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
             for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         '''row += 1
-        str2 = str(stringInt + row)
-        String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0005_XLS(fileName)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
             flag = 0
             for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name'''
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0010_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
             flag = 0
             for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0011_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0020_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0025_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0030_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0035_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0040_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040", testResult, ""]):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0051_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0051"][self.checkLevel], "02043_18_04939_STRUCT_0051", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0052_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0052"][self.checkLevel], "02043_18_04939_STRUCT_0052",
-                     testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052",testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0053_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0053"][self.checkLevel], "02043_18_04939_STRUCT_0053",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0054_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0054"][self.checkLevel], "02043_18_04939_STRUCT_0054",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0055_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0055"][self.checkLevel], "02043_18_04939_STRUCT_0055",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0056_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0056"][self.checkLevel], "02043_18_04939_STRUCT_0056",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0057_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0057"][self.checkLevel], "02043_18_04939_STRUCT_0057",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0058_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0058"][self.checkLevel], "02043_18_04939_STRUCT_0058",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0059_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0059"][self.checkLevel], "02043_18_04939_STRUCT_0059",
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0060_XLS(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            flag = 0
-            for i, name in enumerate(
-                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         try:
             reportWorkBook.Save()
         except Exception as e:
             print(e)
+        return flag
 
-    def TestGeneralStructure_XLSX_XLSM(self, workBook):
+    def TestGeneralStructureXLSX_XLSM_DOC3(self, workBook):
         flag = 1
         if self.tab1.myTextBox1.toPlainText():
            fileName = self.tab1.myTextBox1.toPlainText()
@@ -1426,234 +1073,2125 @@ class Test(Application):
 
         testResult = self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            flag = 0
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = False
             for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", testResult, ""]):
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040", testResult, ""]):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
-
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0051"][self.checkLevel], "02043_18_04939_STRUCT_0051", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0052"][self.checkLevel], "02043_18_04939_STRUCT_0052", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052", testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0053"][self.checkLevel], "02043_18_04939_STRUCT_0053", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0054"][self.checkLevel], "02043_18_04939_STRUCT_0054", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0055"][self.checkLevel], "02043_18_04939_STRUCT_0055", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0056"][self.checkLevel], "02043_18_04939_STRUCT_0056", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0057"][self.checkLevel], "02043_18_04939_STRUCT_0057", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0058"][self.checkLevel], "02043_18_04939_STRUCT_0058", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0059"][self.checkLevel], "02043_18_04939_STRUCT_0059", testResult, ""]):
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
+                                      testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
         testResult = self.Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(workBook)
         if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060", testResult, ""]):
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+                     testResult, ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
 
         try:
             reportWorkBook.Save()
         except Exception as e:
             print(e)
+        return flag
+
+    def TestGeneralStructureXLS_DOC4(self, workBook, fileName):
+        flag = 1
+        fileName = self.tab1.myTextBox2.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet2 = None
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 20
+        str1 = "02043_18_04939_STRUCT_00"
+        stringInt = 0 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0000_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        '''row += 1
+        testResult = self.Test_02043_18_04939_STRUCT_0005_XLS(fileName)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name'''
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0010_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0011_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0020_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0025_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0030_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0035_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0040_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0051_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0052_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0053_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0054_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0055_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0056_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0057_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0058_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0059_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0060_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+        return flag
+
+    def TestGeneralStructureXLSX_XLSM_DOC4(self, workBook):
+        flag = 1
+        if self.tab1.myTextBox2.toPlainText():
+           fileName = self.tab1.myTextBox2.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet2 = None
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 20
+        str1 = "02043_18_04939_STRUCT_00"
+        stringInt = 0 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+        return flag
+
+    def TestGeneralStructureXLS_DOC5(self, workBook, fileName):
+        flag = 1
+        fileName = self.tab1.myTextBox3.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet2 = None
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 20
+        str1 = "02043_18_04939_STRUCT_00"
+        stringInt = 0 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0000_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        '''row += 1
+        testResult = self.Test_02043_18_04939_STRUCT_0005_XLS(fileName)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name'''
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        testResult = self.Test_02043_18_04939_STRUCT_0010_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0011_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0020_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0025_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0030_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0035_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0040_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0051_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0052_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0053_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0054_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0055_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0056_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0057_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0058_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0059_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0060_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+        return flag
+
+    def TestGeneralStructureXLSX_XLSM_DOC5(self, workBook):
+        flag = 1
+        if self.tab1.myTextBox3.toPlainText():
+           fileName = self.tab1.myTextBox3.toPlainText()
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        reportWorkBook = excel.Workbooks.Open(fileName)
+        reportWorkSheet2 = None
+
+        for sheet in reportWorkBook.Worksheets:
+            if sheet.Name == "Test Report":
+                reportWorkSheet2 = sheet
+        if not reportWorkSheet2:
+            workSheetsNumber = reportWorkBook.Sheets.Count
+            sheetAfter = reportWorkBook.Sheets(workSheetsNumber)
+            reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
+            reportWorkSheet2.Name = "Test Report"
+
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+
+        for i, name in enumerate(testReportRow1StringList):
+            reportWorkSheet2.Cells(1, i + 1).Value = name
+        reportWorkSheet2.Columns.AutoFit()
+        reportWorkSheet2.Columns.Font.Bold = True
+
+        row = 20
+        str1 = "02043_18_04939_STRUCT_00"
+        stringInt = 0 - row
+        str2 = str(stringInt + row)
+        str3 = "0"
+        String = str1 + str2 + str3
+
+        testResult = self.Test_02043_18_04939_STRUCT_0000_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0005_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0005: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0010_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0011_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0020_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0025_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0025", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0030_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0035_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0030", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0040_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0051_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0051", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0052_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0052", testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0053_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0053",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0054_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0054",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0055_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0055",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0056_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0056",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0057_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0057",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0058_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0058",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0059_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate(["", "02043_18_04939_STRUCT_0059",
+                                      testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        row += 1
+        str2 = str(stringInt + row)
+        String = str1 + str2 + str3
+        testResult = self.Test_02043_18_04939_STRUCT_0060_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+            self.tab1.textbox.setText(text)
+            flag = False
+            for i, name in enumerate(
+                    [self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060",
+                     testResult, ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        self.pbvalue = self.pbvalue + 0.8772
+        self.tab1.pbar.setValue(self.pbvalue)
+
+        try:
+            reportWorkBook.Save()
+        except Exception as e:
+            print(e)
+        return flag
 
     def TestGeneralStructure_DOC3_XLS(self,workBook):
 
@@ -1684,6 +3222,58 @@ class Test(Application):
             reportWorkSheet1.Cells(i + 1, 1).Value = name
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
+
+
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -1953,6 +3543,58 @@ class Test(Application):
             reportWorkSheet1.Cells(i + 1, 1).Value = name
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
+
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
+
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -2224,6 +3866,57 @@ class Test(Application):
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
 
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
+
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -2447,6 +4140,58 @@ class Test(Application):
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
 
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
+
+
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -2667,6 +4412,58 @@ class Test(Application):
             reportWorkSheet1.Cells(i + 1, 1).Value = name
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
+
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
+
 
 
         for sheet in reportWorkBook.Worksheets:
@@ -3008,6 +4805,58 @@ class Test(Application):
         reportWorkSheet1.Columns.AutoFit()
         reportWorkSheet1.Columns.Font.Bold = True
 
+        if self.tab1.myTextBox1.toPlainText():
+            TSD_file_checked = self.tab1.myTextBox1.toPlainText()
+        else:
+            TSD_file_checked = "None"
+
+        if self.tab1.myTextBox2.toPlainText():
+            TSD_function_file_checked = self.tab1.myTextBox2.toPlainText()
+        else:
+            TSD_function_file_checked = "None"
+
+        if self.tab1.myTextBox3.toPlainText():
+            TSD_system_file_checked = self.tab1.myTextBox3.toPlainText()
+        else:
+            TSD_system_file_checked = "None"
+
+
+        if self.tab1.myTextBox7.toPlainText():
+            amdec = self.tab1.myTextBox3.toPlainText()
+        else:
+            amdec = "None"
+
+        if self.tab1.myTextBox8.toPlainText():
+            MedialecMatrice = self.tab1.myTextBox8.toPlainText()
+        else:
+            MedialecMatrice = "None"
+
+        if self.tab2.myTextBox5.toPlainText():
+             cesare = self.tab2.myTextBox5.toPlainText()
+        else:
+            cesare = "None"
+
+        if self.tab2.myTextBox6.toPlainText():
+            CustomerEffect = self.tab2.myTextBox6.toPlainText()
+        else:
+            CustomerEffect = "None"
+
+        if self.TestTsdFile is 1:
+            status = "Pass"
+        else:
+            status = "Fail"
+
+        check_level = str(self.tab1.combo.currentText())
+
+
+        now = datetime.datetime.now()
+
+        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", cesare,  CustomerEffect, check_level,
+                      "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
+                      TSD_file_checked, TSD_function_file_checked, TSD_system_file_checked, "", amdec, MedialecMatrice, "", status]
+        for i, name in enumerate(reportCol2):
+            reportWorkSheet1.Cells(i + 1, 2).Value = name
+
 
         for sheet in reportWorkBook.Worksheets:
             if sheet.Name == "Test Report":
@@ -3347,22 +5196,25 @@ class Test(Application):
             self.tab1.textbox.setText(text)
             workBook = self.GetTsdFileWorkbook()
             if self.tsdFileExtension == "xls":
-                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox1.toPlainText())
+                flag = self.TestGeneralStructureXLS_DOC3(workBook, self.tab1.myTextBox1.toPlainText())
                 self.TestGeneralStructure_DOC3_XLS(workBook)
-                self.TestGeneralStructure_XLS(workBook, self.tab1.myTextBox1.toPlainText())
+                self.TestGeneralStructureXLS_DOC3(workBook, self.tab1.myTextBox1.toPlainText())
                 flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             else:
-                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                flag = self.TestGeneralStructureXLSX_XLSM_DOC3(workBook)
                 self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
-                self.TestGeneralStructure_XLSX_XLSM(workBook)
+                self.TestGeneralStructureXLSX_XLSM_DOC3(workBook)
                 flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             if flag == True:
                 self.tab1.colorTextBox1.setStyleSheet('background-color: green')
+
             else:
                 self.tab1.colorTextBox1.setStyleSheet('background-color: red')
+
         else:
             self.pbvalue = self.pbvalue + 0.8772*19
             self.tab1.pbar.setValue(self.pbvalue)
+        return flag
 
     def GetTsdVehicleFunctionFileExtension(self):
         fileName = self.tab1.myTextBox2.toPlainText()
@@ -3394,13 +5246,13 @@ class Test(Application):
             self.tab1.textbox.setText(text)
             workBook = self.GetTsdVehicleFunctionFileWorkbook()
             if self.tsdVehicleFunctionFileExtension == "xls":
-                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox2.toPlainText())
+                flag = self.TestGeneralStructureXLS_DOC4(workBook, self.tab1.myTextBox2.toPlainText())
                 self.TestGeneralStructure_DOC4_XLS(workBook)
-                #self.TestGeneralStructure_XLS(workBook, self.tab1.myTextBox2.toPlainText())
+                self.TestGeneralStructureXLS_DOC4(workBook, self.tab1.myTextBox2.toPlainText())
             else:
-                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                flag = self.TestGeneralStructureXLSX_XLSM_DOC4(workBook)
                 self.TestGeneralStructure_DOC4_XLSX_XLSM(workBook)
-                #self.TestGeneralStructure_XLSX_XLSM(workBook)
+                self.TestGeneralStructureXLSX_XLSM_DOC4(workBook)
             if flag == True:
                 self.tab1.colorTextBox2.setStyleSheet('background-color: green')
             else:
@@ -3437,14 +5289,14 @@ class Test(Application):
             self.tab1.textbox.setText(text)
             workBook = self.GetTsdSystemFileWorkbook()
             if self.tsdSystemFileExtension == "xls":
-                flag = self.TestGeneralStructureXLS(workBook, self.tab1.myTextBox3.toPlainText())
+                flag = self.TestGeneralStructureXLS_DOC5(workBook, self.tab1.myTextBox3.toPlainText())
                 self.TestGeneralStructure_DOC5_XLS(workBook)
-                #self.TestGeneralStructure_XLS(workBook, self.tab1.myTextBox3.toPlainText())
+                self.TestGeneralStructureXLS_DOC5(workBook, self.tab1.myTextBox3.toPlainText())
                 flag = flag and self.TestGeneralStructure_DOC5_XLS(workBook)
             else:
-                flag = self.TestGeneralStructureXLSX_XLSM(workBook)
+                flag = self.TestGeneralStructureXLSX_XLSM_DOC5(workBook)
                 self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
-                #self.TestGeneralStructure_XLSX_XLSM(workBook)
+                self.TestGeneralStructureXLSX_XLSM_DOC5(workBook)
                 flag = flag and self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox3.setStyleSheet('background-color: green')
@@ -3587,7 +5439,6 @@ class Test(Application):
         if ws.Cells(51,1).HasFormula is False:
             excel.Application.Quit()
             return 1
-
         else:
             return 0
             excel.Application.Quit()
@@ -7471,7 +9322,6 @@ class Test(Application):
             return 1
 
 
-
     def buttonClicked(self):
 
         os.system("taskkill /f /im EXCEL.EXE")
@@ -7491,9 +9341,8 @@ class Test(Application):
         if self.tab1.myTextBox2.toPlainText():
             self.download_DOC4(self.DOC4Link)
 
-        filePath = "C:/Users/admacesanu/AppData/Local/Temp/TSD_Checker/02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx"
 
-        self.download_doc9(self.DOC9Link)
+        filePath = self.download_doc9(self.DOC9Link)
         self.testReqDict = dict()
         excel = win32.gencache.EnsureDispatch('Excel.Application')
         workBook = excel.Workbooks.Open(filePath)
@@ -7513,10 +9362,6 @@ class Test(Application):
             self.testReqDict[str(workSheet.Cells(row.Row, 1).Value).strip()] = dictTemp
 
         self.checkLevel = str(self.tab1.combo.currentText()).strip()
-        b = "02043_18_04939_COH_2130"
-        c = "Previsional"
-
-        a = self.testReqDict[b][c]
 
         self.TestTsdFile()
         self.TestTsdVehicleFunctionFile()
