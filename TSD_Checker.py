@@ -467,7 +467,6 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -476,7 +475,6 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("Cst78788")
 
 
         # File Selectiom Dialog5
@@ -5529,9 +5527,11 @@ class Test(Application):
             workBook = self.GetTsdFileWorkbook()
             if self.tsdFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS_DOC3(workBook, self.tab1.myTextBox1.toPlainText(), path_Cesare, path_effect)
+                self.TestGeneralStructure_DOC3_XLS(workBook)
                 flag = flag and self.TestGeneralStructure_DOC3_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM_DOC3(workBook, path_Cesare, path_effect)
+                self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
                 flag = flag and self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox1.setStyleSheet('background-color: green')
@@ -5574,10 +5574,12 @@ class Test(Application):
             workBook = self.GetTsdVehicleFunctionFileWorkbook()
             if self.tsdVehicleFunctionFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS_DOC4(workBook, self.tab1.myTextBox2.toPlainText(), path_Cesare, path_effect)
+                self.TestGeneralStructure_DOC4_XLS(workBook)
                 flag = flag and self.TestGeneralStructure_DOC4_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM_DOC4(workBook, path_Cesare, path_effect)
-                flag = flag and self.TestGeneralStructure_DOC3_XLSX_XLSM(workBook)
+                self.TestGeneralStructure_DOC4_XLSX_XLSM(workBook)
+                flag = flag and self.TestGeneralStructure_DOC4_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox2.setStyleSheet('background-color: green')
             else:
@@ -5615,9 +5617,11 @@ class Test(Application):
             workBook = self.GetTsdSystemFileWorkbook()
             if self.tsdSystemFileExtension == "xls":
                 flag = self.TestGeneralStructureXLS_DOC5(workBook, self.tab1.myTextBox3.toPlainText(), path_Cesare, path_effect)
+                self.TestGeneralStructure_DOC5_XLS(workBook)
                 flag = flag and self.TestGeneralStructure_DOC5_XLS(workBook)
             else:
                 flag = self.TestGeneralStructureXLSX_XLSM_DOC5(workBook, path_Cesare, path_effect)
+                self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
                 flag = flag and self.TestGeneralStructure_DOC5_XLSX_XLSM(workBook)
             if flag == True:
                 self.tab1.colorTextBox3.setStyleSheet('background-color: green')
@@ -9670,6 +9674,7 @@ class Test(Application):
     def buttonClicked(self):
 
         os.system("taskkill /f /im EXCEL.EXE")
+        self.tab1.colorTextBox2.setStyleSheet('background-color: grey')
         self.tab1.textbox.setText("")
         self.tab1.pbar.setValue(0)
         self.pbvalue = 0
