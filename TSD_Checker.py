@@ -9648,33 +9648,15 @@ class Test(Application):
         else:
             return 1
 
-    '''def Test_02043_18_04939_IND_6130_XLS(self, workBook):
-
-        # get table sheet
-
-        sheetNames = workBook.sheet_names()
-        sheetNames = [x.casefold() for x in sheetNames]
-        try:
-            index = sheetNames.index("table")
-        except:
-            try:
-                index = sheetNames.index("tableau")
-            except:
-                return 0
-
-        workSheet = workBook.sheet_by_index(index)
-
-        rowValueList = list()
-        rowCellsList = workSheet.row(1)
-        for cell in rowCellsList:
-            rowValueList.append(str(cell.value).casefold().strip())'''
-
 
 
     def buttonClicked(self):
 
-        os.system("taskkill /f /im EXCEL.EXE")
+        self.tab1.colorTextBox1.setStyleSheet('background-color: grey')
         self.tab1.colorTextBox2.setStyleSheet('background-color: grey')
+        self.tab1.colorTextBox3.setStyleSheet('background-color: grey')
+
+        os.system("taskkill /f /im EXCEL.EXE")
         self.tab1.textbox.setText("")
         self.tab1.pbar.setValue(0)
         self.pbvalue = 0
