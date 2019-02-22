@@ -153,7 +153,11 @@ class Application(QWidget):
         except:
             os.mkdir(out_path)
 
-        response = requests.get(url, stream=True, auth=(user, password))
+        try:
+           response = requests.get(url, stream=True, auth=(user, password))
+        except:
+            return "Error"
+
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
@@ -184,7 +188,11 @@ class Application(QWidget):
         except:
             os.mkdir(out_path)
 
-        response = requests.get(url, stream=True, auth=(user, password))
+        try:
+           response = requests.get(url, stream=True, auth=(user, password))
+        except:
+            return "Error"
+
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
@@ -219,7 +227,11 @@ class Application(QWidget):
         except:
             os.mkdir(out_path)
 
-        response = requests.get(url, stream=True, auth=(user, password))
+        try:
+           response = requests.get(url, stream=True, auth=(user, password))
+        except:
+            return "Error"
+
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
@@ -467,6 +479,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
+        #tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -475,6 +488,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
+        #tab.TextBoxPass.setText("Cst78788")
 
 
         # File Selectiom Dialog5
@@ -4647,6 +4661,23 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Table” (or “tableau”) is not present or not written correctly.", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_WHOLENESS_1000_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0710 OK"
+            self.tab1.textbox.setText(text)
+            #for i, name in enumerate(["Good", String, "", ""]):
+             #    reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_0710: In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            #for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. ", ""]):
+             #   reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
 
         row += 1
         str2 = str(stringInt + row)
@@ -5069,6 +5100,7 @@ class Test(Application):
         str3 = "0"
         String = str1 + str2 + str3
 
+
         testResult = self.Test_02043_18_04939_STRUCT_0700_XLSX_XLSM(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
@@ -5084,6 +5116,29 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict[String][self.checkLevel], String,
                                       "The sheet “Table” (or “tableau”) is not present or not written correctly.", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+
+
+        row += 1
+        testResult = self.Test_02043_18_04939_WHOLENESS_1000_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_WHOLENESS_1000 OK"
+            self.tab1.textbox.setText(text)
+            #for i, name in enumerate(["Good", String, "", ""]):
+             #   reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_WHOLENESS_1000: The sheet “Table” (or “tableau”) is not present or not written correctly."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            #for i, name in enumerate([self.testReqDict[String][self.checkLevel], String,
+                                    #  "The sheet “Table” (or “tableau”) is not present or not written correctly.", ""]):
+                #reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+
 
         row += 1
         str2 = str(stringInt + row)
@@ -9648,7 +9703,63 @@ class Test(Application):
         else:
             return 1
 
+ #Wholeness
 
+    def Test_02043_18_04939_WHOLENESS_1000_XLS(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("table")
+        except:
+            try:
+                index = sheetNames.index("tableau")
+            except:
+                return 0
+
+        workSheet = workBook.sheet_by_index(index)
+        rowValueList = list()
+        rows = workSheet.get_rows()
+
+        try:
+            row = workSheet.rows
+        except:
+            return 0
+        for cell in row:
+            if str(cell.value).casefold() in {"référence", "reference"}:
+                rowValueList.append(str(cell.value).casefold().strip())
+                var = workSheet.cell(row,1).value
+                if var is not "":
+                                 return 1
+        return 0
+
+    def Test_02043_18_04939_WHOLENESS_1000_XLSX_XLSM(self, workBook):
+
+        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        try:
+            index = sheetNames.index("table")
+        except:
+            try:
+                index = sheetNames.index("tableau")
+            except:
+                return 0
+
+        rowValueList = list()
+        workSheet = workBook.worksheets[index]
+
+        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=10, max_col=10)
+        for cellTuple in row:
+            for cell in cellTuple:
+                if str(cell.value).casefold() in {"référence", "reference"}:
+                    #rowValueList.append(str(cell.value).casefold().strip())
+                    var = str(cell(min_row = row, max_row = 20, min_col = 1, max_col = 1).value)
+                    if var is  None:
+                        return 0
+                    else:
+                        return 1
+        return 0
 
     def buttonClicked(self):
 
@@ -9714,7 +9825,7 @@ if __name__ == '__main__':
 
 
     try:
-        FindWindow(None, "TSD Checker  V0.2")
+        FindWindow(None, "TSD Checker  V0.5")
         windll.user32.MessageBoxW(0, "Application already running", "Warning", 0|48)
 
     except:
