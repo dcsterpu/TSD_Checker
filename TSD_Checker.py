@@ -479,7 +479,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        #tab.TextBoxUser.setText("E518720")
+        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -488,7 +488,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        #tab.TextBoxPass.setText("Cst78788")
+        tab.TextBoxPass.setText("Cst78788")
 
 
         # File Selectiom Dialog5
@@ -4662,22 +4662,37 @@ class Test(Application):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
-        testResult = self.Test_02043_18_04939_WHOLENESS_1000_XLS(workBook)
+        testResult = self.Test_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060_XLS(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0710 OK"
+            text = text + "\nTest_02043_18_04939_STRUCT_01000 OK"
             self.tab1.textbox.setText(text)
             #for i, name in enumerate(["Good", String, "", ""]):
              #    reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_STRUCT_0710: In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]."
+            text = text + "\nTest_02043_18_04939_STRUCT_01000: In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]."
             self.tab1.textbox.setText(text)
             flag = 0
             #for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. ", ""]):
              #   reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
+        row += 1
+        testResult = self.Test_02043_18_04939_WHOLENESS_1050_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_01050 OK"
+            self.tab1.textbox.setText(text)
+            #for i, name in enumerate(["Good", String, "", ""]):
+             #    reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_01050: In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            #for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. ", ""]):
+             #   reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
@@ -5121,7 +5136,7 @@ class Test(Application):
 
 
         row += 1
-        testResult = self.Test_02043_18_04939_WHOLENESS_1000_XLSX_XLSM(workBook)
+        testResult = self.Test_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060_XLSX_XLSM(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1000 OK"
@@ -5137,7 +5152,21 @@ class Test(Application):
                                     #  "The sheet “Table” (or “tableau”) is not present or not written correctly.", ""]):
                 #reportWorkSheet2.Cells(row, i + 1).Value = name
 
-
+        row += 1
+        testResult = self.Test_02043_18_04939_WHOLENESS_1050_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_01050 OK"
+            self.tab1.textbox.setText(text)
+            # for i, name in enumerate(["Good", String, "", ""]):
+            #    reportWorkSheet2.Cells(row, i+1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_STRUCT_01050: In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            # for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. ", ""]):
+            #   reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         row += 1
@@ -9705,7 +9734,7 @@ class Test(Application):
 
  #Wholeness
 
-    def Test_02043_18_04939_WHOLENESS_1000_XLS(self, workBook):
+    def Test_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060_XLS(self, workBook):
 
         # get table sheet
 
@@ -9720,24 +9749,72 @@ class Test(Application):
                 return 0
 
         workSheet = workBook.sheet_by_index(index)
-        rowValueList = list()
         rows = workSheet.get_rows()
 
-        try:
-            row = workSheet.rows
-        except:
-            return 0
-        for cell in row:
-            if str(cell.value).casefold() in {"référence", "reference"}:
-                rowValueList.append(str(cell.value).casefold().strip())
-                var = workSheet.cell(row,1).value
-                if var is not "":
-                                 return 1
-        return 0
+        row_index = 0
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[defDet_col].value):
+                        return -2
+                    if not str(row[defConst_col].value):
+                        return -3
+                    if not str(row[sit_col].value):
+                        return -4
+                    if not str(row[eff_col].value):
+                        return -5
+                    if not str(row[code_col].value):
+                        return -6
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -7
+                else:
+                    break
+            if row_start == 10:
+                for colindex,cell in enumerate(row):
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = colindex
+                        ref_tuple = (row_index, row_index+2, ref_col, ref_col +1)
+                        if ref_tuple in workSheet.merged_cells:
+                            row_start = row_index +2
+                        else:
+                            row_start = row_index + 1
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = colindex
+                    if str(cell.value).casefold() in {"constituant défaillant détecté"}:
+                        defDet_col = colindex
+                    if str(cell.value).casefold() in {"défaillance constituant"}:
+                        defConst_col = colindex
+                    if str(cell.value).casefold() in {"situation de vie client"}:
+                        sit_col = colindex
+                    if str(cell.value).casefold() in {"effet(s) client(s)"}:
+                        eff_col = colindex
+                    if str(cell.value).casefold() in {"code défaut"}:
+                        code_col = colindex
+                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                        app_col = colindex
 
-    def Test_02043_18_04939_WHOLENESS_1000_XLSX_XLSM(self, workBook):
+            row_index = row_index + 1
 
-        sheetNames = [x.casefold() for x in workBook.sheetnames]
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
         try:
             index = sheetNames.index("table")
         except:
@@ -9746,20 +9823,712 @@ class Test(Application):
             except:
                 return 0
 
-        rowValueList = list()
         workSheet = workBook.worksheets[index]
-
-        row = workSheet.iter_rows(min_col=1, min_row=1, max_row=10, max_col=10)
-        for cellTuple in row:
-            for cell in cellTuple:
-                if str(cell.value).casefold() in {"référence", "reference"}:
-                    #rowValueList.append(str(cell.value).casefold().strip())
-                    var = str(cell(min_row = row, max_row = 20, min_col = 1, max_col = 1).value)
-                    if var is  None:
-                        return 0
+        rows = workSheet.iter_rows()
+        row_index = 1
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
                     else:
-                        return 1
-        return 0
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[defDet_col].value):
+                        return -2
+                    if not str(row[defConst_col].value):
+                        return -3
+                    if not str(row[sit_col].value):
+                        return -4
+                    if not str(row[eff_col].value):
+                        return -5
+                    if not str(row[code_col].value):
+                        return -6
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -7
+                else:
+                    break
+            if row_start == 10:
+                for cell in row:
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = cell.column
+                        if workSheet.cell(row_index+1,ref_col).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = cell.column
+                    if str(cell.value).casefold() in {"constituant défaillant détecté"}:
+                        defDet_col = colindex
+                    if str(cell.value).casefold() in {"défaillance constituant"}:
+                        defConst_col = colindex
+                    if str(cell.value).casefold() in {"situation de vie client"}:
+                        sit_col = colindex
+                    if str(cell.value).casefold() in {"effet(s) client(s)"}:
+                        eff_col = colindex
+                    if str(cell.value).casefold() in {"code défaut"}:
+                        code_col = colindex
+                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                        app_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLS(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 0
+
+        workSheet = workBook.sheet_by_index(index)
+        rows = workSheet.get_rows()
+
+        row_index = 0
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[codeDef_col].value):
+                        return -2
+                    if not str(row[supp_col].value):
+                        return -3
+                    if not str(row[lib_col].value):
+                        return -4
+                    if not str(row[strat_col].value):
+                        return -5
+                    if not str(row[det_col].value):
+                        return -6
+                    if not str(row[temps_col].value):
+                        return -7
+                    if not str(row[disp_col].value):
+                        return -8
+                    if not str(row[mode_col].value):
+                        return -9
+                    if not str(row[voy_col].value):
+                        return -10
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -11
+                else:
+                    break
+            if row_start == 10:
+                for colindex,cell in enumerate(row):
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = colindex
+                        ref_tuple = (row_index, row_index+2, ref_col, ref_col +1)
+                        if ref_tuple in workSheet.merged_cells:
+                            row_start = row_index +2
+                        else:
+                            row_start = row_index + 1
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = colindex
+                    if str(cell.value).casefold() in {"code défaut"}:
+                        codeDef_col = colindex
+                    if str(cell.value).casefold() in {"supporté par constituant (s)"}:
+                        supp_col = colindex
+                    if str(cell.value).casefold() in {"libellé (signification)"}:
+                        lib_col = colindex
+                    if str(cell.value).casefold() in {"description de la strategie pour détecter le défaut"}:
+                       strat_col = colindex
+                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut"}:
+                        det_col = colindex
+                    if str(cell.value).casefold() in {"temps de confirmation du défaut"}:
+                        temps_col = colindex
+                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut"}:
+                        disp_col = colindex
+                    if str(cell.value).casefold() in {"mode dégradé"}:
+                        mode_col = colindex
+                    if str(cell.value).casefold() in {"Voyant"}:
+                        voy_col = colindex
+                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                        app_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 0
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        row_index = 1
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[codeDef_col].value):
+                        return -2
+                    if not str(row[supp_col].value):
+                        return -3
+                    if not str(row[lib_col].value):
+                        return -4
+                    if not str(row[strat_col].value):
+                        return -5
+                    if not str(row[det_col].value):
+                        return -6
+                    if not str(row[temps_col].value):
+                        return -7
+                    if not str(row[disp_col].value):
+                        return -8
+                    if not str(row[mode_col].value):
+                        return -9
+                    if not str(row[voy_col].value):
+                        return -10
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -11
+                else:
+                    break
+            if row_start == 10:
+                for cell in row:
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = cell.column
+                        if workSheet.cell(row_index+1,ref_col).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = cell.column
+                    if str(cell.value).casefold() in {"code défaut"}:
+                        codeDef_col = colindex
+                    if str(cell.value).casefold() in {"supporté par constituant (s)"}:
+                        supp_col = colindex
+                    if str(cell.value).casefold() in {"libellé (signification)"}:
+                        lib_col = colindex
+                    if str(cell.value).casefold() in {"description de la strategie pour détecter le défaut"}:
+                        strat_col = colindex
+                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut"}:
+                        det_col = colindex
+                    if str(cell.value).casefold() in {"temps de confirmation du défaut"}:
+                        temps_col = colindex
+                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut"}:
+                        disp_col = colindex
+                    if str(cell.value).casefold() in {"mode dégradé"}:
+                        mode_col = colindex
+                    if str(cell.value).casefold() in {"Voyant"}:
+                        voy_col = colindex
+                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                        app_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1020_1021_1100_1062_XLS(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("mesures et commandes")
+        except:
+            return 0
+
+        workSheet = workBook.sheet_by_index(index)
+        rows = workSheet.get_rows()
+
+        row_index = 0
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[supp_col].value):
+                        return -2
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -3
+                else:
+                    break
+            if row_start == 10:
+                for colindex,cell in enumerate(row):
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = colindex
+                        ref_tuple = (row_index, row_index+2, ref_col, ref_col +1)
+                        if ref_tuple in workSheet.merged_cells:
+                            row_start = row_index +2
+                        else:
+                            row_start = row_index + 1
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = colindex
+                    if str(cell.value).casefold() in {"supporté par constituant (s)"}:
+                        supp_col = colindex
+                    if str(cell.value).casefold() in {"Applicabilité projet"}:
+                        app_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1020_1021_1100_1062_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("mesures et commandes")
+        except:
+            return 0
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        row_index = 1
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                    if not str(row[supp_col].value):
+                        return -2
+                    if str(row[app_col].value) in {"NA", "X"}:
+                        return -3
+                else:
+                    break
+            if row_start == 10:
+                for cell in row:
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = cell.column
+                        if workSheet.cell(row_index+1,ref_col).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = cell.column
+                    if str(cell.value).casefold() in {"supporté par constituant (s)"}:
+                        supp_col = colindex
+                    if str(cell.value).casefold() in {"Applicabilité projet"}:
+                        app_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1030_1031_XLS(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("diagnostic débarqués")
+        except:
+            return 0
+
+        workSheet = workBook.sheet_by_index(index)
+        rows = workSheet.get_rows()
+
+        row_index = 0
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                else:
+                    break
+            if row_start == 10:
+                for colindex,cell in enumerate(row):
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = colindex
+                        ref_tuple = (row_index, row_index+2, ref_col, ref_col +1)
+                        if ref_tuple in workSheet.merged_cells:
+                            row_start = row_index +2
+                        else:
+                            row_start = row_index + 1
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1030_1031_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("Diagnostic débarqués")
+        except:
+            return 0
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        row_index = 1
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                else:
+                    break
+            if row_start == 10:
+                for cell in row:
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = cell.column
+                        if workSheet.cell(row_index+1,ref_col).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = cell.column
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1040_1041_XLS(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("Liste MDD")
+        except:
+            return 0
+
+        workSheet = workBook.sheet_by_index(index)
+        rows = workSheet.get_rows()
+
+        row_index = 0
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                else:
+                    break
+            if row_start == 10:
+                for colindex,cell in enumerate(row):
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = colindex
+                        ref_tuple = (row_index, row_index+2, ref_col, ref_col +1)
+                        if ref_tuple in workSheet.merged_cells:
+                            row_start = row_index +2
+                        else:
+                            row_start = row_index + 1
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = colindex
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1040_1041_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("Liste MDD")
+        except:
+            return 0
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        row_index = 1
+        row_start = 10
+        for row in rows:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    if not str(row[ref_col].value):
+                        return 0
+                    if not str(row[ver_col].value):
+                        return -1
+                else:
+                    break
+            if row_start == 10:
+                for cell in row:
+                    if str(cell.value).casefold() in {"référence", "reference"}:
+                        ref_col = cell.column
+                        if workSheet.cell(row_index+1,ref_col).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                    if str(cell.value).casefold() in {"version"}:
+                        ver_col = cell.column
+            row_index = row_index + 1
+
+        return 1
+
+    def Test_02043_18_04939_WHOLENESS_1050_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 0
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            try:
+                index_codes = sheetNames.index("data trouble codes")
+            except:
+                return 0
+
+        workSheetCodes = workBook.sheet_by_index(index_codes)
+        rows_codes = workSheetCodes.get_rows()
+        rowValueListTable  = list()
+
+        row_index = 0
+        row_start = 10
+        for row_table in rows_table:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row_table:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    rowValueListTable.append(str(cell.value).casefold().strip())
+                else:
+                    break
+
+            if row_start == 10:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
+                        app_col_table = colindex
+                        app_tuple = (row_index, row_index + 2, app_col_table, app_col_table + 1)
+                        if app_tuple in workSheetTable.merged_cells:
+                            row_start = row_index + 2
+                        else:
+                            row_start = row_index + 1
+            row_index = row_index + 1
+
+        for row_codes in rows_codes:
+            row_index = 0
+            row_start = 10
+            rowValueListCodes = list()
+            for row_codes in rows_codes:
+                if row_index >= row_start:
+                    testflag = False
+                    for cell in row_codes:
+                        if cell.value:
+                            testflag = True
+                            break
+                        else:
+                            pass
+                    if testflag == True:
+                        rowValueListCodes.append(str(cell.value).casefold().strip())
+                    else:
+                        break
+            if row_start == 10:
+                for colindex, cell in enumerate(row_codes):
+                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                        app_col_code = colindex
+                        app_tuple = (row_index, row_index + 2, app_col_code, app_col_code + 1)
+                        if app_tuple in workSheetCodes.merged_cells:
+                            row_start = row_index + 2
+                        else:
+                            row_start = row_index + 1
+                    row_index = row_index + 1
+        check = 0
+        for element in rowValueListTable:
+            if element in rowValueListCodes:
+                pass
+            else:
+               check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_WHOLENESS_1050_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 0
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            try:
+                index_codes = sheetNames.index("data trouble codes")
+            except:
+                return 0
+
+        workSheetCodes = workBook.worksheets[index_codes]
+        rows_codes = workSheetCodes.iter_rows()
+        rowValueListTable  = list()
+
+        row_index = 0
+        row_start = 10
+        for row_table in rows_table:
+            if row_index >= row_start:
+                testflag = False
+                for cell in row_table:
+                    if cell.value:
+                        testflag = True
+                        break
+                    else:
+                        pass
+                if testflag == True:
+                    rowValueListTable.append(str(cell.value).casefold().strip())
+                else:
+                    break
+
+            if row_start == 10:
+                for cell in row_table:
+                    if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
+                        app_col_table = cell.column
+                        if workSheetTable.cell(row_index+1, app_col_table).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+            row_index = row_index + 1
+
+        for row_codes in rows_codes:
+            row_index = 0
+            row_start = 10
+            rowValueListCodes = list()
+            for row_codes in rows_codes:
+                if row_index >= row_start:
+                    testflag = False
+                    for cell in row_codes:
+                        if cell.value:
+                            testflag = True
+                            break
+                        else:
+                            pass
+                    if testflag == True:
+                        rowValueListCodes.append(str(cell.value).casefold().strip())
+                    else:
+                        break
+            if row_start == 10:
+                for cell in row_codes:
+                    if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
+                        app_col_code = cell.column
+                        if workSheetCodes.cell(row_index + 1, app_col_code).value:
+                            row_start = row_index + 1
+                        else:
+                            row_start = row_index + 2
+                row_index = row_index + 1
+
+        check = 0
+        for element in rowValueListTable:
+            if element in rowValueListCodes:
+                pass
+            else:
+               check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
 
     def buttonClicked(self):
 
