@@ -3810,8 +3810,7 @@ class Test(Application):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
-        testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLS(
-            workBook)
+        testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLS(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061 OK"
@@ -4336,6 +4335,25 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2000"][self.checkLevel],
                                       "02043_18_04939_COH_2000",
                                       "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes",
+                                      ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2005_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
+                                      "02043_18_04939_COH_2005",
+                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
@@ -5397,6 +5415,44 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1240"][self.checkLevel],
                                       "02043_18_04939_WHOLENESS_1240",
                                       "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).",
+                                      ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2000_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2000 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2000", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2000: The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes"
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2000"][self.checkLevel],
+                                      "02043_18_04939_COH_2000",
+                                      "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes",
+                                      ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2005_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2005 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2005: The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
+                                      "02043_18_04939_COH_2005",
+                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).",
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
@@ -9484,6 +9540,7 @@ class Test(Application):
                                       "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).",
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
 
         reportWorkBook.Save()
 
@@ -13873,16 +13930,16 @@ class Test(Application):
                     if str(cell.value).casefold() in {"libellé (signification)"}:
                         lib_col = colindex
                     if str(cell.value).casefold() in {"description de la strategie pour détecter le défaut"}:
-                       strat_col = colindex
-                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut"}:
+                        strat_col = colindex
+                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut "}:
                         det_col = colindex
                     if str(cell.value).casefold() in {"temps de confirmation du défaut"}:
                         temps_col = colindex
-                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut"}:
+                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / procedure à effectuer pour vérifier la disparition du défaut"}:
                         disp_col = colindex
                     if str(cell.value).casefold() in {"mode dégradé"}:
                         mode_col = colindex
-                    if str(cell.value).casefold() in {"Voyant"}:
+                    if str(cell.value).casefold() in {"voyant"}:
                         voy_col = colindex
                     if str(cell.value).casefold() in {"applicabilité projet"}:
                         app_col = colindex
@@ -14328,19 +14385,10 @@ class Test(Application):
         row_start = 10
         for row_table in rows_table:
             if row_index >= row_start:
-                testflag = False
-                for cell in row_table:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 12):
-                        app_col_table = app_col_table + 1
-                        rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
-                else:
-                    break
+                for i in range(0, 12):
+                    app_col_table = app_col_table + 1
+                    rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
+                    row_index = 0
 
             if row_start == 10:
                 for colindex, cell in enumerate(row_table):
@@ -14351,26 +14399,17 @@ class Test(Application):
                             row_start = row_index + 2
                         else:
                             row_start = row_index + 1
-            row_index = row_index + 1
+                row_index = row_index + 1
 
 
         row_index_codes = 0
         row_start_codes = 10
         for row_codes in rows_codes:
             if row_index_codes >= row_start_codes:
-                testflag = False
-                for cell in row_codes:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 8):
-                        app_col_code = app_col_code + 1
-                        rowValueListCodes.append(str(row_codes[app_col_code-1].value).casefold().strip())
-                else:
-                    break
+                for i in range(0, 8):
+                    app_col_code = app_col_code + 1
+                    rowValueListCodes.append(str(row_codes[app_col_code-1].value).casefold().strip())
+                    row_index_codes = 0
             if row_start_codes == 10:
                 for colindex, cell in enumerate(row_codes):
                     if str(cell.value).casefold() in {"applicabilité projet"}:
@@ -14378,7 +14417,7 @@ class Test(Application):
                         app_tuple = (row_index_codes, row_index_codes + 1, app_col_code, app_col_code + 8)
                         if app_tuple in workSheetCodes.merged_cells:
                             row_start_codes = row_index_codes + 1
-            row_index_codes = row_index_codes + 1
+                row_index_codes = row_index_codes + 1
 
         check = 0
         for element in rowValueListTable:
@@ -14424,19 +14463,10 @@ class Test(Application):
         row_start = 10
         for row_table in rows_table:
             if row_index >= row_start:
-                testflag = False
-                for cell in row_table:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 12):
-                        rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
-                        app_col_table = app_col_table + 1
-                else:
-                    break
+                for i in range(0, 12):
+                    rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
+                    app_col_table = app_col_table + 1
+                    row_index = 0
 
             if row_start == 10:
                 for  cell in row_table:
@@ -14446,25 +14476,17 @@ class Test(Application):
                             row_start = row_index + 1
                         else:
                             row_start = row_index + 2
-            row_index = row_index + 1
+                row_index = row_index + 1
 
         row_index_codes = 1
         row_start_codes = 10
         for row_codes in rows_codes:
             if row_index_codes >= row_start_codes:
-                testflag = False
-                for cell in row_codes:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
                     for i in range(0, 8):
                         rowValueListCodes.append(str(row_codes[app_col_code - 1].value).casefold().strip())
                         app_col_code = app_col_code + 1
-                else:
-                    break
+                        row_index_codes = 1
+
             if row_start_codes == 10:
                 for cell in row_codes:
                     if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
@@ -14473,7 +14495,7 @@ class Test(Application):
                             row_start_codes = row_index_codes + 1
                         else:
                             row_start_codes = row_index_codes + 2
-            row_index_codes = row_index_codes + 1
+                row_index_codes = row_index_codes + 1
 
         check = 0
         for element in rowValueListTable:
@@ -14516,19 +14538,10 @@ class Test(Application):
         row_start = 10
         for row_table in rows_table:
             if row_index >= row_start:
-                testflag = False
-                for cell in row_table:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 12):
-                        app_col_table = app_col_table + 1
-                        rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
-                else:
-                    break
+                for i in range(0, 12):
+                    app_col_table = app_col_table + 1
+                    rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
+                    row_index = 0
 
             if row_start == 10:
                 for colindex, cell in enumerate(row_table):
@@ -14539,32 +14552,24 @@ class Test(Application):
                             row_start = row_index + 2
                         else:
                             row_start = row_index + 1
-            row_index = row_index + 1
+                row_index = row_index + 1
 
 
         row_index_measures = 0
         row_start_measures = 10
         for row_measures in rows_measures:
             if row_index_measures >= row_start_measures:
-                testflag = False
-                for cell in row_measures:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 21):
-                        app_col_measures = app_col_measures + 1
-                        rowValueListMeasures.append(str(row_measures[app_col_measures-1].value).casefold().strip())
-                else:
-                    break
+                for i in range(0, 21):
+                    app_col_measures = app_col_measures + 1
+                    rowValueListMeasures.append(str(row_measures[app_col_measures-1].value).casefold().strip())
+                    row_index_measures = 0
+
             if row_start_measures == 10:
                 for colindex, cell in enumerate(row_measures):
                     if str(cell.value).casefold() in {"applicabilité projet"}:
                         app_col_measures = colindex
                         row_start_measures = row_index_measures + 1
-            row_index_measures = row_index_measures + 1
+                row_index_measures = row_index_measures + 1
 
         check = 0
         for element in rowValueListTable:
@@ -14607,19 +14612,10 @@ class Test(Application):
         row_start = 10
         for row_table in rows_table:
             if row_index >= row_start:
-                testflag = False
-                for cell in row_table:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 12):
-                        rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
-                        app_col_table = app_col_table + 1
-                else:
-                    break
+                for i in range(0, 12):
+                    rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
+                    app_col_table = app_col_table + 1
+                    row_index = 1
 
             if row_start == 10:
                 for  cell in row_table:
@@ -14629,7 +14625,7 @@ class Test(Application):
                             row_start = row_index + 1
                         else:
                             row_start = row_index + 2
-            row_index = row_index + 1
+                row_index = row_index + 1
 
         row_index_measures = 1
         row_start_measures = 10
@@ -14737,6 +14733,8 @@ class Test(Application):
         return 1
 
 
+
+
 #Coherence checks requirements
 
     def Test_02043_18_04939_COH_2000_XLS(self, workBook):
@@ -14763,63 +14761,52 @@ class Test(Application):
         rowValueListTable = list()
         flag_table = 0
         workSheetMesures = workBook.sheet_by_index(index_mesures)
-        rows_mesures = workSheetTable.get_rows()
+        rows_mesures = workSheetMesures.get_rows()
         rowValueListMesures = list()
         flag_mesures = 0
-        row_index_table = 1
-        row_index_mesures = 1
+        row_index_table = 0
+        row_index_mesures = 0
 
         for row_table in rows_table:
-            if flag_table == 0:
-                for colindex, cell in enumerate(row_table):
-                    if str(cell.value).casefold().strip() in {"mesures et commandes (mesure parametre et test actionneur) / tests de cohérence"}:
-                        table_col = colindex
-                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
-                        if table_tuple in workSheet.merged_cells:
-                            row_start_table = row_index_table + 2
-                            flag_table = 1
-                        else:
-                            row_start_table = row_index_table + 1
-                            flag_table = 1
-                    else:
-                        break
             if flag_table == 1:
                 if not str(row_table[table_col]):
-                    return 0
-                else:
                     rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                else:
+                    break
+
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
             row_index_table = row_index_table + 1
 
-        #Table_test_rows = workSheet._cell_values[row_start_table:]
-
-        '''for row_table in rows_table:
-             if not str(row[table_col]):
-                 return 0
-             else:
-                  rowValueListTable.append(str(row[table_col].value).casefold().strip())'''
-
-
         for row_mesures in rows_mesures:
+            if flag_mesures == 1:
+                if not str(row_mesures[mesures_col]):
+                    rowValueListMesures.append(str(row_mesures[mesures_col].value).casefold().strip())
+                else:
+                    break
+
             if flag_mesures == 0:
                 for colindex, cell in enumerate(row_mesures):
-                    if str(cell.value).casefold() in {"mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence"}:
+                    if str(cell.value).casefold() == "libellé (signification)".casefold():
                         mesures_col = colindex
-                        mesures_tuple = (row_index_mesures, row_index_mesures + 2, mesures_col, mesures + 1)
-                        if mesures_tuple in workSheet.merged_cells:
-                            row_start_mesures = row_index_mesures + 2
-                            flag_mesures = 1
-                        else:
-                            row_start_mesures = row_index_mesures + 1
-                            flag_mesures = 1
+                        row_index_mesures = row_index_mesures + 1
+                        flag_mesures = 1
             row_index_mesures = row_index_mesures + 1
 
-        Mesures_test_rows = workSheet._cell_values[row_start_mesures:]
 
-        for row in Mesures_test_rows:
-             if not str(row[mesures_col]):
-                 return 0
-             else:
-                  rowValueListMesures.append(str(row[table_col].value).casefold().strip())
+
 
         check = 0
         for element in rowValueListTable:
@@ -14832,6 +14819,192 @@ class Test(Application):
             return 1
         else:
             return 0
+
+    def Test_02043_18_04939_COH_2000_XLSX_XLSM(self, workBook):
+
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_mesures = sheetNames.index("mesures et commandes")
+        except:
+            return 2
+
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        flag_table = 0
+        workSheetMesures = workBook.worksheets[index_mesures]
+        rows_mesures = workSheetMesures.iter_rows()
+        rowValueListMesures = list()
+        flag_mesures = 0
+        row_index_table = 1
+        row_index_mesures = 1
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+
+            if flag_table == 0:
+                for cell in row_table:
+                    if str(cell.value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_mesures in rows_mesures:
+            if flag_mesures == 1:
+                if str(row_mesures[mesures_col].value) == "None":
+                    break
+                else:
+                    rowValueListMesures.append(str(row_mesures[mesures_col].value).casefold().strip())
+
+            if flag_mesures == 0:
+                for cell in row_mesures:
+                    if str(cell.value).casefold() == "libellé (signification)".casefold():
+                        mesures_col = cell.column
+                        flag_mesures = 1
+            row_index_mesures = row_index_mesures + 1
+
+        check = 0
+        for element in rowValueListTable:
+            if element in rowValueListMesures:
+                pass
+            else:
+                check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2005_XLS(self, workBook):
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheet = workBook.sheet_by_index(index)
+        rows = workSheet.get_rows()
+        flag = 0
+        row_index = 0
+        listValues = list()
+        localisation = {}
+        ok = 1
+        for row in rows:
+            if flag == 1:
+                if str(row[code_col]).count('-') != 2:
+                   localisation["0"] = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                   break
+                else:
+                    listValues = str(row[code_col].value).casefold().split('-')
+                    if not listValues[0].isalpha():
+                        ok = 0
+                    if not listValues[1][0].isalpha():
+                        ok = 0
+                    try:
+                        int(listValues[1][1:], 16)
+                    except:
+                        ok = 0
+                    try:
+                        int(listValues[2], 16)
+                    except:
+                        ok = 0
+
+
+            if flag == 0:
+                for colindex, cell in enumerate(row):
+                    if str(cell.value).casefold().strip() == "code défaut".casefold():
+                        code_col = colindex
+                        flag = 1
+                    else:
+                        pass
+
+            row_index = row_index + 1
+
+        if ok == 0:
+             return 0
+        else:
+             return 1
+
+    def Test_02043_18_04939_COH_2005_XLSX_XLSM(self, workBook):
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        flag = 0
+
+        row_index = 1
+        listValues = list()
+        localisation = {}
+        ok = 1
+        for row in rows:
+            if flag == 1:
+                if str(row[code_col]).count('-') != 2:
+                    localisation["0"] = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                    break
+                else:
+                    listValues = str(row[code_col].value).casefold().split('-')
+                    if not listValues[0].isalpha():
+                        ok = 0
+                    if not listValues[1][0].isalpha():
+                        ok = 0
+                    try:
+                        int(listValues[1][1:], 16)
+                    except:
+                        ok = 0
+                    try:
+                        int(listValues[2], 16)
+                    except:
+                        ok = 0
+
+            if flag == 0:
+                for cell in row:
+                    if str(cell.value).casefold().strip() == "code défaut".casefold():
+                        code_col = cell.column
+                        flag = 1
+                    else:
+                        pass
+
+            row_index = row_index + 1
+
+        if ok == 0:
+             return 0
+        else:
+             return 1
+
+
 
     def buttonClicked(self):
 
