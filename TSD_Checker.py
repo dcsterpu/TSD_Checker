@@ -4339,7 +4339,7 @@ class Test(Application):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
-        testResult = self.Test_02043_18_04939_COH_2005_XLS(workBook)
+        testResult, famillyList, localisation = self.Test_02043_18_04939_COH_2005_XLS(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2005 OK"
@@ -4354,8 +4354,29 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
                                       "02043_18_04939_COH_2005",
                                       " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
-                                      ""]):
+                                      localisation]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        testResult, List = self.Test_02043_18_04939_COH_2006_XLS(workBook, famillyList)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2006 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
+                                      "02043_18_04939_COH_2006",
+                                      "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
+                                      str(List[0]['col'] + List[0]['row'])]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
 
 
         try:
@@ -4905,7 +4926,7 @@ class Test(Application):
                     for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1060 OK", "", ""]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        row += 1
+        '''row += 1
         testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLSX_XLSM(
             workBook)
         if testResult == 1:
@@ -5142,7 +5163,7 @@ class Test(Application):
                     text = text + "\n02043_18_04939_WHOLENESS_1061 OK"
                     self.tab1.textbox.setText(text)
                     for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1061 OK", "", ""]):
-                        reportWorkSheet2.Cells(row, i + 1).Value = name
+                        reportWorkSheet2.Cells(row, i + 1).Value = name'''
 
         row += 1
         testResult = self.Test_02043_18_04939_WHOLENESS_1020_1021_1100_1062_XLSX_XLSM(workBook)
@@ -5438,7 +5459,7 @@ class Test(Application):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
-        testResult = self.Test_02043_18_04939_COH_2005_XLSX_XLSM(workBook)
+        testResult, famillyList, localisation = self.Test_02043_18_04939_COH_2005_XLSX_XLSM(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2005 OK"
@@ -5447,14 +5468,34 @@ class Test(Application):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2005: The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+            text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
             self.tab1.textbox.setText(text)
             flag = 0
             for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
                                       "02043_18_04939_COH_2005",
-                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).",
-                                      ""]):
+                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
+                                      localisation]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult, List = self.Test_02043_18_04939_COH_2006_XLSX_XLSM(workBook, famillyList)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2006 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+            self.tab1.textbox.setText(text)
+            flag = 0
+            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
+                                      "02043_18_04939_COH_2006",
+                                      "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
+                                      str(List[0]['col'] + List[0]['row'])]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+
 
         try:
             reportWorkBook.Save()
@@ -14913,16 +14954,18 @@ class Test(Application):
         flag = 0
         row_index = 0
         listValues = list()
-        localisation = {}
+        famillyList = list()
+        localisation = str()
         ok = 1
         for row in rows:
             if flag == 1:
                 if str(row[code_col]).count('-') != 2:
-                   localisation["0"] = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                   localisation =(str(colnum_string(code_col + 1)) + str(row_index + 1))
+                   ok = 0
                    break
                 else:
                     listValues = str(row[code_col].value).casefold().split('-')
-                    if not listValues[0].isalpha():
+                    if not listValues[0].isascii():
                         ok = 0
                     if not listValues[1][0].isalpha():
                         ok = 0
@@ -14934,6 +14977,15 @@ class Test(Application):
                         int(listValues[2], 16)
                     except:
                         ok = 0
+                    if ok == 1:
+                        tempDict = dict()
+                        tempDict["value"] = listValues[0]
+                        tempDict["row"] = str(row_index + 1)
+                        tempDict["col"] = str(colnum_string(code_col + 1))
+                        famillyList.append(dict(tempDict))
+                    else:
+                        localisation = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                        break
 
 
             if flag == 0:
@@ -14947,9 +14999,9 @@ class Test(Application):
             row_index = row_index + 1
 
         if ok == 0:
-             return 0
+             return (0,famillyList,localisation)
         else:
-             return 1
+             return (1, famillyList, localisation)
 
     def Test_02043_18_04939_COH_2005_XLSX_XLSM(self, workBook):
         # get table sheet
@@ -14964,19 +15016,20 @@ class Test(Application):
         workSheet = workBook.worksheets[index]
         rows = workSheet.iter_rows()
         flag = 0
-
-        row_index = 1
         listValues = list()
-        localisation = {}
+        row_index = 1
+        localisation = str()
         ok = 1
+        famillyList = list()
         for row in rows:
             if flag == 1:
                 if str(row[code_col]).count('-') != 2:
-                    localisation["0"] = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                    localisation = (str(colnum_string(code_col)) + str(row_index + 1))
+                    ok = 0
                     break
                 else:
                     listValues = str(row[code_col].value).casefold().split('-')
-                    if not listValues[0].isalpha():
+                    if not listValues[0].isascii():
                         ok = 0
                     if not listValues[1][0].isalpha():
                         ok = 0
@@ -14988,6 +15041,15 @@ class Test(Application):
                         int(listValues[2], 16)
                     except:
                         ok = 0
+                    if ok == 1:
+                        tempDict = dict()
+                        tempDict["value"] = listValues[0]
+                        tempDict["row"] = str(row_index + 1)
+                        tempDict["col"] = str(colnum_string(code_col + 1))
+                        famillyList.append(dict(tempDict))
+                    else:
+                        localisation = (str(colnum_string(code_col + 1)) + str(row_index + 1))
+                        break
 
             if flag == 0:
                 for cell in row:
@@ -15000,11 +15062,136 @@ class Test(Application):
             row_index = row_index + 1
 
         if ok == 0:
-             return 0
+             return (0,famillyList,localisation)
         else:
+             return (1, famillyList,localisation)
+
+    def Test_02043_18_04939_COH_2006_XLS(self, workBook, famillyList):
+        # get table sheet
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheetCodes = workBook.sheet_by_index(index_codes)
+        rows_codes = workSheetCodes.get_rows()
+        count = 0
+        returnList = list()
+
+        if self.tab2.myTextBox5.toPlainText():
+            fileName = self.tab2.myTextBox5.toPlainText()
+            win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheet = workBook.Sheets(1)
+            col = 0
+            for row in workSheet.Rows:
+                for cell in row.Cells:
+                    if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                        col = cell.Column
+                        break
+                if col !=0:
+                    break
+        else:
+             fileName = self.path_Cesare
+             excel = win32.gencache.EnsureDispatch('Excel.Application')
+             workBook = excel.Workbooks.Open(fileName)
+             workSheet = workBook.Sheets(1)
+             col = 0
+             for row in workSheet.Rows:
+                 for cell in row.Cells:
+                     if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                         col = cell.Column
+                         break
+                 if col != 0:
+                     break
+
+        CesareList = list()
+        for row in workSheet.Rows:
+            if row.Row > 2:
+                if workSheet.Cells(row.Row, col).Value is None:
+                    break
+                else:
+                    CesareList.append(str(workSheet.Cells(row.Row, col).Value))
+
+        for element in famillyList:
+            if element["value"] in CesareList:
+                pass
+            else:
+                count +=1
+                returnList.append(element)
+
+
+        if count == 0:
              return 1
+        else:
+            return (0, returnList)
+
+    def Test_02043_18_04939_COH_2006_XLSX_XLSM(self, workBook, famillyList):
+        # get table sheet
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheet = workBook.worksheets[index]
+        rows = workSheet.iter_rows()
+        count = 0
+        returnList = list()
+
+        if self.tab2.myTextBox5.toPlainText():
+            fileName = self.tab2.myTextBox5.toPlainText()
+            win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheet = workBook.Sheets(1)
+            col = 0
+            for row in workSheet.Rows:
+                for cell in row.Cells:
+                    if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                        col = cell.Column
+                        break
+                if col !=0:
+                    break
+        else:
+             fileName = self.path_Cesare
+             excel = win32.gencache.EnsureDispatch('Excel.Application')
+             workBook = excel.Workbooks.Open(fileName)
+             workSheet = workBook.Sheets(1)
+             col = 0
+             for row in workSheet.Rows:
+                 for cell in row.Cells:
+                     if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                         col = cell.Column
+                         break
+                 if col != 0:
+                     break
+
+        CesareList = list()
+        for row in workSheet.Rows:
+            if row.Row > 2:
+                if workSheet.Cells(row.Row, col).Value is None:
+                    break
+                else:
+                    CesareList.append(str(workSheet.Cells(row.Row, col).Value))
+
+        for element in famillyList:
+            if element["value"] in CesareList:
+                pass
+            else:
+                count +=1
+                returnList.append(element)
 
 
+        if count == 0:
+             return 1
+        else:
+            return (0, returnList)
 
     def buttonClicked(self):
 
@@ -15017,21 +15204,21 @@ class Test(Application):
         self.tab1.pbar.setValue(0)
         self.pbvalue = 0
         if not self.tab2.myTextBox5.toPlainText():
-            path_Cesare = self.download_file(self.CesareLink)
+            self.path_Cesare = self.download_file(self.CesareLink)
         if not self.tab2.myTextBox4.toPlainText():
-            path_config = self.download_file(self.TSDConfigLink)
+            self.path_config = self.download_file(self.TSDConfigLink)
         if not self.tab2.myTextBox6.toPlainText():
-            path_effect = self.download_file(self.CustomerEffectLink)
+            self.path_effect = self.download_file(self.CustomerEffectLink)
         if not self.tab2.myTextBox9.toPlainText():
-            path_diversity = self.download_file(self.DiversityLink)
+            self.path_diversity = self.download_file(self.DiversityLink)
         if self.tab1.myTextBox1.toPlainText():
-            result = self.download_DOC3(self.DOC3Link)
+            self.result = self.download_DOC3(self.DOC3Link)
         if self.tab1.myTextBox2.toPlainText():
-            result = self.download_DOC4(self.DOC4Link)
-        if path_Cesare == "Error":
+            self.result = self.download_DOC4(self.DOC4Link)
+        if self.path_Cesare == "Error":
             self.tab1.textbox.setText("Check connection type")
             return
-        if path_Cesare == "False":
+        if self.path_Cesare == "False":
             return
 
         filePath = self.download_doc9(self.DOC9Link)
@@ -15057,9 +15244,9 @@ class Test(Application):
 
         self.checkLevel = str(self.tab1.combo.currentText()).strip()
 
-        self.TestTsdFile(path_Cesare, path_effect)
-        self.TestTsdVehicleFunctionFile(path_Cesare, path_effect)
-        self.TestTsdSystemFile(path_Cesare, path_effect)
+        self.TestTsdFile(self.path_Cesare, self.path_effect)
+        self.TestTsdVehicleFunctionFile(self.path_Cesare, self.path_effect)
+        self.TestTsdSystemFile(self.path_Cesare, self.path_effect)
         self.TestAmdecFile()
         self.TestExportMedialecMatriceFile()
         self.TestDiagnosticMatrixFile()
