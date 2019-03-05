@@ -39,6 +39,7 @@ class Application(QWidget):
         self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
         self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
         self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+        self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
         self.tabs.addTab(self.tab1, "TSD Checker")
         self.tabs.addTab(self.tab2, "Options")
         self.initUI(self.tab1)
@@ -58,6 +59,7 @@ class Application(QWidget):
             self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
             self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
             self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+            self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -71,6 +73,7 @@ class Application(QWidget):
             self.DOC4Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
             self.DOC5Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
             self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+            self.DOC14Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_19_00392/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -256,6 +259,8 @@ class Application(QWidget):
             for chuck in response.iter_content(chunk_size=128):
                 f.write(chuck)
         return FilePath
+
+
 
     def download_file(self, url):
         user = self.tab2.TextBoxUser.text()
@@ -4328,15 +4333,20 @@ class Test(Application):
             for i, name in enumerate(["Good", "02043_18_04939_COH_2000", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2000: The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes"
-            self.tab1.textbox.setText(text)
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2000"][self.checkLevel],
-                                      "02043_18_04939_COH_2000",
-                                      "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes",
-                                      ""]):
-                reportWorkSheet2.Cells(row, i + 1).Value = name
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The sheet or column “Code défaut” or “tableau”(“table”) is missing"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2000: The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2000"][self.checkLevel],
+                                          "02043_18_04939_COH_2000",
+                                          "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         testResult, famillyList, localisation = self.Test_02043_18_04939_COH_2005_XLS(workBook)
@@ -4347,15 +4357,19 @@ class Test(Application):
             for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
-            self.tab1.textbox.setText(text)
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
-                                      "02043_18_04939_COH_2005",
-                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
-                                      localisation]):
-                reportWorkSheet2.Cells(row, i + 1).Value = name
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
+                                          "02043_18_04939_COH_2005",
+                                          " The DTC specified in the cell " + localisation + " of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
+                                          localisation]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         row += 1
@@ -4367,15 +4381,92 @@ class Test(Application):
             for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
+                                          "02043_18_04939_COH_2006",
+                                          "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
+                                          str(List[0]['col'] + List[0]['row'])]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult, List = self.Test_02043_18_04939_COH_2007_XLS(workBook, famillyList)
+        if testResult == 1:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+            text = text + "\nTest_02043_18_04939_COH_2007 OK"
             self.tab1.textbox.setText(text)
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
-                                      "02043_18_04939_COH_2006",
-                                      "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
-                                      str(List[0]['col'] + List[0]['row'])]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2007", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2007:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2007: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2007"][self.checkLevel],
+                                          "02043_18_04939_COH_2007",
+                                          "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]",
+                                          str(List[0]['col'] + List[0]['row'])]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2010_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2010:   The sheet or column “Code défaut” or “tableau”(“table”) is missing"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2010: The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2010"][self.checkLevel],
+                                          "02043_18_04939_COH_2010",
+                                          "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2020_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2020: The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2020: The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2020"][self.checkLevel],
+                                          "02043_18_04939_COH_2020",
+                                          "Tthe information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
 
 
 
@@ -5467,15 +5558,19 @@ class Test(Application):
             for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
-            text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
-            self.tab1.textbox.setText(text)
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
-                                      "02043_18_04939_COH_2005",
-                                      " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
-                                      localisation]):
-                reportWorkSheet2.Cells(row, i + 1).Value = name
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
+                                          "02043_18_04939_COH_2005",
+                                          " The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
+                                          localisation]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         testResult, List = self.Test_02043_18_04939_COH_2006_XLSX_XLSM(workBook, famillyList)
@@ -5486,15 +5581,90 @@ class Test(Application):
             for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2005:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
+                                          "02043_18_04939_COH_2006",
+                                          "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
+                                          str(List[0]['col'] + List[0]['row'])]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult, List = self.Test_02043_18_04939_COH_2007_XLSX_XLSM(workBook, famillyList)
+        if testResult == 1:
             text = self.tab1.textbox.toPlainText()
-            text = text + "\nTest_02043_18_04939_COH_2006: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+            text = text + "\nTest_02043_18_04939_COH_2007 OK"
             self.tab1.textbox.setText(text)
-            flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
-                                      "02043_18_04939_COH_2006",
-                                      "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
-                                      str(List[0]['col'] + List[0]['row'])]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2007", "", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2007:   The sheet or column “Code défaut” is missing"
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2007: The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2007"][self.checkLevel],
+                                          "02043_18_04939_COH_2007",
+                                          "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]",
+                                          str(List[0]['col'] + List[0]['row'])]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2010_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2010 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2010", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2010: The sheet or column “Code défaut” or “tableau”(“table”) is missing"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2010: The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2010"][self.checkLevel],
+                                          "02043_18_04939_COH_2010",
+                                          "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2020_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2020 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2020", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2020: Tthe information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2020: The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts"
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2020"][self.checkLevel],
+                                          "02043_18_04939_COH_2020",
+                                          "Tthe information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         try:
@@ -14815,7 +14985,6 @@ class Test(Application):
                 else:
                     break
 
-
             if flag_table == 0:
                 for colindex, cell in enumerate(row_table):
                     if str(cell.value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
@@ -14955,6 +15124,7 @@ class Test(Application):
         row_index = 0
         listValues = list()
         famillyList = list()
+        codeList = list()
         localisation = str()
         ok = 1
         for row in rows:
@@ -14980,6 +15150,7 @@ class Test(Application):
                     if ok == 1:
                         tempDict = dict()
                         tempDict["value"] = listValues[0]
+                        tempDict["codenr"] = listValues[1]
                         tempDict["row"] = str(row_index + 1)
                         tempDict["col"] = str(colnum_string(code_col + 1))
                         famillyList.append(dict(tempDict))
@@ -14987,12 +15158,12 @@ class Test(Application):
                         localisation = (str(colnum_string(code_col + 1)) + str(row_index + 1))
                         break
 
-
             if flag == 0:
                 for colindex, cell in enumerate(row):
                     if str(cell.value).casefold().strip() == "code défaut".casefold():
                         code_col = colindex
                         flag = 1
+                        break
                     else:
                         pass
 
@@ -15023,12 +15194,12 @@ class Test(Application):
         famillyList = list()
         for row in rows:
             if flag == 1:
-                if str(row[code_col]).count('-') != 2:
+                if str(row[code_col - 1].value).count('-') != 2:
                     localisation = (str(colnum_string(code_col)) + str(row_index + 1))
                     ok = 0
                     break
                 else:
-                    listValues = str(row[code_col].value).casefold().split('-')
+                    listValues = str(row[code_col -1].value).casefold().split('-')
                     if not listValues[0].isascii():
                         ok = 0
                     if not listValues[1][0].isalpha():
@@ -15044,8 +15215,9 @@ class Test(Application):
                     if ok == 1:
                         tempDict = dict()
                         tempDict["value"] = listValues[0]
+                        tempDict["codenr"] = listValues[1]
                         tempDict["row"] = str(row_index + 1)
-                        tempDict["col"] = str(colnum_string(code_col + 1))
+                        tempDict["col"] = str(colnum_string(code_col))
                         famillyList.append(dict(tempDict))
                     else:
                         localisation = (str(colnum_string(code_col + 1)) + str(row_index + 1))
@@ -15056,6 +15228,7 @@ class Test(Application):
                     if str(cell.value).casefold().strip() == "code défaut".casefold():
                         code_col = cell.column
                         flag = 1
+                        break
                     else:
                         pass
 
@@ -15077,8 +15250,6 @@ class Test(Application):
         except:
             return 2
 
-        workSheetCodes = workBook.sheet_by_index(index_codes)
-        rows_codes = workSheetCodes.get_rows()
         count = 0
         returnList = list()
 
@@ -15088,26 +15259,20 @@ class Test(Application):
             workBook = excel.Workbooks.Open(fileName)
             workSheet = workBook.Sheets(1)
             col = 0
-            for row in workSheet.Rows:
-                for cell in row.Cells:
-                    if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
-                        col = cell.Column
-                        break
-                if col !=0:
-                    break
         else:
              fileName = self.path_Cesare
              excel = win32.gencache.EnsureDispatch('Excel.Application')
              workBook = excel.Workbooks.Open(fileName)
              workSheet = workBook.Sheets(1)
              col = 0
-             for row in workSheet.Rows:
-                 for cell in row.Cells:
-                     if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
-                         col = cell.Column
-                         break
-                 if col != 0:
+
+        for row in workSheet.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                     col = cell.Column
                      break
+             if col != 0:
+                 break
 
         CesareList = list()
         for row in workSheet.Rows:
@@ -15122,7 +15287,7 @@ class Test(Application):
                 pass
             else:
                 count +=1
-                returnList.append(element)
+                returnList.append(dict(element))
 
 
         if count == 0:
@@ -15140,8 +15305,6 @@ class Test(Application):
         except:
             return 2
 
-        workSheet = workBook.worksheets[index]
-        rows = workSheet.iter_rows()
         count = 0
         returnList = list()
 
@@ -15151,26 +15314,20 @@ class Test(Application):
             workBook = excel.Workbooks.Open(fileName)
             workSheet = workBook.Sheets(1)
             col = 0
-            for row in workSheet.Rows:
-                for cell in row.Cells:
-                    if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
-                        col = cell.Column
-                        break
-                if col !=0:
-                    break
         else:
              fileName = self.path_Cesare
              excel = win32.gencache.EnsureDispatch('Excel.Application')
              workBook = excel.Workbooks.Open(fileName)
              workSheet = workBook.Sheets(1)
              col = 0
-             for row in workSheet.Rows:
-                 for cell in row.Cells:
-                     if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
-                         col = cell.Column
-                         break
-                 if col != 0:
+
+        for row in workSheet.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                     col = cell.Column
                      break
+             if col != 0:
+                 break
 
         CesareList = list()
         for row in workSheet.Rows:
@@ -15185,13 +15342,439 @@ class Test(Application):
                 pass
             else:
                 count +=1
-                returnList.append(element)
+                returnList.append(dict(element))
 
 
         if count == 0:
              return 1
         else:
             return (0, returnList)
+
+    def Test_02043_18_04939_COH_2007_XLS(self, workBook, famillyList):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        count = 0
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        fileName = self.path_DOC14
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets("Matrix")
+        returnList = list()
+        troubleCodes = list()
+
+        for row in workSheet.Rows(2):
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Data Trouble Code (DTC)".strip().casefold():
+                     col = cell.Column
+                     break
+                 if cell.Value is None:
+                    break
+             if col != 0:
+                 break
+
+        for row in workSheet.Rows:
+            if row.Row > 2:
+                if workSheet.Cells(row.Row, col).Value is None:
+                    break
+                else:
+                    troubleCodes.append(str(workSheet.Cells(row.Row, col).Value).casefold().strip())
+
+        for element in famillyList:
+            if element["codenr"] in troubleCodes:
+                pass
+            else:
+                count += 1
+                returnList.append(dict(element))
+
+        if count == 0:
+             return 1
+        else:
+            return (0, returnList)
+
+    def Test_02043_18_04939_COH_2007_XLSX_XLSM(self, workBook, famillyList):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        count = 0
+
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        fileName = self.path_DOC14
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets("Matrix")
+        returnList = list()
+        troubleCodes = list()
+
+        for row in workSheet.Rows(2):
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Data Trouble Code (DTC)".strip().casefold():
+                     col = cell.Column
+                     break
+                 if cell.Value is None:
+                    break
+             if col != 0:
+                 break
+
+        for row in workSheet.Rows:
+            if row.Row > 2:
+                if workSheet.Cells(row.Row, col).Value is None:
+                    break
+                else:
+                    troubleCodes.append(str(workSheet.Cells(row.Row, col).Value))
+
+        for element in famillyList:
+            if element["codenr"] in troubleCodes:
+                pass
+            else:
+                count +=1
+                returnList.append(dict(element))
+
+        if count == 0:
+             return 1
+        else:
+            return (0, returnList)
+
+    def Test_02043_18_04939_COH_2010_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+        rowValueListTable = list()
+        workSheetCodes = workBook.sheet_by_index(index_codes)
+        rows_codes = workSheetCodes.get_rows()
+        rowValueListCodes = list()
+        row_index_table = 0
+        row_index_codes = 0
+        flag_table = 0
+        flag_codes = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if not str(row_table[table_col]):
+                    if str(row_table[table_col]).casefold().strip() != "No DTC".casefold().strip():
+                        rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                    else:
+                        pass
+                else:
+                    check += 1
+                    break
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "code défaut".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_codes in rows_codes:
+            if flag_codes == 1:
+                if not str(row_codes[codes_col]):
+                    rowValueListCodes.append(str(row_codes[codes_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_codes == 0:
+                for colindex, cell in enumerate(row_codes):
+                    if str(cell.value).casefold() == "Code défaut".casefold():
+                        codes_col = colindex
+                        row_index_codes = row_index_codes + 1
+                        flag_codes = 1
+            row_index_codes = row_index_codes + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListCodes:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2010_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_codes = sheetNames.index("codes défauts")
+        except:
+            return 2
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        workSheetCodes = workBook.worksheets[index_codes]
+        rows_codes = workSheetCodes.iter_rows()
+        rowValueListCodes = list()
+        row_index_table = 0
+        row_index_codes = 0
+        flag_table = 0
+        flag_codes = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    if str(row_table[table_col]).casefold().strip() != "No DTC".casefold().strip():
+                        rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                    else:
+                        pass
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "code défaut".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_codes in rows_codes:
+            if flag_codes == 1:
+                if str(row_codes[codes_col].value) == "None":
+                    break
+                else:
+                    rowValueListCodes.append(str(row_codes[codes_col].value).casefold().strip())
+
+            if flag_codes == 0:
+                for colindex, cell in enumerate(row_codes):
+                    if str(cell.value).casefold() == "Code défaut".casefold():
+                        codes_col = cell.column
+                        row_index_codes = row_index_codes + 1
+                        flag_codes = 1
+            row_index_codes = row_index_codes + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListCodes:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2020_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_constituants = sheetNames.index("constituants")
+        except:
+            return 2
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+        rowValueListTable = list()
+        workSheetConstituants = workBook.sheet_by_index(index_constituants)
+        rows_constituants = workSheetConstituants.get_rows()
+        rowValueListConstituants = list()
+        row_index_table = 0
+        row_index_constituants = 0
+        flag_table = 0
+        flag_constituants = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if not str(row_table[table_col]):
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                else:
+                    check += 1
+                    break
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "constituant défaillant détecté".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_constituants in rows_constituants:
+            if flag_constituants == 1:
+                if not str(row_constituants[constituants_col]):
+                    rowValueListConstituants.append(str(row_constituants[constituants_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_constituants == 0:
+                for colindex, cell in enumerate(row_constituants):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        constituants_col = colindex
+                        row_index_constituants = row_index_constituants + 1
+                        flag_constituants = 1
+            row_index_constituants = row_index_constituants + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListConstituants:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+
+    def Test_02043_18_04939_COH_2020_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_constituants = sheetNames.index("constituants")
+        except:
+            return 2
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        workSheetConstituants = workBook.worksheets[index_constituants]
+        rows_constituants = workSheetConstituants.iter_rows()
+        rowValueListConstituants = list()
+        row_index_table = 0
+        row_index_constituants = 0
+        flag_table = 0
+        flag_constituants = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "constituant défaillant détecté".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_constituants in rows_constituants:
+            if flag_constituants == 1:
+                if str(row_constituants[constituants_col].value) == "None":
+                    break
+                else:
+                    rowValueListConstituants.append(str(row_constituants[constituants_col].value).casefold().strip())
+
+            if flag_constituants == 0:
+                for colindex, cell in enumerate(row_constituants):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        constituants_col = cell.column
+                        row_index_constituants = row_index_constituants + 1
+                        flag_constituants = 1
+            row_index_constituants = row_index_constituants + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListConstituants:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+
 
     def buttonClicked(self):
 
@@ -15215,6 +15798,7 @@ class Test(Application):
             self.result = self.download_DOC3(self.DOC3Link)
         if self.tab1.myTextBox2.toPlainText():
             self.result = self.download_DOC4(self.DOC4Link)
+        self.path_DOC14 = self.download_file(self.DOC14Link)
         if self.path_Cesare == "Error":
             self.tab1.textbox.setText("Check connection type")
             return
