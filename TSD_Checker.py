@@ -40,6 +40,7 @@ class Application(QWidget):
         self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
         self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
         self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+        self.DOC8Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
         self.tabs.addTab(self.tab1, "TSD Checker")
         self.tabs.addTab(self.tab2, "Options")
         self.initUI(self.tab1)
@@ -60,6 +61,7 @@ class Application(QWidget):
             self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
             self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+            self.DOC8Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -74,6 +76,7 @@ class Application(QWidget):
             self.DOC5Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
             self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.DOC14Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+            self.DOC8Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.CesareLink + '''>DocInfo Reference: 02043_18_05471</a>''')
             self.tab2.link1.setText('''<a href=''' + self.TSDConfigLink + '''>DocInfo Reference: 02043_18_05472</a>''')
             self.tab2.link3.setText('''<a href=''' + self.CustomerEffectLink + '''>DocInfo Reference: 02043_18_05499</a>''')
@@ -97,15 +100,15 @@ class Application(QWidget):
 
     def openFileNameDialog4(self):
         fileName4, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab1.myTextBox4.setText(fileName4)
+        self.tab2.myTextBox4.setText(fileName4)
 
     def openFileNameDialog5(self):
         fileName5, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab1.myTextBox5.setText(fileName5)
+        self.tab2.myTextBox5.setText(fileName5)
 
     def openFileNameDialog6(self):
         fileName6, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab1.myTextBox6.setText(fileName6)
+        self.tab2.myTextBox6.setText(fileName6)
 
     def openFileNameDialog7(self):
         fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
@@ -117,7 +120,7 @@ class Application(QWidget):
 
     def openFileNameDialog9(self):
         fileName9, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
-        self.tab1.myTextBox9.setText(fileName9)
+        self.tab2.myTextBox9.setText(fileName9)
 
     def openFileNameDialog10(self):
         fileName10, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
@@ -4454,7 +4457,7 @@ class Test(Application):
         else:
             if testResult == 2:
                 text = self.tab1.textbox.toPlainText()
-                text = text + "\nTest_02043_18_04939_COH_2020: The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants"
+                text = text + "\nTest_02043_18_04939_COH_2020: The information specified in the sheet “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants"
 
             else:
                 text = self.tab1.textbox.toPlainText()
@@ -4463,12 +4466,105 @@ class Test(Application):
                 flag = 0
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2020"][self.checkLevel],
                                           "02043_18_04939_COH_2020",
-                                          "Tthe information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants",
+                                          "The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants",
                                           ""]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2030_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2030: The information specified in the sheet “Effets clients” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants”"
 
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2030: The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients” "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2030"][self.checkLevel],
+                                          "02043_18_04939_COH_2030",
+                                          "The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2040_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2040: The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2040: The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2040"][self.checkLevel],
+                                          "02043_18_04939_COH_2040",
+                                          "The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” ",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2050_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2050 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2050", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2050: The information specified in the sheet “ER” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants” "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2050:  The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2050"][self.checkLevel],
+                                          "02043_18_04939_COH_2050",
+                                          " The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER” ",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2060_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2060: One of the sheets “Effets clients”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2060: The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2060"][self.checkLevel],
+                                          "02043_18_04939_COH_2060",
+                                          " The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         try:
             reportWorkBook.Save()
@@ -5666,6 +5762,101 @@ class Test(Application):
                                           ""]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2030_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2030 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2030", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2030: The information specified in the sheet “Effets clients” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants”"
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2030: The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients” "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2030"][self.checkLevel],
+                                          "02043_18_04939_COH_2030",
+                                          "The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2040_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2040 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2040", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2040: The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2040: The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2040"][self.checkLevel],
+                                          "02043_18_04939_COH_2040",
+                                          "The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” ",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2050_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2050 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2050", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2050: The information specified in the sheet “ER” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants” "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2050:  The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2050"][self.checkLevel],
+                                          "02043_18_04939_COH_2050",
+                                          " The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER” ",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2060_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2060 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2060", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2060: One of the sheets “Effets clients”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2060: The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2060"][self.checkLevel],
+                                          "02043_18_04939_COH_2060",
+                                          " The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         try:
             reportWorkBook.Save()
@@ -6624,6 +6815,30 @@ class Test(Application):
                                       "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).",
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2070_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2070 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2070", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2070: One of the sheets “Customer Effects”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2070: The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2070"][self.checkLevel],
+                                          "02043_18_04939_COH_2070",
+                                          " The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect.",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         try:
             reportWorkBook.Save()
@@ -7604,6 +7819,30 @@ class Test(Application):
                                       "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).",
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2070_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2070 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2070", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2070: One of the sheets “Customer Effects”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2070: The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2070"][self.checkLevel],
+                                          "02043_18_04939_COH_2070",
+                                          " The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect.",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         try:
             reportWorkBook.Save()
@@ -8614,6 +8853,29 @@ class Test(Application):
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2080_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2080 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2080", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2080: One of the sheets “Effets clients”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2080: The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2080"][self.checkLevel],
+                                          "02043_18_04939_COH_2080",
+                                          " The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect.",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         reportWorkBook.Save()
 
@@ -9752,6 +10014,29 @@ class Test(Application):
                                       ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        testResult = self.Test_02043_18_04939_COH_2080_XLSX_XLSM(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2080 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2080", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2080: One of the sheets “Effets clients”, “FR” or “GB” are not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2080: The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2080"][self.checkLevel],
+                                          "02043_18_04939_COH_2080",
+                                          " The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect.",
+                                          ""]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
         reportWorkBook.Save()
 
@@ -14623,7 +14908,7 @@ class Test(Application):
                     row_index_codes = 0
             if row_start_codes == 10:
                 for colindex, cell in enumerate(row_codes):
-                    if str(cell.value).casefold() in {"applicabilité projet"}:
+                    if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
                         app_col_code = colindex
                         app_tuple = (row_index_codes, row_index_codes + 1, app_col_code, app_col_code + 8)
                         if app_tuple in workSheetCodes.merged_cells:
@@ -14631,11 +14916,14 @@ class Test(Application):
                 row_index_codes = row_index_codes + 1
 
         check = 0
-        for element in rowValueListTable:
-            if element in rowValueListCodes:
-                pass
-            else:
-               check = check + 1
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListCodes:
+                    pass
+                else:
+                   check += 1
 
         if check == 0:
             return 1
@@ -14709,11 +14997,14 @@ class Test(Application):
                 row_index_codes = row_index_codes + 1
 
         check = 0
-        for element in rowValueListTable:
-            if element in rowValueListCodes:
-                pass
-            else:
-               check = check + 1
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListCodes:
+                    pass
+                else:
+                   check = check + 1
 
         if check == 0:
             return 1
@@ -15481,7 +15772,6 @@ class Test(Application):
                     else:
                         pass
                 else:
-                    check += 1
                     break
 
             if flag_table == 0:
@@ -15694,7 +15984,6 @@ class Test(Application):
         else:
             return 0
 
-
     def Test_02043_18_04939_COH_2020_XLSX_XLSM(self, workBook):
 
         sheetNames = workBook.sheetnames
@@ -15774,6 +16063,1270 @@ class Test(Application):
         else:
             return 0
 
+    def Test_02043_18_04939_COH_2030_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+            return 2
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+        rowValueListTable = list()
+        workSheetEffet = workBook.sheet_by_index(index_effet)
+        rows_effet = workSheetEffet.get_rows()
+        rowValueListEffet = list()
+        row_index_table = 0
+        row_index_effet = 0
+        flag_table = 0
+        flag_effet = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if not str(row_table[table_col]):
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                else:
+                    check += 1
+                    break
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "effet(s) client(s)".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for colindex, cell in enumerate(row_effet):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = colindex
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListEffet:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2030_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+            return 2
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        workSheetEffet = workBook.worksheets[index_effet]
+        rows_effet = workSheetEffet.iter_rows()
+        rowValueListEffet = list()
+        row_index_table = 0
+        row_index_effet = 0
+        flag_table = 0
+        flag_effet = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "constituant défaillant détecté".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if str(row_effet[effet_col].value) == "None":
+                    break
+                else:
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+
+            if flag_effet == 0:
+                for colindex, cell in enumerate(row_effet):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = cell.column
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListEffet:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2040_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_diag = sheetNames.index("diagnostic débarqués")
+        except:
+            return 2
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+        rowValueListTable = list()
+        workSheetDiag = workBook.sheet_by_index(index_diag)
+        rows_diag = workSheetDiag.get_rows()
+        rowValueListDiag = list()
+        row_index_table = 0
+        row_index_diag = 0
+        flag_table = 0
+        flag_diag = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if not str(row_table[table_col]):
+                    if str(row_table[table_col]).casefold().strip() != "N/A".casefold().strip():
+                        rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                    else:
+                        pass
+                else:
+                    break
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_diag in rows_diag:
+            if flag_diag == 1:
+                if not str(row_diag[diag_col]):
+                    rowValueListDiag.append(str(row_diag[diag_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_diag == 0:
+                for colindex, cell in enumerate(row_diag):
+                    if str(cell.value).casefold() == "libellé (signification)".casefold():
+                        diag_col = colindex
+                        row_index_diag = row_index_diag + 1
+                        flag_diag = 1
+            row_index_diag = row_index_diag + 1
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListDiag:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2040_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_diag = sheetNames.index("diagnostic débarqués")
+        except:
+            return 2
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        workSheetDiag = workBook.worksheets[index_diag]
+        rows_diag = workSheetDiag.iter_rows()
+        rowValueListDiag = list()
+        row_index_table = 0
+        row_index_diag = 0
+        flag_table = 0
+        flag_diag = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    if str(row_table[table_col]).casefold().strip() != "N/A".casefold().strip():
+                        rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                    else:
+                        pass
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_diag in rows_diag:
+            if flag_diag == 1:
+                if str(row_diag[diag_col].value) == "None":
+                    break
+                else:
+                    rowValueListDiag.append(str(row_diag[diag_col].value).casefold().strip())
+
+            if flag_diag == 0:
+                for colindex, cell in enumerate(row_diag):
+                    if str(cell.value).casefold() == "libellé (signification)".casefold():
+                        diag_col = cell.column
+                        row_index_diag = row_index_diag + 1
+                        flag_diag = 1
+            row_index_diag = row_index_diag + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListDiag:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2050_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_er = sheetNames.index("er")
+        except:
+            return 2
+
+        workSheetTable = workBook.sheet_by_index(index_table)
+        rows_table = workSheetTable.get_rows()
+        rowValueListTable = list()
+        workSheetEr = workBook.sheet_by_index(index_er)
+        rows_er = workSheetEr.get_rows()
+        rowValueListEr = list()
+        row_index_table = 0
+        row_index_er = 0
+        flag_table = 0
+        flag_er = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if not str(row_table[table_col]):
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+                else:
+                    check += 1
+                    break
+
+            if flag_table == 0:
+                for colindex, cell in enumerate(row_table):
+                    if str(cell.value).casefold().strip() == "evenement(s) redouté(s) (ER)".casefold():
+                        table_col = colindex
+                        table_tuple = (row_index_table, row_index_table + 2, table_col, table_col + 1)
+                        if table_tuple in workSheetTable.merged_cells:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_er in rows_er:
+            if flag_er == 1:
+                if not str(row_er[er_col]):
+                    rowValueListEr.append(str(row_er[er_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_er == 0:
+                for colindex, cell in enumerate(row_er):
+                    if str(cell.value).casefold() == "nom".casefold():
+                        er_col = colindex
+                        row_index_er = row_index_er + 1
+                        flag_er = 1
+            row_index_er = row_index_er + 1
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListEr:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2050_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+        try:
+            index_table = sheetNames.index("table")
+        except:
+            try:
+                index_table = sheetNames.index("tableau")
+            except:
+                return 2
+
+        try:
+            index_er = sheetNames.index("effets clients")
+        except:
+            return 2
+
+        workSheetTable = workBook.worksheets[index_table]
+        rows_table = workSheetTable.iter_rows()
+        rowValueListTable = list()
+        workSheetEr = workBook.worksheets[index_er]
+        rows_er = workSheetEr.iter_rows()
+        rowValueListEr = list()
+        row_index_table = 0
+        row_index_er = 0
+        flag_table = 0
+        flag_er = 0
+        check = 0
+
+        for row_table in rows_table:
+            if flag_table == 1:
+                if str(row_table[table_col].value) == "None":
+                    break
+                else:
+                    rowValueListTable.append(str(row_table[table_col].value).casefold().strip())
+            if flag_table == 0:
+                for cell in row_table:
+                    if str(cell.value).casefold().strip() == "constituant défaillant détecté".casefold():
+                        table_col = cell.column
+                        if workSheetTable.cell(row_index_table + 1, table_col).value:
+                            row_index_table = row_index_table + 1
+                            flag_table = 1
+                        else:
+                            row_index_table = row_index_table + 2
+                            flag_table = 1
+                        break
+
+            row_index_table = row_index_table + 1
+
+        for row_er in rows_er:
+            if flag_er == 1:
+                if str(row_er[er_col].value) == "None":
+                    break
+                else:
+                    rowValueListEr.append(str(row_er[er_col].value).casefold().strip())
+
+            if flag_er == 0:
+                for colindex, cell in enumerate(row_er):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        er_col = cell.column
+                        row_index_er = row_index_er + 1
+                        flag_er = 1
+            row_index_er = row_index_er + 1
+
+
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListEr:
+                    pass
+                else:
+                    check = check + 1
+
+        if check == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2060_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+             return 2
+
+        workSheetEffet = workBook.sheet_by_index(index_effet)
+        rows_effet = workSheetEffet.get_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count  = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for colindex, cell in enumerate(row_effet):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = colindex
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_FR = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+        col = 0
+        for row in workSheetGB.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_GB = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2060_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+             return 2
+
+        workSheetEffet = workBook.worksheets[index_effet]
+        rows_effet = workSheetEffet.iter_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for cell in row_effet:
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = cell.column
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_FR = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+        col = 0
+        for row in workSheetGB.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_GB = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2070_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("customer effects")
+        except:
+             return 2
+
+        workSheetEffet = workBook.sheet_by_index(index_effet)
+        rows_effet = workSheetEffet.get_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count  = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for colindex, cell in enumerate(row_effet):
+                    if str(cell.value).casefold() == "name".casefold():
+                        effet_col = colindex
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_FR = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+        col = 0
+        for row in workSheetGB.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_GB = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2070_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("customer effects")
+        except:
+            return 2
+
+        workSheetEffet = workBook.worksheets[index_effet]
+        rows_effet = workSheetEffet.iter_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for cell in row_effet:
+                    if str(cell.value).casefold() == "name".casefold():
+                        effet_col = cell.column
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                    colN1_FR = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                    colN2_FR = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                    colN3_FR = cell.Column
+                    col += 1
+                if col == 3:
+                    break
+            if col == 3:
+                break
+
+        col = 0
+        for row in workSheetGB.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                    colN1_GB = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                    colN2_GB = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                    colN3_GB = cell.Column
+                    col += 1
+                if col == 3:
+                    break
+            if col == 3:
+                break
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count += 1
+
+        if count == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2080_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+             return 2
+
+        workSheetEffet = workBook.sheet_by_index(index_effet)
+        rows_effet = workSheetEffet.get_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count  = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for colindex, cell in enumerate(row_effet):
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = colindex
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_FR = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_FR = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+        col = 0
+        for row in workSheetGB.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                     colN1_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                     colN2_GB = cell.Column
+                     col += 1
+                 if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                     colN3_GB = cell.Column
+                     col += 1
+                 if col == 3:
+                     break
+             if col == 3:
+                 break
+
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2080_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index_effet = sheetNames.index("effets clients")
+        except:
+            return 2
+
+        workSheetEffet = workBook.worksheets[index_effet]
+        rows_effet = workSheetEffet.iter_rows()
+        rowValueListEffet = list()
+        row_index_effet = 0
+        flag_effet = 0
+        count = 0
+
+        for row_effet in rows_effet:
+            if flag_effet == 1:
+                if not str(row_effet[effet_col]):
+                    rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_effet == 0:
+                for cell in row_effet:
+                    if str(cell.value).casefold() == "noms".casefold():
+                        effet_col = cell.column
+                        row_index_effet = row_index_effet + 1
+                        flag_effet = 1
+            row_index_effet = row_index_effet + 1
+
+        if self.tab2.myTextBox6.toPlainText():
+            fileName = self.tab2.myTextBox6.toPlainText()
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+        else:
+            fileName = self.path_effect
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheetFR = workBook.Sheets("FR")
+            workSheetGB = workBook.Sheets("GB")
+            col = 0
+
+        for row in workSheetFR.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                    colN1_FR = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                    colN2_FR = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                    colN3_FR = cell.Column
+                    col += 1
+                if col == 3:
+                    break
+            if col == 3:
+                break
+
+        col = 0
+        for row in workSheetGB.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
+                    colN1_GB = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N2".strip().casefold():
+                    colN2_GB = cell.Column
+                    col += 1
+                if str(cell.Value).strip().casefold() == "Libellé N3".strip().casefold():
+                    colN3_GB = cell.Column
+                    col += 1
+                if col == 3:
+                    break
+            if col == 3:
+                break
+
+        EffetListFR = list()
+        for row in workSheetFR.Rows:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+            else:
+                break
+
+        EffetListGB = list()
+        for row in workSheetGB.Rows:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+            else:
+                break
+
+        if str(rowValueListEffet) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListEffet:
+                if element in EffetListFR or element in EffetListGB:
+                    pass
+                else:
+                    count += 1
+
+        if count == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2100_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+             return 2
+
+        workSheetCodes = workBook.sheet_by_index(index)
+        rows_codes = workSheetCodes.get_rows()
+        rowValueListCodes = list()
+        row_index_codes = 0
+        flag_codes = 0
+        count = 0
+
+        for row_codes in rows_codes:
+            if flag_codes == 1:
+                if not str(row_codes[codes_col]):
+                    rowValueListCodes.append(str(row_codes[codes_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_codes == 0:
+                for colindex, cell in enumerate(row_codes):
+                    if str(cell.value).casefold() == "supporté par constituant (s)".casefold():
+                        codes_col = colindex
+                        row_index_codes = row_index_codes + 1
+                        flag_codes = 1
+            row_index_codes = row_index_codes + 1
+
+            fileName = self.path_DOC8
+            excel = win32.gencache.EnsureDispatch('Excel.Application')
+            workBook = excel.Workbooks.Open(fileName)
+            workSheet = workBook.Sheets("sous familles Cesare")
+
+
+        for row in workSheet.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == "Nom de la sous famille".strip().casefold():
+                     col = cell.Column
+             if col != 0:
+                 break
+
+
+        CodeList = list()
+        for row in workSheet.Rows:
+            if workSheet.Cells(row.Row, col).Value is not None:
+                CodeList.append(str(workSheet.Cells(row.Row, col).Value))
+            else:
+                break
+
+
+        if str(rowValueListCodes) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListCodes:
+                if element in CodeList :
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+
 
 
     def buttonClicked(self):
@@ -15788,10 +17341,14 @@ class Test(Application):
         self.pbvalue = 0
         if not self.tab2.myTextBox5.toPlainText():
             self.path_Cesare = self.download_file(self.CesareLink)
+        else:
+            self.path_Cesare = self.tab2.myTextBox5.toPlainText()
         if not self.tab2.myTextBox4.toPlainText():
             self.path_config = self.download_file(self.TSDConfigLink)
         if not self.tab2.myTextBox6.toPlainText():
             self.path_effect = self.download_file(self.CustomerEffectLink)
+        else:
+            self.path_effect = self.tab2.myTextBox6.toPlainText()
         if not self.tab2.myTextBox9.toPlainText():
             self.path_diversity = self.download_file(self.DiversityLink)
         if self.tab1.myTextBox1.toPlainText():
@@ -15799,6 +17356,7 @@ class Test(Application):
         if self.tab1.myTextBox2.toPlainText():
             self.result = self.download_DOC4(self.DOC4Link)
         self.path_DOC14 = self.download_file(self.DOC14Link)
+        self.path_DOC8 = self.download_file(self.DOC8Link)
         if self.path_Cesare == "Error":
             self.tab1.textbox.setText("Check connection type")
             return
