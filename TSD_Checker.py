@@ -4566,6 +4566,7 @@ class Test(Application):
                                           ""]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
+
         try:
             reportWorkBook.Save()
         except Exception as e:
@@ -5113,7 +5114,7 @@ class Test(Application):
                     for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1060 OK", "", ""]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        '''row += 1
+        row += 1
         testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLSX_XLSM(
             workBook)
         if testResult == 1:
@@ -5350,7 +5351,7 @@ class Test(Application):
                     text = text + "\n02043_18_04939_WHOLENESS_1061 OK"
                     self.tab1.textbox.setText(text)
                     for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1061 OK", "", ""]):
-                        reportWorkSheet2.Cells(row, i + 1).Value = name'''
+                        reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         testResult = self.Test_02043_18_04939_WHOLENESS_1020_1021_1100_1062_XLSX_XLSM(workBook)
