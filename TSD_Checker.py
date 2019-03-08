@@ -494,7 +494,6 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -503,7 +502,6 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("Cst78788")
 
 
         # File Selectiom Dialog5
@@ -4572,6 +4570,18 @@ class Test(Application):
         except Exception as e:
             print(e)
 
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox1.setStyleSheet(  " background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox1.setStyleSheet(  " background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox1.setStyleSheet(" background-color: green ")
+                break
+
     def TestGeneralStructure_DOC3_XLSX_XLSM(self, workBook):
 
         flag = 1
@@ -5115,8 +5125,7 @@ class Test(Application):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
-        testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLSX_XLSM(
-            workBook)
+        testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLSX_XLSM(workBook)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061 OK"
@@ -5514,7 +5523,7 @@ class Test(Application):
             text = text + "\nTest_02043_18_04939_WHOLENESS_1040_1041 NOT OK"
             self.tab1.textbox.setText(text)
             for i, name in enumerate(
-                    ["Good", "02043_18_04939_WHOLENESS_1040_1041", "The sheet “Liste MDD” is not in the file", ""]):
+                    ["", "02043_18_04939_WHOLENESS_1040_1041", "The sheet “Liste MDD” is not in the file", ""]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             for key, value in testResult.items():
@@ -5863,6 +5872,17 @@ class Test(Application):
             reportWorkBook.Save()
         except Exception as e:
             print(e)
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox1.setStyleSheet(  " background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox1.setStyleSheet(  " background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox1.setStyleSheet(" background-color: green ")
+                break
 
     def TestGeneralStructure_DOC4_XLS(self, workBook):
 
@@ -6845,6 +6865,17 @@ class Test(Application):
             reportWorkBook.Save()
         except Exception as e:
             print(e)
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox2.setStyleSheet(  " background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox2.setStyleSheet(  " background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox2.setStyleSheet(" background-color: green ")
+                break
 
     def TestGeneralStructure_DOC4_XLSX_XLSM(self, workBook):
         flag = 1
@@ -7849,6 +7880,17 @@ class Test(Application):
             reportWorkBook.Save()
         except Exception as e:
             print(e)
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox2.setStyleSheet(  " background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox2.setStyleSheet(  " background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox2.setStyleSheet(" background-color: green ")
+                break
 
     def TestGeneralStructure_DOC5_XLS(self, workBook):
 
@@ -8879,6 +8921,17 @@ class Test(Application):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         reportWorkBook.Save()
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox3.setStyleSheet(  " background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox3.setStyleSheet(  " background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox3.setStyleSheet(" background-color: green ")
+                break
 
     def TestGeneralStructure_DOC5_XLSX_XLSM(self, workBook):
 
@@ -10040,6 +10093,17 @@ class Test(Application):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         reportWorkBook.Save()
+
+        for row in reportWorkSheet2.Rows:
+            if row.Cells(1).Value == "Blocking":
+                self.tab1.colorTextBox3.setStyleSheet(" background-color: red ")
+                break
+            if row.Cells(1).Value == "Warning":
+                self.tab1.colorTextBox3.setStyleSheet(" background-color: yellow ")
+                break
+            if row.Cells(1).Value is None:
+                self.tab1.colorTextBox3.setStyleSheet(" background-color: green ")
+                break
 
     def GetTsdFileExtension(self):
 
@@ -14518,15 +14582,15 @@ class Test(Application):
                         lib_col = cell.column
                     if str(cell.value).casefold() in {"description de la strategie pour détecter le défaut"}:
                         strat_col = cell.column
-                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut"}:
+                    if str(cell.value).casefold() in {"seuil de détection  /  valeur  du défaut "}:
                         det_col = cell.column
                     if str(cell.value).casefold() in {"temps de confirmation du défaut"}:
                         temps_col = cell.column
-                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut"}:
+                    if str(cell.value).casefold() in {"description de la strategie de disparition du défaut / procedure à effectuer pour vérifier la disparition du défaut"}:
                         disp_col = cell.column
                     if str(cell.value).casefold() in {"mode dégradé"}:
                         mode_col = cell.column
-                    if str(cell.value).casefold() in {"Voyant"}:
+                    if str(cell.value).casefold() in {"voyant"}:
                         voy_col = cell.column
                     if str(cell.value).casefold() in {"applicabilité projet"}:
                         app_col = cell.column
@@ -14871,7 +14935,7 @@ class Test(Application):
             try:
                 index_codes = sheetNames.index("data trouble codes")
             except:
-                return 0
+                return 2
 
         workSheetCodes = workBook.sheet_by_index(index_codes)
         rows_codes = workSheetCodes.get_rows()
@@ -14883,10 +14947,10 @@ class Test(Application):
         for row_table in rows_table:
             if row_index >= row_start:
                 for i in range(0, 12):
+                    if str(row_table[app_col_table].value) != "":
+                        rowValueListTable.append(str(row_table[app_col_table].value).casefold().strip())
                     app_col_table = app_col_table + 1
-                    rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
-                    row_index = 0
-
+                break
             if row_start == 10:
                 for colindex, cell in enumerate(row_table):
                     if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
@@ -14896,7 +14960,8 @@ class Test(Application):
                             row_start = row_index + 2
                         else:
                             row_start = row_index + 1
-                row_index = row_index + 1
+
+            row_index = row_index + 1
 
 
         row_index_codes = 0
@@ -14904,9 +14969,10 @@ class Test(Application):
         for row_codes in rows_codes:
             if row_index_codes >= row_start_codes:
                 for i in range(0, 8):
+                    if str(row_codes[app_col_code].value) != "":
+                        rowValueListCodes.append(str(row_codes[app_col_code].value).casefold().strip())
                     app_col_code = app_col_code + 1
-                    rowValueListCodes.append(str(row_codes[app_col_code-1].value).casefold().strip())
-                    row_index_codes = 0
+                break
             if row_start_codes == 10:
                 for colindex, cell in enumerate(row_codes):
                     if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
@@ -14914,7 +14980,18 @@ class Test(Application):
                         app_tuple = (row_index_codes, row_index_codes + 1, app_col_code, app_col_code + 8)
                         if app_tuple in workSheetCodes.merged_cells:
                             row_start_codes = row_index_codes + 1
-                row_index_codes = row_index_codes + 1
+
+                if row_start_codes == 10:
+                    row_codes_values = [cell.value for cell in row_codes]
+
+                    for element in rowValueListTable:
+                        if not element in row_codes_values:
+                            return 0
+                    row_start_codes =20
+            if row_start_codes == 20:
+                return 1
+
+            row_index_codes = row_index_codes + 1
 
         check = 0
         if str(rowValueListTable) == '[]'.casefold():
@@ -14964,12 +15041,13 @@ class Test(Application):
         for row_table in rows_table:
             if row_index >= row_start:
                 for i in range(0, 12):
-                    rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
+                    if str(row_table[app_col_table].value) != "":
+                        rowValueListTable.append(str(row_table[app_col_table].value).casefold().strip())
                     app_col_table = app_col_table + 1
-                    row_index = 0
+
 
             if row_start == 10:
-                for  cell in row_table:
+                for cell in row_table:
                     if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
                         app_col_table = cell.column
                         if workSheetTable.cell(row_index + 1, app_col_table).value:
@@ -14982,10 +15060,12 @@ class Test(Application):
         row_start_codes = 10
         for row_codes in rows_codes:
             if row_index_codes >= row_start_codes:
-                    for i in range(0, 8):
-                        rowValueListCodes.append(str(row_codes[app_col_code - 1].value).casefold().strip())
+                    for i in range(0, 7):
+                        if not row_codes[app_col_code].value is None:
+                          rowValueListCodes.append(str(row_codes[app_col_code].value).casefold().strip())
                         app_col_code = app_col_code + 1
-                        row_index_codes = 1
+                    break
+
 
             if row_start_codes == 10:
                 for cell in row_codes:
@@ -14995,7 +15075,17 @@ class Test(Application):
                             row_start_codes = row_index_codes + 1
                         else:
                             row_start_codes = row_index_codes + 2
-                row_index_codes = row_index_codes + 1
+                        break
+                if row_start_codes == 10:
+                    row_codes_values = [cell.value for cell in row_codes]
+
+                    for element in rowValueListTable:
+                        if not element in row_codes_values:
+                            return 0
+                    row_start_codes = 20
+                if row_start_codes == 20:
+                    return 1
+            row_index_codes = row_index_codes + 1
 
         check = 0
         if str(rowValueListTable) == '[]'.casefold():
@@ -15234,8 +15324,6 @@ class Test(Application):
              else:
                  pass
         return 1
-
-
 
 
 #Coherence checks requirements
@@ -17359,7 +17447,7 @@ class Test(Application):
         self.path_DOC14 = self.download_file(self.DOC14Link)
         self.path_DOC8 = self.download_file(self.DOC8Link)
         if self.path_Cesare == "Error":
-            self.tab1.textbox.setText("Check connection type")
+            self.tab1.textbox.setText("ERROR: No network available\nto continue, please select files for field in the Options tab ")
             return
         if self.path_Cesare == "False":
             return
