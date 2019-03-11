@@ -494,6 +494,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
+        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -502,6 +503,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
+        tab.TextBoxPass.setText("Cst67677")
 
 
         # File Selectiom Dialog5
@@ -4563,6 +4565,32 @@ class Test(Application):
                                           " The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect",
                                           ""]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        testResult, NrRow, NrCol, text, SheetName = self.Test_02043_18_04939_COH_2091_XLS(workBook)
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2091 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2091", "", ""]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2091: The sheet “tableau” is not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2091: The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2091"][self.checkLevel],
+                                          "02043_18_04939_COH_2091",
+                                          " The text chain" + text + "is present in the cell " + row + "," + col + "of the sheet" + name,
+                                          row + cell]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+
 
 
         try:
@@ -15044,6 +15072,7 @@ class Test(Application):
                     if str(row_table[app_col_table].value) != "":
                         rowValueListTable.append(str(row_table[app_col_table].value).casefold().strip())
                     app_col_table = app_col_table + 1
+                break
 
 
             if row_start == 10:
@@ -15054,7 +15083,8 @@ class Test(Application):
                             row_start = row_index + 1
                         else:
                             row_start = row_index + 2
-                row_index = row_index + 1
+                        break
+            row_index = row_index + 1
 
         row_index_codes = 1
         row_start_codes = 10
@@ -15206,9 +15236,11 @@ class Test(Application):
         for row_table in rows_table:
             if row_index >= row_start:
                 for i in range(0, 12):
-                    rowValueListTable.append(str(row_table[app_col_table - 1].value).casefold().strip())
+                    if str(row_table[app_col_table].value) != "":
+                        rowValueListTable.append(str(row_table[app_col_table].value).casefold().strip())
                     app_col_table = app_col_table + 1
-                    row_index = 1
+                break
+
 
             if row_start == 10:
                 for  cell in row_table:
@@ -15218,41 +15250,49 @@ class Test(Application):
                             row_start = row_index + 1
                         else:
                             row_start = row_index + 2
-                row_index = row_index + 1
+                        break
+            row_index = row_index + 1
 
         row_index_measures = 1
         row_start_measures = 10
         for row_measures in rows_measures:
             if row_index_measures >= row_start_measures:
-                testflag = False
-                for cell in row_measures:
-                    if cell.value:
-                        testflag = True
-                        break
-                    else:
-                        pass
-                if testflag == True:
-                    for i in range(0, 21):
-                        rowValueListMeasures.append(str(row_measures[app_col_measures - 1].value).casefold().strip())
+                    for i in range(0, 7):
+                        if not row_measures[app_col_measures] is None:
+                          rowValueListMeasures.append(str(row_measures[app_col_measures].value).casefold().strip())
                         app_col_measures = app_col_measures + 1
-                else:
                     break
+
+
             if row_start_measures == 10:
                 for cell in row_measures:
                     if str(cell.value).casefold() in {"applicabilité projet", "project applicability"}:
                         app_col_measures = cell.column
-                        if workSheetMeasures.cell(row_index_measures + 1, app_col_measures).value:
+                        if workSheetMeasures.cell(row_index_measures, app_col_measures).value:
                             row_start_measures = row_index_measures + 1
                         else:
                             row_start_measures = row_index_measures + 2
+                        break
+                if row_start_measures == 10:
+                    row_measures_values = [cell.value for cell in row_measures]
+
+                    for element in rowValueListMeasures:
+                        if not element in row_measures_values:
+                            return 0
+                    row_start_measures = 20
+                if row_start_measures == 20:
+                    return 1
             row_index_measures = row_index_measures + 1
 
         check = 0
-        for element in rowValueListTable:
-            if element in rowValueListMeasures:
-                pass
-            else:
-               check = check + 1
+        if str(rowValueListTable) == '[]'.casefold():
+            check += 1
+        else:
+            for element in rowValueListTable:
+                if element in rowValueListMeasures:
+                    pass
+                else:
+                   check = check + 1
 
         if check == 0:
             return 1
@@ -17346,7 +17386,25 @@ class Test(Application):
         else:
             return 0
 
-    def Test_02043_18_04939_COH_2100_XLS(self, workBook):
+    def Test_02043_18_04939_COH_2091_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        for name in sheetNames:
+            index = sheetNames.index(name)
+            workSheet = workBook.sheet_by_index(index)
+            nrRows = workSheet.nrows
+            for rowindex in range(0, nrRows):
+                rows = workSheet.get_rows()
+                for row in rows:
+                    for colindex, cell in enumerate(row):
+                        if str(cell.value).casefold().strip() in {"?", "TBD", "TBC"}:
+                            return (0, rowindex, colnum_string(colindex), str(cell.value), name)
+        return (1, 0 , 0, 0, 0)
+
+
+    '''def Test_02043_18_04939_COH_2100_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
@@ -17413,9 +17471,7 @@ class Test(Application):
         if count == 0:
              return 1
         else:
-            return 0
-
-
+            return 0'''
 
 
     def buttonClicked(self):
