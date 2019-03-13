@@ -10,7 +10,7 @@ import io
 from win32ui import FindWindow
 from ctypes import windll
 import datetime
-from openpyxl.styles import Color
+from timeit import default_timer as timer
 
 
 def colnum_string(n):
@@ -620,7 +620,9 @@ class Test(Application):
 
     def TestGeneralStructureXLS_DOC3(self, workBook, fileName, path_Cesare, path_effect):
         flag = 1
+        start = timer()
         testResult_0005 = self.Test_02043_18_04939_STRUCT_0005_XLS(fileName)
+        stop = timer()
         fileName = self.tab1.myTextBox1.toPlainText()
         excel = win32.gencache.EnsureDispatch('Excel.Application')
         reportWorkBook = excel.Workbooks.Open(fileName)
@@ -641,7 +643,7 @@ class Test(Application):
                                            "", "TSD file checked:", "TSD function file checked:",
                                            "TSD system file checked:",
                                            "", "AMDEC:", "export MedialecMatrice:", "", "Status:"]
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation", "Time"]
 
         for i, name in enumerate(reportInformationCol1StringList):
             reportWorkSheet1.Cells(i + 1, 1).Value = name
@@ -673,16 +675,6 @@ class Test(Application):
         else:
             MedialecMatrice = "None"
 
-        # if self.tab2.myTextBox5.toPlainText():
-        #     cesare = self.tab2.myTextBox5.toPlainText()
-        # else:
-        #     cesare = self.download_file(self.CesareLink)
-        #
-        # if self.tab2.myTextBox6.toPlainText():
-        #     CustomerEffect = self.tab2.myTextBox6.toPlainText()
-        # else:
-        #     CustomerEffect = self.download_file(self.CustomerEffectLink)
-
         if self.TestTsdFile is 1:
             status = "Pass"
         else:
@@ -692,7 +684,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec.split("/")[-1], MedialecMatrice.split("/")[-1],
@@ -716,19 +708,21 @@ class Test(Application):
 
         row = 2
 
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0000_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0000 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0000", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0000: The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000", "The sheet “Informations Générales” (or “General information”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0000"][self.checkLevel], "02043_18_04939_STRUCT_0000", "The sheet “Informations Générales” (or “General information”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
@@ -738,336 +732,370 @@ class Test(Application):
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0005 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0005", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0010: The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", "The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0005"][self.checkLevel], "02043_18_04939_STRUCT_0005", "The field “REFERENCE” of the sheet “Informations Générales” (or “General information”)  in the line 52 shall be indicated.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0010_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0010 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0010", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0010: The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010", "The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”).", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0010"][self.checkLevel], "02043_18_04939_STRUCT_0010", "The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”).", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0011_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0011 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0011", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0011: The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011", "The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0011"][self.checkLevel], "02043_18_04939_STRUCT_0011", "The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales” (or “General information”). \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0020_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0020 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0020", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0020: The sheet “Suppression ” (or “suppression ”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", "The sheet “Suppression ” (or “suppression ”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0020"][self.checkLevel], "02043_18_04939_STRUCT_0020", "The sheet “Suppression ” (or “suppression ”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0025_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0025 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0025", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0025: The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0025"][self.checkLevel], "02043_18_04939_STRUCT_0025", "The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0025"][self.checkLevel], "02043_18_04939_STRUCT_0025", "The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0030_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0030 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0030", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0030: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", "The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0030"][self.checkLevel], "02043_18_04939_STRUCT_0030", "The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0035_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0035 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0035", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0035: The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0035"][self.checkLevel], "02043_18_04939_STRUCT_0030", "The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0035"][self.checkLevel], "02043_18_04939_STRUCT_0030", "The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0040_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0040 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0040", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0040: The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = False
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040", "The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0040"][self.checkLevel], "02043_18_04939_STRUCT_0040", "The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0051_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0051 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0051", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0051: The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0051"][self.checkLevel], "02043_18_04939_STRUCT_0051", "The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0051"][self.checkLevel], "02043_18_04939_STRUCT_0051", "The “Vehicle Architecture Schematic” document is not referenced. \nAs indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0052_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0052 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0052", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0052: The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0052"][self.checkLevel], "02043_18_04939_STRUCT_0052", "The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666.", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0052"][self.checkLevel], "02043_18_04939_STRUCT_0052", "The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0053_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0053 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0053", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0053: The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0053"][self.checkLevel], "02043_18_04939_STRUCT_0053", "The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0053"][self.checkLevel], "02043_18_04939_STRUCT_0053", "The “Fault Tree” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0054_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0054 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0054", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0054: The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0054"][self.checkLevel], "02043_18_04939_STRUCT_0054", "The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0054"][self.checkLevel], "02043_18_04939_STRUCT_0054", "The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0055_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0055 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0055", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0055: The “STD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0055"][self.checkLevel], "02043_18_04939_STRUCT_0055", "The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0055"][self.checkLevel], "02043_18_04939_STRUCT_0055", "The “ECU schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0056_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0056 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0056", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0056: The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0056"][self.checkLevel], "02043_18_04939_STRUCT_0056", "The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0056"][self.checkLevel], "02043_18_04939_STRUCT_0056", "The “Complexity Matrix (Decli EE)” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0057_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0057 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0057", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0057: The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0057"][self.checkLevel], "02043_18_04939_STRUCT_0057", "The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0057"][self.checkLevel], "02043_18_04939_STRUCT_0057", "The “Décli” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0058_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0058 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0058", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0058: The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0058"][self.checkLevel], "02043_18_04939_STRUCT_0058", "The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0058"][self.checkLevel], "02043_18_04939_STRUCT_0058", "The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0059_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0059 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0059", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0059: The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0059"][self.checkLevel], "02043_18_04939_STRUCT_0059", "The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0059"][self.checkLevel], "02043_18_04939_STRUCT_0059", "The “EEAD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0060_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0060 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_0060", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0060: The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
             self.tab1.textbox.setText(text)
             flag = False
-            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060", "The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", ""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_STRUCT_0060"][self.checkLevel], "02043_18_04939_STRUCT_0060", "The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         self.pbvalue = self.pbvalue + 0.8772
         self.tab1.pbar.setValue(self.pbvalue)
@@ -1152,7 +1180,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec, MedialecMatrice.split("/")[-1],
@@ -1598,7 +1626,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec.split("/")[-1], MedialecMatrice.split("/")[-1],
@@ -2042,7 +2070,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec.split("/")[-1], MedialecMatrice.split("/")[-1],
@@ -2487,7 +2515,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec.split("/")[-1], MedialecMatrice.split("/")[-1],
@@ -2931,7 +2959,7 @@ class Test(Application):
 
         now = datetime.datetime.now()
 
-        reportCol2 = ["V0.4", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
+        reportCol2 = ["V0.5", "02043_18_05474_2_1_Check_TSD_Criticity_Configuration_file.xlsx", "", path_Cesare.split("/")[-1],
                       path_effect.split("/")[-1], check_level,
                       "", now.strftime("%Y-%m-%d"), now.strftime("%H:%M"), "",
                       TSD_file_checked.split("/")[-1], TSD_function_file_checked.split("/")[-1], TSD_system_file_checked.split("/")[-1], "", amdec, MedialecMatrice.split("/")[-1],
@@ -3319,7 +3347,7 @@ class Test(Application):
             reportWorkSheet2 = reportWorkBook.Worksheets.Add(None, sheetAfter)
             reportWorkSheet2.Name = "Test Report"
 
-        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation"]
+        testReportRow1StringList = ["Criticity", "Requirements", "Message", "Localisation", "Time"]
 
         for i, name in enumerate(testReportRow1StringList):
             reportWorkSheet2.Cells(1, i + 1).Value = name
@@ -3333,19 +3361,22 @@ class Test(Application):
         str3 = "0"
         String = str1 + str2 + str3
 
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0100_XLS(workBook)
+        stop = timer()
+        print(stop - start)
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0100 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0100: The sheet “tableau” is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " The sheet “tableau” is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " The sheet “tableau” is not present or not written correctly.", "", stop  - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
@@ -3356,319 +3387,352 @@ class Test(Application):
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0110 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0110: In the sheet “tableau”, the column XXXX (to be indicated) is not present or not written correctly.."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “tableau”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0120_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0120 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0120: The sheet “codes défauts” is not present or not written correctly"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “codes défauts” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “codes défauts” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0130_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0130 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0130: In the sheet “codes défauts”, the column XXXX (to be indicated) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “codes défauts”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “codes défauts”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0140_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0140 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0140: The sheet “mesures et commandes” is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “mesures et commandes” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “mesures et commandes” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0150_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0140 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0150: In the sheet “mesures et commandes”, the column XXXX (to be indicated) is not present or not written correctly. "
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “mesures et commandes”, the column XXXX (to be indicated) is not present or not written correctly. ", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “mesures et commandes”, the column XXXX (to be indicated) is not present or not written correctly. ", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0160_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0160 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0160: The sheet “Diagnostic débarqués” is not present or not written correctly"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Diagnostic débarqués” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Diagnostic débarqués” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0170_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0170 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0170: In the sheet “Diagnostic débarqués”, the column XXXX (to be indicated) is not present or not written correctly.."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “Diagnostic débarqués”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “Diagnostic débarqués”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0180_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0180 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0180: The sheet “Effets clients” is not present or not written correctly"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Effets clients” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Effets clients” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0190_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0190 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0190: Effets clients”, the column XXXX (to be indicated) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "Effets clients”, the column XXXX (to be indicated) is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "Effets clients”, the column XXXX (to be indicated) is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0200_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0200 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0200: The sheet “ER” is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "  The sheet “ER” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "  The sheet “ER” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0210_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0210 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0210: In the sheet “ER”, the column XXXX (to be indicated) is not present or not written correctly.."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “ER”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “ER”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0220_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0220 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0220: The sheet “Constituants” is not present or not written correctly"
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Constituants” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Constituants” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0230_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0230 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0230: In the sheet “Constituants”, the column XXXX (to be indicated) is not present or not written correctly.."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “Constituants”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “Constituants”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0240_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0240 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0240: The sheet “situations de vie” is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “situations de vie” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “situations de vie” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0250_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0250 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0250: In the sheet “situations de vie”, the column XXXX (to be indicated) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “situations de vie”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "In the sheet “situations de vie”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0260_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0260 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0260: The sheet “Liste MDD” is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Liste MDD” is not present or not written correctly", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, "The sheet “Liste MDD” is not present or not written correctly", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
         str2 = str(stringInt + row)
         String = str1 + str2 + str3
+        start = timer()
         testResult = self.Test_02043_18_04939_STRUCT_0270_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0270 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "", ""]):
+            for i, name in enumerate(["Good", String, "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0270: In the sheet “Liste MDD”, the column XXXX (to be indicated) is not present or not written correctly."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “Liste MDD”, the column XXXX (to be indicated) is not present or not written correctly.", ""]):
+            for i, name in enumerate([self.testReqDict[String][self.checkLevel], String, " In the sheet “Liste MDD”, the column XXXX (to be indicated) is not present or not written correctly.", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(
-                    ["Good", "02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060 NOT OK"
             self.tab1.textbox.setText(text)
             for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1000_1001_1180_1190_1200_1210_1220_1230_1060",
-                                      "The sheet “tableau” (or “table”) is not in the file", ""]):
+                                      "The sheet “tableau” (or “table”) is not in the file", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             for key, value in testResult.items():
@@ -3681,14 +3745,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1000"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1000 ",
                                               "In the sheet “tableau” (or “table”), the column “Référence” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1000 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1000 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1000 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-1":
                     row += 1
@@ -3699,14 +3763,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1001"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1001 ",
                                               "In the sheet “tableau” (or “table”), the column “Version” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1001 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1001 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1001 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-2":
                     row += 1
@@ -3717,14 +3781,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1180"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1180 ",
                                               "In the sheet “tableau” (or “table”), the columns “Constituant défaillant détecté” is not completed",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1180 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1180 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1180 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-3":
                     row += 1
@@ -3735,14 +3799,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1190"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1190 ",
                                               "In the sheet “tableau” (or “tableau”),  the columns “Défaillance constituant” is not completed",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1190 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1190 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1190 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-4":
                     row += 1
@@ -3753,14 +3817,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1200"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1200 ",
                                               "In the sheet “tableau” (or “tableau”), the columns “Situation de vie client” is not completed ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1200 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1200 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1200 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-5":
                     row += 1
@@ -3771,14 +3835,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1210"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1210 ",
                                               "In the sheet “tableau” (or “tableau”), the columns “Effet(s) client(s)” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1210 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1210 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1210 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-6":
                     row += 1
@@ -3789,14 +3853,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1220"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1220 ",
                                               "In the sheet “tableau” (or “tableau”), the columns “Code défaut” is not completed",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1220 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1220 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1220 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-7":
                     row += 1
@@ -3807,25 +3871,27 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1060"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1060 ",
                                               "The project impact is not specified for the project in the sheet “tableau ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1060 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1060 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1060 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061 OK"
             self.tab1.textbox.setText(text)
             for i, name in enumerate(
                     ["Good", "02043_18_04939_STRUCT_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061", "",
-                     ""]):
+                     "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             row += 1
@@ -3834,7 +3900,7 @@ class Test(Application):
             self.tab1.textbox.setText(text)
             for i, name in enumerate(
                     ["", "02043_18_04939_STRUCT_1010_1011_1080_1090_1110_1120_1130_1140_1150_1160_1170_1061",
-                     "The sheet “codes défauts” is not present in the file", ""]):
+                     "The sheet “codes défauts” is not present in the file", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             for key, value in testResult.items():
@@ -3847,14 +3913,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1010"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1010",
                                               "In the sheet “codes défauts”, the column “Référence” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1010 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1010 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1010 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-1":
                     row += 1
@@ -3865,14 +3931,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1011"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1011 ",
                                               "In the sheet “codes défauts”, the column “Version” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1011 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1011 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1011 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-2":
                     row += 1
@@ -3883,14 +3949,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1080"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1080 ",
                                               "In the sheet “codes défauts”, the column “Code défaut” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1080 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1080 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1080 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-3":
                     row += 1
@@ -3901,14 +3967,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1090"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1090 ",
                                               "In the sheet “codes défauts”, the column “supporté par constituant (s)” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1090 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1090 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1090 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-4":
                     row += 1
@@ -3919,14 +3985,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1110"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1110 ",
                                               "In the sheet “codes défauts”, the columns “libellé (signification)” is not completed ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1110 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1110 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1110 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-5":
                     row += 1
@@ -3937,14 +4003,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1120"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1120 ",
                                               "In the sheet “codes défauts”, the columns “Description de la strategie pour détecter le défaut” is not completed ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1120 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1120 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1120 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-6":
                     row += 1
@@ -3955,14 +4021,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1130"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1130 ",
                                               "In the sheet “codes défauts”, the columns “Seuil de détection  /  valeur  du défaut” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1130 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1130 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1130 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-7":
                     row += 1
@@ -3973,14 +4039,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1140"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1140 ",
                                               "In the sheet “codes défauts”, the columns “Temps de confirmation du défaut” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1140 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1140 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1140 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-8":
                     row += 1
@@ -3991,14 +4057,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1150"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1150 ",
                                               "In the sheet “codes défauts”, the columns “Description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut” is not completed ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1150 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1150 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1150 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-9":
                     row += 1
@@ -4009,14 +4075,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1160"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1160 ",
                                               "In the sheet “codes défauts”, the columns “Mode dégradé” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1160 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1160 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1160 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-10":
                     row += 1
@@ -4027,14 +4093,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1170"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1170 ",
                                               "In the sheet “codes défauts”, the columns “Voyant” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1170 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1170 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1170 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-11":
                     row += 1
@@ -4045,23 +4111,25 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1061"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1061 ",
                                               " The project impact is not specified for the project in the sheet “codes défauts ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1061 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1061 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1061 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1020_1021_1100_1062_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1020_1021_1100_1062 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1020_1021_1100_1062 OK", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1020_1021_1100_1062 OK", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             row += 1
@@ -4069,7 +4137,7 @@ class Test(Application):
             text = text + "\nTest_02043_18_04939_WHOLENESS_1020_1021_1100_1062 NOT OK"
             self.tab1.textbox.setText(text)
             for i, name in enumerate(["", "02043_18_04939_WHOLENESS_1020_1021_1100_1062",
-                                      "The sheet “mesures et commandes” is not in the file", ""]):
+                                      "The sheet “mesures et commandes” is not in the file", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
         else:
@@ -4083,14 +4151,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1020"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1020 ",
                                               "In the sheet “mesures et commandes”, the column “Référence” is not completed ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\nTest_02043_18_04939_WHOLENESS_1020 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1020 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1020 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-1":
                     row += 1
@@ -4101,14 +4169,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1021"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1021 ",
                                               "In the sheet “mesures et commandes”, the column “Version” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\nTest_02043_18_04939_WHOLENES_1021 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1021 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1021 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-2":
                     row += 1
@@ -4119,14 +4187,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1100"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1100 ",
                                               "In the sheet “mesures et commandes”, the column “supporté par constituant (s)” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\nTest_02043_18_04939_WHOLENESS_1100 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1100 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1100 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-3":
                     row += 1
@@ -4137,23 +4205,25 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1062"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1062 ",
                                               "The project impact is not specified for the project in the sheet “mesures et commandes” ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\nTest_02043_18_04939_WHOLENESS_1062 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1062 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1062 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1030_1031_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1030_1031 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1030_1031", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1030_1031", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             text = self.tab1.textbox.toPlainText()
@@ -4175,14 +4245,14 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1030"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1030 ",
                                               "Diagnostic débarqués”, the column “Référence” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1030 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "002043_18_04939_WHOLENESS_1030 OK", "", ""]):
+                    for i, name in enumerate(["Good", "002043_18_04939_WHOLENESS_1030 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-1":
                     row += 1
@@ -4193,23 +4263,25 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1031"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1031",
                                               "In the sheet “Diagnostic débarqués”, the column “Version” is not completed.",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1031 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1031 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1031 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1040_1041_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1040_1041 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1040_1041", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1040_1041", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             text = self.tab1.textbox.toPlainText()
@@ -4236,7 +4308,7 @@ class Test(Application):
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1040 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1040 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1040 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 if key == "-1":
                     row += 1
@@ -4247,23 +4319,25 @@ class Test(Application):
                     for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1041"][self.checkLevel],
                                               "02043_18_04939_WHOLENESS_1041",
                                               "In the sheet “Liste MDD”, the column “Version” is not completed. ",
-                                              str(value)]):
+                                              str(value), stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
                 else:
                     row += 1
                     text = self.tab1.textbox.toPlainText()
                     text = text + "\n02043_18_04939_WHOLENESS_1041 OK"
                     self.tab1.textbox.setText(text)
-                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1041 OK", "", ""]):
+                    for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1041 OK", "", "", stop - start]):
                         reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1050_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_1050 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_1050", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_1050", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             text = self.tab1.textbox.toPlainText()
@@ -4280,16 +4354,18 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1050"][self.checkLevel],
                                       "02043_18_04939_WHOLENESS_1050 ",
                                       " The projects listed in the following sheets “tableau” and “codes défauts” are not identical. ",
-                                      ""]):
+                                      "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
-        row += 1
+        '''row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1055_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_1055 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_1055", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_STRUCT_1055", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         elif testResult == 2:
             text = self.tab1.textbox.toPlainText()
@@ -4307,33 +4383,37 @@ class Test(Application):
             for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS _1055"][self.checkLevel],
                                       "02043_18_04939_WHOLENESS _1055",
                                       "The projects listed in the following sheets “tableau” and “mesures et commandes” are not identical. ",
-                                      ""]):
-                reportWorkSheet2.Cells(row, i + 1).Value = name
+                                      "", stop - start]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name'''
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_WHOLENESS_1240_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1240 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1240", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_WHOLENESS_1240", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_WHOLENESS_1240: The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”)."
             self.tab1.textbox.setText(text)
             flag = 0
-            for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1240"][self.checkLevel], "02043_18_04939_WHOLENESS_1240", "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).",""]):
+            for i, name in enumerate([self.testReqDict["02043_18_04939_WHOLENESS_1240"][self.checkLevel], "02043_18_04939_WHOLENESS_1240", "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”).","", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2000_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2000 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2000", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2000", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4348,16 +4428,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2000"][self.checkLevel],
                                           "02043_18_04939_COH_2000",
                                           "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult, famillyList, localisation = self.Test_02043_18_04939_COH_2005_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2005 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2005", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4371,17 +4453,19 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2005"][self.checkLevel],
                                           "02043_18_04939_COH_2005",
                                           " The DTC specified in the cell " + localisation + " of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)",
-                                          localisation]):
+                                          localisation, stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         row += 1
+        start = timer()
         testResult, List = self.Test_02043_18_04939_COH_2006_XLS(workBook, famillyList)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2006 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2006", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4395,16 +4479,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2006"][self.checkLevel],
                                           "02043_18_04939_COH_2006",
                                           "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8].",
-                                          str(List[0]['col'] + List[0]['row'])]):
+                                          str(List[0]['col'] + List[0]['row']), stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult, List = self.Test_02043_18_04939_COH_2007_XLS(workBook, famillyList)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2007 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2007", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2007", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4418,17 +4504,19 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2007"][self.checkLevel],
                                           "02043_18_04939_COH_2007",
                                           "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]",
-                                          str(List[0]['col'] + List[0]['row'])]):
+                                          str(List[0]['col'] + List[0]['row']), stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2010_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2010 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2010", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2010", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4443,16 +4531,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2010"][self.checkLevel],
                                           "02043_18_04939_COH_2010",
                                           "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2020_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2020 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2020", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2020", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4467,16 +4557,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2020"][self.checkLevel],
                                           "02043_18_04939_COH_2020",
                                           "The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2030_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2030 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2030", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2030", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4491,16 +4583,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2030"][self.checkLevel],
                                           "02043_18_04939_COH_2030",
                                           "The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2040_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2040 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2040", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2040", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4515,16 +4609,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2040"][self.checkLevel],
                                           "02043_18_04939_COH_2040",
                                           "The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués” ",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2050_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2050 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2050", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2050", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4539,16 +4635,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2050"][self.checkLevel],
                                           "02043_18_04939_COH_2050",
                                           " The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER” ",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult = self.Test_02043_18_04939_COH_2060_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2060 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2060", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2060", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4563,16 +4661,18 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2060"][self.checkLevel],
                                           "02043_18_04939_COH_2060",
                                           " The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect",
-                                          ""]):
+                                          "", stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
         row += 1
+        start = timer()
         testResult, NrRow, NrCol, text, SheetName = self.Test_02043_18_04939_COH_2091_XLS(workBook)
+        stop = timer()
         if testResult == 1:
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_COH_2091 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", "02043_18_04939_COH_2091", "", ""]):
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2091", "", "", stop - start]):
                 reportWorkSheet2.Cells(row, i + 1).Value = name
         else:
             if testResult == 2:
@@ -4587,10 +4687,60 @@ class Test(Application):
                 for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2091"][self.checkLevel],
                                           "02043_18_04939_COH_2091",
                                           " The text chain" + text + "is present in the cell " + row + "," + col + "of the sheet" + name,
-                                          row + cell]):
+                                          row + cell, stop - start]):
                     reportWorkSheet2.Cells(row, i + 1).Value = name
 
+        row += 1
+        start = timer()
+        testResult = self.Test_02043_18_04939_COH_2100_XLS(workBook)
+        stop = timer()
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2100 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2100", "", "", stop - start]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2100: The sheet “codes défauts” is not in the file  "
 
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2100: The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2100"][self.checkLevel],
+                                          "02043_18_04939_COH_2100",
+                                          " The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” ",
+                                          "", stop - start]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
+
+        row += 1
+        start = timer()
+        testResult = self.Test_02043_18_04939_COH_2110_XLS(workBook)
+        stop = timer()
+        if testResult == 1:
+            text = self.tab1.textbox.toPlainText()
+            text = text + "\nTest_02043_18_04939_COH_2110 OK"
+            self.tab1.textbox.setText(text)
+            for i, name in enumerate(["Good", "02043_18_04939_COH_2110", "", "", stop - start]):
+                reportWorkSheet2.Cells(row, i + 1).Value = name
+        else:
+            if testResult == 2:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2110: The sheet “codes défauts” is not in the file  "
+
+            else:
+                text = self.tab1.textbox.toPlainText()
+                text = text + "\nTest_02043_18_04939_COH_2110: The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect  "
+                self.tab1.textbox.setText(text)
+                flag = 0
+                for i, name in enumerate([self.testReqDict["02043_18_04939_COH_2110"][self.checkLevel],
+                                          "02043_18_04939_COH_2110",
+                                          " The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” ",
+                                          "", stop - start]):
+                    reportWorkSheet2.Cells(row, i + 1).Value = name
 
 
         try:
@@ -15162,9 +15312,10 @@ class Test(Application):
         for row_table in rows_table:
             if row_index >= row_start:
                 for i in range(0, 12):
+                    if str(row_table[app_col_table].value) != "":
+                        rowValueListTable.append(str(row_table[app_col_table].value).casefold().strip())
                     app_col_table = app_col_table + 1
-                    rowValueListTable.append(str(row_table[app_col_table-1].value).casefold().strip())
-                    row_index = 0
+                break
 
             if row_start == 10:
                 for colindex, cell in enumerate(row_table):
@@ -15175,7 +15326,7 @@ class Test(Application):
                             row_start = row_index + 2
                         else:
                             row_start = row_index + 1
-                row_index = row_index + 1
+            row_index = row_index + 1
 
 
         row_index_measures = 0
@@ -15183,9 +15334,10 @@ class Test(Application):
         for row_measures in rows_measures:
             if row_index_measures >= row_start_measures:
                 for i in range(0, 21):
+                    if str(row_measures[app_col_measures].value) != "":
+                        rowValueListMeasures.append(str(row_measures[app_col_measures].value).casefold().strip())
                     app_col_measures = app_col_measures + 1
-                    rowValueListMeasures.append(str(row_measures[app_col_measures-1].value).casefold().strip())
-                    row_index_measures = 0
+                break
 
             if row_start_measures == 10:
                 for colindex, cell in enumerate(row_measures):
@@ -15672,7 +15824,7 @@ class Test(Application):
 
         count = 0
         returnList = list()
-
+        start = timer()
         if self.tab2.myTextBox5.toPlainText():
             fileName = self.tab2.myTextBox5.toPlainText()
             win32.gencache.EnsureDispatch('Excel.Application')
@@ -15685,16 +15837,25 @@ class Test(Application):
              workBook = excel.Workbooks.Open(fileName)
              workSheet = workBook.Sheets(1)
              col = 0
-
+        stop = timer()
+        print("opening excel file time  = " + str(stop-start))
+        start = timer()
         for row in workSheet.Rows:
+             start1 = timer()
              for cell in row.Cells:
                  if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
                      col = cell.Column
                      break
+                 if cell.Value is None:
+                     break
+             stop1 = timer()
+             print("exit time from cell for = " + str(stop1 - start1))
              if col != 0:
                  break
-
+        stop = timer()
+        print("finding column time  = " + str(stop - start))
         CesareList = list()
+        start = timer()
         for row in workSheet.Rows:
             if row.Row > 2:
                 if workSheet.Cells(row.Row, col).Value is None:
@@ -15702,13 +15863,17 @@ class Test(Application):
                 else:
                     CesareList.append(str(workSheet.Cells(row.Row, col).Value))
 
+        stop = timer()
+        print("populating cesarelist time  = " + str(stop - start))
+        start = timer()
         for element in famillyList:
             if element["value"] in CesareList:
                 pass
             else:
                 count +=1
                 returnList.append(dict(element))
-
+        stop = timer()
+        print("searching list items time  = " + str(stop - start))
 
         if count == 0:
              return 1
@@ -16690,13 +16855,13 @@ class Test(Application):
         workSheetEffet = workBook.sheet_by_index(index_effet)
         rows_effet = workSheetEffet.get_rows()
         rowValueListEffet = list()
-        row_index_effet = 0
+        #row_index_effet = 0
         flag_effet = 0
         count  = 0
-
+        start = timer()
         for row_effet in rows_effet:
             if flag_effet == 1:
-                if not str(row_effet[effet_col]):
+                if str(row_effet[effet_col].value) != "":
                     rowValueListEffet.append(str(row_effet[effet_col].value).casefold().strip())
                 else:
                     break
@@ -16705,10 +16870,12 @@ class Test(Application):
                 for colindex, cell in enumerate(row_effet):
                     if str(cell.value).casefold() == "noms".casefold():
                         effet_col = colindex
-                        row_index_effet = row_index_effet + 1
+                        #row_index_effet = row_index_effet + 1
                         flag_effet = 1
-            row_index_effet = row_index_effet + 1
-
+            #row_index_effet = row_index_effet + 1
+        stop = timer()
+        print("populating customer effet list time = " + str(stop - start))
+        start = timer()
 
         if self.tab2.myTextBox6.toPlainText():
             fileName = self.tab2.myTextBox6.toPlainText()
@@ -16724,7 +16891,9 @@ class Test(Application):
             workSheetFR = workBook.Sheets("FR")
             workSheetGB = workBook.Sheets("GB")
             col = 0
-
+        stop = timer()
+        print("opening doc 7 time = " + str(stop- start))
+        start = timer()
         for row in workSheetFR.Rows:
              for cell in row.Cells:
                  if str(cell.Value).strip().casefold() == "Libellé N1".strip().casefold():
@@ -16757,30 +16926,43 @@ class Test(Application):
                      break
              if col == 3:
                  break
-
-
+        stop = timer()
+        print("finding columns time = " + str(stop - start))
+        start = timer()
+        usedrange1 = workSheetFR.UsedRange
+        usedrange2 = workSheetGB.UsedRange
         EffetListFR = list()
+        columnvalues1 = usedrange1.Columns(colN1_FR).Value
+        columnvalues2 = usedrange1.Columns(colN2_FR).Value
+        columnvalues3 = usedrange1.Columns(colN3_FR).Value
+        EffetListFR = columnvalues1 + columnvalues2 + columnvalues3
+        '''
         for row in workSheetFR.Rows:
-            if workSheetFR.Cells(row.Row, colN1_FR).Value is not None:
-                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
-            elif workSheetFR.Cells(row.Row, colN2_FR).Value is not None:
-                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
-            elif workSheetFR.Cells(row.Row, colN3_FR).Value is not None:
-                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
-            else:
+            if workSheetFR.Cells(row.Row, colN1_FR).Value is None and workSheetFR.Cells(row.Row, colN2_FR).Value is None and workSheetFR.Cells(row.Row, colN3_FR).Value is None:
                 break
+            else:
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN1_FR).Value))
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN2_FR).Value))
+                EffetListFR.append(str(workSheetFR.Cells(row.Row, colN3_FR).Value))
+        '''
 
         EffetListGB = list()
+        columnvalues1 = usedrange2.Columns(colN1_GB).Value
+        columnvalues2 = usedrange2.Columns(colN2_GB).Value
+        columnvalues3 = usedrange2.Columns(colN3_GB).Value
+        EffetListGB = columnvalues1 + columnvalues2 + columnvalues3
+        '''
         for row in workSheetGB.Rows:
-            if workSheetGB.Cells(row.Row, colN1_GB).Value is not None:
-                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
-            elif workSheetGB.Cells(row.Row, colN2_GB).Value is not None:
-                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
-            elif workSheetGB.Cells(row.Row, colN3_GB).Value is not None:
-                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
-            else:
+            if workSheetGB.Cells(row.Row, colN1_GB).Value is None and workSheetGB.Cells(row.Row, colN2_GB).Value is None and workSheetGB.Cells(row.Row, colN3_GB).Value is None:
                 break
-
+            else:
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN1_GB).Value))
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN2_GB).Value))
+                EffetListGB.append(str(workSheetGB.Cells(row.Row, colN3_GB).Value))
+        '''
+        stop = timer()
+        print("populating lists time = " + str(stop - start))
+        start = timer()
         if str(rowValueListEffet) == '[]'.casefold():
             count += 1
         else:
@@ -16789,7 +16971,8 @@ class Test(Application):
                     pass
                 else:
                     count +=1
-
+        stop = timer()
+        print("searching element in list time = " + str(stop - start))
 
         if count == 0:
              return 1
@@ -17395,16 +17578,38 @@ class Test(Application):
             index = sheetNames.index(name)
             workSheet = workBook.sheet_by_index(index)
             nrRows = workSheet.nrows
+            start = timer()
             for rowindex in range(0, nrRows):
-                rows = workSheet.get_rows()
-                for row in rows:
-                    for colindex, cell in enumerate(row):
-                        if str(cell.value).casefold().strip() in {"?", "TBD", "TBC"}:
-                            return (0, rowindex, colnum_string(colindex), str(cell.value), name)
+                start1 = timer()
+                rows = workSheet.row_values(rowindex)
+                stop1 = timer()
+                print("worksheet <<" + name + ">> row " + str(rowindex) + " read time = " + str(stop1 - start1))
+                print
+                start1 = timer()
+                for colindex,value in enumerate(rows):
+                    if value in {"?", "tbd", "tbc"}:
+                            return (0, rowindex, colnum_string(colindex), value, name)
+                stop1 = timer()
+                print("worksheet <<" + name + ">> row " + str(rowindex) + " process time = " + str(stop1 - start1))
+            stop = timer()
+            print("worksheet <<" + name + ">> process time = " + str(stop-start))
         return (1, 0 , 0, 0, 0)
 
+    def Test_02043_18_04939_COH_2091_XLSX_XLSM(self, workBook):
 
-    '''def Test_02043_18_04939_COH_2100_XLS(self, workBook):
+        sheetNames = workBook.sheetnames
+
+        for name in sheetNames:
+            index = sheetNames.index(name)
+            workSheet = workBook.worksheets[index]
+            rows = workSheet.iter_rows()
+            for row in rows:
+                for cell in row:
+                    if str(cell.value).strip().casefold() in {"?", "tbd", "tbc"}:
+                        return (0, cell.row, cell.column, str(cell.value), name)
+        return (1, 0, 0 ,0 ,0)
+
+    def Test_02043_18_04939_COH_2100_XLS(self, workBook):
 
         sheetNames = workBook.sheet_names()
         sheetNames = [x.casefold() for x in sheetNames]
@@ -17432,14 +17637,74 @@ class Test(Application):
                 for colindex, cell in enumerate(row_codes):
                     if str(cell.value).casefold() == "supporté par constituant (s)".casefold():
                         codes_col = colindex
-                        row_index_codes = row_index_codes + 1
                         flag_codes = 1
             row_index_codes = row_index_codes + 1
 
-            fileName = self.path_DOC8
-            excel = win32.gencache.EnsureDispatch('Excel.Application')
-            workBook = excel.Workbooks.Open(fileName)
-            workSheet = workBook.Sheets("sous familles Cesare")
+        fileName = self.path_DOC8
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets(1)
+
+        col = 0
+        for row in workSheet.Rows:
+             for cell in row.Cells:
+                 if str(cell.Value).strip().casefold() == " Nom de la sous famille ".strip().casefold():
+                     col = cell.Column
+                 if col != 0:
+                     break
+             if col != 0:
+                 break
+
+
+        CodeList = list()
+        for row in workSheet.Rows:
+            if workSheet.Cells(row.Row, col).Value is not None:
+                CodeList.append(str(workSheet.Cells(row.Row, col).Value))
+            else:
+                break
+
+
+        if str(rowValueListCodes) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListCodes:
+                if element in CodeList :
+                    pass
+                else:
+                    count +=1
+
+
+        if count == 0:
+             return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2100_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index = sheetNames.index("codes défauts")
+        except:
+             return 2
+
+        col = 0
+        count = 0
+        rowValueListCodes = list()
+
+        rows = workSheet.iter_rows()
+        for row in rows:
+            if col == 0:
+                for cell in row:
+                    if str(cell.value).strip().casefold() == "supporté par constituant (s)":
+                        col = cell.column
+            else:
+                rowValueListCodes.append(str(row[col-1].value).strip().casefold())
+        fileName = self.path_DOC8
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets("sous familles Cesare")
 
 
         for row in workSheet.Rows:
@@ -17469,10 +17734,128 @@ class Test(Application):
 
 
         if count == 0:
-             return 1
+            return 1
         else:
-            return 0'''
+            return 0
 
+    def Test_02043_18_04939_COH_2110_XLS(self, workBook):
+
+        sheetNames = workBook.sheet_names()
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index = sheetNames.index("mesures et commandes")
+        except:
+            return 2
+
+        workSheetCodes = workBook.sheet_by_index(index)
+        rows_codes = workSheetCodes.get_rows()
+        rowValueListCodes = list()
+        row_index_codes = 0
+        flag_codes = 0
+        count = 0
+
+        for row_codes in rows_codes:
+            if flag_codes == 1:
+                if not str(row_codes[codes_col]):
+                    rowValueListCodes.append(str(row_codes[codes_col].value).casefold().strip())
+                else:
+                    break
+
+            if flag_codes == 0:
+                for colindex, cell in enumerate(row_codes):
+                    if str(cell.value).casefold() == "supporté par constituant (s)".casefold():
+                        codes_col = colindex
+                        flag_codes = 1
+            row_index_codes = row_index_codes + 1
+
+        fileName = self.path_DOC8
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets("sous familles Cesare")
+
+        for row in workSheet.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Nom de la sous famille".strip().casefold():
+                    col = cell.Column
+            if col != 0:
+                break
+
+        CodeList = list()
+        for row in workSheet.Rows:
+            if workSheet.Cells(row.Row, col).Value is not None:
+                CodeList.append(str(workSheet.Cells(row.Row, col).Value))
+            else:
+                break
+
+        if str(rowValueListCodes) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListCodes:
+                if element in CodeList:
+                    pass
+                else:
+                    count += 1
+
+        if count == 0:
+            return 1
+        else:
+            return 0
+
+    def Test_02043_18_04939_COH_2110_XLSX_XLSM(self, workBook):
+
+        sheetNames = workBook.sheetnames
+        sheetNames = [x.casefold() for x in sheetNames]
+
+        try:
+            index = sheetNames.index("mesures et commandes")
+        except:
+            return 2
+
+        col = 0
+        count = 0
+        rowValueListCodes = list()
+
+        rows = workSheet.iter_rows()
+        for row in rows:
+            if col == 0:
+                for cell in row:
+                    if str(cell.value).strip().casefold() == "supporté par constituant (s)":
+                        col = cell.column
+            else:
+                rowValueListCodes.append(str(row[col - 1].value).strip().casefold())
+        fileName = self.path_DOC8
+        excel = win32.gencache.EnsureDispatch('Excel.Application')
+        workBook = excel.Workbooks.Open(fileName)
+        workSheet = workBook.Sheets("sous familles Cesare")
+
+        for row in workSheet.Rows:
+            for cell in row.Cells:
+                if str(cell.Value).strip().casefold() == "Nom de la sous famille".strip().casefold():
+                    col = cell.Column
+            if col != 0:
+                break
+
+        CodeList = list()
+        for row in workSheet.Rows:
+            if workSheet.Cells(row.Row, col).Value is not None:
+                CodeList.append(str(workSheet.Cells(row.Row, col).Value))
+            else:
+                break
+
+        if str(rowValueListCodes) == '[]'.casefold():
+            count += 1
+        else:
+            for element in rowValueListCodes:
+                if element in CodeList:
+                    pass
+                else:
+                    count += 1
+
+        if count == 0:
+            return 1
+        else:
+            return 0
 
     def buttonClicked(self):
 
