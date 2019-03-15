@@ -9041,7 +9041,7 @@ class Test(Application):
             text = self.tab1.textbox.toPlainText()
             text = text + "\nTest_02043_18_04939_STRUCT_0910 OK"
             self.tab1.textbox.setText(text)
-            for i, name in enumerate(["Good", String, "OK", "", stop - start]):
+            for i, name in enumerate(["Good", String, "OK ", "", stop - start]):
                  reportWorkSheet2.Cells(row, i+1).Value = name
         else:
             text = self.tab1.textbox.toPlainText()
