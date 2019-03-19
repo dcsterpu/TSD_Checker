@@ -1,9 +1,6 @@
 import TSD_Checker_V0_5_2
 import time
 
-
-
-
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     testReportSheet = workBook.Sheets("Test report")
     lastRow = testReportSheet.UsedRange.Rows.Count + 1
@@ -25,7 +22,7 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
         testReportSheet.Cells(lastRow, 4).Value = localisation
     else:
         for index, element in enumerate(localisation):
-            testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" +element.Address +"\")"
+            testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
 
     textBoxText = TSDApp.tab1.textbox.toPlainText()
     textBoxText = textBoxText + "\n" + testName + " " + tempString

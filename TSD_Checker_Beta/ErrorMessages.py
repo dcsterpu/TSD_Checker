@@ -51,6 +51,43 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0059"] = "The “EEAD” document 
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0060"] = "The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
+#DOC3
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0100"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0110"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0120"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0130"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0140"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0150"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0160"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0170"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0180"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0190"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0200"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0210"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0220"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0230"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0240"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0250"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0260"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0270"] = ""
 
 # Wholeness
 

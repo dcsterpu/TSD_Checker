@@ -12,6 +12,7 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
         refColIndex = 0
+
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
                 if cell == "Référence":
@@ -76,7 +77,6 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
             localisation = None
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
 
 def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -535,7 +535,6 @@ def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
-
 def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
@@ -598,7 +597,6 @@ def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
-
 def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
@@ -629,7 +627,6 @@ def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
             localisation = None
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
 
 def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -662,7 +659,6 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
-
 def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
@@ -693,7 +689,6 @@ def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
             localisation = None
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
 
 def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name

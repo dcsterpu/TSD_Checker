@@ -588,6 +588,10 @@ class Test(Application):
 
         self.DOC9Dict = OptionalFilesParser.DOC9Parser(self.excelApp, self.DOC9Path)
 
+        self.DOC3Name = self.download_file(self.DOC3Link)
+
+        self.DOC4Name = self.download_file(self.DOC4Link)
+
         self.DOC3Path = self.tab1.myTextBox1.toPlainText()
         self.DOC3Workbook = self.excelApp.Workbooks.Open(self.DOC3Path)
 
@@ -617,12 +621,58 @@ class Test(Application):
 
         GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC3Workbook, self)
 
+        #DOC3
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0100(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0110(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0120(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0130(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0140(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0150(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0160(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0170(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0180(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0190(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0200(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0210(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0220(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0230(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0240(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0250(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0260(self.DOC3Workbook, self)
+
+        GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+
+#DOC4
+        #GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC3Workbook, self)
+
+        #GeneralStructureTester.Test_02043_18_04939_STRUCT_0410(self.excelApp, self.DOC3Workbook, self, self.DOC4Name)
+
+#Wholeness
+
         start = timer()
         WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
         stop = timer()
         print(stop-start)
 
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
+       # WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
 
         WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
 
