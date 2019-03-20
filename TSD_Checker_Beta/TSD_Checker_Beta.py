@@ -591,9 +591,16 @@ class Test(Application):
         self.DOC3Path = self.tab1.myTextBox1.toPlainText()
         self.DOC3Workbook = self.excelApp.Workbooks.Open(self.DOC3Path)
 
+        self.DOC4Path = self.tab1.myTextBox2.toPlainText()
+        self.DOC4Workbook = self.excelApp.Workbooks.Open(self.DOC4Path)
+
         ExcelEdit.AddTestReportSheets(self.DOC3Workbook)
 
         ExcelEdit.AddTestReportSheetHeader(self.DOC3Workbook)
+
+        ExcelEdit.AddTestReportSheets(self.DOC4Workbook)
+
+        ExcelEdit.AddTestReportSheetHeader(self.DOC4Workbook)
 
         GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC3Workbook, self)
 

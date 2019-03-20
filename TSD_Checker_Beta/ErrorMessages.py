@@ -89,6 +89,83 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0260"] = ""
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0270"] = ""
 
+#DOC4
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0400"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0410"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0420"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0430"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0440"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0450"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0460"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0470"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0480"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0490"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0500"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0510"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0520"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0530"] = ""
+
+
+#DOC5
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0700"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0710"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0720"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0730"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0740"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0750"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0760"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0770"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0780"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0790"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0800"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0810"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0820"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0830"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0840"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0850"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0860"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0870"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0880"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0890"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0900"] = ""
+
+errorMessagesDict["Test_02043_18_04939_STRUCT_0910"] = ""
+
 # Wholeness
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1000"] = " In the sheet “tableau”, the column “Référence” is not completed."
@@ -102,6 +179,18 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1011"] = " In the sheet “code
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1020"] = " In the sheet “mesures et commandes”, the column “Référence” is not completed."
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1021"] = "In the sheet “mesures et commandes”, the column “Version” is not completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1030"] = " In the sheet “diagnostic débarqués”, the column “Référence” is not completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1031"] = "In the sheet “diagnostic débarqués”, the column “Version” is not completed. "
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1040"] = " In the sheet “Liste MDD”, the column “Référence” is not completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1050"] = ""
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1060"] = ""
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1041"] = "In the sheet “Liste MDD”, the column “Version” is not completed. "
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1080"] = "In the sheet “codes défauts”, the column “Code défaut” is not completed"
 
