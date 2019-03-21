@@ -14,7 +14,7 @@ import WholenessTester
 
 
 appName = "TSD Checker V0.5.3"
-pBarIncrement = 100/60
+pBarIncrement = 100/80
 
 class Application(QWidget):
 
@@ -600,11 +600,298 @@ class Test(Application):
             ExcelEdit.AddTestReportSheets(self.DOC3Workbook)
             ExcelEdit.AddTestReportSheetHeader(self.DOC3Workbook)
 
+        #GeneralStructure
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0054(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+
+            # DOC3
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0100(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0110(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0120(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0130(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0140(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0150(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0160(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0170(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0180(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0190(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0200(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0210(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0220(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0230(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0240(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0250(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0260(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+
+        # Wholeness
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC3Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC3Workbook, self)
+
+            ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
+            self.DOC3Workbook.Save()
+
+
         if self.tab1.myTextBox2.toPlainText():
             self.DOC4Path = self.tab1.myTextBox2.toPlainText()
             self.DOC4Workbook = self.excelApp.Workbooks.Open(self.DOC4Path)
             ExcelEdit.AddTestReportSheets(self.DOC4Workbook)
             ExcelEdit.AddTestReportSheetHeader(self.DOC4Workbook)
+
+            # GeneralStructure
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0054(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC4Workbook, self)
+
+        # DOC4
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0410(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0420(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0430(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0440(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0450(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0460(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0470(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0480(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0490(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0500(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0510(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0520(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0530(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+
+            # Wholeness
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC4Workbook, self)
+
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC4Workbook, self)
+
+            ExcelEdit.WriteReportInformationSheet(self.DOC4Workbook, self)
+            self.DOC4Workbook.Save()
+
 
         if self.tab1.myTextBox3.toPlainText():
             self.DOC5Path = self.tab1.myTextBox3.toPlainText()
@@ -612,213 +899,171 @@ class Test(Application):
             ExcelEdit.AddTestReportSheets(self.DOC5Workbook)
             ExcelEdit.AddTestReportSheetHeader(self.DOC5Workbook)
 
+            # GeneralStructure
 
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC5Workbook, self)
 
-        #DOC3
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0054(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0100(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0110(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0120(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0130(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0140(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0150(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0160(self.DOC3Workbook, self)
+            # DOC5
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0170(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0700(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0180(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0710(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0190(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0720(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0200(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0730(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0210(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0740(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0220(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0750(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0230(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0760(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0240(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0770(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0250(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0780(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0260(self.DOC3Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0790(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0800(self.DOC5Workbook, self)
 
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0810(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-#DOC4
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC4Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0820(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0410(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0830(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0420(self.DOC4Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0840(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0430(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0850(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0440(self.DOC4Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0860(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0450(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0870(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0460(self.DOC4Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0880(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0470(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0890(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0480(self.DOC4Workbook, self)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0900(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0490(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self,
+                                                                   self.DOC5Name)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0500(self.DOC4Workbook, self)
+            # Wholeness
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0510(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0520(self.DOC4Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0530(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC5Workbook, self)
 
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC5Workbook, self)
 
-#DOC5
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0700(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0710(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0720(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0730(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0740(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0750(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0760(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0770(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0780(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0790(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0800(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0810(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0820(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0830(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0840(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0850(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0860(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0870(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0880(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0890(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0900(self.DOC5Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC5Workbook, self)
 
-        GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC5Workbook, self)
 
-#Wholeness
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC5Workbook, self)
 
-        start = timer()
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
-        stop = timer()
-        print(stop-start)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC5Workbook, self)
 
-       # WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC5Workbook, self)
 
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC5Workbook, self)
 
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC3Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC5Workbook, self)
 
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC3Workbook, self)
-
-        #WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC3Workbook, self)
-
-       # WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC3Workbook, self)
-
-        WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC3Workbook, self)
-
-
-        ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
-        ExcelEdit.WriteReportInformationSheet(self.DOC4Workbook, self)
-        ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
-        self.DOC3Workbook.Save()
-        self.DOC4Workbook.Save()
-        self.DOC5Workbook.Save()
+            ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
+            self.DOC5Workbook.Save()
 
         self.excelApp.Quit()
         self.excelApp = None

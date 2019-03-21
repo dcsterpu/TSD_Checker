@@ -46,7 +46,6 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
-
 def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
@@ -411,13 +410,119 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
         localisation = list()
         list_table = list()
 
-        for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+        for index in range(refColIndex, refColIndex + nrCols):
             if workSheet.Cells(refRowIndex + nrLines, refColIndex).Value == None:
-                localisation.append(workSheet.Cells(index, refColIndex))
-            elif workSheet.Cells(index, refColIndex).Value != None:
-                list_table.append(workSheet.Cells(index, refColIndex).Value)
-        if str(localisation) == "[]":
-            localisation = None
+                pass
+            else:
+                list_table.append(workSheet.Cells(refRowIndex + nrLines, index).Value)
+
+        if TSDApp.WorkbookStats.hasCode == False:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        else:
+            workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
+            workSheetRange = workSheet.UsedRange
+            nrCols = workSheetRange.Columns.Count
+            codeColIndex = 0
+            var = 0
+            for cellRow in workSheetRange.Value:
+                for cell in cellRow:
+                    if cell == "Applicabilité projet" or cell == "Project applicability":
+                        codeColIndex = cellRow.index(cell) + 1
+                        codeRowIndex = workSheetRange.Value.index(cellRow) + 1
+                        break
+                if codeColIndex != 0:
+                    break
+
+            codeCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
+            nrLines = codeCellRange.Rows.Count
+            nrCols = codeCellRange.Columns.Count
+            localisation = list()
+            list_code = list()
+
+            for index in range(codeColIndex, codeColIndex + nrCols):
+                if workSheet.Cells(codeRowIndex + nrLines, codeColIndex).Value == None:
+                    pass
+                else:
+                    list_code.append(workSheet.Cells(codeRowIndex + nrLines, index).Value)
+
+        for element in list_table:
+            if element in list_code:
+                localisation = None
+            else:
+                localisation = ""
+                break
+
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        workSheetRange = workSheet.UsedRange
+        nrCols = workSheetRange.Columns.Count
+        refColIndex = 0
+        var = 0
+        for cellRow in workSheetRange.Value:
+            for cell in cellRow:
+                if cell == "Applicabilité projet" or cell == "Project applicability":
+                    refColIndex = cellRow.index(cell) + 1
+                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    break
+            if refColIndex != 0:
+                break
+
+        refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        nrLines = refCellRange.Rows.Count
+        nrCols = refCellRange.Columns.Count
+        localisation = list()
+        list_table = list()
+
+        for index in range(refColIndex, refColIndex + nrCols):
+            if workSheet.Cells(refRowIndex + nrLines, refColIndex).Value == None:
+                pass
+            else:
+                list_table.append(workSheet.Cells(refRowIndex + nrLines, index).Value)
+
+        if TSDApp.WorkbookStats.hasMeasure == False:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        else:
+            workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
+            workSheetRange = workSheet.UsedRange
+            nrCols = workSheetRange.Columns.Count
+            measureColIndex = 0
+            var = 0
+            for cellRow in workSheetRange.Value:
+                for cell in cellRow:
+                    if cell == "Applicabilité projet" or cell == "Project applicability":
+                        measureColIndex = cellRow.index(cell) + 1
+                        measureRowIndex = workSheetRange.Value.index(cellRow) + 1
+                        break
+                if measureColIndex != 0:
+                    break
+
+            measureCellRange = workSheet.Cells(measureRowIndex, measureColIndex).MergeArea
+            nrLines = measureCellRange.Rows.Count
+            nrCols = measureCellRange.Columns.Count
+            localisation = list()
+            list_measure = list()
+
+            for index in range(measureColIndex, measureColIndex + nrCols):
+                if workSheet.Cells(measureRowIndex + nrLines, measureColIndex).Value == None:
+                    pass
+                else:
+                    list_measure.append(workSheet.Cells(measureRowIndex + nrLines, index).Value)
+
+        for element in list_table:
+            if element in list_measure:
+                localisation = None
+            else:
+                localisation = ""
+                break
+
+        result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -444,9 +549,111 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
         list_table = list()
 
         for index in range(refColIndex, refColIndex + nrCols):
-            if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(index, refColIndex).Value == "X":
+            if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
                 pass
             else :
+                localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+        if str(localisation) == "[]":
+            localisation = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasCode == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
+        workSheetRange = workSheet.UsedRange
+        nrCols = workSheetRange.Columns.Count
+        refColIndex = 0
+        for cellRow in workSheetRange.Value:
+            for cell in cellRow:
+                if cell == "Applicabilité projet" or cell == "Project applicability":
+                    refColIndex = cellRow.index(cell) + 1
+                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    break
+            if refColIndex != 0:
+                break
+
+        refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        nrLines = refCellRange.Rows.Count
+        nrCols = refCellRange.Columns.Count
+        localisation = list()
+        list_table = list()
+
+        for index in range(refColIndex, refColIndex + nrCols):
+            if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
+                pass
+            else :
+                localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+        if str(localisation) == "[]":
+            localisation = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasMeasure == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
+        workSheetRange = workSheet.UsedRange
+        nrCols = workSheetRange.Columns.Count
+        refColIndex = 0
+        for cellRow in workSheetRange.Value:
+            for cell in cellRow:
+                if cell == "Applicabilité projet" or cell == "Project applicability":
+                    refColIndex = cellRow.index(cell) + 1
+                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    break
+            if refColIndex != 0:
+                break
+
+        refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        nrLines = refCellRange.Rows.Count
+        nrCols = refCellRange.Columns.Count
+        localisation = list()
+        list_table = list()
+
+        for index in range(refColIndex, refColIndex + nrCols):
+            if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
+                pass
+            else :
+                localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+        if str(localisation) == "[]":
+            localisation = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
+
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        workSheetRange = workSheet.UsedRange
+        nrCols = workSheetRange.Columns.Count
+        refColIndex = 0
+
+        for cellRow in workSheetRange.Value:
+            for cell in cellRow:
+                if cell == "Code défaut":
+                    refColIndex = cellRow.index(cell) + 1
+                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    break
+            if refColIndex != 0:
+                break
+
+        refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        nrLines = refCellRange.Rows.Count
+        localisation = list()
+
+        for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            if workSheet.Cells(index, refColIndex).Value == "NO DTC":
+                pass
+            else:
                 localisation.append(workSheet.Cells(index, refColIndex))
         if str(localisation) == "[]":
             localisation = None
@@ -608,8 +815,7 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
-
-'''def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
+def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -621,7 +827,7 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
 
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
-                if cell == "Seuil de détection  /  valeur  du défaut":
+                if cell == "Seuil de détection  /  valeur  du défaut ":
                     refColIndex = cellRow.index(cell) + 1
                     refRowIndex = workSheetRange.Value.index(cellRow) + 1
                     break
@@ -638,7 +844,7 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
         if str(localisation) == "[]":
             localisation = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)'''
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name

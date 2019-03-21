@@ -35,12 +35,12 @@ class WorkbookProperties:
         self.SitDeVieIndex = 0
         self.MDDIndex = 0
 #DOC4
-        self.hasTableDoc4 = True
-        self.tableIndexDOC4 = 0
+        #self.hasTable = self.hasTable
+        #self.tableIndex = self.tableIndex
         self.hasDiagNeeds = True
         self.DiagNeedsIndex = 0
-        self.hasCustEff = True
-        self.CustEffIndex = 0
+        #self.hasCustEff = True
+        #self.CustEffIndex = 0
         self.hasFearedEvent = True
         self.FearedEvent = 0
         self.hasSystem = True
@@ -50,28 +50,28 @@ class WorkbookProperties:
         self.hasTechEff = True
         self.TechEffIndex = 0
 #DOC5
-        self.hasTableDoc5 = True
-        self.tableIndexDOC5 = 0
+        #self.hasTable = True
+        #self.tableIndex = 0
         self.hasDataCodes = True
         self.DataCodesIndex = 0
         self.hasReadDataIO = True
         self.ReadDataIOIndex = 0
         self.hasNotEmbDiag = True
         self.NotEmbDiagIndex = 0
-        self.hasCustEffDoc5 = True
-        self.CustEffIndexDoc5 = 0
-        self.hasFearedEventDoc5 = True
-        self.FearedEventIndexDoc5 = 0
+        self.hasCustEff = True
+        self.CustEffIndex = 0
+        #self.hasFearedEvent = True
+        #self.FearedEventIndex = 0
         self.hasNotEmbDiag = True
         self.NotEmbDiagIndex = 0
-        self.hasConstituantsDoc5 = True
-        self.ConstituantsIndexDoc5 = 0
-        self.hasSitDeVieDoc5 = True
-        self.SitDeVieIndexDoc5 = 0
-        self.hasMDDDoc5 = True
-        self.MDDIndexDoc5 = 0
-        self.hasTechEffDoc5 = True
-        self.TechEffIndexDoc5 = 0
+        #self.hasConstituants = True
+        #self.ConstituantsIndex = 0
+        #self.hasSitDeVie = True
+        #self.SitDeVieIndex = 0
+        #self.hasMDD = True
+        #self.MDDIndex = 0
+        #self.hasTechEff = True
+        #self.TechEffIndex = 0
         self.hasVariant = True
         self.VariantIndex = 0
         self.hasNotEmbDiag = True
@@ -392,45 +392,15 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 
-'''
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-
-'''
-
 #[DOC3]
 
 def Test_02043_18_04939_STRUCT_0100(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
-    if "tableau" in TSDApp.WorkbookStats.sheetNames:
-        index = TSDApp.WorkbookStats.sheetNames.index("tableau") + 1
+    if "tableau" in TSDApp.WorkbookStats.sheetNames or "table" in TSDApp.WorkbookStats.sheetNames:
+        try:
+            index = TSDApp.WorkbookStats.sheetNames.index("tableau") + 1
+        except:
+            index = TSDApp.WorkbookStats.sheetNames.index("table") + 1
         TSDApp.WorkbookStats.tableIndex = index
         localisation = None
     else:
@@ -1000,19 +970,19 @@ def Test_02043_18_04939_STRUCT_0400(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("tableau") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("table") + 1
-        TSDApp.WorkbookStats.tableIndexDOC4 = index
+        TSDApp.WorkbookStats.tableIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasTableDoc4 = False
+        TSDApp.WorkbookStats.hasTable = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasTableDoc4 == False:
+    if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndexDOC4)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -1446,19 +1416,19 @@ def Test_02043_18_04939_STRUCT_0700(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("tableau") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("table") + 1
-        TSDApp.WorkbookStats.tableIndexDOC5 = index
+        TSDApp.WorkbookStats.tableIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasTableDoc5 = False
+        TSDApp.WorkbookStats.hasTable = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasTableDoc5 == False:
+    if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndexDOC5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -1712,19 +1682,19 @@ def Test_02043_18_04939_STRUCT_0780(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("customer effect") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("effets clients") + 1
-        TSDApp.WorkbookStats.CustEffIndexDoc5 = index
+        TSDApp.WorkbookStats.CustEffIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasCustEffDoc5 = False
+        TSDApp.WorkbookStats.hasCustEff = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0790(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasCustEffDoc5 == False:
+    if TSDApp.WorkbookStats.hasCustEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.CustEffIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.CustEffIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
         list_test = list()
@@ -1776,19 +1746,19 @@ def Test_02043_18_04939_STRUCT_0800(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("feared events") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("er") + 1
-        TSDApp.WorkbookStats.FearedEventIndexDoc5 = index
+        TSDApp.WorkbookStats.FearedEventIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasFearedEventDoc5 = False
+        TSDApp.WorkbookStats.hasFearedEvent = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0810(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasFearedEventDoc5 == False:
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -1841,19 +1811,19 @@ def Test_02043_18_04939_STRUCT_0820(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("parts") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("constituants") + 1
-        TSDApp.WorkbookStats.ConstituantsIndexDoc5 = index
+        TSDApp.WorkbookStats.ConstituantsIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasConstituantsDoc5 = False
+        TSDApp.WorkbookStats.hasConstituants = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasConstituantsDoc5 == False:
+    if TSDApp.WorkbookStats.hasConstituants == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.ConstituantsIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.ConstituantsIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -1906,19 +1876,19 @@ def Test_02043_18_04939_STRUCT_0840(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("situation") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("situation de vie") + 1
-        TSDApp.WorkbookStats.SitDeVieIndexDoc5 = index
+        TSDApp.WorkbookStats.SitDeVieIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasSitDeVieDoc5 = False
+        TSDApp.WorkbookStats.hasSitDeVie = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0850(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasSitDeVieDoc5 == False:
+    if TSDApp.WorkbookStats.hasSitDeVie == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -1971,19 +1941,19 @@ def Test_02043_18_04939_STRUCT_0860(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("degraded mode") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("liste mdd") + 1
-        TSDApp.WorkbookStats.MDDIndexDoc5 = index
+        TSDApp.WorkbookStats.MDDIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasMDDDoc5 = False
+        TSDApp.WorkbookStats.hasMDD = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0870(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasMDDDoc5 == False:
+    if TSDApp.WorkbookStats.hasMDD == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.MDDIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.MDDIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
@@ -2036,19 +2006,19 @@ def Test_02043_18_04939_STRUCT_0880(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("technical effect") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("effets techniques") + 1
-        TSDApp.WorkbookStats.TechEffIndexDoc5 = index
+        TSDApp.WorkbookStats.TechEffIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasTechEffDoc5 = False
+        TSDApp.WorkbookStats.hasTechEff = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0890(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasTechEffDoc5 == False:
+    if TSDApp.WorkbookStats.hasTechEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndexDoc5)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
