@@ -3,6 +3,8 @@ import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
 
+
+
 def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
@@ -15,7 +17,7 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
 
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
-                if cell == "Référence":
+                if cell == "Référence" or cell == "Reference":
                     refColIndex = cellRow.index(cell) + 1
                     refRowIndex = workSheetRange.Value.index(cellRow) + 1
                     break
@@ -88,7 +90,7 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
         refColIndex = 0
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
-                if cell == "Référence":
+                if cell == "Référence" or cell == "Reference":
                     refColIndex = cellRow.index(cell) + 1
                     refRowIndex = workSheetRange.Value.index(cellRow) + 1
                     break
@@ -458,7 +460,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
 def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange

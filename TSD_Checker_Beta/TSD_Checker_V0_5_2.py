@@ -11,10 +11,11 @@ import GeneralStructureTester
 from timeit import default_timer as timer
 import ExcelEdit
 import WholenessTester
+import Coherence_checksTester
 
 
 appName = "TSD Checker V0.5.3"
-pBarIncrement = 100/80
+pBarIncrement = 100/85
 
 class Application(QWidget):
 
@@ -519,6 +520,7 @@ class Test(Application):
         self.DOC9Name = str() # TSD Config
         self.DOC7Name = str() # Customer effect
         self.DOC13Name = str() # Diversity mng
+        self.DOC14Name = str()
 
         # Optional Files Content
         self.DOC9Dict = dict()
@@ -529,6 +531,7 @@ class Test(Application):
         #Tests Parameters
         self.checkLevel = str()
         self.WorkbookStats = GeneralStructureTester.WorkbookProperties()
+
 
 
 
@@ -593,6 +596,14 @@ class Test(Application):
         self.DOC4Name = self.download_file(self.DOC4Link)
 
         self.DOC5Name = self.download_file(self.DOC5Link)
+
+        self.DOC8Name = self.download_file(self.DOC8Link)
+
+        self.DOC14Name = self.download_file(self.DOC14Link)
+
+        self.DOC7Name = self.download_file(self.DOC7Link)
+
+
 
         if self.tab1.myTextBox1.toPlainText():
             self.DOC3Path = self.tab1.myTextBox1.toPlainText()
@@ -744,9 +755,34 @@ class Test(Application):
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC3Workbook, self)
 
+
+            #Coherence checks
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2006(self.excelApp, self.DOC3Workbook, self, self.DOC8Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC3Workbook, self, self.DOC14Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC3Workbook, self)
+
+           # Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
+
             ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
             self.DOC3Workbook.Save()
 
+
+       # del self.WorkbookStats
 
         if self.tab1.myTextBox2.toPlainText():
             self.DOC4Path = self.tab1.myTextBox2.toPlainText()
@@ -847,7 +883,7 @@ class Test(Application):
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC4Workbook, self)
 
-            WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
+            #WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC4Workbook, self)
 
@@ -855,7 +891,7 @@ class Test(Application):
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC4Workbook, self)
 
-            WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
+            #WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC4Workbook, self)
 
@@ -888,6 +924,27 @@ class Test(Application):
             WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC4Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC4Workbook, self)
+
+            # Coherence checks
+
+            '''Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2006(self.excelApp, self.DOC4Workbook, self, self.DOC8Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC4Workbook, self, self.DOC14Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC34Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC4Workbook, self)'''
+
 
             ExcelEdit.WriteReportInformationSheet(self.DOC4Workbook, self)
             self.DOC4Workbook.Save()
@@ -1061,6 +1118,26 @@ class Test(Application):
             WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC5Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC5Workbook, self)
+
+            # Coherence checks
+
+            '''Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2006(self.excelApp, self.DOC5Workbook, self, self.DOC8Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC5Workbook, self, self.DOC14Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC5Workbook, self)'''
 
             ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
             self.DOC5Workbook.Save()

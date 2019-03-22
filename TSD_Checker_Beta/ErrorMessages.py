@@ -231,3 +231,29 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1210"] = " In the sheet “tabl
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1220"] = " In the sheet “tableau”, the columns “Code défaut” shall be completed."
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1230"] = " In the sheet “tableau”, the columns “Défaillance constituant” shall be completed."
+
+#Coherence Checks
+
+errorMessagesDict["Test_02043_18_04939_COH_2000"] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes”."
+
+errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: BSI-B132C-1B"
+
+errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document ”Extract from CESARE” [DOC8]."
+
+errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]."
+
+errorMessagesDict["Test_02043_18_04939_COH_2010"] = "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts” "
+
+errorMessagesDict["Test_02043_18_04939_COH_2020"] = "The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants”."
+
+errorMessagesDict["Test_02043_18_04939_COH_2030"] = "The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”."
+
+errorMessagesDict["Test_02043_18_04939_COH_2040"] = "The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués”"
+
+errorMessagesDict["Test_02043_18_04939_COH_2050"] = "The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”"
+
+errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+
+errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect"
+
+errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
