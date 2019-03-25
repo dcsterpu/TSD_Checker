@@ -257,3 +257,29 @@ errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified i
 errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect"
 
 errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+
+errorMessagesDict["Test_02043_18_04939_COH_2100"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2110"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2120"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2130"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2140"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2150"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2160"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2170"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2180"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2190"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2200"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2210"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2220"] = ""

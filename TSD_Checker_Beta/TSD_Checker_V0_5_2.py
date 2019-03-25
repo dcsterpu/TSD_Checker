@@ -776,7 +776,27 @@ class Test(Application):
 
             Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC3Workbook, self)
 
-           # Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
+            Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
+
+            #Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2100(self.excelApp, self.DOC3Workbook, self, self.DOC8Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2110(self.excelApp, self.DOC3Workbook, self, self.DOC8Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2140(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2150(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2160(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2190(self.DOC3Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2210(self.DOC3Workbook, self)
 
             ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
             self.DOC3Workbook.Save()
@@ -883,7 +903,7 @@ class Test(Application):
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC4Workbook, self)
 
-            #WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC4Workbook, self)
 
@@ -891,7 +911,7 @@ class Test(Application):
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC4Workbook, self)
 
-            #WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
+            WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
 
             WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC4Workbook, self)
 
@@ -927,7 +947,7 @@ class Test(Application):
 
             # Coherence checks
 
-            '''Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC4Workbook, self)
+            Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC4Workbook, self)
 
             Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC4Workbook, self)
 
@@ -941,9 +961,19 @@ class Test(Application):
 
             Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC4Workbook, self)
 
-            Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC34Workbook, self)
+            Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC4Workbook, self)
 
-            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC4Workbook, self)'''
+            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC4Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
+
+            #Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
 
 
             ExcelEdit.WriteReportInformationSheet(self.DOC4Workbook, self)
@@ -1000,58 +1030,47 @@ class Test(Application):
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0700(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0710(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0710(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0720(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0730(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0730(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0740(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0750(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0750(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0760(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0770(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0770(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0780(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0790(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0790(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0800(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0810(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0810(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0820(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0830(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0830(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0840(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0850(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0850(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0860(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0870(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0870(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0880(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0890(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0890(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0900(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self,
-                                                                   self.DOC5Name)
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
             # Wholeness
 
@@ -1121,7 +1140,7 @@ class Test(Application):
 
             # Coherence checks
 
-            '''Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC5Workbook, self)
+            Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC5Workbook, self)
 
             Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC5Workbook, self)
 
@@ -1137,7 +1156,25 @@ class Test(Application):
 
             Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC5Workbook, self)
 
-            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC5Workbook, self)'''
+            Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC5Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC5Workbook, self, self.DOC7Name)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+
+            #Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2130(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2170(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2180(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2200(self.DOC5Workbook, self)
+
+            Coherence_checksTester.Test_02043_18_04939_COH_2220(self.DOC5Workbook, self)
 
             ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
             self.DOC5Workbook.Save()

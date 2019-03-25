@@ -49,6 +49,8 @@ class WorkbookProperties:
         self.OpSitIndex = 0
         self.hasTechEff = False
         self.TechEffIndex = 0
+        self.hasReqTech = False
+        self.ReqTechIndex = 0
 #DOC5
         #self.hasTable = True
         #self.tableIndex = 0
@@ -86,6 +88,7 @@ class WorkbookProperties:
         self.effLastRow = 0
         self.ERLastRow = 0
         self.CustEffLastRow = 0
+        self.TechLastRow = 0
 
         self.famillyList = list()
 
@@ -1448,21 +1451,21 @@ def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
 def Test_02043_18_04939_STRUCT_0520(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if "req. of tech. effects" in TSDApp.WorkbookStats.sheetNames:
-        TSDApp.WorkbookStats.hasTechEff = True
+        TSDApp.WorkbookStats.hasReqTech = True
         index = TSDApp.WorkbookStats.sheetNames.index("req. of tech. effects") + 1
-        TSDApp.WorkbookStats.TechEffIndex = index
+        TSDApp.WorkbookStats.ReqTechIndex = index
         localisation = None
     else:
-        TSDApp.WorkbookStats.hasTechEff = False
+        TSDApp.WorkbookStats.hasReqTech = False
         localisation = ""
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0530(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
-    if TSDApp.WorkbookStats.hasTechEff == False:
+    if TSDApp.WorkbookStats.hasReqTech == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.ReqTechIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 
