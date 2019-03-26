@@ -1,4 +1,4 @@
-import TSD_Checker_V0_5_2
+import TSD_Checker_V1_0
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -192,7 +192,9 @@ def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
         localisation = ""
         TSDApp.WorkbookStats.hasInfGen = False
 
+
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
 
 def Test_02043_18_04939_STRUCT_0005(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1325,7 +1327,7 @@ def Test_02043_18_04939_STRUCT_0470(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0480(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
-    if "system" in TSDApp.WorkbookStats.sheetNames or "système":
+    if "system" in TSDApp.WorkbookStats.sheetNames or "système" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSystem = True
         try:
             index = TSDApp.WorkbookStats.sheetNames.index("system") + 1
@@ -1926,7 +1928,7 @@ def Test_02043_18_04939_STRUCT_0820(workBook, TSDApp):
             index = TSDApp.WorkbookStats.sheetNames.index("parts") + 1
         except:
             index = TSDApp.WorkbookStats.sheetNames.index("constituants") + 1
-        TSDApp.WorkbookStats.ConstituantsIndex = index
+        TSDApp.WorkbookStats.constituantsIndex = index
         localisation = None
     else:
         TSDApp.WorkbookStats.hasConstituants = False
@@ -1938,7 +1940,7 @@ def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
     if TSDApp.WorkbookStats.hasConstituants == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.ConstituantsIndex)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
         workSheetRange = workSheet.UsedRange
         nrCols = workSheetRange.Columns.Count
 

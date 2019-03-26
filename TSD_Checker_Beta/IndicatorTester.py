@@ -1,4 +1,4 @@
-import TSD_Checker_V0_5_2
+import TSD_Checker_V1_0
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -79,14 +79,19 @@ def convergenceIndicator(workBook, TSDApp):
         for cell in cellRow:
             if cell == "Critère de decision":
                 refCritere = cellRow.index(cell) + 1
+                refRowIndex = workSheetRange.Value.index(cellRow) + 1
             if cell == "Unique Test Signature":
                 refSignature = cellRow.index(cell) + 1
+                refRowIndex = workSheetRange.Value.index(cellRow) + 1
 
     if refSignature != 0:
-        workSheetRange.Columns(refSignature).EntireColumn.Delete
-        workSheetRange.Range(refSignature).EntireColumn.Insert
+        workSheet.Cells(refRowIndex, refSignature).EntireColumn.Delete(win32.constants.xlShiftToLeft)
+        workSheet.Cells(refRowIndex, refSignature).EntireColumn.Insert(win32.constants.xlShiftToLeft)
+        workSheet.Cells(refRowIndex, refSignature).Value = "Unique Test Signature"
     else:
-        workSheetRange.Range(refCritere + 1).EntireColumn.Insert
+        workSheet.Cells(refRowIndex, refCritere + 1).EntireColumn.Insert(win32.constants.xlShiftToLeft)
+        workSheet.Cells(refRowIndex, refCritere + 1).Value = "Unique Test Signature"
+        refSignature = refCritere + 1
 
     for cellRow in workSheetRange.Value:
         for cell in cellRow:
@@ -117,9 +122,9 @@ def convergenceIndicator(workBook, TSDApp):
             NbAMDECLine += 1
             if [workSheet.Cells(index, refColDTC).Value, workSheet.Cells(index, refCelParam).Value, workSheet.Cells(index, refCelDiag).Value] not in unique_items:
                 unique_items.append([workSheet.Cells(index, refColDTC).Value, workSheet.Cells(index, refCelParam).Value, workSheet.Cells(index, refCelDiag).Value])
-                workSheet.Cells(index, refColBase).Value = "1"
+                workSheet.Cells(index, refSignature).Value = "1"
                 NbUniqueSignatureTests += 1
             else:
-                workSheet.Cells(index, refColBase).Value = "0"
+                workSheet.Cells(index, refSignature).Value = "0"
 
     return (NbUniqueSignatureTests / NbAMDECLine)

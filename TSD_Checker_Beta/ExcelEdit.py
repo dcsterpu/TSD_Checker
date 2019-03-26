@@ -1,4 +1,4 @@
-import TSD_Checker_V0_5_2
+import TSD_Checker_V1_0
 import time
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
@@ -71,7 +71,7 @@ def AddTestReportSheetHeader(workBook):
 def WriteReportInformationSheet(workBook, TSDApp):
     reportInformationWorkSheet = workBook.Sheets("Report information")
     colList = list()
-    colList.append(list(("Tool version:",TSD_Checker_V0_5_2.appName)))
+    colList.append(list(("Tool version:",TSD_Checker_V1_0.appName)))
     colList.append(list(("Criticity configuration file:",TSDApp.DOC9Name)))
     colList.append(list(("","")))
     colList.append(list(("Extract CESARE file:",TSDApp.DOC8Name)))
@@ -89,18 +89,8 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Export MedialecMatrice:",TSDApp.MedialecName)))
     colList.append(list(("","")))
     colList.append(list(("Status:","")))
-    reportInformationWorkSheet.Range("A1:B18").Value = colList
-    for column in reportInformationWorkSheet.Range("A1:B18").Columns:
+    colList.append(list(("Coverage Indicator:", str(TSDApp.coverage)[0:4] + "%")))
+    colList.append(list(("Convergence Indicator:", str(TSDApp.convergence)[0:4] + "%")))
+    reportInformationWorkSheet.Range("A1:B20").Value = colList
+    for column in reportInformationWorkSheet.Range("A1:B20").Columns:
         column.AutoFit()
-
-
-
-
-
-
-
-
-
-
-
-

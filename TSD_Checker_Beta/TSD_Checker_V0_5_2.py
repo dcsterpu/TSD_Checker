@@ -12,10 +12,11 @@ from timeit import default_timer as timer
 import ExcelEdit
 import WholenessTester
 import Coherence_checksTester
+import IndicatorTester
 
 
-appName = "TSD Checker V0.5.3"
-pBarIncrement = 100/85
+appName = "TSD Checker V1.0"
+pBarIncrement = 100/71
 
 class Application(QWidget):
 
@@ -44,6 +45,8 @@ class Application(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
         self.setWindowTitle(appName)
+        self.coverage = ""
+        self.convergence = ""
         self.username = os.environ['USERNAME']
         self.fileFolder = "C:/Users/" + self.username + "/AppData/Local/Temp/TSD_Checker/"
         self.pBarValue = 0
@@ -133,6 +136,26 @@ class Application(QWidget):
 
     def initUI(self, tab):
 
+        # Create coverage textbox
+        tab.lbl_coverage = QLabel("Coverage Indicator:", tab)
+        tab.lbl_coverage.move(5, 440)
+        tab.message = ""
+        tab.textbox_coverage = QtWidgets.QTextEdit(self.tab1)
+        tab.textbox_coverage.setText(tab.message)
+        tab.textbox_coverage.move(110, 440)
+        tab.textbox_coverage.resize(70, 20)
+        tab.textbox_coverage.setReadOnly(True)
+
+        # Create convergence textbox
+        tab.lbl_coverage = QLabel("Convergence Indicator:", tab)
+        tab.lbl_coverage.move(300, 440)
+        tab.message = ""
+        tab.textbox_convergence = QtWidgets.QTextEdit(self.tab1)
+        tab.textbox_convergence.setText(tab.message)
+        tab.textbox_convergence.move(430, 440)
+        tab.textbox_convergence.resize(70, 20)
+        tab.textbox_convergence.setReadOnly(True)
+
         # Create a textbox
         tab.message = ""
         tab.textbox = QtWidgets.QTextEdit(self.tab1)
@@ -142,7 +165,7 @@ class Application(QWidget):
         tab.textbox.setReadOnly(True)
 
         sb = tab.textbox.verticalScrollBar()
-        sb.setValue(sb.minimum())
+        sb.setValue(sb.maximum())
 
         # create a progress bar
         tab.pbar = QProgressBar(self.tab1)
@@ -301,7 +324,7 @@ class Application(QWidget):
         button.move(310, 470)
         button.resize(90, 25)
         button.clicked.connect(self.buttonClicked)
-        button.setStyleSheet('QPushButton {background-color: white; color: black;}')
+        #button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         buttonNew = QPushButton("Open \nReport", tab)
         buttonNew.resize(90, 60)
         buttonNew.move(710, 310)
@@ -337,7 +360,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        tab.TextBoxUser.setText("E518720")
+        #tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -346,7 +369,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("Cst67677")
+        #tab.TextBoxPass.setText("Cst67677")
 
 
         # File Selectiom Dialog5
@@ -560,7 +583,7 @@ class Test(Application):
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
         if self.excelApp is None:
             self.excelApp = win32.gencache.EnsureDispatch('Excel.Application')
-        self.excelApp.Visible = True
+        self.excelApp.Visible = False
 
 
         self.tab1.colorTextBox1.setStyleSheet('background-color: grey')
@@ -610,6 +633,7 @@ class Test(Application):
             self.DOC3Workbook = self.excelApp.Workbooks.Open(self.DOC3Path)
             ExcelEdit.AddTestReportSheets(self.DOC3Workbook)
             ExcelEdit.AddTestReportSheetHeader(self.DOC3Workbook)
+            check = 0
 
         #GeneralStructure
 
@@ -798,6 +822,12 @@ class Test(Application):
 
             Coherence_checksTester.Test_02043_18_04939_COH_2210(self.DOC3Workbook, self)
 
+            self.coverage = IndicatorTester.coverageIndicator(self.DOC3Workbook, self) * 100
+            self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
+
+            self.convergence = IndicatorTester.convergenceIndicator(self.DOC3Workbook, self) * 100
+            self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
+
             ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
             self.DOC3Workbook.Save()
 
@@ -971,9 +1001,17 @@ class Test(Application):
 
             Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
 
+            #Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
+
             Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
 
-            #Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
+
+
+            self.coverage = IndicatorTester.coverageIndicator(self.DOC4Workbook, self) * 100
+            self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
+
+            self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self) * 100
+            self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
 
 
             ExcelEdit.WriteReportInformationSheet(self.DOC4Workbook, self)
@@ -1175,6 +1213,13 @@ class Test(Application):
             Coherence_checksTester.Test_02043_18_04939_COH_2200(self.DOC5Workbook, self)
 
             Coherence_checksTester.Test_02043_18_04939_COH_2220(self.DOC5Workbook, self)
+
+            self.coverage = IndicatorTester.coverageIndicator(self.DOC5Workbook, self) * 100
+            self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
+
+            self.convergence = IndicatorTester.convergenceIndicator(self.DOC5Workbook, self) * 100
+            self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
+
 
             ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
             self.DOC5Workbook.Save()

@@ -1,4 +1,4 @@
-import TSD_Checker_V0_5_2
+import TSD_Checker_V1_0
 
 def DOC9Parser(ExcelApp, DOC9Path):
 
