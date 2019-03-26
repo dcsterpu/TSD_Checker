@@ -63,7 +63,10 @@ def AddTestReportSheetHeader(workBook):
     testReportWorkSheet = workBook.Sheets("Test report")
     textList = ["Criticity", "Requirements", "Message", "Localisation"]
     testReportWorkSheet.Range("A1:D1").Value = textList
-    testReportWorkSheet.Range("A1:D1").Font.Bold = True
+    for column in testReportWorkSheet.Range("A1:D145").Columns:
+        column.AutoFit()
+
+    #testReportWorkSheet.Range("A1:D1").Font.Bold = True
 
 def WriteReportInformationSheet(workBook, TSDApp):
     reportInformationWorkSheet = workBook.Sheets("Report information")
