@@ -7,8 +7,10 @@ from ErrorMessages import errorMessagesDict as error
 
 def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -49,17 +51,22 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow ):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check  = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -87,17 +94,22 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -138,17 +150,22 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -176,17 +193,22 @@ def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -227,17 +249,22 @@ def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -265,17 +292,22 @@ def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasDiagDeb == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
         workSheetRange = workSheet.UsedRange
@@ -316,17 +348,22 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasDiagDeb == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
         workSheetRange = workSheet.UsedRange
@@ -354,17 +391,22 @@ def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMDD == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.MDDIndex)
         workSheetRange = workSheet.UsedRange
@@ -404,6 +446,7 @@ def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.MDDLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
@@ -411,11 +454,15 @@ def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
 
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMDD == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.MDDIndex)
         workSheetRange = workSheet.UsedRange
@@ -442,6 +489,7 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.MDDLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
@@ -449,11 +497,15 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
 
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -477,6 +529,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -489,9 +542,11 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                     pass
                 else:
                     list_table.append(workSheet.Cells(refRowIndex + nrLines, index).Value)
+                    check = True
 
             if TSDApp.WorkbookStats.hasCode == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 workSheetRange = workSheet.UsedRange
@@ -523,15 +578,20 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                     localisation = None
                 else:
                     localisation = ""
+                    check = True
                     break
 
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
+    return check
+
 def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -555,6 +615,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -569,6 +630,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasMeasure == False:
                 result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
                 workSheetRange = workSheet.UsedRange
@@ -601,14 +663,18 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
                     localisation = None
                 else:
                     localisation = ""
+                    check = True
                     break
 
             result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -640,17 +706,22 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -682,17 +753,22 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
                     pass
                 else :
                     localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return  check
 
 def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check =True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -724,18 +800,23 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
                     pass
                 else :
                     localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
 
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -765,6 +846,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
@@ -772,11 +854,15 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
 
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -802,17 +888,22 @@ def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -840,17 +931,22 @@ def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check =True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -878,17 +974,22 @@ def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -916,17 +1017,22 @@ def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -954,17 +1060,22 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -992,17 +1103,22 @@ def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1030,17 +1146,22 @@ def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1067,17 +1188,22 @@ def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1105,17 +1231,22 @@ def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1143,17 +1274,22 @@ def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1180,17 +1316,22 @@ def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1218,17 +1359,22 @@ def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1256,17 +1402,22 @@ def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check =True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1294,17 +1445,22 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check =True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
+    check = False
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1332,17 +1488,22 @@ def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1370,9 +1531,12 @@ def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
+                    check = True
             if str(localisation) == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check

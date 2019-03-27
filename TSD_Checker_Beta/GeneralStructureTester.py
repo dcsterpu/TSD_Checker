@@ -177,6 +177,7 @@ def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     temp = workBook.Sheets
     sheetNames = list()
+    flag = False
     for sheet in temp:
         sheetNames.append(sheet.Name.strip().casefold())
     TSDApp.WorkbookStats.sheetNames = sheetNames
@@ -191,10 +192,11 @@ def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
     else:
         localisation = ""
         TSDApp.WorkbookStats.hasInfGen = False
+        flag = True
 
 
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
+    return flag
 
 def Test_02043_18_04939_STRUCT_0005(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -238,6 +240,7 @@ def Test_02043_18_04939_STRUCT_0011(workBook, TSDApp):
 
 def Test_02043_18_04939_STRUCT_0020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "suppression" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSupp = True
         index = TSDApp.WorkbookStats.sheetNames.index("suppression") + 1
@@ -246,7 +249,9 @@ def Test_02043_18_04939_STRUCT_0020(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasSupp = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0025(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -312,6 +317,7 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
         TSDApp.WorkbookStats.refDocsIndex = index
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
         workSheetRange = workSheet.UsedRange
+        flag = False
         for rowRange in workSheetRange:
             for cell in rowRange:
                 if str(cell.Value).casefold().strip() == "name":
@@ -330,7 +336,9 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasRefDocs = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -490,6 +498,7 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
 
 def Test_02043_18_04939_STRUCT_0100(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "tableau" in TSDApp.WorkbookStats.sheetNames or "table" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasTable = True
         try:
@@ -501,7 +510,9 @@ def Test_02043_18_04939_STRUCT_0100(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasTable = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -555,6 +566,7 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0120(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "codes défauts" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasCode = True
         index = TSDApp.WorkbookStats.sheetNames.index("codes défauts") + 1
@@ -563,7 +575,9 @@ def Test_02043_18_04939_STRUCT_0120(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasCode = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -618,6 +632,7 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "mesures et commandes" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasMeasure = True
         index = TSDApp.WorkbookStats.sheetNames.index("mesures et commandes") + 1
@@ -626,7 +641,9 @@ def Test_02043_18_04939_STRUCT_0140(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasMeasure = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -681,6 +698,7 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "diagnostic débarqués" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasDiagDeb = True
         index = TSDApp.WorkbookStats.sheetNames.index("diagnostic débarqués") + 1
@@ -689,7 +707,9 @@ def Test_02043_18_04939_STRUCT_0160(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasDiagDeb = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0170(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -744,6 +764,7 @@ def Test_02043_18_04939_STRUCT_0170(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "effets clients" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasEffClients = True
         index = TSDApp.WorkbookStats.sheetNames.index("effets clients") + 1
@@ -752,7 +773,9 @@ def Test_02043_18_04939_STRUCT_0180(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasEffClients = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0190(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -807,6 +830,7 @@ def Test_02043_18_04939_STRUCT_0190(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "er" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasER = True
         index = TSDApp.WorkbookStats.sheetNames.index("er") + 1
@@ -815,8 +839,9 @@ def Test_02043_18_04939_STRUCT_0200(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasER = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
+    return flag
 def Test_02043_18_04939_STRUCT_0210(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasER == False:
@@ -870,6 +895,7 @@ def Test_02043_18_04939_STRUCT_0210(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0220(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "constituants" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasConstituants = True
         index = TSDApp.WorkbookStats.sheetNames.index("constituants") + 1
@@ -878,7 +904,9 @@ def Test_02043_18_04939_STRUCT_0220(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasConstituants = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0230(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -933,6 +961,7 @@ def Test_02043_18_04939_STRUCT_0230(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0240(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "situations de vie" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSitDeVie = True
         index = TSDApp.WorkbookStats.sheetNames.index("situations de vie") + 1
@@ -941,7 +970,9 @@ def Test_02043_18_04939_STRUCT_0240(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasSitDeVie = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0250(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -996,6 +1027,7 @@ def Test_02043_18_04939_STRUCT_0250(ExcelApp, workBook, TSDApp, DOC3Name):
 
 def Test_02043_18_04939_STRUCT_0260(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "liste mdd" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasMDD = True
         index = TSDApp.WorkbookStats.sheetNames.index("liste mdd") + 1
@@ -1004,7 +1036,9 @@ def Test_02043_18_04939_STRUCT_0260(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasMDD = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0270(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1065,6 +1099,7 @@ def Test_02043_18_04939_STRUCT_0400(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     temp = workBook.Sheets
     sheetNames = list()
+    flag = False
     for sheet in temp:
         sheetNames.append(sheet.Name.strip().casefold())
     TSDApp.WorkbookStats.sheetNames = sheetNames
@@ -1079,7 +1114,9 @@ def Test_02043_18_04939_STRUCT_0400(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasTable = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1140,6 +1177,7 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0420(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "diagnostic needs" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasDiagNeeds = True
         index = TSDApp.WorkbookStats.sheetNames.index("diagnostic needs") + 1
@@ -1148,7 +1186,9 @@ def Test_02043_18_04939_STRUCT_0420(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasDiagNeeds = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0430(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1201,6 +1241,7 @@ def Test_02043_18_04939_STRUCT_0430(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0440(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "customer effects" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasCustEff = True
         index = TSDApp.WorkbookStats.sheetNames.index("customer effects") + 1
@@ -1209,7 +1250,9 @@ def Test_02043_18_04939_STRUCT_0440(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasCustEff = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0450(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1259,6 +1302,7 @@ def Test_02043_18_04939_STRUCT_0450(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0460(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "feared events" in TSDApp.WorkbookStats.sheetNames or "er" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasFearedEvent = True
         try:
@@ -1270,7 +1314,9 @@ def Test_02043_18_04939_STRUCT_0460(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasFearedEvent = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0470(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1327,6 +1373,7 @@ def Test_02043_18_04939_STRUCT_0470(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0480(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "system" in TSDApp.WorkbookStats.sheetNames or "système" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSystem = True
         try:
@@ -1338,7 +1385,9 @@ def Test_02043_18_04939_STRUCT_0480(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasSystem = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0490(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1392,6 +1441,7 @@ def Test_02043_18_04939_STRUCT_0490(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0500(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "operation situation" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasOpSit = True
         index = TSDApp.WorkbookStats.sheetNames.index("operation situation") + 1
@@ -1400,7 +1450,9 @@ def Test_02043_18_04939_STRUCT_0500(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasOpSit = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1452,6 +1504,7 @@ def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
 
 def Test_02043_18_04939_STRUCT_0520(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "req. of tech. effects" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasReqTech = True
         index = TSDApp.WorkbookStats.sheetNames.index("req. of tech. effects") + 1
@@ -1460,7 +1513,9 @@ def Test_02043_18_04939_STRUCT_0520(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasReqTech = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0530(ExcelApp, workBook, TSDApp, DOC4Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1518,6 +1573,7 @@ def Test_02043_18_04939_STRUCT_0700(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     temp = workBook.Sheets
     sheetNames = list()
+    flag = False
     for sheet in temp:
         sheetNames.append(sheet.Name.strip().casefold())
     TSDApp.WorkbookStats.sheetNames = sheetNames
@@ -1532,7 +1588,9 @@ def Test_02043_18_04939_STRUCT_0700(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasTable = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1591,6 +1649,7 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0720(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "data trouble codes" in TSDApp.WorkbookStats.sheetNames or "codes défauts" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasDataCodes = True
         try:
@@ -1602,8 +1661,9 @@ def Test_02043_18_04939_STRUCT_0720(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasDataCodes = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
+    return flag
 def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasDataCodes == False:
@@ -1659,6 +1719,7 @@ def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0740(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "read data and io control" in TSDApp.WorkbookStats.sheetNames or "mesures et commandes" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasReadDataIO = True
         try:
@@ -1670,7 +1731,9 @@ def Test_02043_18_04939_STRUCT_0740(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasReadDataIO = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1723,6 +1786,7 @@ def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0760(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "not embedded diagnosis" in TSDApp.WorkbookStats.sheetNames or "read data and io control" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasNotEmbDiag = True
         try:
@@ -1734,7 +1798,9 @@ def Test_02043_18_04939_STRUCT_0760(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasNotEmbDiag = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0770(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1791,6 +1857,7 @@ def Test_02043_18_04939_STRUCT_0770(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0780(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = True
     if "customer effect" in TSDApp.WorkbookStats.sheetNames or "effets clients":
         TSDApp.WorkbookStats.hasCustEff = True
         try:
@@ -1802,7 +1869,9 @@ def Test_02043_18_04939_STRUCT_0780(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasCustEff = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0790(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1856,6 +1925,7 @@ def Test_02043_18_04939_STRUCT_0790(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0800(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "feared events" in TSDApp.WorkbookStats.sheetNames or "er" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasFearedEvent = True
         try:
@@ -1867,7 +1937,9 @@ def Test_02043_18_04939_STRUCT_0800(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasFearedEvent = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0810(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1922,6 +1994,7 @@ def Test_02043_18_04939_STRUCT_0810(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0820(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "parts" in TSDApp.WorkbookStats.sheetNames or "constituants" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasConstituants = True
         try:
@@ -1933,7 +2006,9 @@ def Test_02043_18_04939_STRUCT_0820(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasConstituants = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1988,6 +2063,7 @@ def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0840(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "situation" in TSDApp.WorkbookStats.sheetNames or "situation de vie" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSitDeVie = True
         try:
@@ -1999,7 +2075,9 @@ def Test_02043_18_04939_STRUCT_0840(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasSitDeVie = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0850(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -2054,6 +2132,7 @@ def Test_02043_18_04939_STRUCT_0850(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0860(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "degraded mode" in TSDApp.WorkbookStats.sheetNames or "liste mdd" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasMDD = True
         try:
@@ -2065,7 +2144,9 @@ def Test_02043_18_04939_STRUCT_0860(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasMDD = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0870(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -2120,6 +2201,7 @@ def Test_02043_18_04939_STRUCT_0870(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0880(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "technical effect" in TSDApp.WorkbookStats.sheetNames or "effets techniques" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasTechEff = True
         try:
@@ -2131,7 +2213,9 @@ def Test_02043_18_04939_STRUCT_0880(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasTechEff = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0890(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
@@ -2187,6 +2271,7 @@ def Test_02043_18_04939_STRUCT_0890(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_STRUCT_0900(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    flag = False
     if "variant" in TSDApp.WorkbookStats.sheetNames or "variantes" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasVariant = True
         try:
@@ -2198,7 +2283,9 @@ def Test_02043_18_04939_STRUCT_0900(workBook, TSDApp):
     else:
         TSDApp.WorkbookStats.hasVariant = False
         localisation = ""
+        flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return flag
 
 def Test_02043_18_04939_STRUCT_0910(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name

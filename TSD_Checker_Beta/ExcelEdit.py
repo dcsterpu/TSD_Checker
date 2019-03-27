@@ -88,7 +88,7 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("AMDEC:",TSDApp.AMDECName)))
     colList.append(list(("Export MedialecMatrice:",TSDApp.MedialecName)))
     colList.append(list(("","")))
-    colList.append(list(("Status:","")))
+    colList.append(list(("Status:", str(TSDApp.status))))
     colList.append(list(("Coverage Indicator:", str(TSDApp.coverage)[0:4] + "%")))
     colList.append(list(("Convergence Indicator:", str(TSDApp.convergence)[0:4] + "%")))
     reportInformationWorkSheet.Range("A1:B20").Value = colList

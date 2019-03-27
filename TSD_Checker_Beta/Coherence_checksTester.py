@@ -8,8 +8,10 @@ from ErrorMessages import errorMessagesDict as error
 
 def Test_02043_18_04939_COH_2000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -31,6 +33,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -47,6 +50,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasMeasure == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
                 workSheetRange = workSheet.UsedRange
@@ -78,16 +82,20 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                     localisation = None
                 else:
                     localisation = ""
+                    check = True
                     break
             if list_table == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2005(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -109,6 +117,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             codeCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
             nrLines = codeCellRange.Rows.Count
@@ -133,6 +142,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, codeColIndex).Value.count('-') != 2:
                     localisation.append(workSheet.Cells(index, codeColIndex))
+                    check = True
 
                 else:
                     listValues = workSheet.Cells(index, codeColIndex).Value.split('-')
@@ -157,19 +167,22 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                     else:
                         localisation.append(workSheet.Cells(index, codeColIndex))
                         ok = 1
+                        check = True
                         break
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2006(ExcelApp, workBook, TSDApp, DOC8Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.famillyList == "[]":
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
-
         DOC8 = ExcelApp.Workbooks.Open(DOC8Name)
         workSheetRef = DOC8.Sheets("sous familles Cesare 2018 08 30")
 
@@ -193,6 +206,7 @@ def Test_02043_18_04939_COH_2006(ExcelApp, workBook, TSDApp, DOC8Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheetRef.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -212,17 +226,21 @@ def Test_02043_18_04939_COH_2006(ExcelApp, workBook, TSDApp, DOC8Name):
                     pass
                 else:
                    localisation.append(element["localisation"])
+                   check = True
 
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        return check
 
 def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.famillyList == "[]":
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
 
         DOC14 = ExcelApp.Workbooks.Open(DOC14Name)
@@ -248,6 +266,7 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheetRef.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -267,15 +286,18 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
                     pass
                 else:
                    localisation.append(element["localisation"])
+                   check = True
 
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        return check
 
 def Test_02043_18_04939_COH_2010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
@@ -304,6 +326,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -321,6 +344,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasCode == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 workSheetRange = workSheet.UsedRange
@@ -354,16 +378,20 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(element["localisation"])
+                    check = True
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -386,6 +414,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -405,6 +434,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -450,16 +480,20 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(element["localisation"])
+                    check = True
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2030(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -482,6 +516,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -502,6 +537,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasEffClients == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -547,16 +583,20 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(element["localisation"])
+                    check = True
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2040(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -578,6 +618,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -597,6 +638,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasDiagDeb == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
                 workSheetRange = workSheet.UsedRange
@@ -629,16 +671,20 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(element["localisation"])
+                    check = True
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2050(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -659,6 +705,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -678,6 +725,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasER == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.ERIndex)
                 workSheetRange = workSheet.UsedRange
@@ -723,16 +771,20 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                     pass
                 else:
                     localisation.append(element["localisation"])
+                    check = True
 
             if localisation == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
         workSheetRange = workSheet.UsedRange
@@ -752,6 +804,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
@@ -849,14 +902,18 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                     pass
                 else:
                     localisation = ""
+                    check = True
                     break
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCustEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.CustEffIndex)
         workSheetRange = workSheet.UsedRange
@@ -876,6 +933,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
@@ -973,14 +1031,18 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                     pass
                 else:
                     localisation = ""
+                    check = True
                     break
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return  check
 
 def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
         workSheetRange = workSheet.UsedRange
@@ -1001,6 +1063,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
@@ -1098,16 +1161,18 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                     pass
                 else:
                     localisation = ""
+                    check = True
                     break
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2091(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     temp = workBook.Sheets
     sheetNames = list()
     localisation = list()
-
+    check = False
     for sheet in temp:
         sheetNames.append(sheet.Name.strip().casefold())
 
@@ -1137,16 +1202,20 @@ def Test_02043_18_04939_COH_2091(workBook, TSDApp):
                 for colIndex in range(1, nrCols):
                     if workSheet.Cells(rowIndex, colIndex).Value == "?" or  workSheet.Cells(rowIndex, colIndex).Value == "tbd" or workSheet.Cells(rowIndex, colIndex).Value == "tbc":
                         localisation.append(workSheet.Cells(rowIndex, colIndex))
+                        check = True
 
     if localisation == "[]":
         localisation = None
 
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2100(ExcelApp, workBook, TSDApp, DOC8Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1172,6 +1241,7 @@ def Test_02043_18_04939_COH_2100(ExcelApp, workBook, TSDApp, DOC8Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1218,13 +1288,17 @@ def Test_02043_18_04939_COH_2100(ExcelApp, workBook, TSDApp, DOC8Name):
                         pass
                     else:
                        localisation = ""
+                       check = True
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2110(ExcelApp, workBook, TSDApp, DOC8Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -1250,6 +1324,7 @@ def Test_02043_18_04939_COH_2110(ExcelApp, workBook, TSDApp, DOC8Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1295,13 +1370,17 @@ def Test_02043_18_04939_COH_2110(ExcelApp, workBook, TSDApp, DOC8Name):
                         pass
                     else:
                        localisation = ""
+                       check = True
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTechEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
         workSheetRange = workSheet.UsedRange
@@ -1326,6 +1405,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1387,17 +1467,21 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                     pass
                 else:
                    localisation = ""
+                   check = True
 
 
             if tempDict == "[]":
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    return check
 
 def Test_02043_18_04939_COH_2130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1421,6 +1505,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1437,6 +1522,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasTechEff == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1485,6 +1571,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1493,11 +1580,15 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check =True
+    return check
 
 def Test_02043_18_04939_COH_2140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -1520,6 +1611,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1536,6 +1628,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasCode == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1584,6 +1677,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1592,11 +1686,15 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2150(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         workSheetRange = workSheet.UsedRange
@@ -1619,6 +1717,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1635,6 +1734,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1683,6 +1783,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1691,11 +1792,15 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         workSheetRange = workSheet.UsedRange
@@ -1718,6 +1823,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1733,6 +1839,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1781,6 +1888,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1789,11 +1897,15 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2170(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasDataCodes == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DataCodesIndex)
         workSheetRange = workSheet.UsedRange
@@ -1816,6 +1928,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1832,6 +1945,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1880,6 +1994,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1888,11 +2003,15 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasReadDataIO == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.ReadDataIOIndex)
         workSheetRange = workSheet.UsedRange
@@ -1915,6 +2034,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -1930,6 +2050,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 workSheetRange = workSheet.UsedRange
@@ -1978,6 +2099,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -1986,11 +2108,15 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2190(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -2013,6 +2139,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -2029,6 +2156,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasSitDeVie == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
                 workSheetRange = workSheet.UsedRange
@@ -2077,6 +2205,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -2085,11 +2214,15 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -2112,6 +2245,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -2128,6 +2262,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasSitDeVie == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
                 workSheetRange = workSheet.UsedRange
@@ -2176,6 +2311,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -2184,11 +2320,15 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2210(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -2211,6 +2351,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -2227,6 +2368,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasDiagDeb == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
                 workSheetRange = workSheet.UsedRange
@@ -2275,6 +2417,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -2283,11 +2426,15 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
 def Test_02043_18_04939_COH_2220(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
@@ -2310,6 +2457,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
@@ -2326,6 +2474,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
 
             if TSDApp.WorkbookStats.hasNotEmbDiag == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.NotEmbDiagIndex)
                 workSheetRange = workSheet.UsedRange
@@ -2374,6 +2523,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                             localisation = None
                         else:
                             localisation = ""
+                            check = True
 
                     if list_table == "[]":
                         localisation = None
@@ -2382,4 +2532,6 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                    check = True
+    return check
 
