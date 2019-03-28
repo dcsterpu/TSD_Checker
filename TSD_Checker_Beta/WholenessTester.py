@@ -13,26 +13,61 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+        #workSheetRange = workSheet.UsedRange
+        nrRows = workSheet.Rows.Count
+        nrCols = workSheet.Columns.Count
+        #nrCols = workSheetRange.Columns.Count
         refColIndex = 0
         var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        lastRow = 0
+        tmp = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Référence" or cell == "Reference":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
-                    break
-            if refColIndex != 0:
-                break
-            elif refColIndex == 0:
-                var = 1
-                break
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            for cell in cellRow.Cells:
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                           lastCol = cell.Column
+                           tmp = 1
+                           ok = 1
+                           break
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            pass
+                        else:
+                           lastRow = cell.Row
+                           break
+
+
+        if refColIndex == 0:
+            var = 1
+
+        '''for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if cell.Borders(8).LineStyle != -4142:
+                    pass
+                else:
+                   pass'''
 
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex,refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
+
             localisation = list()
             firtCell = workSheet.Cells(refRowIndex + nrLines, 1)
             lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
