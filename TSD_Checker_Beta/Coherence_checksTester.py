@@ -14,22 +14,19 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold().strip():
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
         if refColIndex == 0:
             var = 1
-
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -106,12 +103,23 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
                 if cell == "Code défaut":
-                    codeColIndex = cellRow.index(cell) + 1
-                    codeRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    codeColIndex = cell.Column
+                    codeRowIndex = cell.Row
                     break
             if codeColIndex != 0:
                 break
         if codeColIndex == 0:
+            var = 1
+
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
             var = 1
 
 
@@ -255,8 +263,8 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
         for cellRow in workSheetRange.Value:
             for cell in cellRow:
                 if cell == "Data Trouble Code (DTC)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -302,27 +310,21 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         list_code = list()
         tempList = list()
-
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Code défaut":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Code défaut":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
         if refColIndex == 0:
             var = 1
-
-
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -333,7 +335,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
             nrCols = refCellRange.Columns.Count
             localisation = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == "NO DTC" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -347,16 +349,13 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 codeColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Code défaut":
-                            codeColIndex = cellRow.index(cell) + 1
-                            codeRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold() == "Code défaut":
+                            codeColIndex = cell.Column
+                            codeRowIndex = cell.Row
                             break
                     if codeColIndex != 0:
                         break
@@ -367,7 +366,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 localisation = list()
 
 
-                for index in range(codeRowIndex + nrLines, nrRows):
+                for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                     if workSheet.Cells(index, codeColIndex).Value == None:
                         pass
                     else:
@@ -395,16 +394,14 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Constituant défaillant détecté":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Constituant défaillant détecté":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -424,7 +421,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
             list_constituants = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -437,16 +434,13 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 constituantsColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Noms":
-                            constituantsColIndex = cellRow.index(cell) + 1
-                            constituantsRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold() == "Noms":
+                            constituantsColIndex = cell.Column
+                            constituantsRowIndex = cell.Row
                             break
                     if constituantsColIndex != 0:
                         break
@@ -454,22 +448,8 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 constituantsCellRange = workSheet.Cells(constituantsRowIndex, constituantsColIndex).MergeArea
                 nrLines = constituantsCellRange.Rows.Count
                 localisation = list()
-                firstCell = workSheet.Cells(constituantsRowIndex + nrLines, 1)
-                lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                workSheetRange = workSheet.Range(firstCell, lastCell)
-                flag = False
 
-                for row in workSheetRange.Rows:
-                    flag = False
-                    for valueTuple in row.Value:
-                        for value in valueTuple:
-                            if value != None:
-                                flag = True
-                    if flag == False:
-                        TSDApp.WorkbookStats.constituantsLastRow = row.Row
-                        break
-
-                for index in range(constituantsRowIndex + nrLines, nrRows):
+                for index in range(constituantsRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
                     if workSheet.Cells(index, constituantsColIndex).Value == None:
                         pass
                     else:
@@ -496,17 +476,14 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Effet(s) client(s)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Effet(s) client(s)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -527,7 +504,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
             tempList = list()
 
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -599,16 +576,14 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
+        nrRows = workSheet.Rows.Count
         refColIndex = 0
         var = 0
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "DIAGNOSTIC DEBARQUE":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "DIAGNOSTIC DEBARQUE":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -628,7 +603,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
             list_diag = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == "N/A" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -641,14 +616,12 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
+                nrRows = workSheet.Rows.Count
                 diagColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "libellé (signification)":
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold() == "libellé (signification)":
                             diagColIndex = cellRow.index(cell) + 1
                             diagRowIndex = workSheetRange.Value.index(cellRow) + 1
                             break
@@ -687,16 +660,14 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
+        nrRows = workSheet.Rows.Count
         refColIndex = 0
         var = 0
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Evenement(s) redouté(s) (ER)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Evenement(s) redouté(s) (ER)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -715,7 +686,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
             list_ER = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == "No DTC" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -728,14 +699,12 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.ERIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
+                nrRows = workSheet.Rows.Count
                 ERColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "nom":
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold() == "nom":
                             ERColIndex = cellRow.index(cell) + 1
                             ERRowIndex = workSheetRange.Value.index(cellRow) + 1
                             break
@@ -745,21 +714,6 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 ERCellRange = workSheet.Cells(ERRowIndex, ERColIndex).MergeArea
                 nrLines = ERCellRange.Rows.Count
                 localisation = list()
-                firstCell = workSheet.Cells(ERRowIndex + nrLines, 1)
-                lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                workSheetRange = workSheet.Range(firstCell, lastCell)
-                flag = False
-
-                for row in workSheetRange.Rows:
-                    flag = False
-                    for valueTuple in row.Value:
-                        for value in valueTuple:
-                            if value != None:
-                                flag = True
-                    if flag == False:
-                        TSDApp.WorkbookStats.ERLastRow = row.Row
-                        break
-
                 for index in range(ERRowIndex + nrLines, nrRows):
                     if workSheet.Cells(index, ERColIndex).Value == None:
                         pass
@@ -787,13 +741,12 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+        nrRows = workSheet.Rows
         effColIndex = 0
         var = 0
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Noms":
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Noms":
                     effColIndex = cellRow.index(cell) + 1
                     effRowIndex = workSheetRange.Value.index(cellRow) + 1
                     break
@@ -809,24 +762,11 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
             localisation = list()
-            firstCell = workSheet.Cells(effRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-            workSheetRange = workSheet.Range(firstCell, lastCell)
-            flag = False
+
             list_eff = list()
             list_ref = list()
 
-            for row in workSheetRange.Rows:
-                flag = False
-                for valueTuple in row.Value:
-                    for value in valueTuple:
-                        if value != None:
-                            flag = True
-                if flag == False:
-                    TSDApp.WorkbookStats.effLastRow = row.Row
-                    break
-
-            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.effLastRow):
+            for index in range(effRowIndex + nrLines, nrRows):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
@@ -916,13 +856,11 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.CustEffIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
         effColIndex = 0
         var = 0
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Name":
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Name":
                     effColIndex = cellRow.index(cell) + 1
                     effRowIndex = workSheetRange.Value.index(cellRow) + 1
                     break
@@ -1218,20 +1156,17 @@ def Test_02043_18_04939_COH_2100(ExcelApp, workBook, TSDApp, DOC8Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         list_famille = list()
         tempDict = list()
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "supporté par constituant (s)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "supporté par constituant (s)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1246,7 +1181,7 @@ def Test_02043_18_04939_COH_2100(ExcelApp, workBook, TSDApp, DOC8Name):
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1301,20 +1236,18 @@ def Test_02043_18_04939_COH_2110(ExcelApp, workBook, TSDApp, DOC8Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
+
         refColIndex = 0
         list_famille = list()
         tempDict = list()
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "supporté par constituant (s)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "supporté par constituant (s)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1329,7 +1262,7 @@ def Test_02043_18_04939_COH_2110(ExcelApp, workBook, TSDApp, DOC8Name):
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1383,20 +1316,19 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
+        nrCols = workSheet.Columns.Count
+        nrRows = workSheet.Rows.Count
         refColIndex = 0
         list_amont = list()
         tempDict = list()
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Reference" or cell == "Référence":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Reference" or str(cell.Value).casefold() == "Référence":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1410,23 +1342,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             localisation = list()
-
-            firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-            workSheetRange = workSheet.Range(firstCell, lastCell)
             flag = False
-
-
-            for row in workSheetRange.Rows:
-                flag = False
-                for valueTuple in row.Value:
-                    for value in valueTuple:
-                        if value != None:
-                            flag = True
-                if flag == False:
-                    TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                    break
-
 
             for index in range(refRowIndex + nrLines, nrRows):
                 if workSheet.Cells(index, refColIndex).Value == None:
@@ -1437,7 +1353,6 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
 
             DOC5 = ExcelApp.Workbooks.Open(DOC5Name)
             workSheetRef = DOC5.Sheets("Effets techniques")
-
             workSheetRange = workSheetRef.UsedRange
             nrCols = workSheetRange.Columns.Count
             nrRows = workSheetRange.Rows.Count
@@ -1455,7 +1370,6 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
             amontCellRange = workSheetRef.Cells(amontRowIndex, amontColIndex).MergeArea
             nrLines = amontCellRange.Rows.Count
             flag = False
-
             for index in range(amontRowIndex + nrLines, nrRows + 1):
                 if workSheetRef.Cells(index, amontColIndex).Value == None:
                     pass
@@ -1468,7 +1382,6 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                 else:
                    localisation = ""
                    check = True
-
 
             if tempDict == "[]":
                 localisation = None
@@ -1484,18 +1397,15 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Référence" or cell == "Reference":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Référence" or str(cell.Value) == "Reference":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1513,7 +1423,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1591,18 +1501,15 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "code defauts induits":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "code defauts induits":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1619,7 +1526,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1631,14 +1538,11 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Code défaut":
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold() == "Code défaut":
                             effColIndex = cellRow.index(cell) + 1
                             effRowIndex = workSheetRange.Value.index(cellRow) + 1
                             break
@@ -1650,23 +1554,9 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
-                    firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-                    lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                    workSheetRange = workSheet.Range(firstCell, lastCell)
-                    flag = False
-
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
 
 
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1697,18 +1587,15 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Supporté par constituant(s)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Supporté par constituant(s)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1725,7 +1612,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1803,18 +1690,16 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
+
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Supporté par constituant(s)":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Supporté par constituant(s)":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -1831,7 +1716,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2119,18 +2004,15 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "situation de vie":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "situation de vie":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -2147,7 +2029,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2225,18 +2107,15 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Situation":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Situation":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -2253,7 +2132,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2331,18 +2210,15 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Diagnostic débarqué":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Diagnostic débarqué":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -2359,7 +2235,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2437,18 +2313,15 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
         refColIndex = 0
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Non-embedded diagnosis":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Non-embedded diagnosis":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
             if refColIndex != 0:
                 break
@@ -2465,7 +2338,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:

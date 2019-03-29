@@ -1,6 +1,6 @@
 errorMessagesDict = dict()
 
-errorMessagesDict["None"] = "Test could not be performed because of failure of previous tests"
+errorMessagesDict["None"] = ""
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0000"] = "The sheet “Informations Générales” (or “General information”) is not" \
                                                   " \npresent or not written correctly."

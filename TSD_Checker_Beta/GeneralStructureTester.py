@@ -80,6 +80,8 @@ class WorkbookProperties:
         self.NotEmbDiagIndex = 0
 
         self.tableLastRow = 0
+        self.TableLastCol = 0
+        self.CodeLastCol = 0
         self.measureLastRow = 0
         self.DiagDebLastRow = 0
         self.MDDLastRow = 0
@@ -520,13 +522,58 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
         list_test = list()
+
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.tableLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.tableLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.TableLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
 
 
         for row in range(4,5):
-            for col in range(1,nrCols):
+            for col in range(1,TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheet.Cells(row - 1, col).Value
                 dict['2'] = workSheet.Cells(row, col).Value
@@ -541,7 +588,7 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
         list_ref = list()
 
         for row in range(4, 5):
-            for col in range(1, nrCols):
+            for col in range(1, TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheetRef.Cells(row - 1, col).Value
                 dict['2'] = workSheetRef.Cells(row, col).Value
@@ -585,14 +632,60 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
 
         list_test = list()
 
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.codeLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.codeLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.CodeLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+
+
 
         for row in range(4,5):
-            for col in range(1,nrCols):
+            for col in range(1,TSDApp.WorkbookStats.CodeLastCol):
                 dict = {}
                 dict['1'] = workSheet.Cells(row - 1, col).Value
                 dict['2'] = workSheet.Cells(row, col).Value
@@ -607,7 +700,7 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
         list_ref = list()
 
         for row in range(4, 5):
-            for col in range(1, nrCols):
+            for col in range(1, TSDApp.WorkbookStats.CodeLastCol):
                 dict = {}
                 dict['1'] = workSheetRef.Cells(row - 1, col).Value
                 dict['2'] = workSheetRef.Cells(row, col).Value
@@ -651,14 +744,57 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-
         list_test = list()
+
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.measureLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.measureLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.MeasureLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
 
 
         for row in range(4,5):
-            for col in range(1,nrCols):
+            for col in range(1,TSDApp.WorkbookStats.MeasureLastCol):
                 dict = {}
                 dict['1'] = workSheet.Cells(row - 1, col).Value
                 dict['2'] = workSheet.Cells(row, col).Value
@@ -673,7 +809,7 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
         list_ref = list()
 
         for row in range(4, 5):
-            for col in range(1, nrCols):
+            for col in range(1, TSDApp.WorkbookStats.MeasureLastCol):
                 dict = {}
                 dict['1'] = workSheetRef.Cells(row - 1, col).Value
                 dict['2'] = workSheetRef.Cells(row, col).Value
@@ -842,6 +978,7 @@ def Test_02043_18_04939_STRUCT_0200(workBook, TSDApp):
         flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
     return flag
+
 def Test_02043_18_04939_STRUCT_0210(ExcelApp, workBook, TSDApp, DOC3Name):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasER == False:
@@ -918,7 +1055,6 @@ def Test_02043_18_04939_STRUCT_0230(ExcelApp, workBook, TSDApp, DOC3Name):
         nrCols = workSheetRange.Columns.Count
 
         list_test = list()
-
 
         for row in range(4,5):
             for col in range(1,nrCols):
@@ -1124,14 +1260,60 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+        #workSheetRange = workSheet.UsedRange
+        #nrCols = workSheetRange.Columns.Count
 
         list_test = list()
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.tableLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.tableLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(
+                            cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.TableLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
 
 
         for row in range(3,5):
-            for col in range(1,nrCols):
+            for col in range(1,TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheet.Cells(row - 2, col).Value
                 dict['2'] = workSheet.Cells(row - 1, col).Value
@@ -1151,7 +1333,7 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
         list_ref = list()
 
         for row in range(3, 5):
-            for col in range(1, nrCols):
+            for col in range(1, TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheetRef.Cells(row - 2, col).Value
                 dict['2'] = workSheetRef.Cells(row - 1, col).Value
@@ -1598,14 +1780,60 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+
 
         list_test = list()
 
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.tableLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.tableLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(
+                            cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.TableLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
 
         for row in range(2,3):
-            for col in range(1,nrCols):
+            for col in range(1,TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheet.Cells(row - 1, col).Value
                 dict['2'] = workSheet.Cells(row, col).Value
@@ -1624,7 +1852,7 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
         list_ref = list()
 
         for row in range(2, 3):
-            for col in range(1, nrCols):
+            for col in range(1, TSDApp.WorkbookStats.TableLastCol):
                 dict = {}
                 dict['1'] = workSheetRef.Cells(row - 1, col).Value
                 dict['2'] = workSheetRef.Cells(row, col).Value
@@ -1664,19 +1892,66 @@ def Test_02043_18_04939_STRUCT_0720(workBook, TSDApp):
         flag = True
     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
     return flag
+
 def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasDataCodes == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DataCodesIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+
 
         list_test = list()
 
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
 
-        for col in range(1,nrCols):
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.codeLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.codeLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(
+                            cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.CodeLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+
+        for col in range(1,TSDApp.WorkbookStats.CodeLastCol):
             dict = {}
             dict['1'] = workSheet.Cells(1, col).Value
             dict['2'] = col
@@ -1693,7 +1968,7 @@ def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
 
         list_ref = list()
 
-        for col in range(1, nrCols):
+        for col in range(1, TSDApp.WorkbookStats.CodeLastCol):
             dict = {}
             dict['1'] = workSheetRef.Cells(1, col).Value
             dict['2'] = col
@@ -1741,12 +2016,59 @@ def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.ReadDataIOIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+
+        refColIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.measureLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.measureLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(
+                            cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.MeasureLastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+
         list_test = list()
 
 
-        for col in range(1, nrCols):
+        for col in range(1, TSDApp.WorkbookStats.MeasureLastCol):
             dict = {}
             dict['1'] = workSheet.Cells(1, col).Value
             dict['2'] = col
@@ -1762,7 +2084,7 @@ def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
 
         list_ref = list()
 
-        for col in range(1, nrCols):
+        for col in range(1, TSDApp.WorkbookStats.MeasureLastCol):
             dict = {}
             dict['1'] = workSheetRef.Cells(1, col).Value
             dict['2'] = col
