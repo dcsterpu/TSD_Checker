@@ -1096,7 +1096,7 @@ class Test(Application):
 
             # Wholeness
 
-            if ok == 0:
+            if ok == 1:
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC4Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1189,6 +1189,8 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
+                Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC4Workbook, self, self.DOC13List)
+
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC4Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1276,6 +1278,7 @@ class Test(Application):
                     ok_indicator = 1
 
                 #check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
+
 
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
                 if check_indicator == True:

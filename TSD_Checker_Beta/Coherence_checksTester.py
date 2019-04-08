@@ -2408,3 +2408,112 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                     check = True
     return check
 
+def Test_02043_18_04939_COH_2240(workBook, TSDApp, doc13List):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        refColIndex = 0
+        var = 0
+        localisation = list()
+
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Variante/\noption":
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+        if var == 1:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        elif var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+            localisation = list()
+            list_table = list()
+            list_effets = list()
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+                if workSheet.Cells(index, refColIndex).Value == None:
+                    pass
+                else:
+                    list_table.append(workSheet.Cells(index, refColIndex).Value)
+
+    pass
+
+def Test_02043_18_04939_COH_2241(workBook, TSDApp, doc13List):
+    testName = inspect.currentframe().f_code.co_name
+    list_table = []
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        list_test = list()
+
+        refColIndex = 0
+        refRowIndex = 0
+        ok = 0
+        tmp = 0
+        ExitFromFct = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if str(cell.Value) != "None":
+                            pass
+                        else:
+                            TSDApp.WorkbookStats.tableLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.tableLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Diversity".casefold().strip():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            refColIndex = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+        if refColIndex==0:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        else:
+            pass
+
+
+    for elem in list_table:
+        elem.strip('(')
+        elem.strip(')')
+        temp = elem.split(' ')
+        for element in temp:
+            if elem in ['AND', 'OR', 'NOT'] or elem in doc13List:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+
+
+    pass

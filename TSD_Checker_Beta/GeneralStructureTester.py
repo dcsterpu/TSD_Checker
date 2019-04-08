@@ -35,8 +35,8 @@ class WorkbookProperties:
         self.SitDeVieIndex = 0
         self.MDDIndex = 0
 #DOC4
-        #self.hasTable = self.hasTable
-        #self.tableIndex = self.tableIndex
+        self.hasTable = False
+        self.tableIndex = 0
         self.hasDiagNeeds = False
         self.DiagNeedsIndex = 0
         #self.hasCustEff = True
@@ -266,7 +266,7 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -283,7 +283,7 @@ def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -300,7 +300,7 @@ def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -317,7 +317,7 @@ def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -334,7 +334,7 @@ def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -351,7 +351,7 @@ def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -368,7 +368,7 @@ def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -385,7 +385,7 @@ def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -402,7 +402,7 @@ def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -419,7 +419,7 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -436,7 +436,7 @@ def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -453,7 +453,7 @@ def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
 
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
@@ -507,7 +507,6 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
             col_range = 0
             if ExitFromFct == 1:
                 break
-
 
             for cell in cellRow.Cells:
                 if tmp != 0:

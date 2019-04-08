@@ -32,7 +32,24 @@ def DOC9Parser(ExcelApp, DOC9Path):
     return DOC9Dict
 
 def DOC13Parser(ExcelApp, DOC13Path):
-    pass
+    DOC13 = ExcelApp.Workbooks.Open(DOC13Path)
+    workSheet = DOC13.Sheets("Liste EC")
+    workSheetRangeValuesTuple = workSheet.UsedRange.Value
+    testCol = 0
+    temp_list = []
+    final_list = []
+
+    for rowTuple in workSheetRangeValuesTuple:
+        if 'Nom CF /\nNom CO PLM (CF_CO)' in rowTuple:
+            testCol = rowTuple.index("Nom CF /\nNom CO PLM (CF_CO)")
+            break
+    for rowTuple in workSheetRangeValuesTuple:
+        temp_list.append(rowTuple[testCol])
+
+    for elem in temp_list:
+        if elem not in [None, "", 'Nom CF /\nNom CO PLM (CF_CO)']:
+            final_list.append(elem)
+    return final_list
 
 def DOC10Coherence():
     dict10 = {}

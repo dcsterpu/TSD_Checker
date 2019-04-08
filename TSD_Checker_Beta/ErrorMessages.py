@@ -287,3 +287,11 @@ errorMessagesDict["Test_02043_18_04939_COH_2200"] = ""
 errorMessagesDict["Test_02043_18_04939_COH_2210"] = ""
 
 errorMessagesDict["Test_02043_18_04939_COH_2220"] = ""
+
+errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information speciied in the column 'Variante/option' of the 'Table' sheet has not the correct format"
+
+errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information speciied in the column 'Diversity' of the 'Table' sheet has not the correct format"
+
+errorMessagesDict["Test_02043_18_04939_COH_2250"] = "The information speciied in the column 'Variante/option' of the 'Table' sheet has not the correct format"
+
+errorMessagesDict["Test_02043_18_04939_COH_2251"] = "The information speciied in the column 'Diversity' of the 'Table' sheet has not the correct format"
