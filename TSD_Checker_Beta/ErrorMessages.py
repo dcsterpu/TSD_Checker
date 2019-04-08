@@ -51,6 +51,10 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0059"] = "The “EEAD” document 
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0060"] = "The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
+errorMessagesDict["Test_02043_18_04939_STRUCT_0061"] = "The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0062"] = "The “View 5 and 8” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0063"] = "The “Allocation Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+
 #DOC3
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0100"] = "The sheet “tableau”(or “table”) is not present or not written correctly. "

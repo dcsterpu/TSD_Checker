@@ -15,7 +15,7 @@ import Coherence_checksTester
 import IndicatorTester
 
 
-appName = "TSD Checker V1.0"
+appName = "TSD Checker V3.0"
 pBarIncrement = 100/70
 
 class Application(QWidget):
@@ -65,7 +65,7 @@ class Application(QWidget):
             self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''')
-            self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05472</a>''')
+            self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
         elif self.tab2.RadioButtonIntranet.isChecked() == True:
@@ -79,7 +79,7 @@ class Application(QWidget):
             self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
             self.DOC14Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_19_00392/v.vc/pj"
             self.tab2.link2.setText('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''')
-            self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05472</a>''')
+            self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
 
@@ -121,7 +121,7 @@ class Application(QWidget):
 
 
     def openFileNameDialog8(self):
-        fileName8, _filter = QtWidgets.QFileDialog.getOpenFileName(self.ta21, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        fileName8, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox8.setText(fileName8)
 
 
@@ -394,14 +394,14 @@ class Application(QWidget):
 
 
         # File Selectiom Dialog4
-        tab.lbl5 = QLabel("TSD configuration file:", tab)
+        tab.lbl5 = QLabel("Criticity configuration file:", tab)
         tab.lbl5.move(5,185)
         tab.myTextBox8 = QtWidgets.QTextEdit(tab)
         tab.myTextBox8.resize(460, 25)
         tab.myTextBox8.move(200, 180)
         tab.myTextBox8.setReadOnly(True)
 
-        tab.link1 = QLabel('''<a href='''+self.DOC9Link+'''>DocInfo Reference: 02043_18_05472</a>''', tab)
+        tab.link1 = QLabel('''<a href='''+self.DOC9Link+'''>DocInfo Reference: 02043_18_05474</a>''', tab)
         tab.link1.setOpenExternalLinks(True)
         tab.link1.move(720, 185)
 
@@ -536,7 +536,7 @@ class Test(Application):
         # Optional Files Paths
         self.DOC8Path = str() # CESARE
         self.DOC9Path = str() # TSD Config
-        self.DOC7path = str() # Customer effect
+        self.DOC7Path = str() # Customer effect
         self.DOC13Path = str() # Diversity mng
 
         # Optional Files Names
@@ -548,6 +548,7 @@ class Test(Application):
 
         # Optional Files Content
         self.DOC9Dict = dict()
+        self.DOC13List = []
 
         # COM Object
         self.excelApp = None
@@ -584,7 +585,7 @@ class Test(Application):
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
         if self.excelApp is None:
             self.excelApp = win32.gencache.EnsureDispatch('Excel.Application')
-        self.excelApp.Visible = False
+        self.excelApp.Visible = True
 
 
         self.tab1.colorTextBox1.setStyleSheet(" background-color: grey ")
@@ -596,24 +597,33 @@ class Test(Application):
 
         if not self.tab2.myTextBox7.toPlainText():
             self.DOC8Path = self.download_file(self.DOC8Link)
+        else:
+            self.Doc8Path = self.tab2.myTextBox7.toPlainText()
 
         if self.DOC8Path == "Error":
             self.tab1.textbox.setText(
-                "ERROR: No network available\nto continue, please select files for field in the Options tab ")
+                "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
             return
         if self.DOC8Path == "False":
             return
 
         if not self.tab2.myTextBox8.toPlainText():
             self.DOC9Path = self.download_file(self.DOC9Link)
+        else:
+            self.DOC9Path = self.tab2.myTextBox8.toPlainText()
 
         if not self.tab2.myTextBox9.toPlainText():
-            self.DOC7path = self.download_file(self.DOC7Link)
+            self.DOC7Path = self.download_file(self.DOC7Link)
+        else:
+            self.DOC7Path = self.tab2.myTextBox9.toPlainText()
 
         if not self.tab2.myTextBox10.toPlainText():
             self.DOC13Path = self.download_file(self.DOC13Link)
+        else:
+            self.DOC13Path = self.tab2.myTextBox10.toPlainText()
 
         self.DOC9Dict = OptionalFilesParser.DOC9Parser(self.excelApp, self.DOC9Path)
+        self.DOC13List = OptionalFilesParser.DOC13Parser(self.excelApp, self.DOC13Path)
 
         self.DOC3Name = self.download_file(self.DOC3Link)
 
@@ -626,8 +636,6 @@ class Test(Application):
         self.DOC14Name = self.download_file(self.DOC14Link)
 
         self.DOC7Name = self.download_file(self.DOC7Link)
-
-
 
         if self.tab1.myTextBox1.toPlainText():
             self.DOC3Path = self.tab1.myTextBox1.toPlainText()
@@ -684,6 +692,12 @@ class Test(Application):
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
 
             # DOC3
 
@@ -976,10 +990,6 @@ class Test(Application):
                 self.DOC3Workbook.Save()
 
 
-
-
-       # del self.WorkbookStats
-
         if self.tab1.myTextBox2.toPlainText():
             self.DOC4Path = self.tab1.myTextBox2.toPlainText()
             self.DOC4Workbook = self.excelApp.Workbooks.Open(self.DOC4Path)
@@ -1034,6 +1044,12 @@ class Test(Application):
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC4Workbook, self)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC4Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC4Workbook, self)
 
         # DOC4
             check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC4Workbook, self)
@@ -1290,8 +1306,6 @@ class Test(Application):
                 self.DOC4Workbook.Save()
 
 
-
-
         if self.tab1.myTextBox3.toPlainText():
             self.DOC5Path = self.tab1.myTextBox3.toPlainText()
             self.DOC5Workbook = self.excelApp.Workbooks.Open(self.DOC5Path)
@@ -1347,6 +1361,12 @@ class Test(Application):
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC5Workbook, self)
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC5Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC5Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC5Workbook, self)
+
+            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC5Workbook, self)
 
             # DOC5
 
@@ -1640,8 +1660,6 @@ class Test(Application):
                 self.tab1.pbar.setValue(100)
                 ExcelEdit.WriteReportInformationSheet(self.DOC5Workbook, self)
                 self.DOC5Workbook.Save()
-
-
 
 
         self.excelApp.Quit()

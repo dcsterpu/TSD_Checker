@@ -94,85 +94,6 @@ class WorkbookProperties:
 
         self.famillyList = list()
 
-    '''def __del__(self):
-        self.sheetNames = list()
-        self.hasInfGen = False
-        self.hasTable = False
-        self.hasCode = False
-        self.hasMDD = False
-        self.hasSitDeVie = False
-        self.hasConstituants = False
-        self.hasER = False
-        self.hasEffClients = False
-        self.hasDiagDeb = False
-        self.hasMeasure = False
-        self.hasSupp = False
-        self.hasRefDocs = False
-
-        self.InfGenIndex = 0
-        self.SuppIndex = 0
-        self.refDocsIndex = 0
-        self.nameRefDocsIndex = 0
-        self.refRefDocsIndex = 0
-        self.tableIndex = 0
-        self.codeIndex = 0
-        self.codeLastRow = 0
-        self.measureIndex = 0
-        self.DiagDebIndex = 0
-        self.EffClientsIndex = 0
-        self.ERIndex = 0
-        self.constituantsIndex = 0
-        self.SitDeVieIndex = 0
-        self.MDDIndex = 0
-        # DOC4
-        # self.hasTable = self.hasTable
-        # self.tableIndex = self.tableIndex
-        self.hasDiagNeeds = False
-        self.DiagNeedsIndex = 0
-        # self.hasCustEff = True
-        # self.CustEffIndex = 0
-        self.hasFearedEvent = False
-        self.FearedEvent = 0
-        self.hasSystem = False
-        self.SystemIndex = 0
-        self.hasOpSit = False
-        self.OpSitIndex = 0
-        self.hasTechEff = False
-        self.TechEffIndex = 0
-        # DOC5
-        # self.hasTable = True
-        # self.tableIndex = 0
-        self.hasDataCodes = False
-        self.DataCodesIndex = 0
-        self.hasReadDataIO = False
-        self.ReadDataIOIndex = 0
-        self.hasNotEmbDiag = False
-        self.NotEmbDiagIndex = 0
-        self.hasCustEff = False
-        self.CustEffIndex = 0
-        # self.hasFearedEvent = True
-        # self.FearedEventIndex = 0
-        self.hasNotEmbDiag = False
-        self.NotEmbDiagIndex = 0
-        # self.hasConstituants = True
-        # self.ConstituantsIndex = 0
-        # self.hasSitDeVie = True
-        # self.SitDeVieIndex = 0
-        # self.hasMDD = True
-        # self.MDDIndex = 0
-        # self.hasTechEff = True
-        # self.TechEffIndex = 0
-        self.hasVariant = False
-        self.VariantIndex = 0
-        self.hasNotEmbDiag = False
-        self.NotEmbDiagIndex = 0
-
-        self.tableLastRow = 0
-        self.measureLastRow = 0
-        self.DiagDebLastRow = 0
-        self.MDDLastRow = 0'''
-
-
 #General Structure
 
 def Test_02043_18_04939_STRUCT_0000(workBook, TSDApp):
@@ -495,6 +416,56 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
                     localisation = workSheet.Rows(colName.Value.index(cell) + 1)
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
+def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasRefDocs == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
+        workSheetRange = workSheet.UsedRange
+        colName = workSheetRange.Columns(TSDApp.WorkbookStats.nameRefDocsIndex)
+        colRef = workSheetRange.Columns(TSDApp.WorkbookStats.refRefDocsIndex)
+        localisation = None
+        for cell in colName.Value:
+            if str(cell[0]).casefold().strip() in ["sto"]:
+                if str(workSheet.Cells(colName.Value.index(cell) + 1, TSDApp.WorkbookStats.refRefDocsIndex).Value).strip() in ["None", ""]:
+                    localisation = workSheet.Rows(colName.Value.index(cell) + 1)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasRefDocs == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
+        workSheetRange = workSheet.UsedRange
+        colName = workSheetRange.Columns(TSDApp.WorkbookStats.nameRefDocsIndex)
+        colRef = workSheetRange.Columns(TSDApp.WorkbookStats.refRefDocsIndex)
+        localisation = None
+        for cell in colName.Value:
+            if str(cell[0]).casefold().strip() in ["view 5 and 8"]:
+                if str(workSheet.Cells(colName.Value.index(cell) + 1, TSDApp.WorkbookStats.refRefDocsIndex).Value).strip() in ["None", ""]:
+                    localisation = workSheet.Rows(colName.Value.index(cell) + 1)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    if TSDApp.WorkbookStats.hasRefDocs == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
+        workSheetRange = workSheet.UsedRange
+        colName = workSheetRange.Columns(TSDApp.WorkbookStats.nameRefDocsIndex)
+        colRef = workSheetRange.Columns(TSDApp.WorkbookStats.refRefDocsIndex)
+        localisation = None
+        for cell in colName.Value:
+            if str(cell[0]).casefold().strip() in ["allocation matrix"]:
+                if str(workSheet.Cells(colName.Value.index(cell) + 1, TSDApp.WorkbookStats.refRefDocsIndex).Value).strip() in ["None", ""]:
+                    localisation = workSheet.Rows(colName.Value.index(cell) + 1)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 #[DOC3]
 
@@ -536,8 +507,9 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
             col_range = 0
             if ExitFromFct == 1:
                 break
-            for cell in cellRow.Cells:
 
+
+            for cell in cellRow.Cells:
                 if tmp != 0:
                     ok = 1
                     if col_range == 0:

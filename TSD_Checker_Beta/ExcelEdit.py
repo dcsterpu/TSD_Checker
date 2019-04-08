@@ -40,14 +40,14 @@ def ColorCell(criticity, cell):
 
 def AddTestReportSheets(workBook):
     try:
-        workSheet =  workBook.Sheets("Report information")
+        workSheet = workBook.Sheets("Report information")
         workSheet.Application.DisplayAlerts = False
         workSheet.Delete()
         workSheet.Application.DisplayAlerts = True
     except:
         pass
     try:
-        workSheet =  workBook.Sheets("Test report")
+        workSheet = workBook.Sheets("Test report")
         workSheet.Application.DisplayAlerts = False
         workSheet.Delete()
         workSheet.Application.DisplayAlerts = True
@@ -81,9 +81,9 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Date of the test:",time.strftime("%x"))))
     colList.append(list(("Time of the test:",time.strftime("%X"))))
     colList.append(list(("","")))
-    colList.append(list(("TSD file checked:",TSDApp.DOC3Name)))
-    colList.append(list(("TSD function file checked:",TSDApp.DOC4Name)))
-    colList.append(list(("TSD system file checked:",TSDApp.DOC5Name)))
+    colList.append(list(("TSD file checked:",TSDApp.DOC3Path)))
+    colList.append(list(("TSD function file checked:",TSDApp.DOC4Path)))
+    colList.append(list(("TSD system file checked:",TSDApp.DOC5Path)))
     colList.append(list(("","")))
     colList.append(list(("AMDEC:",TSDApp.AMDECName)))
     colList.append(list(("Export MedialecMatrice:",TSDApp.MedialecName)))
@@ -91,6 +91,10 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Status:", str(TSDApp.status))))
     colList.append(list(("Coverage Indicator:", str(TSDApp.coverage)[0:4] + "%")))
     colList.append(list(("Convergence Indicator:", str(TSDApp.convergence)[0:4] + "%")))
-    reportInformationWorkSheet.Range("A1:B20").Value = colList
-    for column in reportInformationWorkSheet.Range("A1:B20").Columns:
+    colList.append(list(("", "")))
+    colList.append(list(("Blocking Points", "")))
+    colList.append(list(("Warning Points", "")))
+    colList.append(list(("Information Points", "")))
+    reportInformationWorkSheet.Range("A1:B24").Value = colList
+    for column in reportInformationWorkSheet.Range("A1:B24").Columns:
         column.AutoFit()
