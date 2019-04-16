@@ -570,7 +570,7 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
                         indexCol = 1
                         col_range = 1
                     if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                        if cell.Borders(9).LineStyle != -4142 and cell != None:
                             indexCol += 1
                             pass
                         else:
