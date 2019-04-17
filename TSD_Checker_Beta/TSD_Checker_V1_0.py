@@ -359,7 +359,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        tab.TextBoxUser.setText("E518720")
+        tab.TextBoxUser.setText("")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -368,7 +368,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("Cst67677")
+        tab.TextBoxPass.setText("")
 
 
         # File Selectiom Dialog5
@@ -579,7 +579,7 @@ class Test(Application):
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
         if self.excelApp is None:
             self.excelApp = win32.gencache.EnsureDispatch('Excel.Application')
-        self.excelApp.Visible = True
+        self.excelApp.Visible = False
 
 
         self.tab1.colorTextBox1.setStyleSheet(" background-color: grey ")
