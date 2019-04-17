@@ -295,3 +295,5 @@ errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information speciied in
 errorMessagesDict["Test_02043_18_04939_COH_2250"] = "The information speciied in the column 'Variante/option' of the 'Table' sheet has not the correct format"
 
 errorMessagesDict["Test_02043_18_04939_COH_2251"] = "The information speciied in the column 'Diversity' of the 'Table' sheet has not the correct format"
+
+errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr."
