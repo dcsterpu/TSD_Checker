@@ -631,6 +631,8 @@ class Test(Application):
 
         self.DOC7Name = self.download_file(self.DOC7Link)
 
+        archi_type = self.tab1.combo2.currentText()
+
         if self.tab1.myTextBox1.toPlainText():
             self.DOC3Path = self.tab1.myTextBox1.toPlainText()
             self.DOC3Workbook = self.excelApp.Workbooks.Open(self.DOC3Path)
@@ -681,17 +683,16 @@ class Test(Application):
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC3Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+            if archi_type == "Archi 2010":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R1":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R2":
+                pass
 
             # DOC3
 
@@ -886,6 +887,10 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC3Workbook, self)
+                if check_indicator == True:
+                    ok_indicator = 1
+
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC3Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -955,6 +960,14 @@ class Test(Application):
                     ok_indicator = 1
 
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2210(self.DOC3Workbook, self)
+                if check_indicator == True:
+                    ok_indicator = 1
+
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                if check_indicator == True:
+                    ok_indicator = 1
+
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC3Workbook, self, self.DOC13List)
                 if check_indicator == True:
                     ok_indicator = 1
 
@@ -1033,17 +1046,16 @@ class Test(Application):
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC4Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC4Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC4Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC4Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC4Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC4Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC4Workbook, self)
+            if archi_type == "Archi 2010":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R1":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R2":
+                pass
 
         # DOC4
             check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC4Workbook, self)
@@ -1227,6 +1239,10 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC4Workbook, self)
+                if check_indicator == True:
+                    ok_indicator = 1
+
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC4Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1278,6 +1294,13 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC4Workbook, self, self.DOC13List)
+                if check_indicator == True:
+                    ok_indicator = 1
+
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC4Workbook, self, self.DOC13List)
+                if check_indicator == True:
+                    ok_indicator = 1
 
 
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC4Workbook, self) * 100
@@ -1353,17 +1376,16 @@ class Test(Application):
 
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC5Workbook, self)
 
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC5Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC5Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC5Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC5Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC5Workbook, self)
-
-            GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC5Workbook, self)
+            if archi_type == "Archi 2010":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R1":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+            elif archi_type == "Archi NEA R2":
+                pass
 
             # DOC5
 
@@ -1569,6 +1591,10 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC5Workbook, self)
+                if check_indicator == True:
+                    ok_indicator = 1
+
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC5Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1633,6 +1659,14 @@ class Test(Application):
                     ok_indicator = 1
 
                 check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2220(self.DOC5Workbook, self)
+                if check_indicator == True:
+                    ok_indicator = 1
+
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC5Workbook, self, self.DOC13List)
+                if check_indicator == True:
+                    ok_indicator = 1
+
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC5Workbook, self, self.DOC13List)
                 if check_indicator == True:
                     ok_indicator = 1
 
