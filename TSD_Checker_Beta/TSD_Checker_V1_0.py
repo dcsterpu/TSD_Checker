@@ -52,7 +52,6 @@ class Application(QWidget):
         self.fileFolder = "C:/Users/" + self.username + "/AppData/Local/Temp/TSD_Checker/"
         self.pBarValue = 0
 
-
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
             self.DOC8Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
@@ -83,77 +82,66 @@ class Application(QWidget):
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
 
-
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox1.setText(fileName1)
         # self.tab1.textbox.setText("next file")
 
-
     def openFileNameDialog2(self):
         fileName2, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox2.setText(fileName2)
-
 
     def openFileNameDialog3(self):
         fileName3, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox3.setText(fileName3)
 
-
     def openFileNameDialog4(self):
         fileName4, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox4.setText(fileName4)
-
 
     def openFileNameDialog5(self):
         fileName5, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox5.setText(fileName5)
 
-
     def openFileNameDialog6(self):
         fileName6, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox6.setText(fileName6)
-
 
     def openFileNameDialog7(self):
         fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox7.setText(fileName7)
 
-
     def openFileNameDialog8(self):
         fileName8, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox8.setText(fileName8)
-
 
     def openFileNameDialog9(self):
         fileName9, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox9.setText(fileName9)
 
-
     def openFileNameDialog10(self):
         fileName10, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox10.setText(fileName10)
-
 
     def initUI(self, tab):
 
         # Create coverage textbox
         tab.lbl_coverage = QLabel("Coverage Indicator:", tab)
-        tab.lbl_coverage.move(5, 440)
+        tab.lbl_coverage.move(5, 450)
         tab.message = ""
         tab.textbox_coverage = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage.setText(tab.message)
-        tab.textbox_coverage.move(110, 440)
+        tab.textbox_coverage.move(110, 450)
         tab.textbox_coverage.resize(70, 20)
         tab.textbox_coverage.setReadOnly(True)
 
         # Create convergence textbox
         tab.lbl_coverage = QLabel("Convergence Indicator:", tab)
-        tab.lbl_coverage.move(300, 440)
+        tab.lbl_coverage.move(300, 450)
         tab.message = ""
         tab.textbox_convergence = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence.setText(tab.message)
-        tab.textbox_convergence.move(430, 440)
+        tab.textbox_convergence.move(430, 450)
         tab.textbox_convergence.resize(70, 20)
         tab.textbox_convergence.setReadOnly(True)
 
@@ -161,7 +149,7 @@ class Application(QWidget):
         tab.message = ""
         tab.textbox = QtWidgets.QTextEdit(self.tab1)
         tab.textbox.setText(tab.message)
-        tab.textbox.move(10, 270)
+        tab.textbox.move(10, 290)
         tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
 
@@ -173,7 +161,7 @@ class Application(QWidget):
         tab.pbar.setGeometry(10, 310, 700, 20)
         tab.pbar.setAlignment(QtCore.Qt.AlignCenter)
         tab.pbar.setValue(0)
-        tab.pbar.move(10, 410)
+        tab.pbar.move(10, 420)
 
         # Create a color textbox1
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
@@ -230,9 +218,21 @@ class Application(QWidget):
         tab.combo1.addItem("   Generic   ")
         tab.combo1.addItem("   All   ")
         tab.combo1.resize(378, 20.4)  # rezise the drop down list
-        tab.combo1.move(200, 230)
-        tab.lbl1.move(5, 235)
+        tab.combo1.move(200, 260)
+        tab.lbl1.move(5, 265)
         tab.combo1.activated[str].connect(self.onActivated)
+
+        # Create a dropdown list
+        tab.lbl2 = QLabel("Architecture type", tab)
+
+        tab.combo2 = QComboBox(tab)
+        tab.combo2.addItem("Archi 2010")
+        tab.combo2.addItem("Archi NEA R1")
+        tab.combo2.addItem("Archi NEA R2")
+        tab.combo2.resize(508, 20.4)
+        tab.combo2.move(200, 230)
+        tab.lbl2.move(5, 235)
+        tab.combo2.activated[str].connect(self.onActivated)
 
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setWindowTitle('TSD Checker')
@@ -240,7 +240,7 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project Names")
         tab.importNames.resize(120, 20.4)
-        tab.importNames.move(585, 230)
+        tab.importNames.move(585, 260)
 
         # File Selectiom Dialog1
         tab.lbl2 = QLabel("TSD File:", tab)
@@ -333,7 +333,6 @@ class Application(QWidget):
 
         self.show()
 
-
     def ButtonReportClick(self):
 
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
@@ -352,7 +351,6 @@ class Application(QWidget):
            fileName = self.tab1.myTextBox3.toPlainText()
            self.excel.Visible = True
            self.excel.Workbooks.Open(fileName)
-
 
     def initUIOptions(self, tab):
 
@@ -461,7 +459,6 @@ class Application(QWidget):
         tab.RadioButtonInternet.move(210, 58)
         tab.RadioButtonIntranet.move(210, 90)
 
-
     def download_file(self, url):
         user = self.tab2.TextBoxUser.text()
         user = str(user)
@@ -493,17 +490,14 @@ class Application(QWidget):
                 f.write(chuck)
         return FilePath
 
-
     def onActivated(self):
         return
-
 
     def buttonClicked(self):
         return
 
 
 class Test(Application):
-
 
     def __init__(self):
         super().__init__()
