@@ -2,30 +2,19 @@ errorMessagesDict = dict()
 
 errorMessagesDict["None"] = ""
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0000"] = "The sheet “Informations Générales” (or “General information”) is not" \
-                                                  " \npresent or not written correctly."
+errorMessagesDict["Test_02043_18_04939_STRUCT_0000"] = "The sheet “Informations Générales” (or “General information”) is not present or not written correctly."
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0005"] = "The field “REFERENCE” of the sheet “Informations Générales” \n" \
-                                                  "(or “General information”)  in the line 52 shall be indicated"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0005"] = "The field “REFERENCE” of the sheet “Informations Générales (or “General information”)  in the line 52 shall be indicated"
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0010"] = "The information “Ref plan type” is missing in the \n" \
-                                                  "sheet “Informations Générales” (or “General information”)."
+errorMessagesDict["Test_02043_18_04939_STRUCT_0010"] = "The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0011"] = "The document does not specify the template or the template reference \n" \
-                                                  "is not indicated in the sheet “Informations Générales” \n" \
-                                                  "(or “General information”). As indicated in to one of the \n" \
-                                                  "3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0011"] = "The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales (or “General information”). As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0020"] = "The sheet “Suppression ” (or “suppression ”) is not present or \n" \
-                                                  "not written correctly"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0020"] = "The sheet “Suppression ” (or “suppression ”) is not present or not written correctly"
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0025"] = "The document does not follow the template, the column “Onglet” \n" \
-                                                       "(or “sheet”) of the sheet “Suppression” (or “suppression”) is \n" \
-                                                       "not present or not written correctly."
+errorMessagesDict["Test_02043_18_04939_STRUCT_0025"] = "The document does not follow the template, the column “Onglet” (or “sheet”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0030"] = "The document does not follow the template, the column \n" \
-                                                       "“Référence de la ligne” (or “Line number”) of the sheet \n" \
-                                                       "“Suppression” (or “suppression”) is not present or not written correctly."
+errorMessagesDict["Test_02043_18_04939_STRUCT_0030"] = "The document does not follow the template, the column “Référence de la ligne” (or “Line number”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0035"] = "The document does not follow the template, the column “Version du TSD” (or “Version of the document”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly"
 
@@ -52,7 +41,9 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0059"] = "The “EEAD” document 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0060"] = "The “TFD” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0061"] = "The “DCEE” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+
 errorMessagesDict["Test_02043_18_04939_STRUCT_0062"] = "The “View 5 and 8” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+
 errorMessagesDict["Test_02043_18_04939_STRUCT_0063"] = "The “Allocation Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
 #DOC3
@@ -190,6 +181,8 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1031"] = "In the sheet “diagn
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1040"] = " In the sheet “Liste MDD”, the column “Référence” is not completed."
 
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1041"] = "In the sheet “Liste MDD”, the column “Version” is not completed."
+
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1050"] = "The projects listed in the following sheets “tableau” and “codes défauts” are not identical."
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1055"] = "The projects listed in the following sheets “tableau” and “mesures et commandes” are not identical."
@@ -201,8 +194,6 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1061"] = "The project impact is
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1062"] = "The project impact is not specified for the project in the sheet “mesures et commandes”."
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1070"] = "In the sheet “tableau”, the column “Code défaut” is not completed by “NO DTC” or by the ECU name"
-
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1041"] = "In the sheet “Liste MDD”, the column “Version” is not completed. "
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1080"] = "In the sheet “codes défauts”, the column “Code défaut” is not completed"
 
@@ -224,21 +215,33 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1160"] = "In the sheet “codes
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1170"] = "In the sheet “codes défauts”, the column “Voyant” is not completed"
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1180"] = " In the sheet “tableau”, the columns “Constituant défaillant détecté” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1180"] = "In the sheet “tableau”, the columns “Constituant défaillant détecté” shall be completed."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1190"] = " In the sheet “tableau”, the columns “Défaillance constituant” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1190"] = "In the sheet “tableau”, the columns “Défaillance constituant” shall be completed."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1200"] = " In the sheet “tableau”, the columns “Situation de vie client” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1200"] = "In the sheet “tableau”, the columns “Situation de vie client” shall be completed."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1210"] = " In the sheet “tableau”, the columns “Effet(s) client(s)” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1210"] = "In the sheet “tableau”, the columns “Effet(s) client(s)” shall be completed."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1220"] = " In the sheet “tableau”, the columns “Code défaut” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1220"] = "In the sheet “tableau”, the columns “Code défaut” shall be completed."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1230"] = " In the sheet “tableau”, the columns “Défaillance constituant” shall be completed."
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1230"] = "In the sheet “tableau”, the columns “Défaillance constituant” shall be completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1240"] = "The reviewers have to be indicated in the paraph  “Liste de diffusion” or “Mailing list (the taking part)” of the sheet “Informations Générales” (or “General information”)."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1260"] = "In the sheet “XXX”, the column “YYY” is not completed. ZZZ cells are not completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1270"] = "In the sheet “XXX”, the column “YYY” is not completed. ZZZ cells are not completed."
+
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1280"] = "In the sheet “XXX”, the column “YYY” is not completed. ZZZ cells are not completed."
 
 #Coherence Checks
 
 errorMessagesDict["Test_02043_18_04939_COH_2000"] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes”."
+
+errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr."
+
+errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The DID/RI specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
 
 errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: BSI-B132C-1B"
 
@@ -262,31 +265,35 @@ errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
 
-errorMessagesDict["Test_02043_18_04939_COH_2100"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2091"] = " The text chain XXXX is present in the cell YYYY of the sheet ZZZZ. Please check it."
 
-errorMessagesDict["Test_02043_18_04939_COH_2110"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2120"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2130"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2120"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC5] 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2140"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The reference indicated in the column “Référence” of the sheet “tableau”, is missing in document [DOC5] 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2150"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2140"] = "The information specified in the column “code defaut induit” of the “tableau” sheet shall be present in the column “Code défaut” of the sheet “codes défauts” or precises as “N/A”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2160"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2150"] = "The information specified in the column “Supporté par constituent(s)” of the “code defaut” sheet is not coherent with the column “Noms” of the sheet “constituants”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2170"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2160"] = "The information specified in the column “Supporté par constituent(s)” of the “Mesures et Commandes” sheet is not coherent with the column “Noms” of the sheet “constituants”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2180"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2170"] = "The information specified in the column “Stored by the ECU” of the “Data trouble codes” sheet” sheet is not coherent with the column “Name” of the sheet “Parts”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2190"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2180"] = "The information specified in the column “Stored by the ECU” of the “Read data and IO control” sheet is not coherent with the column “Name” of the sheet “Parts”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2200"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2190"] = "The information specified in the “situation de vie” of the “Tableau” sheet shall be present in the column “situation de vie” of the sheet “situation de vie” or precised as “N/A”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2210"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2200"] = "The information specified in the column “Situation” of the “Table” sheet shall be present in the column “Description” of the sheet “Situation” or precised as “N/A”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2220"] = ""
+errorMessagesDict["Test_02043_18_04939_COH_2210"] = "The information specified in the column “Diagnostic débarqué” of the “Tableau” sheet shall be present in the column “libellé (signification)” of the sheet “Diagnostic” or precised as “N/A”."
+
+errorMessagesDict["Test_02043_18_04939_COH_2220"] = "The information specified in the column “Non-embedded diagnosis” of the “Table” sheet shall be present in the column “Label” of the sheet “Non-embedded diagnosis” or precised as “N/A”."
+
+errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” (or “table”) shall be present in the diagnostic message."
 
 errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information speciied in the column 'Variante/option' of the 'Table' sheet has not the correct format"
 
@@ -296,4 +303,3 @@ errorMessagesDict["Test_02043_18_04939_COH_2250"] = "The information speciied in
 
 errorMessagesDict["Test_02043_18_04939_COH_2251"] = "The information speciied in the column 'Diversity' of the 'Table' sheet has not the correct format"
 
-errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr."

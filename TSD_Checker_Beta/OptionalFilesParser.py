@@ -1,4 +1,5 @@
-import TSD_Checker_V3_0
+import TSD_Checker_V3_1
+from lxml import etree, objectify
 
 def DOC9Parser(ExcelApp, DOC9Path):
 
@@ -50,6 +51,49 @@ def DOC13Parser(ExcelApp, DOC13Path):
         if elem not in [None, "", 'Nom CF /\nNom CO PLM (CF_CO)']:
             final_list.append(elem)
     return final_list
+
+def DOC8Parser(ExcelApp, DOC8Path):
+    DOC8 = ExcelApp.Workbooks.Open(DOC8Path)
+    cnt = 0
+    temp = DOC8.Sheets
+    for sheet in temp:
+        cnt = cnt + 1
+        if "sous familles Cesare" in sheet.Name:
+            index = cnt
+            break
+    workSheet = DOC8.Sheets(index)
+    workSheetRangeValuesTuple = workSheet.UsedRange.Value
+    testCol = 0
+    temp_list = []
+    final_list = []
+
+    for rowTuple in workSheetRangeValuesTuple:
+        #temp = tuple(tuple(b.strip() for b in a) for a in rowTuple)
+        if '\xa0Nom de la sous famille\xa0' in rowTuple:
+            testCol = rowTuple.index("\xa0Nom de la sous famille\xa0")
+            break
+    for rowTuple in workSheetRangeValuesTuple:
+        temp_list.append(rowTuple[testCol])
+
+    for elem in temp_list:
+        if elem not in [None, "", '\xa0Nom de la sous famille\xa0']:
+            final_list.append(elem.replace(u'\xa0', u''))
+    return final_list
+
+def DOC15Parser(DOC15Path):
+    if DOC15Path.endswith('.odx'):
+        parser = etree.XMLParser(remove_comments=True)
+        tree = objectify.parse(DOC15Path, parser=parser)
+        root = tree.getroot()
+        subfamily = root.find(".//BASE-VARIANT")
+        subfamily_name = subfamily.attrib['ID']
+        dids = root.findall(".//DATA-OBJECT-PROP")
+        returnList = []
+        for did in dids:
+            returnList.append(did.attrib['ID'])
+        return subfamily_name, returnList
+    else:
+        return None, None
 
 def DOC10Coherence():
     dict10 = {}

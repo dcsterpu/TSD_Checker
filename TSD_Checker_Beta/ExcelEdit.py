@@ -1,4 +1,4 @@
-import TSD_Checker_V3_0
+import TSD_Checker_V3_1
 import time
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
@@ -71,19 +71,19 @@ def AddTestReportSheetHeader(workBook):
 def WriteReportInformationSheet(workBook, TSDApp):
     reportInformationWorkSheet = workBook.Sheets("Report information")
     colList = list()
-    colList.append(list(("Tool version:",TSD_Checker_V3_0.appName)))
-    colList.append(list(("Criticity configuration file:",TSDApp.DOC9Name)))
+    colList.append(list(("Tool version:", TSD_Checker_V3_1.appName)))
+    colList.append(list(("Criticity configuration file:", TSDApp.DOC9Name)))
     colList.append(list(("","")))
-    colList.append(list(("Extract CESARE file:",TSDApp.DOC8Name)))
-    colList.append(list(("Customer effects file:",TSDApp.DOC7Name)))
-    colList.append(list(("Check level:",TSDApp.checkLevel)))
+    colList.append(list(("Extract CESARE file:", TSDApp.DOC8Name)))
+    colList.append(list(("Customer effects file:", TSDApp.DOC7Name)))
+    colList.append(list(("Check level:", TSDApp.checkLevel)))
     colList.append(list(("","")))
-    colList.append(list(("Date of the test:",time.strftime("%x"))))
-    colList.append(list(("Time of the test:",time.strftime("%X"))))
+    colList.append(list(("Date of the test:", time.strftime("%x"))))
+    colList.append(list(("Time of the test:", time.strftime("%X"))))
     colList.append(list(("","")))
-    colList.append(list(("TSD file checked:",TSDApp.DOC3Path)))
-    colList.append(list(("TSD function file checked:",TSDApp.DOC4Path)))
-    colList.append(list(("TSD system file checked:",TSDApp.DOC5Path)))
+    colList.append(list(("TSD file checked:", TSDApp.DOC3Path)))
+    colList.append(list(("TSD function file checked:", TSDApp.DOC4Path)))
+    colList.append(list(("TSD system file checked:", TSDApp.DOC5Path)))
     colList.append(list(("","")))
     colList.append(list(("AMDEC:",TSDApp.AMDECName)))
     colList.append(list(("Export MedialecMatrice:",TSDApp.MedialecName)))

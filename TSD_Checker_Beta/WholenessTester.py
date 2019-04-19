@@ -1,4 +1,4 @@
-import TSD_Checker_V3_0
+import TSD_Checker_V3_1
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -1565,4 +1565,60 @@ def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
+    return check
+
+def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasInfGen == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.InfGenIndex)
+        workSheetRange = workSheet.UsedRange
+        refColIndex = 0
+        refRowIndex = 0
+        refColIndex1 = 0
+        refRowIndex1 = 0
+        var = 0
+
+        for row in workSheetRange:
+            for cel in row:
+                if "Liste de diffusion".casefold() in str(cel.Value).casefold().strip() or "Mailing list".casefold() in str(cel.Value).casefold().strip():
+                    refColIndex = cel.Column
+                    refRowIndex = cel.Row
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            var = 0
+            for row in workSheetRange:
+                for cel in row:
+                    if "Diffusion à :".casefold() in str(cel.Value).casefold().strip():
+                        refColIndex1 = cel.Column
+                        refRowIndex1 = cel.Row
+                        break
+                if refColIndex1 != 0:
+                    break
+            if refColIndex1 == 0:
+                var = 1
+
+        localisation = []
+        if workSheet.Cells(refRowIndex1+1, refColIndex1).Value is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], None, workBook, TSDApp)
+            check = True
+        else:
+            localisation.append(workSheet.Cells(refRowIndex1+1, refColIndex1))
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,TSDApp)
+        # if not localisation:
+        #     localisation = None
+        #
+        # if localisation:
+        #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        # else:
+        #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        #     check = True
     return check
