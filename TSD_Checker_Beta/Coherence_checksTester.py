@@ -8,6 +8,7 @@ from ErrorMessages import errorMessagesDict as error
 
 def Test_02043_18_04939_COH_2000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -92,6 +93,7 @@ def is_ascii(s):
 
 def Test_02043_18_04939_COH_2001(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -204,6 +206,7 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -301,6 +304,7 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
 
 def Test_02043_18_04939_COH_2005(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -398,6 +402,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -495,6 +500,7 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
 
 def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.famillyList == "[]":
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -555,6 +561,7 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
 
 def Test_02043_18_04939_COH_2010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -637,6 +644,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -720,6 +728,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2030(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -820,6 +829,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2040(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -904,6 +914,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2050(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -985,6 +996,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1100,6 +1112,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCustEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1227,6 +1240,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1357,6 +1371,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2091(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     temp = workBook.Sheets
     sheetNames = list()
     localisation = list()
@@ -1400,6 +1415,7 @@ def Test_02043_18_04939_COH_2091(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1495,6 +1511,7 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
 
 def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1590,6 +1607,7 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
 
 def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTechEff == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1671,6 +1689,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
 
 def Test_02043_18_04939_COH_2130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1775,6 +1794,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1861,6 +1881,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2150(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1964,6 +1985,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2067,6 +2089,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2170(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasDataCodes == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2173,6 +2196,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasReadDataIO == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2278,6 +2302,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2190(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2381,6 +2406,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2484,6 +2510,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2210(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2587,6 +2614,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2220(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2690,6 +2718,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if subfamily_name is None and DOC15List is None:
         return True
@@ -2793,6 +2822,7 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
 
 def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2964,6 +2994,7 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
 
 def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -3135,6 +3166,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
 
 def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -3306,6 +3338,7 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
 
 def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)

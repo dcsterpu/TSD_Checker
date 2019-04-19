@@ -364,7 +364,7 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
         tab.TextBoxUser.move(200, 20)
-        tab.TextBoxUser.setText("")
+        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -373,7 +373,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(520, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("")
+        tab.TextBoxPass.setText("Cst67677")
 
 
         # File Selectiom Dialog5
@@ -768,38 +768,38 @@ class Test(Application):
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
 
         # Wholeness
-            if ok == 0:
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
+            if ok == 0 or ok == 1:
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
 
                 '''check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC3Workbook, self)
                 if check_indicator == True:
@@ -809,81 +809,81 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1'''
 
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
 
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
+                #
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
 
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC3Workbook, self)
                 if check_indicator == True:
@@ -1133,7 +1133,7 @@ class Test(Application):
 
             # Wholeness
 
-            if ok == 1:
+            if ok == 1 or ok == 0:
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC4Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1494,7 +1494,7 @@ class Test(Application):
             GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
 
         #     # Wholeness
-            if ok == 0:
+            if ok == 0 or ok == 1:
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC5Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1

@@ -7,6 +7,7 @@ from ErrorMessages import errorMessagesDict as error
 
 def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -83,6 +84,7 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -124,6 +126,7 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -137,6 +140,8 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
         lastCol = 0
         tmp = 0
         ExitFromFct = 0
+        TSDApp.WorkbookStats.codeLastRow = 0
+        lastFilledCell = 0
 
         for cellRow in workSheet.Rows:
             col_range = 0
@@ -148,7 +153,8 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
                     ok = 1
                     if col_range == 0:
                         if cell.Borders(9).LineStyle != -4142:
-                            pass
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
                         else:
                             TSDApp.WorkbookStats.codeLastRow = cell.Row
                             tmp = 0
@@ -179,6 +185,7 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
         if refColIndex == 0:
             var = 1
 
+        TSDApp.WorkbookStats.codeLastColumn = lastCol
 
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
@@ -200,6 +207,7 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -240,6 +248,7 @@ def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -316,6 +325,7 @@ def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -356,6 +366,7 @@ def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasDiagDeb == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -369,6 +380,8 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
         lastCol = 0
         tmp = 0
         ExitFromFct = 0
+        TSDApp.WorkbookStats.DiagDebLastRow = 0
+        lastFilledCell = 0
 
         for cellRow in workSheet.Rows:
             col_range = 0
@@ -380,7 +393,8 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
                     ok = 1
                     if col_range == 0:
                         if cell.Borders(9).LineStyle != -4142:
-                            pass
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
                         else:
                             TSDApp.WorkbookStats.DiagDebLastRow = cell.Row
                             tmp = 0
@@ -391,8 +405,7 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
                     ExitFromFct = 1
                     break
                 if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(
-                            cell.Value).casefold().strip() == "Reference".casefold():
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
                         refColIndex = cell.Column
                         refRowIndex = cell.Row
                         indexCol = 1
@@ -408,30 +421,35 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
                             break
                 else:
                     break
+
         if refColIndex == 0:
             var = 1
 
-
+        TSDApp.WorkbookStats.DiagDebLastColumn = lastCol
+        TSDApp.WorkbookStats.DiagDebLastRow = lastFilledCell
+        localisation = []
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow+1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
-                    check = True
-            if str(localisation) == "[]":
-                localisation = None
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasDiagDeb == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -472,6 +490,7 @@ def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMDD == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -548,6 +567,7 @@ def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMDD == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -589,6 +609,7 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -670,6 +691,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -748,6 +770,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -792,6 +815,7 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -836,6 +860,7 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -879,8 +904,8 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
     return check
 
 def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
-
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -924,6 +949,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -964,6 +990,7 @@ def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1004,6 +1031,7 @@ def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1044,6 +1072,7 @@ def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1084,6 +1113,7 @@ def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1124,6 +1154,7 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1135,8 +1166,7 @@ def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(
-                        cell.Value).casefold() == "Seuil de détection  /  valeur  du défaut".casefold().strip():
+                if str(cell.Value).casefold().strip() == "Seuil de détection  /  valeur  du défaut".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -1165,6 +1195,7 @@ def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1177,7 +1208,7 @@ def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
                 if str(
-                        cell.Value).casefold() == "Temps de confirmation du défaut".casefold().strip():
+                        cell.Value).casefold().strip() == "Temps de confirmation du défaut".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -1206,6 +1237,7 @@ def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1247,6 +1279,7 @@ def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1288,6 +1321,7 @@ def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1329,6 +1363,7 @@ def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1369,6 +1404,7 @@ def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1409,6 +1445,7 @@ def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1449,6 +1486,7 @@ def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1456,39 +1494,94 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         refColIndex = 0
+        refRowIndex = 0
         var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.tableLastRow = 0
+        lastFilledCell = 0
 
         for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Effet(s) client(s)".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
-                    break
-            if refColIndex != 0:
+            col_range = 0
+            if ExitFromFct == 1:
                 break
-        if refColIndex == 0:
+            for cell in cellRow.Cells:
+
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.tableLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.tableLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        TSDApp.WorkbookStats.tableLastColumn = lastCol
+
+        var = 0
+        refColIndex1 = 0
+        refRowIndex1 = 0
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold().strip() == "Effet(s) client(s)".casefold():
+                    refColIndex1 = cell.Column
+                    refRowIndex1 = cell.Row
+                    break
+            if refColIndex1 != 0:
+                break
+        if refColIndex1 == 0:
             var = 1
 
         if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            refCellRange = workSheet.Cells(refRowIndex1, refColIndex1).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
-                    check = True
-            if str(localisation) == "[]":
-                localisation = None
+            for index in range(refRowIndex1 + nrLines, TSDApp.WorkbookStats.tableLastRow):
+                if workSheet.Cells(index, refColIndex1).Value == None:
+                    localisation.append(workSheet.Cells(index, refColIndex1))
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-            check =True
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
     return check
 
 def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
     check = False
+    print(testName)
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1529,6 +1622,7 @@ def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1569,6 +1663,7 @@ def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     check = False
     if TSDApp.WorkbookStats.hasInfGen == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1613,12 +1708,4 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
         else:
             localisation.append(workSheet.Cells(refRowIndex1+1, refColIndex1))
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,TSDApp)
-        # if not localisation:
-        #     localisation = None
-        #
-        # if localisation:
-        #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        # else:
-        #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-        #     check = True
     return check

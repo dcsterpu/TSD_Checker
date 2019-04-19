@@ -27,6 +27,9 @@ class WorkbookProperties:
         self.tableIndex = 0
         self.codeIndex = 0
         self.codeLastRow = 0
+        self.codeLastColumn = 0
+        self.DiagDebLastRow = 0
+        self.DiagDebLastColumn = 0
         self.measureIndex = 0
         self.DiagDebIndex = 0
         self.EffClientsIndex = 0
@@ -86,6 +89,7 @@ class WorkbookProperties:
         self.DiagDebLastRow = 0
         self.MDDLastRow = 0
         self.codeLastRow = 0
+        self.codeLastColumn = 0
         self.constituantsLastRow = 0
         self.effLastRow = 0
         self.ERLastRow = 0
