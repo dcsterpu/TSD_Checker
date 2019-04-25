@@ -20,6 +20,10 @@ class WorkbookProperties:
         self.hasSupp = False
         self.hasRefDocs = False
 
+        self.constituantsRefRowIndex = 0
+        self.constituantsRefColIndex = 0
+        self.ReqTechRefColIndex = 0
+        self.ReqTechRefRowIndex = 0
         self.tableRefColIndex = 0
         self.tableRefRowIndex = 0
         self.codeRefColIndex = 0
@@ -111,6 +115,7 @@ class WorkbookProperties:
         self.MDDLastCol = 0
         self.codeLastRow = 0
         self.constituantsLastRow = 0
+        self.constituantsLastCol = 0
         self.effLastRow = 0
         self.ERLastRow = 0
         self.CustEffLastRow = 0

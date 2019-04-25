@@ -223,7 +223,7 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
 
         if TSDApp.WorkbookStats.DiagDebRefColIndex > 0:
-            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.DiagDebRefColIndexeb, TSDApp.WorkbookStats.DiagDebRefRowIndex).MergeArea
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.DiagDebRefColIndex, TSDApp.WorkbookStats.DiagDebRefRowIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             localisation = []
 
@@ -1272,8 +1272,8 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
     check = False
-#    print(testName)
     testName = inspect.currentframe().f_code.co_name
+    print(testName)
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True

@@ -482,7 +482,7 @@ def getEffetsClientsInfo(workBook, TSDApp):
         if var == 0:
             TSDApp.WorkbookStats.EffClientsLastRow = lastFilledCell
             TSDApp.WorkbookStats.EffClientsLastCol = lastCol
-            a = 3
+
 
         else:
             TSDApp.WorkbookStats.EffClientsLastRow = None
@@ -509,8 +509,6 @@ def getReqOfTechEffectsInfo(workBook, TSDApp):
 
     if TSDApp.WorkbookStats.hasReqTech == True:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.ReqTechIndex)
-        refColIndex = 0
-        refRowIndex = 0
         var = 0
         ok = 0
         col_range = 0
@@ -542,8 +540,8 @@ def getReqOfTechEffectsInfo(workBook, TSDApp):
                     break
                 if ok == 0:
                     if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
+                        TSDApp.WorkbookStats.ReqTechRefColIndex = cell.Column
+                        TSDApp.WorkbookStats.ReqTechRefRowIndex = cell.Row
                         indexCol = 1
                         col_range = 1
                     if col_range == 1:
@@ -558,7 +556,7 @@ def getReqOfTechEffectsInfo(workBook, TSDApp):
                 else:
                     break
 
-        if refColIndex == 0:
+        if TSDApp.WorkbookStats.ReqTechRefColIndex == 0:
             var = 1
 
         if var == 0:
@@ -817,6 +815,86 @@ def getNotEmbeddedDiagnosisInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.NotEmbDiagLastRow = None
         TSDApp.WorkbookStats.NotEmbDiagLastCol = None
 
+def getConstituants(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "constituants" in sheetNames:
+        TSDApp.WorkbookStats.hasConstituants = True
+        try:
+            index = sheetNames.index("constituants") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.constituantsIndex = index
+    else:
+        TSDApp.WorkbookStats.hasConstituants = False
+
+    if TSDApp.WorkbookStats.hasConstituants == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.constituantsLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.constituantsLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.constituantsLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Noms".casefold():
+                        TSDApp.WorkbookStats.constituantsRefColIndex = cell.Column
+                        TSDApp.WorkbookStats.constituantsRefRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if TSDApp.WorkbookStats.tableRefColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.constituantsLastRow = lastFilledCell
+            TSDApp.WorkbookStats.constituantsLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.constituantsLastRow = None
+            TSDApp.WorkbookStats.constituantsLastCol = None
+    else:
+        TSDApp.WorkbookStats.constituantsLastRow = None
+        TSDApp.WorkbookStats.constituantsLastCol = None
+
+
 def DOC3Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
     getCodesDefautsInfo(workBook, TSDApp)
@@ -824,6 +902,7 @@ def DOC3Info(workBook, TSDApp):
     getDiagnosticDebarquesInfo(workBook, TSDApp)
     getListeMDDInfo(workBook, TSDApp)
     getEffetsClientsInfo(workBook, TSDApp)
+    getConstituants(workBook, TSDApp)
 
 def DOC4Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
