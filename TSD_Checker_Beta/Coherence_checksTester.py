@@ -101,82 +101,30 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
 
-        refColIndex = 0
         var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.tableLastRow = 0
-        lastFilledCell = 0
-
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.tableLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.tableLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
-        codeColIndex = 0
-
+        refColIndex = 0
+        refRowIndex = 0
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
                 if str(cell.Value).casefold() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
-            if codeColIndex != 0:
+            if refColIndex != 0:
                 break
-        if codeColIndex == 0:
+        if refColIndex == 0:
             var = 1
 
         if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, codeColIndex).MergeArea
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
             localisation = []
             contor = 0
 
-            for index in range(refRowIndex + nrLines, lastFilledCell):
-                cel = []
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 try:
-                    cel = workSheet.Cells(index, codeColIndex).Value.split("-")
+                    cel = workSheet.Cells(index, refColIndex).Value.split("-")
                     if len(cel) == 2:
 
                         check1 = False
@@ -192,12 +140,12 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
                         if check1 == True and check2 == True:
                             contor = contor + 1
                     else:
-                        localisation.append(workSheet.Cells(index, codeColIndex))
+                        localisation.append(workSheet.Cells(index, refColIndex))
                 except:
-                    localisation.append(workSheet.Cells(index, codeColIndex))
+                    localisation.append(workSheet.Cells(index, refColIndex))
             if not localisation:
                 localisation = None
-            if contor == lastFilledCell - refRowIndex - 1:
+            if contor == TSDApp.WorkbookStats.tableLastRow - refRowIndex - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,TSDApp)
                 check = True
             else:
@@ -214,59 +162,9 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
 
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.tableLastRow = 0
-        lastFilledCell = 0
-
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.tableLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.tableLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
+        codeRowIndex = 0
         codeColIndex = 0
+        var = 0
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
@@ -280,13 +178,12 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
             var = 1
 
         if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, codeColIndex).MergeArea
+            refCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
             localisation = []
-            contor = 0
 
-            for index in range(refRowIndex + nrLines, lastFilledCell):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if cel[0] not in DOC8List:
@@ -311,158 +208,9 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        codeColIndex = 0
         var = 0
-
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Code défaut":
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
-                    break
-            if codeColIndex != 0:
-                break
-        if codeColIndex == 0:
-            var = 1
-
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
-                    break
-            if refColIndex != 0:
-                break
-        if refColIndex == 0:
-            var = 1
-
-
-        if var == 1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-            check = True
-        elif var == 0:
-            codeCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
-            nrLines = codeCellRange.Rows.Count
-            localisation = list()
-            listValues = list()
-            firstCell = workSheet.Cells(codeRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-            workSheetRange = workSheet.Range(firstCell, lastCell)
-            flag = False
-            ok = 1
-
-            for row in workSheetRange.Rows:
-                flag = False
-                for valueTuple in row.Value:
-                    for value in valueTuple:
-                        if value != None:
-                            flag = True
-                if flag == False:
-                    TSDApp.WorkbookStats.codeLastRow = row.Row
-                    break
-
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.Cells(index, codeColIndex).Value.count('-') != 2:
-                    localisation.append(workSheet.Cells(index, codeColIndex))
-                    check = True
-
-                else:
-                    listValues = workSheet.Cells(index, codeColIndex).Value.split('-')
-                    if not listValues[0].isascii():
-                        ok = 0
-                    if not listValues[1][0].isalpha():
-                        ok = 0
-                    try:
-                        int(listValues[1][1:], 16)
-                    except:
-                        ok = 0
-                    try:
-                        int(listValues[2], 16)
-                    except:
-                        ok = 0
-                    if ok == 1:
-                        tempDict = dict()
-                        tempDict["value"] = listValues[0]
-                        tempDict["codenr"] = listValues[1]
-                        tempDict["localisation"] = workSheet.Cells(index, codeColIndex)
-                        TSDApp.WorkbookStats.famillyList.append(dict(tempDict))
-                    else:
-                        localisation.append(workSheet.Cells(index, codeColIndex))
-                        ok = 1
-                        check = True
-                        break
-
-            if localisation == "[]":
-                localisation = None
-
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    return check
-
-def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
-    testName = inspect.currentframe().f_code.co_name
-    print(testName)
-    check = False
-    if TSDApp.WorkbookStats.hasCode == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-        check = True
-    else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.tableLastRow = 0
-        lastFilledCell = 0
-
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.tableLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.tableLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
         codeColIndex = 0
+        codeRowIndex = 0
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
@@ -476,13 +224,68 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
             var = 1
 
         if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, codeColIndex).MergeArea
+            refCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            localisation = []
+
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+                try:
+                    cel = workSheet.Cells(index, codeColIndex).Value.split("-")
+                    if len(cel) == 2:
+                        if cel[0].isascii() and cel[1][0].isalpha() and len(cel[1]) == 5:
+                            try:
+                                int(cel[1][1:], 16)
+                            except:
+                                localisation.append(workSheet.Cells(index,codeColIndex))
+                    else:
+                        if len(cel) == 3:
+                            a = 3
+                except:
+                    localisation.append(workSheet.Cells(index, codeColIndex))
+            if not localisation:
+                localisation = None
+            if not localisation:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,
+                       TSDApp)
+                check = True
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                       TSDApp)
+    return check
+
+def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+    if TSDApp.WorkbookStats.hasCode == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
+        codeColIndex = 0
+        codeRowIndex = 0
+        var = 0
+
+        for cellRow in workSheet.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
+                    codeColIndex = cell.Column
+                    codeRowIndex = cell.Row
+                    break
+            if codeColIndex != 0:
+                break
+        if codeColIndex == 0:
+            var = 1
+
+        if var == 0:
+            refCellRange = workSheet.Cells(codeRowIndex, codeColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
             localisation = []
             contor = 0
 
-            for index in range(refRowIndex + nrLines, lastFilledCell):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if cel[0] not in DOC8List:

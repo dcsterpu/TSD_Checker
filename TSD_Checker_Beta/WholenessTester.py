@@ -14,70 +14,21 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            pass
-                        else:
-                           TSDApp.WorkbookStats.tableLastRow = cell.Row
-                           tmp = 0
-                           break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.tableLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                           lastCol = cell.Column
-                           tmp = 1
-                           ok = 1
-                           break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
-        if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex,refColIndex).MergeArea
+        if TSDApp.WorkbookStats.tableRefColIndex > 0:
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.tableRefRowIndex,TSDApp.WorkbookStats.tableRefColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
 
             localisation = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
+            for index in range(TSDApp.WorkbookStats.tableRefRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+                if workSheet.Cells(index, TSDApp.WorkbookStats.tableRefColIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, TSDApp.WorkbookStats.tableRefColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
-
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check  = True
     return check
@@ -105,17 +56,16 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
         if refColIndex == 0:
             var = 1
 
-
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -133,74 +83,21 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.codeLastRow = 0
-        lastFilledCell = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.codeLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.codeLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
-        TSDApp.WorkbookStats.codeLastColumn = lastCol
-
-        if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        if TSDApp.WorkbookStats.codeRefColIndex > 0:
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.codeRefRowIndex, TSDApp.WorkbookStats.codeRefColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             localisation = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
+            for index in range(TSDApp.WorkbookStats.codeRefRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+                if workSheet.Cells(index, TSDApp.WorkbookStats.codeRefRowIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, TSDApp.WorkbookStats.codeRefColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check
@@ -237,7 +134,7 @@ def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -255,70 +152,21 @@ def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if str(cell.Value) != "None":
-                            pass
-                        else:
-                            TSDApp.WorkbookStats.measureLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.measureLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
-
-        if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        if TSDApp.WorkbookStats.measureRefColIndex > 0:
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.measureRefRowIndex, TSDApp.WorkbookStats.measureRefColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
+            for index in range(TSDApp.WorkbookStats.measureRefRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
+                if workSheet.Cells(index, TSDApp.WorkbookStats.measureRefColIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, TSDApp.WorkbookStats.measureRefColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check
@@ -349,13 +197,13 @@ def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -373,68 +221,15 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.DiagDebLastRow = 0
-        lastFilledCell = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.DiagDebLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.DiagDebLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        if refColIndex == 0:
-            var = 1
-
-        TSDApp.WorkbookStats.DiagDebLastColumn = lastCol
-        TSDApp.WorkbookStats.DiagDebLastRow = lastFilledCell
-        localisation = []
-        if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        if TSDApp.WorkbookStats.DiagDebRefColIndex > 0:
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.DiagDebRefColIndexeb, TSDApp.WorkbookStats.DiagDebRefRowIndex).MergeArea
             nrLines = refCellRange.Rows.Count
+            localisation = []
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow+1):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
+            for index in range(TSDApp.WorkbookStats.DiagDebRefRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow+1):
+                if workSheet.Cells(index, TSDApp.WorkbookStats.DiagDebRefColIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, TSDApp.WorkbookStats.DiagDebRefColIndex))
 
         if not localisation:
             localisation = None
@@ -497,70 +292,20 @@ def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.MDDIndex)
-        refColIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if str(cell.Value) != "None":
-                            pass
-                        else:
-                            TSDApp.WorkbookStats.MDDLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.MDDLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-        if refColIndex == 0:
-            var = 1
-
-
-        if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+        if TSDApp.WorkbookStats.MDDRefColIndex > 0:
+            refCellRange = workSheet.Cells(TSDApp.WorkbookStats.MDDRefRowIndex, TSDApp.WorkbookStats.MDDRefColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             localisation = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.MDDLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex))
+            for index in range(TSDApp.WorkbookStats.MDDRefRowIndex + nrLines, TSDApp.WorkbookStats.MDDLastRow):
+                if workSheet.Cells(index, TSDApp.WorkbookStats.MDDRefColIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, TSDApp.WorkbookStats.MDDRefColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
-
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
-        elif var == 1:
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check
@@ -597,11 +342,9 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
-
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
@@ -929,7 +672,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == "NO DTC":
@@ -937,7 +680,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
                 else:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -973,13 +716,13 @@ def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1020,7 +763,7 @@ def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check =True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1061,7 +804,7 @@ def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1102,7 +845,7 @@ def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1143,7 +886,7 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1184,7 +927,7 @@ def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1226,7 +969,7 @@ def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1268,7 +1011,7 @@ def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1310,7 +1053,7 @@ def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1352,7 +1095,7 @@ def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1393,7 +1136,7 @@ def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1434,7 +1177,7 @@ def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1475,7 +1218,7 @@ def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check =True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1493,81 +1236,29 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        var = 0
         refColIndex = 0
         refRowIndex = 0
-        var = 0
-        ok = 0
-        col_range = 0
-        lastCol = 0
-        tmp = 0
-        ExitFromFct = 0
-        TSDApp.WorkbookStats.tableLastRow = 0
-        lastFilledCell = 0
 
-        for cellRow in workSheet.Rows:
-            col_range = 0
-            if ExitFromFct == 1:
-                break
-            for cell in cellRow.Cells:
-
-                if tmp != 0:
-                    ok = 1
-                    if col_range == 0:
-                        if cell.Borders(9).LineStyle != -4142:
-                            if cell.Value is not None:
-                                lastFilledCell = cell.Row
-                        else:
-                            TSDApp.WorkbookStats.tableLastRow = cell.Row
-                            tmp = 0
-                            break
-                    else:
-                        break
-                elif TSDApp.WorkbookStats.tableLastRow != 0:
-                    ExitFromFct = 1
-                    break
-                if ok == 0:
-                    if str(cell.Value).casefold() == "Référence".casefold().strip() or str(cell.Value).casefold().strip() == "Reference".casefold():
-                        refColIndex = cell.Column
-                        refRowIndex = cell.Row
-                        indexCol = 1
-                        col_range = 1
-                    if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
-                            indexCol += 1
-                            pass
-                        else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
-                else:
-                    break
-
-        TSDApp.WorkbookStats.tableLastColumn = lastCol
-
-        var = 0
-        refColIndex1 = 0
-        refRowIndex1 = 0
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
                 if str(cell.Value).casefold().strip() == "Effet(s) client(s)".casefold():
-                    refColIndex1 = cell.Column
-                    refRowIndex1 = cell.Row
+                    refColIndex = cell.Column
+                    refRowIndex = cell.Row
                     break
-            if refColIndex1 != 0:
+            if refColIndex != 0:
                 break
-        if refColIndex1 == 0:
+        if refColIndex == 0:
             var = 1
 
         if var == 0:
-            refCellRange = workSheet.Cells(refRowIndex1, refColIndex1).MergeArea
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             localisation = []
 
-            for index in range(refRowIndex1 + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex1).Value == None:
-                    localisation.append(workSheet.Cells(index, refColIndex1))
-
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+                if workSheet.Cells(index, refColIndex).Value == None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
 
         if not localisation:
             localisation = None
@@ -1581,7 +1272,7 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
 
 def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
     check = False
-    print(testName)
+#    print(testName)
     testName = inspect.currentframe().f_code.co_name
     if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1611,9 +1302,8 @@ def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
-
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1652,7 +1342,7 @@ def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
-            if str(localisation) == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
