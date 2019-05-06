@@ -101,6 +101,8 @@ class WorkbookProperties:
         self.hasVariant = False
         self.VariantIndex = 0
         self.hasNotEmbDiag = False
+        self.SitDeVieLastRow = 0
+        self.SitDeVieLastCol = 0
 
         self.ReqTechLastRow = 0
         self.ReqTechLastCol = 0
@@ -118,6 +120,7 @@ class WorkbookProperties:
         self.constituantsLastCol = 0
         self.effLastRow = 0
         self.ERLastRow = 0
+        self.ERLastCol = 0
         self.CustEffLastRow = 0
         self.TechLastRow = 0
 

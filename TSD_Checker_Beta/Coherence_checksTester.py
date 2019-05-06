@@ -269,7 +269,7 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
+                if str(cell.Value).casefold().strip() == "Code défaut".casefold():
                     codeColIndex = cell.Column
                     codeRowIndex = cell.Row
                     break
@@ -319,9 +319,9 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Data Trouble Code (DTC)":
+        for cellRow in workSheetRange.Rows:
+            for cell in cellRow.Cells:
+                if str(cell.Value).casefold().strip() == "Data Trouble Code (DTC)".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -337,9 +337,9 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
         elif var == 0:
             refCellRange = workSheetRef.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = list()
+            localisation = []
             flag = False
-            list_ref  =list()
+            list_ref  = []
 
 
             for index in range(refRowIndex + nrLines, nrRows + 1):
@@ -356,7 +356,7 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
                    check = True
 
 
-            if localisation == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -591,8 +591,8 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                 nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
+                for cellRow in workSheetRange.Rows:
+                    for cell in cellRow.Cells:
                         if str(cell.Value).casefold().strip() == "Noms".casefold():
                             effColIndex = cell.Column
                             effRowIndex = cell.Row
@@ -631,7 +631,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                     localisation.append(element["localisation"])
                     check = True
 
-            if localisation == "[]":
+            if  not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -651,7 +651,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
         var = 0
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "DIAGNOSTIC DEBARQUE":
+                if str(cell.Value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -691,9 +691,9 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 var = 0
                 for cellRow in workSheet.Rows:
                     for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "libellé (signification)":
-                            diagColIndex = cellRow.index(cell) + 1
-                            diagRowIndex = workSheetRange.Value.index(cellRow) + 1
+                        if str(cell.Value).casefold().strip() == "libellé (signification)".casefold():
+                            diagColIndex = cell.Column
+                            diagRowIndex = cell.Row
                             break
                     if diagColIndex != 0:
                         break
@@ -703,7 +703,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 nrCols = diagCellRange.Columns.Count
                 localisation = list()
 
-                for index in range(diagRowIndex + nrLines, nrRows):
+                for index in range(diagRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
                     if workSheet.Cells(index, diagColIndex).Value == None:
                         pass
                     else:
@@ -716,7 +716,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                     localisation.append(element["localisation"])
                     check = True
 
-            if localisation == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -736,7 +736,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
         var = 0
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Evenement(s) redouté(s) (ER)":
+                if str(cell.Value).casefold().strip() == "Evenement(s) redouté(s) (ER)".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -775,9 +775,9 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 var = 0
                 for cellRow in workSheet.Rows:
                     for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "nom":
-                            ERColIndex = cellRow.index(cell) + 1
-                            ERRowIndex = workSheetRange.Value.index(cellRow) + 1
+                        if str(cell.Value).casefold().strip() == "nom".casefold():
+                            ERColIndex = cell.Column
+                            ERRowIndex = cell.Row
                             break
                     if ERColIndex != 0:
                         break
@@ -785,7 +785,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 ERCellRange = workSheet.Cells(ERRowIndex, ERColIndex).MergeArea
                 nrLines = ERCellRange.Rows.Count
                 localisation = list()
-                for index in range(ERRowIndex + nrLines, nrRows):
+                for index in range(ERRowIndex + nrLines, TSDApp.WorkbookStats.ERLastRow):
                     if workSheet.Cells(index, ERColIndex).Value == None:
                         pass
                     else:
@@ -798,7 +798,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                     localisation.append(element["localisation"])
                     check = True
 
-            if localisation == "[]":
+            if not localisation:
                 localisation = None
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -818,9 +818,9 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         var = 0
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Noms":
-                    effColIndex = cellRow.index(cell) + 1
-                    effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                if str(cell.Value).casefold().strip() == "Noms".casefold():
+                    effColIndex = cell.Column
+                    effRowIndex = cell.Row
                     break
             if effColIndex != 0:
                 break
@@ -838,7 +838,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             list_eff = list()
             list_ref = list()
 
-            for index in range(effRowIndex + nrLines, nrRows):
+            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
@@ -1503,7 +1503,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "code defauts induits":
+                if str(cell.Value).casefold().strip() == "code défauts induits".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -1523,10 +1523,11 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
             list_effets = list()
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    pass
-                else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
+                list_table_dict = {}
+                list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                list_table.append(dict(list_table_dict))
+
 
 
             if TSDApp.WorkbookStats.hasCode == False:
@@ -1538,9 +1539,9 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
                 for cellRow in workSheet.Rows:
                     for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "Code défaut":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                        if str(cell.Value).casefold().strip() == "Code défaut".casefold():
+                            effColIndex = cell.Column
+                            effRowIndex = cell.Row
                             break
                     if effColIndex != 0:
                         break
@@ -1559,13 +1560,13 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets or element == "N/A":
-                            localisation = None
+                        if element["value"] in list_effets or element["value"] == "N/A":
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -1590,7 +1591,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Supporté par constituant(s)":
+                if str(cell.Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -1613,24 +1614,23 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
-
+                    list_table_dict = {}
+                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Noms":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold().strip() == "Noms".casefold():
+                            effColIndex = cell.Column
+                            effRowIndex = cell.Row
                             break
                     if effColIndex != 0:
                         break
@@ -1640,39 +1640,25 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
-                    firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-                    lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                    workSheetRange = workSheet.Range(firstCell, lastCell)
-                    flag = False
 
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
-
-
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets:
-                            localisation = None
+                        if element["value"] in list_effets:
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
-                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation,
+                           workBook, TSDApp)
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1688,14 +1674,13 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-
         refColIndex = 0
         var = 0
         localisation = list()
 
         for cellRow in workSheet.Rows:
             for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Supporté par constituant(s)":
+                if str(cell.Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     refColIndex = cell.Column
                     refRowIndex = cell.Row
                     break
@@ -1718,23 +1703,23 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
+                    list_table_dict = {}
+                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Noms":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold().strip() == "Noms".casefold():
+                            effColIndex = cell.Column
+                            effRowIndex = cell.Row
                             break
                     if effColIndex != 0:
                         break
@@ -1744,39 +1729,25 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
-                    firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-                    lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                    workSheetRange = workSheet.Range(firstCell, lastCell)
-                    flag = False
 
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
-
-
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets:
-                            localisation = None
+                        if element["value"] in list_effets:
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
-                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation,
+                           workBook, TSDApp)
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2009,11 +1980,11 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "situation de vie":
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "situation de vie".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -2034,24 +2005,23 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
-
+                    list_table_dict = {}
+                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasSitDeVie == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "situation de vie":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold().strip() == "Situations de vie".casefold():
+                            effColIndex = cell.Column
+                            effRowIndex = cell.Row
                             break
                     if effColIndex != 0:
                         break
@@ -2061,39 +2031,25 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
-                    firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-                    lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                    workSheetRange = workSheet.Range(firstCell, lastCell)
-                    flag = False
 
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
-
-
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.SitDeVieLastRow):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets or element == "N/A":
-                            localisation = None
+                        if element["value"] in list_effets or element["value"] == "N/A":
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
-                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation,
+                           workBook, TSDApp)
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2217,11 +2173,11 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Diagnostic débarqué":
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diagnostic debarque".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -2242,24 +2198,23 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
-
+                    list_table_dict = {}
+                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasDiagDeb == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
             else:
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
-                workSheetRange = workSheet.UsedRange
-                nrCols = workSheetRange.Columns.Count
-                nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "libellé (signification)":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for cellRow in workSheet.Rows:
+                    for cell in cellRow.Cells:
+                        if str(cell.Value).casefold().strip() == "libellé (signification)".casefold():
+                            effColIndex = cell.Column
+                            effRowIndex = cell.Row
                             break
                     if effColIndex != 0:
                         break
@@ -2269,39 +2224,25 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
-                    firstCell = workSheet.Cells(refRowIndex + nrLines, 1)
-                    lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-                    workSheetRange = workSheet.Range(firstCell, lastCell)
-                    flag = False
 
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
-
-
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets or element == "N/A":
-                            localisation = None
+                        if element["value"] in list_effets or element["value"] == "N/A":
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
-                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation,
+                           workBook, TSDApp)
 
                 elif effColIndex == 0:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2593,14 +2534,14 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
 
         var = 0
-        codeRowIndex = 0
         codeColIndex = 0
+        codeRowIndex = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Diversity".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diversity".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -2840,11 +2781,11 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
         codeColIndex = 0
         codeRowIndex = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Diversity".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diversity".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -2860,7 +2801,7 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
 
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
-                cel = cell.replace(",", "").replace(";", "")
+                cel = cel.replace(",", "").replace(";", "")
                 cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
                 list = []
                 for elem in cel:

@@ -894,6 +894,168 @@ def getConstituants(workBook, TSDApp):
         TSDApp.WorkbookStats.constituantsLastRow = None
         TSDApp.WorkbookStats.constituantsLastCol = None
 
+def getERInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "er" in sheetNames:
+        TSDApp.WorkbookStats.hasER = True
+        try:
+            index = sheetNames.index("er") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.ERIndex = index
+    else:
+        TSDApp.WorkbookStats.hasER = False
+
+    if TSDApp.WorkbookStats.hasER == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.ERIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.ERLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.ERLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.ERLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "nom".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.ERLastRow = lastFilledCell
+            TSDApp.WorkbookStats.ERLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.ERLastRow = None
+            TSDApp.WorkbookStats.ERLastCol = None
+    else:
+        TSDApp.WorkbookStats.ERLastRow = None
+        TSDApp.WorkbookStats.ERLastCol = None
+
+def getSituationDeVieInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "situations de vie" in sheetNames:
+        TSDApp.WorkbookStats.hasSitDeVie = True
+        try:
+            index = sheetNames.index("situations de vie") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.SitDeVieIndex = index
+    else:
+        TSDApp.WorkbookStats.hasSitDeVie = False
+
+    if TSDApp.WorkbookStats.hasSitDeVie == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.SitDeVieLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.SitDeVieLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.SitDeVieLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Situations de vie".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.SitDeVieLastRow = lastFilledCell
+            TSDApp.WorkbookStats.SitDeVieLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.SitDeVieLastRow = None
+            TSDApp.WorkbookStats.SitDeVieLastCol = None
+    else:
+        TSDApp.WorkbookStats.SitDeVieLastRow = None
+        TSDApp.WorkbookStats.SitDeVieLastCol = None
+
 
 def DOC3Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
@@ -903,6 +1065,8 @@ def DOC3Info(workBook, TSDApp):
     getListeMDDInfo(workBook, TSDApp)
     getEffetsClientsInfo(workBook, TSDApp)
     getConstituants(workBook, TSDApp)
+    getERInfo(workBook, TSDApp)
+    getSituationDeVieInfo(workBook, TSDApp)
 
 def DOC4Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)

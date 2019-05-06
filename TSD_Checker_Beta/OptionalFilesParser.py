@@ -1,9 +1,13 @@
 import TSD_Checker_V3_1
 from lxml import etree, objectify
 
-def DOC9Parser(ExcelApp, DOC9Path):
+def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
 
-    DOC9 = ExcelApp.Workbooks.Open(DOC9Path)
+    try:
+        DOC9 = ExcelApp.Workbooks.Open(DOC9Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the criticity file " + DOC9Path.split('/')[-1])
+        return
     workSheet = DOC9.Sheets("Configuration")
     workSheetRangeValuesTuple = workSheet.UsedRange.Value
     fillDictFlag = False
@@ -32,8 +36,12 @@ def DOC9Parser(ExcelApp, DOC9Path):
 
     return DOC9Dict
 
-def DOC13Parser(ExcelApp, DOC13Path):
-    DOC13 = ExcelApp.Workbooks.Open(DOC13Path)
+def DOC13Parser(TSDApp, ExcelApp, DOC13Path):
+    try:
+        DOC13 = ExcelApp.Workbooks.Open(DOC13Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the diversity referential file " + DOC13Path.split('/')[-1])
+        return
     workSheet = DOC13.Sheets("Liste EC")
     workSheetRangeValuesTuple = workSheet.UsedRange.Value
     testCol = 0
@@ -52,8 +60,12 @@ def DOC13Parser(ExcelApp, DOC13Path):
             final_list.append(elem)
     return final_list
 
-def DOC8Parser(ExcelApp, DOC8Path):
-    DOC8 = ExcelApp.Workbooks.Open(DOC8Path)
+def DOC8Parser(TSDApp ,ExcelApp, DOC8Path):
+    try:
+        DOC8 = ExcelApp.Workbooks.Open(DOC8Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the CESARE file " + DOC8Path.split('/')[-1])
+        return
     cnt = 0
     temp = DOC8.Sheets
     for sheet in temp:
@@ -80,10 +92,14 @@ def DOC8Parser(ExcelApp, DOC8Path):
             final_list.append(elem.replace(u'\xa0', u''))
     return final_list
 
-def DOC15Parser(DOC15Path):
+def DOC15Parser(TSDApp ,DOC15Path):
     if DOC15Path.endswith('.odx'):
         parser = etree.XMLParser(remove_comments=True)
-        tree = objectify.parse(DOC15Path, parser=parser)
+        try:
+            tree = objectify.parse(DOC15Path, parser=parser)
+        except:
+            TSDApp.tab1.textbox.setText("ERROR: when trying to parse the diagnostic messagerie file " + DOC15Path.split('/')[-1])
+            return None, None
         root = tree.getroot()
         subfamily = root.find(".//BASE-VARIANT")
         subfamily_name = subfamily.attrib['ID']
