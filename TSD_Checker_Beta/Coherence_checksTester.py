@@ -18,11 +18,12 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -55,11 +56,11 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                 nrCols = workSheetRange.Columns.Count
                 measureColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "libellé (signification)":
-                            measureColIndex = cellRow.index(cell) + 1
-                            measureRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                        if str(workSheet.Cells(index1,index2).Value).casefold().strip() == "libellé (signification)".casefold():
+                            measureColIndex = index2
+                            measureRowIndex = index1
                             break
                     if measureColIndex != 0:
                         break
@@ -104,11 +105,11 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
         var = 0
         refColIndex = 0
         refRowIndex = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -166,11 +167,11 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
         codeColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -212,11 +213,11 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
         codeColIndex = 0
         codeRowIndex = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -267,11 +268,11 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
         codeRowIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Code défaut".casefold():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -375,11 +376,11 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
         tempList = list()
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Code défaut".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -411,11 +412,11 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 codeColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "Code défaut".casefold():
-                            codeColIndex = cell.Column
-                            codeRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                            codeColIndex = index2
+                            codeRowIndex = index1
                             break
                     if codeColIndex != 0:
                         break
@@ -465,17 +466,16 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Constituant défaillant détecté".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Constituant défaillant détecté".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
         if refColIndex == 0:
             var = 1
-
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -504,11 +504,11 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 constituantsColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Noms".casefold():
-                            constituantsColIndex = cell.Column
-                            constituantsRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                            constituantsColIndex = index2
+                            constituantsRowIndex = index1
                             break
                     if constituantsColIndex != 0:
                         break
@@ -548,11 +548,11 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Effet(s) client(s)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Effet(s) client(s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -591,11 +591,11 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                 nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
                 var = 0
-                for cellRow in workSheetRange.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Noms".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -649,11 +649,11 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
         nrRows = workSheet.Rows.Count
         refColIndex = 0
         var = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -689,11 +689,11 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 nrRows = workSheet.Rows.Count
                 diagColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "libellé (signification)".casefold():
-                            diagColIndex = cell.Column
-                            diagRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.DiagDebLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "libellé (signification)".casefold():
+                            diagColIndex = index2
+                            diagRowIndex = index1
                             break
                     if diagColIndex != 0:
                         break
@@ -734,11 +734,11 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
         nrRows = workSheet.Rows.Count
         refColIndex = 0
         var = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Evenement(s) redouté(s) (ER)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Evenement(s) redouté(s) (ER)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -773,11 +773,11 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 nrRows = workSheet.Rows.Count
                 ERColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "nom".casefold():
-                            ERColIndex = cell.Column
-                            ERRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.ERLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.ERLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "nom".casefold():
+                            ERColIndex = index2
+                            ERRowIndex = index1
                             break
                     if ERColIndex != 0:
                         break
@@ -816,11 +816,11 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         nrRows = workSheet.Rows
         effColIndex = 0
         var = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Noms".casefold():
-                    effColIndex = cell.Column
-                    effRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                    effColIndex = index2
+                    effRowIndex = index1
                     break
             if effColIndex != 0:
                 break
@@ -935,7 +935,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             for cell in cellRow.Cells:
                 if str(cell.Value).casefold() == "Name":
                     effColIndex = cellRow.index(cell) + 1
-                    effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                    effRowIndex = workSheet.Value.index(cellRow) + 1
                     break
             if effColIndex != 0:
                 break
@@ -950,7 +950,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             nrLines = effCellRange.Rows.Count
             localisation = list()
             firstCell = workSheet.Cells(effRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
+            lastCell = workSheet.Cells(workSheet.Rows.Count, nrCols)
             workSheetRange = workSheet.Range(firstCell, lastCell)
             flag = False
             list_eff = list()
@@ -1062,11 +1062,11 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         effColIndex = 0
         var = 0
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Noms":
-                    effColIndex = cellRow.index(cell) + 1
-                    effRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                    effColIndex = index2
+                    effRowIndex = index1
                     break
             if effColIndex != 0:
                 break
@@ -1237,11 +1237,11 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
         codeRowIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "supporté par constituant (s)".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -1281,11 +1281,11 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
         RowIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "supporté par constituant (s)".casefold().strip():
-                    ColIndex = cell.Column
-                    RowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    ColIndex = index2
+                    RowIndex = index1
                     break
             if ColIndex != 0:
                 break
@@ -1396,17 +1396,16 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Référence" or str(cell.Value) == "Reference":
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Référence".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Reference".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
         if refColIndex == 0:
             var = 1
-
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -1501,11 +1500,11 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "code défauts induits".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "code défauts induits".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1537,11 +1536,11 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 effColIndex = 0
 
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Code défaut".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -1589,11 +1588,11 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "supporté par constituant (s)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1626,15 +1625,14 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 effColIndex = 0
 
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Noms".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
-
                 if effColIndex != 0:
 
                     effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
@@ -1678,11 +1676,11 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "supporté par constituant (s)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1715,11 +1713,11 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.constituantsIndex)
                 effColIndex = 0
 
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Noms".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -1770,11 +1768,11 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Stored by the ECU":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for index1 in range(1, TSDApp.WorkbookStats.DataCodesLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.DataCodesLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Stored by the ECU".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1808,11 +1806,11 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
                 nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Name":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for index1 in range(1, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -1877,11 +1875,11 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheetRange.Value:
-            for cell in cellRow:
-                if cell == "Stored by the ECU":
-                    refColIndex = cellRow.index(cell) + 1
-                    refRowIndex = workSheetRange.Value.index(cellRow) + 1
+        for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Stored by the ECU".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1914,11 +1912,11 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
                 nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Name":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for index1 in range(1, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -2017,11 +2015,11 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.SitDeVieIndex)
                 effColIndex = 0
 
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "Situations de vie".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.SitDeVieLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Situations de vie".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -2069,11 +2067,11 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Situation":
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Situation".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -2107,11 +2105,11 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                 nrRows = workSheetRange.Rows.Count
                 effColIndex = 0
 
-                for cellRow in workSheetRange.Value:
-                    for cell in cellRow:
-                        if cell == "Description":
-                            effColIndex = cellRow.index(cell) + 1
-                            effRowIndex = workSheetRange.Value.index(cellRow) + 1
+                for index1 in range(1, TSDApp.WorkbookStats.SitDeVieLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -2195,13 +2193,10 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
             list_effets = list()
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    pass
-                else:
-                    list_table_dict = {}
-                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
-                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
-                    list_table.append(dict(list_table_dict))
+                list_table_dict = {}
+                list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasDiagDeb == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2210,11 +2205,11 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagDebIndex)
                 effColIndex = 0
 
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold().strip() == "libellé (signification)".casefold():
-                            effColIndex = cell.Column
-                            effRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.DiagDebLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "libellé (signification)".casefold():
+                            effColIndex = index2
+                            effRowIndex = index1
                             break
                     if effColIndex != 0:
                         break
@@ -2262,11 +2257,11 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
         var = 0
         localisation = list()
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Non-embedded diagnosis":
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Non-embedded diagnosis".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -2284,10 +2279,10 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
             list_effets = list()
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.Cells(index, refColIndex).Value == None:
-                    pass
-                else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
+                list_table_dict = {}
+                list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                list_table.append(dict(list_table_dict))
 
 
             if TSDApp.WorkbookStats.hasNotEmbDiag == False:
@@ -2319,17 +2314,6 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                     workSheetRange = workSheet.Range(firstCell, lastCell)
                     flag = False
 
-                    for row in workSheetRange.Rows:
-                        flag = False
-                        for valueTuple in row.Value:
-                            for value in valueTuple:
-                                if value != None:
-                                    flag = True
-                        if flag == False:
-                            TSDApp.WorkbookStats.TechEffLastRow = row.Row
-                            break
-
-
                     for index in range(effRowIndex + nrLines, nrRows):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
@@ -2337,13 +2321,13 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                             list_effets.append(workSheet.Cells(index, effColIndex).Value)
 
                     for element in list_table:
-                        if element in list_effets or element == "N/A":
-                            localisation = None
+                        if element["value"] in list_effets or element["value"] == "N/A":
+                            pass
                         else:
-                            localisation = ""
+                            localisation.append(element["localisation"])
                             check = True
 
-                    if list_table == "[]":
+                    if not localisation:
                         localisation = None
 
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
@@ -2368,11 +2352,11 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
         codeColIndex = 0
         codeRowIndex = 0
         var = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -2415,11 +2399,11 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
         var = 0
         codeColIndex = 0
         codeRowIndex = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Variant/\noption".casefold().strip() or str(cell.Value).casefold() == "Variante/\noption".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variante/\noption".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -2436,85 +2420,88 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
                 cel = []
-                cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
-                list = []
-                for elem in cel:
-                    objElem = {}
-                    objElem['NAME'] = elem
-                    objElem['CHECK'] = False
-                    list.append(objElem)
+                try:
+                    cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
+                    list = []
+                    for elem in cel:
+                        objElem = {}
+                        objElem['NAME'] = elem
+                        objElem['CHECK'] = False
+                        list.append(objElem)
 
-                check_list1 = False
-                for i in range(len(list)):
-                    leng = len(list[i]['NAME'])
-                    if leng == 0:
-                        list[i]['CHECK'] = True
+                    check_list1 = False
+                    for i in range(len(list)):
+                        leng = len(list[i]['NAME'])
+                        if leng == 0:
+                            list[i]['CHECK'] = True
 
-                    poz = 0
-                    if list[i]['NAME'] == "(":
-                        for j in range(i+1,len(list)):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i+poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = DOC13List[k] + ')'
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                        poz = 0
+                        if list[i]['NAME'] == "(":
+                            for j in range(i+1,len(list)):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i+poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = DOC13List[k] + ')'
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if list[i]['NAME'] == ")":
+                            for j in range(i - 1, -1, -1):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i - poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = '(' + DOC13List[k]
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if leng > 1:
+                            for j in range(len(DOC13List)):
+                                if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                    new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                    if new_elem1 == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
-                                break
-
-                    if list[i]['NAME'] == ")":
-                        for j in range(i - 1, -1, -1):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i - poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = '(' + DOC13List[k]
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                else:
+                                    if list[i]['NAME'] == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
+
+                    check_list2 = False
+                    for elem1 in list:
+                        for elem2 in list2:
+                            if elem1['NAME'] == elem2:
+                                elem1['CHECK'] = True
+                                check_list2 = True
                                 break
 
-                    if leng > 1:
-                        for j in range(len(DOC13List)):
-                            if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                if new_elem1 == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-                            else:
-                                if list[i]['NAME'] == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
+                    cnt = 0
+                    for elem in list:
+                        if elem['CHECK'] == True:
+                            cnt = cnt + 1
+                    if cnt == len(list) and check_list1 == True and check_list2 == True:
+                        contor = contor + 1
+                    else:
+                        localisation.append(workSheet.Cells(index,codeColIndex))
 
-                check_list2 = False
-                for elem1 in list:
-                    for elem2 in list2:
-                        if elem1['NAME'] == elem2:
-                            elem1['CHECK'] = True
-                            check_list2 = True
-                            break
-
-                cnt = 0
-                for elem in list:
-                    if elem['CHECK'] == True:
-                        cnt = cnt + 1
-                if cnt == len(list) and check_list1 == True and check_list2 == True:
-                    contor = contor + 1
-                else:
-                    localisation.append(workSheet.Cells(index,codeColIndex))
+                except:
+                    pass
 
             if not localisation:
                 localisation = None
-
 
             if contor == TSDApp.WorkbookStats.tableLastRow - codeRowIndex - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,TSDApp)
@@ -2558,81 +2545,84 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A",""]
                 cel = []
-                cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
-                list = []
-                for elem in cel:
-                    objElem = {}
-                    objElem['NAME'] = elem
-                    objElem['CHECK'] = False
-                    list.append(objElem)
+                try:
+                    cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
+                    list = []
+                    for elem in cel:
+                        objElem = {}
+                        objElem['NAME'] = elem
+                        objElem['CHECK'] = False
+                        list.append(objElem)
 
-                check_list1 = False
-                for i in range(len(list)):
-                    leng = len(list[i]['NAME'])
-                    if leng == 0:
-                        list[i]['CHECK'] = True
+                    check_list1 = False
+                    for i in range(len(list)):
+                        leng = len(list[i]['NAME'])
+                        if leng == 0:
+                            list[i]['CHECK'] = True
 
-                    poz = 0
-                    if list[i]['NAME'] == "(":
-                        for j in range(i+1,len(list)):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i+poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = DOC13List[k] + ')'
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                        poz = 0
+                        if list[i]['NAME'] == "(":
+                            for j in range(i+1,len(list)):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i+poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = DOC13List[k] + ')'
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if list[i]['NAME'] == ")":
+                            for j in range(i - 1, -1, -1):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i - poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = '(' + DOC13List[k]
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if leng > 1:
+                            for j in range(len(DOC13List)):
+                                if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                    new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                    if new_elem1 == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
-                                break
-
-                    if list[i]['NAME'] == ")":
-                        for j in range(i - 1, -1, -1):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i - poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = '(' + DOC13List[k]
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                else:
+                                    if list[i]['NAME'] == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
+
+                    check_list2 = False
+                    for elem1 in list:
+                        for elem2 in list2:
+                            if elem1['NAME'] == elem2:
+                                elem1['CHECK'] = True
+                                check_list2 = True
                                 break
 
-                    if leng > 1:
-                        for j in range(len(DOC13List)):
-                            if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                if new_elem1 == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-                            else:
-                                if list[i]['NAME'] == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-
-                check_list2 = False
-                for elem1 in list:
-                    for elem2 in list2:
-                        if elem1['NAME'] == elem2:
-                            elem1['CHECK'] = True
-                            check_list2 = True
-                            break
-
-                cnt = 0
-                for elem in list:
-                    if elem['CHECK'] == True:
-                        cnt = cnt + 1
-                if cnt == len(list) and check_list1 == True and check_list2 == True:
-                    contor = contor + 1
-                else:
-                    localisation.append(workSheet.Cells(index,codeColIndex))
+                    cnt = 0
+                    for elem in list:
+                        if elem['CHECK'] == True:
+                            cnt = cnt + 1
+                    if cnt == len(list) and check_list1 == True and check_list2 == True:
+                        contor = contor + 1
+                    else:
+                        localisation.append(workSheet.Cells(index,codeColIndex))
+                except:
+                    pass
 
             if not localisation:
                 localisation = None
@@ -2659,11 +2649,11 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
         codeColIndex = 0
         codeRowIndex = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Variant/\noption".casefold().strip() or str(cell.Value).casefold() == "Variante/\noption".casefold().strip():
-                    codeColIndex = cell.Column
-                    codeRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variante/\noption".casefold():
+                    codeColIndex = index2
+                    codeRowIndex = index1
                     break
             if codeColIndex != 0:
                 break
@@ -2680,85 +2670,87 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
                 cel = []
-                cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
-                list = []
-                for elem in cel:
-                    objElem = {}
-                    objElem['NAME'] = elem
-                    objElem['CHECK'] = False
-                    list.append(objElem)
+                try:
+                    cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
+                    list = []
+                    for elem in cel:
+                        objElem = {}
+                        objElem['NAME'] = elem
+                        objElem['CHECK'] = False
+                        list.append(objElem)
 
-                check_list1 = False
-                for i in range(len(list)):
-                    leng = len(list[i]['NAME'])
-                    if leng == 0:
-                        list[i]['CHECK'] = True
+                    check_list1 = False
+                    for i in range(len(list)):
+                        leng = len(list[i]['NAME'])
+                        if leng == 0:
+                            list[i]['CHECK'] = True
 
-                    poz = 0
-                    if list[i]['NAME'] == "(":
-                        for j in range(i+1,len(list)):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i+poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = DOC13List[k] + ')'
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                        poz = 0
+                        if list[i]['NAME'] == "(":
+                            for j in range(i+1,len(list)):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i+poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = DOC13List[k] + ')'
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if list[i]['NAME'] == ")":
+                            for j in range(i - 1, -1, -1):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i - poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = '(' + DOC13List[k]
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if leng > 1:
+                            for j in range(len(DOC13List)):
+                                if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                    new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                    if new_elem1 == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
-                                break
-
-                    if list[i]['NAME'] == ")":
-                        for j in range(i - 1, -1, -1):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i - poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = '(' + DOC13List[k]
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                else:
+                                    if list[i]['NAME'] == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
+
+                    check_list2 = False
+                    for elem1 in list:
+                        for elem2 in list2:
+                            if elem1['NAME'] == elem2:
+                                elem1['CHECK'] = True
+                                check_list2 = True
                                 break
 
-                    if leng > 1:
-                        for j in range(len(DOC13List)):
-                            if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                if new_elem1 == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-                            else:
-                                if list[i]['NAME'] == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-
-                check_list2 = False
-                for elem1 in list:
-                    for elem2 in list2:
-                        if elem1['NAME'] == elem2:
-                            elem1['CHECK'] = True
-                            check_list2 = True
-                            break
-
-                cnt = 0
-                for elem in list:
-                    if elem['CHECK'] == True:
-                        cnt = cnt + 1
-                if cnt == len(list) and check_list1 == True and check_list2 == True:
-                    contor = contor + 1
-                else:
-                    localisation.append(workSheet.Cells(index,codeColIndex))
+                    cnt = 0
+                    for elem in list:
+                        if elem['CHECK'] == True:
+                            cnt = cnt + 1
+                    if cnt == len(list) and check_list1 == True and check_list2 == True:
+                        contor = contor + 1
+                    else:
+                        localisation.append(workSheet.Cells(index,codeColIndex))
+                except:
+                    pass
 
             if not localisation:
                 localisation = None
-
 
             if contor == TSDApp.WorkbookStats.tableLastRow - codeRowIndex - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,TSDApp)
@@ -2801,86 +2793,89 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
 
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
-                cel = cel.replace(",", "").replace(";", "")
-                cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
-                list = []
-                for elem in cel:
-                    objElem = {}
-                    objElem['NAME'] = elem
-                    objElem['CHECK'] = False
-                    list.append(objElem)
+                try:
+                    cel = cel.replace(",", "").replace(";", "")
+                    cel = workSheet.Cells(index, codeColIndex).Value.split(" ")
+                    list = []
+                    for elem in cel:
+                        objElem = {}
+                        objElem['NAME'] = elem
+                        objElem['CHECK'] = False
+                        list.append(objElem)
 
-                check_list1 = False
-                for i in range(len(list)):
-                    leng = len(list[i]['NAME'])
-                    if leng == 0:
-                        list[i]['CHECK'] = True
+                    check_list1 = False
+                    for i in range(len(list)):
+                        leng = len(list[i]['NAME'])
+                        if leng == 0:
+                            list[i]['CHECK'] = True
 
-                    poz = 0
-                    if list[i]['NAME'] == "(":
-                        for j in range(i+1,len(list)):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i+poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = DOC13List[k] + ')'
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                        poz = 0
+                        if list[i]['NAME'] == "(":
+                            for j in range(i+1,len(list)):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i+poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = DOC13List[k] + ')'
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if list[i]['NAME'] == ")":
+                            for j in range(i - 1, -1, -1):
+                                if list[j]['NAME'] == '':
+                                    poz = poz + 1
+                                    list[i - poz]['CHECK'] = True
+                                    check_list1 = True
+                                else:
+                                    for k in range(len(DOC13List)):
+                                        new_val = '(' + DOC13List[k]
+                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                            list[i]['CHECK'] = True
+                                            check_list1 = True
+                                            break
+                                    break
+
+                        if leng > 1:
+                            for j in range(len(DOC13List)):
+                                if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                    new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                    if new_elem1 == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
-                                break
-
-                    if list[i]['NAME'] == ")":
-                        for j in range(i - 1, -1, -1):
-                            if list[j]['NAME'] == '':
-                                poz = poz + 1
-                                list[i - poz]['CHECK'] = True
-                                check_list1 = True
-                            else:
-                                for k in range(len(DOC13List)):
-                                    new_val = '(' + DOC13List[k]
-                                    if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                else:
+                                    if list[i]['NAME'] == DOC13List[j]:
                                         list[i]['CHECK'] = True
                                         check_list1 = True
                                         break
+
+                    check_list2 = False
+                    for elem1 in list:
+                        for elem2 in list2:
+                            if elem1['NAME'] == elem2:
+                                elem1['CHECK'] = True
+                                check_list2 = True
                                 break
 
-                    if leng > 1:
-                        for j in range(len(DOC13List)):
-                            if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                if new_elem1 == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
-                            else:
-                                if list[i]['NAME'] == DOC13List[j]:
-                                    list[i]['CHECK'] = True
-                                    check_list1 = True
-                                    break
+                    cnt = 0
+                    for elem in list:
+                        if elem['CHECK'] == True:
+                            cnt = cnt + 1
+                    if cnt == len(list) and check_list1 == True and check_list2 == True:
+                        contor = contor + 1
+                    else:
+                        localisation.append(workSheet.Cells(index,codeColIndex))
 
-                check_list2 = False
-                for elem1 in list:
-                    for elem2 in list2:
-                        if elem1['NAME'] == elem2:
-                            elem1['CHECK'] = True
-                            check_list2 = True
-                            break
-
-                cnt = 0
-                for elem in list:
-                    if elem['CHECK'] == True:
-                        cnt = cnt + 1
-                if cnt == len(list) and check_list1 == True and check_list2 == True:
-                    contor = contor + 1
-                else:
-                    localisation.append(workSheet.Cells(index,codeColIndex))
+                except:
+                    pass
 
             if not localisation:
                 localisation = None
-
 
             if contor == TSDApp.WorkbookStats.tableLastRow - codeRowIndex - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,TSDApp)

@@ -45,11 +45,11 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Version".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -114,11 +114,11 @@ def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Version".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -183,11 +183,11 @@ def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Version".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -254,11 +254,11 @@ def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Version".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.DiagDebLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -322,11 +322,11 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Version".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.MDDLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.MDDLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -364,11 +364,11 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
         list_table = list()
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -399,11 +399,11 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
                 codeColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                            codeColIndex = cell.Column
-                            codeRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.Cells(index1,index2).Value).casefold().strip() == "Project applicability".casefold():
+                            codeColIndex = index2
+                            codeRowIndex = index1
                             break
                     if codeColIndex != 0:
                         break
@@ -446,11 +446,13 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
         list_table = list()
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1,
+                                       index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                        workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -479,11 +481,14 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
                 workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
                 measureColIndex = 0
                 var = 0
-                for cellRow in workSheet.Rows:
-                    for cell in cellRow.Cells:
-                        if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                            measureColIndex = cell.Column
-                            measureRowIndex = cell.Row
+                for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                        if str(workSheet.Cells(index1,
+                                               index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                                workSheet.Cells(index1,
+                                                index2).Value).casefold().strip() == "Project applicability".casefold():
+                            measureColIndex = index2
+                            measureRowIndex = index1
                             break
                     if measureColIndex != 0:
                         break
@@ -523,11 +528,13 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1,
+                                       index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                        workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -568,11 +575,13 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1,
+                                       index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                        workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -613,11 +622,13 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Applicabilité projet".casefold().strip() or str(cell.Value).casefold() == "Project applicability".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                if str(workSheet.Cells(index1,
+                                       index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                        workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -658,11 +669,11 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -702,11 +713,11 @@ def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -743,11 +754,11 @@ def Test_02043_18_04939_WHOLENESS_1090(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "supporté par constituant (s)".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -784,11 +795,11 @@ def Test_02043_18_04939_WHOLENESS_1100(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "supporté par constituant (s)".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.measureLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -825,11 +836,11 @@ def Test_02043_18_04939_WHOLENESS_1110(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "libellé (signification)".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "libellé (signification)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -866,11 +877,11 @@ def Test_02043_18_04939_WHOLENESS_1120(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Description de la strategie pour détecter le défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description de la strategie pour détecter le défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -907,11 +918,11 @@ def Test_02043_18_04939_WHOLENESS_1130(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Seuil de détection  /  valeur  du défaut".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Seuil de détection  /  valeur  du défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -948,12 +959,11 @@ def Test_02043_18_04939_WHOLENESS_1140(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(
-                        cell.Value).casefold().strip() == "Temps de confirmation du défaut".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Temps de confirmation du défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -990,12 +1000,11 @@ def Test_02043_18_04939_WHOLENESS_1150(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(
-                        cell.Value).casefold() == "Description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description de la strategie de disparition du défaut / Procedure à effectuer pour vérifier la disparition du défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1032,12 +1041,11 @@ def Test_02043_18_04939_WHOLENESS_1160(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(
-                        cell.Value).casefold() == "Mode dégradé".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Mode dégradé".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1074,12 +1082,11 @@ def Test_02043_18_04939_WHOLENESS_1170(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(
-                        cell.Value).casefold() == "Voyant".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.codeLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Voyant".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1116,11 +1123,11 @@ def Test_02043_18_04939_WHOLENESS_1180(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Constituant défaillant détecté".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Constituant défaillant détecté".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1157,11 +1164,11 @@ def Test_02043_18_04939_WHOLENESS_1190(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Défaillance constituant".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Défaillance constituant".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1198,11 +1205,11 @@ def Test_02043_18_04939_WHOLENESS_1200(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Situation de vie client".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Situation de vie client".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1240,21 +1247,22 @@ def Test_02043_18_04939_WHOLENESS_1210(workBook, TSDApp):
         refColIndex = 0
         refRowIndex = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold().strip() == "Effet(s) client(s)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Effet(s) client(s)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
         if refColIndex == 0:
             var = 1
 
+        localisation = list()
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = []
+
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.Cells(index, refColIndex).Value == None:
@@ -1282,11 +1290,11 @@ def Test_02043_18_04939_WHOLENESS_1220(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Code défaut".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1322,11 +1330,11 @@ def Test_02043_18_04939_WHOLENESS_1230(workBook, TSDApp):
         refColIndex = 0
         var = 0
 
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Défaillance constituant".casefold().strip():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(1, TSDApp.WorkbookStats.tableLastRow):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Défaillance constituant".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
             if refColIndex != 0:
                 break
@@ -1367,9 +1375,9 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
         refRowIndex1 = 0
         var = 0
 
-        for row in workSheetRange:
-            for cel in row:
-                if "Liste de diffusion".casefold() in str(cel.Value).casefold().strip() or "Mailing list".casefold() in str(cel.Value).casefold().strip():
+        for row in workSheetRange.Rows:
+            for cel in row.Cells:
+                if "Liste de diffusion".casefold() in str(cel.Value).casefold().strip() or "Mailing list (the taking part)".casefold() in str(cel.Value).casefold().strip():
                     refColIndex = cel.Column
                     refRowIndex = cel.Row
                     break
@@ -1380,9 +1388,9 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
 
         if var == 0:
             var = 0
-            for row in workSheetRange:
-                for cel in row:
-                    if "Diffusion à :".casefold() in str(cel.Value).casefold().strip():
+            for row in workSheetRange.Rows:
+                for cel in row.Cells:
+                    if "Diffusion à :".casefold() in str(cel.Value).casefold().strip() or "E-mail to :".casefold() in str(cel.Value).casefold().strip():
                         refColIndex1 = cel.Column
                         refRowIndex1 = cel.Row
                         break
@@ -1399,3 +1407,19 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
             localisation.append(workSheet.Cells(refRowIndex1+1, refColIndex1))
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,TSDApp)
     return check
+
+def Test_02043_18_04939_WHOLENESS_1300(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        contor = 0
+        for index in range(1, TSDApp.WorkbookStats.tableLastRow):
+            if workSheet.Cells(index, TSDApp.WorkbookStats.tableRefColIndex).Value is None:
+                contor = contor + 1
+    return check
+
+
