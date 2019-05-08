@@ -20,6 +20,7 @@ class WorkbookProperties:
         self.hasSupp = False
         self.hasRefDocs = False
 
+
         self.constituantsRefRowIndex = 0
         self.constituantsRefColIndex = 0
         self.ReqTechRefColIndex = 0
@@ -58,6 +59,8 @@ class WorkbookProperties:
         self.tableIndex = 0
         self.hasDiagNeeds = False
         self.DiagNeedsIndex = 0
+        self.DiagNeedsLastRow = 0
+        self.DiagNeedsLastCol = 0
         #self.hasCustEff = True
         #self.CustEffIndex = 0
         self.hasFearedEvent = False
@@ -73,6 +76,10 @@ class WorkbookProperties:
 #DOC5
         #self.hasTable = True
         #self.tableIndex = 0
+        self.OpSitLastRow = 0
+        self.OpSitLastCol = 0
+        self.SystemLastRow = 0
+        self.SystemLastCol = 0
         self.NotEmbDiagLastRow = 0
         self.NotEmbDiagLastCol = 0
         self.DataCodesLastRow = 0
@@ -87,8 +94,10 @@ class WorkbookProperties:
         self.NotEmbDiagIndex = 0
         self.hasCustEff = False
         self.CustEffIndex = 0
-        #self.hasFearedEvent = True
-        #self.FearedEventIndex = 0
+
+        self.FearedEventIndex = 0
+        self.FearedEventLastRow = 0
+        self.FearedEventLastCol = 0
         self.hasNotEmbDiag = False
         #self.hasConstituants = True
         #self.ConstituantsIndex = 0

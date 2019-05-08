@@ -1056,6 +1056,330 @@ def getSituationDeVieInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.SitDeVieLastRow = None
         TSDApp.WorkbookStats.SitDeVieLastCol = None
 
+def getDiagnosticNeedsInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "diagnostic needs" in sheetNames:
+        TSDApp.WorkbookStats.hasDiagNeeds = True
+        try:
+            index = sheetNames.index("diagnostic needs") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.DiagNeedsIndex = index
+    else:
+        TSDApp.WorkbookStats.hasDiagNeeds = False
+
+    if TSDApp.WorkbookStats.hasDiagNeeds == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagNeedsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.DiagNeedsLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.DiagNeedsLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.DiagNeedsLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Reference".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.DiagNeedsLastRow = lastFilledCell
+            TSDApp.WorkbookStats.DiagNeedsLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.DiagNeedsLastRow = None
+            TSDApp.WorkbookStats.DiagNeedsLastCol = None
+    else:
+        TSDApp.WorkbookStats.DiagNeedsLastRow = None
+        TSDApp.WorkbookStats.DiagNeedsLastCol = None
+
+def getFearedEventInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "feared events" in sheetNames:
+        TSDApp.WorkbookStats.hasDiagNeeds = True
+        try:
+            index = sheetNames.index("feared events") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.DiagNeedsIndex = index
+    else:
+        TSDApp.WorkbookStats.hasDiagNeeds = False
+
+    if TSDApp.WorkbookStats.hasDiagNeeds == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.DiagNeedsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.FearedEventLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.FearedEventLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.FearedEventLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Description".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.FearedEventLastRow = lastFilledCell
+            TSDApp.WorkbookStats.FearedEventLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.FearedEventLastRow = None
+            TSDApp.WorkbookStats.FearedEventLastCol = None
+    else:
+        TSDApp.WorkbookStats.FearedEventLastRow = None
+        TSDApp.WorkbookStats.FearedEventLastCol = None
+
+def getSystemInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "system" in sheetNames:
+        TSDApp.WorkbookStats.hasSystem = True
+        try:
+            index = sheetNames.index("system") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.SystemIndex = index
+    else:
+        TSDApp.WorkbookStats.hasSystem = False
+
+    if TSDApp.WorkbookStats.hasSystem == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SystemIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.SystemLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.SystemLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.SystemLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Label".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.SystemLastRow = lastFilledCell
+            TSDApp.WorkbookStats.SystemLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.SystemLastRow = None
+            TSDApp.WorkbookStats.SystemLastCol = None
+    else:
+        TSDApp.WorkbookStats.SystemLastRow = None
+        TSDApp.WorkbookStats.SystemLastCol = None
+
+def getOperationSituationInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "operation situation" in sheetNames:
+        TSDApp.WorkbookStats.hasOpSit = True
+        try:
+            index = sheetNames.index("operation situation") + 1
+        except:
+            pass
+        TSDApp.WorkbookStats.OpSitIndex = index
+    else:
+        TSDApp.WorkbookStats.hasOpSit = False
+
+    if TSDApp.WorkbookStats.hasOpSit == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.OpSitIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.OpSitLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.OpSitLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.OpSitLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Description".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.OpSitLastRow = lastFilledCell
+            TSDApp.WorkbookStats.OpSitLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.OpSitLastRow = None
+            TSDApp.WorkbookStats.OpSitLastCol = None
+    else:
+        TSDApp.WorkbookStats.OpSitLastRow = None
+        TSDApp.WorkbookStats.OpSitLastCol = None
+
 
 def DOC3Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
@@ -1072,6 +1396,10 @@ def DOC4Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
     getEffetsClientsInfo(workBook, TSDApp)
     getReqOfTechEffectsInfo(workBook, TSDApp)
+    getDiagnosticNeedsInfo(workBook, TSDApp)
+    getFearedEventInfo(workBook, TSDApp)
+    getSystemInfo(workBook, TSDApp)
+    getOperationSituationInfo(workBook, TSDApp)
 
 def DOC5Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
