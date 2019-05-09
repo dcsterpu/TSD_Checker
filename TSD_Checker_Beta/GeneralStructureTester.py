@@ -76,6 +76,8 @@ class WorkbookProperties:
 #DOC5
         #self.hasTable = True
         #self.tableIndex = 0
+        self.TechEffLastRow = 0
+        self.TechEffLastCol = 0
         self.OpSitLastRow = 0
         self.OpSitLastCol = 0
         self.SystemLastRow = 0

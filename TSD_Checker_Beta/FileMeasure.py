@@ -1380,6 +1380,88 @@ def getOperationSituationInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.OpSitLastRow = None
         TSDApp.WorkbookStats.OpSitLastCol = None
 
+def getTechnicalEffectInfo(workBook, TSDApp):
+    temp = workBook.Sheets
+    sheetNames = []
+    for sheet in temp:
+        sheetNames.append(sheet.Name.strip().casefold())
+    TSDApp.WorkbookStats.sheetNames = sheetNames
+    if "technical effect" in sheetNames or "effets techniques"in sheetNames:
+        TSDApp.WorkbookStats.hasTechEff = True
+        try:
+            index = sheetNames.index("technical effect") + 1
+        except:
+            index = sheetNames.index("effets techniques") + 1
+        TSDApp.WorkbookStats.TechEffIndex = index
+    else:
+        TSDApp.WorkbookStats.hasTechEff = False
+
+    if TSDApp.WorkbookStats.hasTechEff == True:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.TechEffIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+        ok = 0
+        col_range = 0
+        lastCol = 0
+        tmp = 0
+        ExitFromFct = 0
+        TSDApp.WorkbookStats.TechEffLastRow = 0
+        lastFilledCell = 0
+
+        for cellRow in workSheet.Rows:
+            col_range = 0
+            if ExitFromFct == 1:
+                break
+            for cell in cellRow.Cells:
+                if tmp != 0:
+                    ok = 1
+                    if col_range == 0:
+                        if cell.Borders(9).LineStyle != -4142:
+                            if cell.Value is not None:
+                                lastFilledCell = cell.Row
+                        else:
+                            TSDApp.WorkbookStats.TechEffLastRow = cell.Row
+                            tmp = 0
+                            break
+                    else:
+                        break
+                elif TSDApp.WorkbookStats.TechEffLastRow != 0:
+                    ExitFromFct = 1
+                    break
+                if ok == 0:
+                    if str(cell.Value).casefold().strip() == "Name".casefold():
+                        refColIndex = cell.Column
+                        refRowIndex = cell.Row
+                        indexCol = 1
+                        col_range = 1
+                    if col_range == 1:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                            indexCol += 1
+                            pass
+                        else:
+                            lastCol = cell.Column
+                            tmp = 1
+                            ok = 1
+                            break
+                else:
+                    break
+
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            TSDApp.WorkbookStats.TechEffLastRow = lastFilledCell
+            TSDApp.WorkbookStats.TechEffLastCol = lastCol
+
+        else:
+            TSDApp.WorkbookStats.TechEffLastRow = None
+            TSDApp.WorkbookStats.TechEffLastCol = None
+    else:
+        TSDApp.WorkbookStats.TechEffLastRow = None
+        TSDApp.WorkbookStats.TechEffLastCol = None
+
+
 
 def DOC3Info(workBook, TSDApp):
     getTableInfo(workBook, TSDApp)
@@ -1409,3 +1491,4 @@ def DOC5Info(workBook, TSDApp):
     getEffetsClientsInfo(workBook, TSDApp)
     getListeMDDInfo(workBook, TSDApp)
     getNotEmbeddedDiagnosisInfo(workBook, TSDApp)
+    getTechnicalEffectInfo(workBook, TSDApp)
