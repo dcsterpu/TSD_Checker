@@ -10986,7 +10986,7 @@ def Test_02043_18_04939_WHOLENESS_2000(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Reference".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11029,7 +11029,7 @@ def Test_02043_18_04939_WHOLENESS_2001(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Version".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11072,7 +11072,7 @@ def Test_02043_18_04939_WHOLENESS_2002(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Type of diagnosis".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11115,7 +11115,7 @@ def Test_02043_18_04939_WHOLENESS_2003(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Label".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11158,7 +11158,7 @@ def Test_02043_18_04939_WHOLENESS_2004(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11201,7 +11201,7 @@ def Test_02043_18_04939_WHOLENESS_2005(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Conditions of the diagnostic activation".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11244,7 +11244,7 @@ def Test_02043_18_04939_WHOLENESS_2006(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Status".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11287,7 +11287,7 @@ def Test_02043_18_04939_WHOLENESS_2007(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diversity".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11330,7 +11330,7 @@ def Test_02043_18_04939_WHOLENESS_2008(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Stored by the ECU".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11373,7 +11373,7 @@ def Test_02043_18_04939_WHOLENESS_2009(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Upstream requirements".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11416,7 +11416,7 @@ def Test_02043_18_04939_WHOLENESS_2010(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -11460,8 +11460,8 @@ def Test_02043_18_04939_WHOLENESS_2011(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, TSDApp.WorkbookStats.ReadDataIOLastRow + 1):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIoLastCol + 1):
-                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "projet X".casefold():
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "project X".casefold():
                     refColIndex = index2
                     refRowIndex = index1
                     break
@@ -11906,6 +11906,823 @@ def Test_02043_18_04939_WHOLENESS_2062(workBook, TSDApp):
             nrLines = refCellRange.Rows.Count
 
             for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.TechEffLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2070(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasEffClients == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2071(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasEffClients == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2072(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasEffClients == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diagnosticability synthesis".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.EffClientsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2080(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2081(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Reference".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2082(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Severity".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2083(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2084(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasFearedEvent == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.FearedEventIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Justification for not taking into account the dread Event".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.FearedEventLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2090(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasParts == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.PartsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.PartsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.PartsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.PartsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2091(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasParts == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.PartsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.PartsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.PartsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.PartsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2092(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasParts == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.PartsIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.PartsLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.PartsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.PartsLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2100(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasVariant == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.VariantIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.VariantLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.VariantLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.VariantLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2101(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasVariant == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.VariantIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.VariantLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.VariantLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.VariantLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2102(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasVariant == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.VariantIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.VariantLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.VariantLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.VariantLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2110(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasSituation == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SituationIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.SituationLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.SituationLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.SituationLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2111(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasSituation == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SituationIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.SituationLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.SituationLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.SituationLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2112(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasSituation == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.SituationIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.SituationLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.SituationLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Comments".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.SituationLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2120(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasDegradedMode == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.DegradedModeIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.DegradedModeLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.DegradedModeLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Modes dégradés:".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.DegradedModeLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    localisation.append(workSheet.Cells(index, refColIndex))
+
+        if not localisation:
+            localisation = None
+
+        if localisation is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
+    return check
+
+def Test_02043_18_04939_WHOLENESS_2121(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    check = False
+    if TSDApp.WorkbookStats.hasDegradedMode == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.DegradedModeIndex)
+        refColIndex = 0
+        refRowIndex = 0
+        var = 0
+
+        for index1 in range(1, TSDApp.WorkbookStats.DegradedModeLastRow + 1):
+            for index2 in range(1, TSDApp.WorkbookStats.DegradedModeLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Taken into account:".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        localisation = []
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+
+            for index in range(nrLines + refRowIndex, TSDApp.WorkbookStats.DegradedModeLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value is None:
                     localisation.append(workSheet.Cells(index, refColIndex))
 

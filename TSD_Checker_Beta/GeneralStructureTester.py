@@ -19,8 +19,15 @@ class WorkbookProperties:
         self.hasMeasure = False
         self.hasSupp = False
         self.hasRefDocs = False
+        self.hasSituation = False
+        self.hasDegradedMode = False
 
-
+        self.DegradedModeIndex = 0
+        self.DegradedModeLastRow = 0
+        self.DegradedModeLastCol = 0
+        self.SituationIndex = 0
+        self.SituationLastCol = 0
+        self.SituationLastRow = 0
         self.constituantsRefRowIndex = 0
         self.constituantsRefColIndex = 0
         self.ReqTechRefColIndex = 0
@@ -74,8 +81,10 @@ class WorkbookProperties:
         self.hasReqTech = False
         self.ReqTechIndex = 0
 #DOC5
-        #self.hasTable = True
-        #self.tableIndex = 0
+        self.hasParts = False
+        self.PartsIndex = 0
+        self.PartsLastRow = 0
+        self.PartsLastCol = 0
         self.TechEffLastRow = 0
         self.TechEffLastCol = 0
         self.OpSitLastRow = 0
@@ -101,16 +110,10 @@ class WorkbookProperties:
         self.FearedEventLastRow = 0
         self.FearedEventLastCol = 0
         self.hasNotEmbDiag = False
-        #self.hasConstituants = True
-        #self.ConstituantsIndex = 0
-        #self.hasSitDeVie = True
-        #self.SitDeVieIndex = 0
-        #self.hasMDD = True
-        #self.MDDIndex = 0
-        #self.hasTechEff = True
-        #self.TechEffIndex = 0
         self.hasVariant = False
         self.VariantIndex = 0
+        self.VariantLastCol = 0
+        self.VariantLastRow = 0
         self.hasNotEmbDiag = False
         self.SitDeVieLastRow = 0
         self.SitDeVieLastCol = 0
@@ -123,7 +126,6 @@ class WorkbookProperties:
         self.TableLastCol = 0
         self.measureLastRow = 0
         self.measureLastCol = 0
-        self.DiagDebLastRow = 0
         self.MDDLastRow = 0
         self.MDDLastCol = 0
         self.codeLastRow = 0
