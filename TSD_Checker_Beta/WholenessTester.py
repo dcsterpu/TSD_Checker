@@ -1,6 +1,7 @@
 import TSD_Checker_V3_1
 import inspect
 from ExcelEdit import TestReturn as result
+import win32timezone
 from ErrorMessages import errorMessagesDict as error
 
 
@@ -1377,7 +1378,7 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
 
         for row in workSheetRange.Rows:
             for cel in row.Cells:
-                if "Liste de diffusion".casefold() in str(cel.Value).casefold().strip() or "Mailing list (the taking part)".casefold() in str(cel.Value).casefold().strip():
+                if str(cel.Value).casefold().strip() == "LISTE DE DIFFUSION (participant)".casefold() or str(cel.Value).casefold().strip() == "Mailing list (the taking part)".casefold():
                     refColIndex = cel.Column
                     refRowIndex = cel.Row
                     break
