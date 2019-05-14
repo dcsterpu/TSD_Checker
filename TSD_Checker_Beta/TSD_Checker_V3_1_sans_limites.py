@@ -17,7 +17,7 @@ import IndicatorTester
 
 
 appName = "TSD Checker V3.1"
-pBarIncrement = 100/198
+pBarIncrement = 100/164
 
 class Application(QWidget):
 
