@@ -1,4 +1,4 @@
-import TSD_Checker_V3_1
+import TSD_Checker_V3_1_sans_limites
 import time
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
@@ -71,7 +71,7 @@ def AddTestReportSheetHeader(workBook):
 def WriteReportInformationSheet(workBook, TSDApp):
     reportInformationWorkSheet = workBook.Sheets("Report information")
     colList = list()
-    colList.append(list(("Tool version:", TSD_Checker_V3_1.appName)))
+    colList.append(list(("Tool version:", TSD_Checker_V3_1_sans_limites.appName)))
     colList.append(list(("Criticity configuration file:", TSDApp.DOC9Name)))
     colList.append(list(("","")))
     colList.append(list(("Extract CESARE file:", TSDApp.DOC8Name)))

@@ -1,4 +1,4 @@
-import TSD_Checker_V3_1
+import TSD_Checker_V3_1_sans_limites
 import inspect
 
 

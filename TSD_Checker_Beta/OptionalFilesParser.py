@@ -1,4 +1,4 @@
-import TSD_Checker_V3_1
+import TSD_Checker_V3_1_sans_limites
 from lxml import etree, objectify
 
 def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
