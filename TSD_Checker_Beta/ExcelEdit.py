@@ -1,15 +1,31 @@
 import TSD_Checker_V3_1_sans_limites
 import time
+from PyQt5 import QtGui
+
+
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     testReportSheet = workBook.Sheets("Test report")
     lastRow = testReportSheet.UsedRange.Rows.Count + 1
 
     testReportSheet.Cells(lastRow, 1).Value = criticity
+    if criticity.casefold() == "blocking":
+        TSDApp.criticity_blocking += 1
+    else:
+        if criticity.casefold() == "warning":
+            TSDApp.citicity_warning += 1
+        else:
+            TSDApp.criticity_information += 1
+
     ColorCell(criticity, testReportSheet.Cells(lastRow, 1))
     tempString = str()
 
     testReportSheet.Cells(lastRow, 2).Value = testName
+    if localisation is not None:
+        localisation_len = len(localisation)
+        for index in range(1,localisation_len):
+            testReportSheet.Cells(lastRow + index, 2).Value = testName
 
     if localisation is None:
         testReportSheet.Cells(lastRow, 3).Value = "OK"
@@ -27,6 +43,7 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     textBoxText = TSDApp.tab1.textbox.toPlainText()
     textBoxText = textBoxText + "\n" + testName + " " + tempString
     TSDApp.tab1.textbox.setText(textBoxText)
+    TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
 
     TSDApp.IncrementProgressBar()
 
@@ -63,8 +80,11 @@ def AddTestReportSheetHeader(workBook):
     testReportWorkSheet = workBook.Sheets("Test report")
     textList = ["Criticity", "Requirements", "Message", "Localisation"]
     testReportWorkSheet.Range("A1:D1").Value = textList
-    for column in testReportWorkSheet.Range("A1:D145").Columns:
-        column.AutoFit()
+    testReportWorkSheet.Columns("A").ColumnWidth = 12
+    testReportWorkSheet.Columns("B").ColumnWidth = 35
+    testReportWorkSheet.Columns("C").ColumnWidth = 150
+    testReportWorkSheet.Columns("D").ColumnWidth = 12
+
 
     #testReportWorkSheet.Range("A1:D1").Font.Bold = True
 
@@ -92,9 +112,9 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Coverage Indicator:", str(TSDApp.coverage)[0:4] + "%")))
     colList.append(list(("Convergence Indicator:", str(TSDApp.convergence)[0:4] + "%")))
     colList.append(list(("", "")))
-    colList.append(list(("Blocking Points", "")))
-    colList.append(list(("Warning Points", "")))
-    colList.append(list(("Information Points", "")))
+    colList.append(list(("Blocking Points", str(TSDApp.criticity_blocking))))
+    colList.append(list(("Warning Points", str(TSDApp.citicity_warning))))
+    colList.append(list(("Information Points", str(TSDApp.citicity_information))))
     reportInformationWorkSheet.Range("A1:B24").Value = colList
     for column in reportInformationWorkSheet.Range("A1:B24").Columns:
         column.AutoFit()

@@ -53,6 +53,10 @@ class Application(QWidget):
         self.fileFolder = "C:/Users/" + self.username + "/AppData/Local/Temp/TSD_Checker/"
         self.pBarValue = 0
 
+        self.criticity_blocking = 0
+        self.criticity_warning = 0
+        self.criticity_information = 0
+
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
             self.DOC8Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
@@ -158,8 +162,7 @@ class Application(QWidget):
         tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
 
-        sb = tab.textbox.verticalScrollBar()
-        sb.setValue(sb.maximum())
+
 
         # create a progress bar
         tab.pbar = QProgressBar(self.tab1)
@@ -378,7 +381,7 @@ class Application(QWidget):
 
 
         # File Selectiom Dialog5
-        tab.lbl6 = QLabel("Famille/Sous-Famille list export(CESARE):", tab)
+        tab.lbl6 = QLabel("Family list export(CESARE):", tab)
         tab.lbl6.move(5, 145)
         tab.myTextBox7 = QtWidgets.QTextEdit(tab)
         tab.myTextBox7.resize(460, 25)
@@ -788,7 +791,7 @@ class Test(Application):
         # Wholeness
             if ok == 0 or ok == 1:
                 FileMeasure.DOC3Info2(self.DOC3Workbook, self)
-
+        #
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1
@@ -1602,6 +1605,8 @@ class Test(Application):
             check_indicator = False
             ok_indicator = 0
             ok = 0
+
+            self.DOC4Workbook.Save()
 
             FileMeasure.DOC4Info1(self.DOC4Workbook, self)
 
