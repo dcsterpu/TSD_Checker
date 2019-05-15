@@ -26,7 +26,7 @@ class Application(QWidget):
         self.left = 200
         self.top = 200
         self.width = 900
-        self.height = 550
+        self.height = 600
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
@@ -136,7 +136,7 @@ class Application(QWidget):
         tab.message = ""
         tab.textbox_coverage = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage.setText(tab.message)
-        tab.textbox_coverage.move(110, 450)
+        tab.textbox_coverage.move(140, 450)
         tab.textbox_coverage.resize(70, 20)
         tab.textbox_coverage.setReadOnly(True)
 
@@ -146,7 +146,7 @@ class Application(QWidget):
         tab.message = ""
         tab.textbox_convergence = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence.setText(tab.message)
-        tab.textbox_convergence.move(430, 450)
+        tab.textbox_convergence.move(460, 450)
         tab.textbox_convergence.resize(70, 20)
         tab.textbox_convergence.setReadOnly(True)
 
@@ -244,7 +244,7 @@ class Application(QWidget):
 
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project Names")
-        tab.importNames.resize(120, 20.4)
+        tab.importNames.resize(160, 20.4)
         tab.importNames.move(585, 260)
 
         # File Selectiom Dialog1
@@ -364,7 +364,7 @@ class Application(QWidget):
         tab.lblUser.move(165,25)
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200,25)
-        tab.TextBoxUser.move(200, 20)
+        tab.TextBoxUser.move(220, 20)
         tab.TextBoxUser.setText("E518720")
 
 
@@ -372,7 +372,7 @@ class Application(QWidget):
         tab.lblPass.move(450,25)
         tab.TextBoxPass = QtWidgets.QLineEdit(tab)
         tab.TextBoxPass.resize(180,25)
-        tab.TextBoxPass.move(520, 20)
+        tab.TextBoxPass.move(550, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
         tab.TextBoxPass.setText("Cst67677")
 
@@ -382,16 +382,16 @@ class Application(QWidget):
         tab.lbl6.move(5, 145)
         tab.myTextBox7 = QtWidgets.QTextEdit(tab)
         tab.myTextBox7.resize(460, 25)
-        tab.myTextBox7.move(200, 140)
+        tab.myTextBox7.move(210, 140)
         tab.myTextBox7.setReadOnly(True)
 
         tab.link2 = QLabel('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''', tab)
         tab.link2.setOpenExternalLinks(True)
-        tab.link2.move(720, 145)
+        tab.link2.move(220, 167)
 
 
         tab.button7 = QPushButton('...', tab)
-        tab.button7.move(660, 140)
+        tab.button7.move(670, 141)
         tab.button7.resize(45, 22)
         tab.button7.clicked.connect(self.openFileNameDialog7)
 
@@ -399,58 +399,56 @@ class Application(QWidget):
 
         # File Selectiom Dialog4
         tab.lbl5 = QLabel("Criticity configuration file:", tab)
-        tab.lbl5.move(5,185)
+        tab.lbl5.move(5,215)
         tab.myTextBox8 = QtWidgets.QTextEdit(tab)
         tab.myTextBox8.resize(460, 25)
-        tab.myTextBox8.move(200, 180)
+        tab.myTextBox8.move(210, 210)
         tab.myTextBox8.setReadOnly(True)
 
         tab.link1 = QLabel('''<a href='''+self.DOC9Link+'''>DocInfo Reference: 02043_18_05474</a>''', tab)
         tab.link1.setOpenExternalLinks(True)
-        tab.link1.move(720, 185)
+        tab.link1.move(220, 237)
 
         tab.button8 = QPushButton('...', tab)
         tab.button8.clicked.connect(self.openFileNameDialog8)
-        tab.button8.move(660, 180)
+        tab.button8.move(670, 211)
         tab.button8.resize(45, 22)
 
 
 
         # File Selectiom Dialog6
         tab.lbl7 = QLabel("Customer effect file:", tab)
-        tab.lbl7.move(5, 225)
+        tab.lbl7.move(5, 275)
         tab.myTextBox9 = QtWidgets.QTextEdit(tab)
         tab.myTextBox9.resize(460, 25)
-        tab.myTextBox9.move(200, 220)
+        tab.myTextBox9.move(210, 270)
         tab.myTextBox9.setReadOnly(True)
 
         tab.link3 = QLabel('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''', tab)
         tab.link3.setOpenExternalLinks(True)
-        tab.link3.move(720, 225)
-
-
+        tab.link3.move(220, 297)
 
         tab.button9 = QPushButton('...', tab)
         tab.button9.clicked.connect(self.openFileNameDialog9)
-        tab.button9.move(660, 220)
+        tab.button9.move(670, 271)
         tab.button9.resize(45, 22)
 
         # File Selectiom Dialog9
         tab.lbl10 = QLabel("Diversity management file:", tab)
-        tab.lbl10.move(5, 265)
+        tab.lbl10.move(5, 335)
         tab.myTextBox10 = QtWidgets.QTextEdit(tab)
         tab.myTextBox10.resize(460, 25)
-        tab.myTextBox10.move(200,260)
+        tab.myTextBox10.move(210,330)
         tab.myTextBox10.setReadOnly(True)
 
         tab.link4 = QLabel('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''', tab)
         tab.link4.setOpenExternalLinks(True)
-        tab.link4.move(720, 265)
+        tab.link4.move(220, 357)
 
 
         tab.button10 = QPushButton('...', tab)
         tab.button10.clicked.connect(self.openFileNameDialog10)
-        tab.button10.move(660, 260)
+        tab.button10.move(670, 331)
         tab.button10.resize(45, 22)
 
         tab.labelInternetAndIntranet = QLabel("Network Type:", tab)
@@ -462,8 +460,8 @@ class Application(QWidget):
         tab.RadioButtonIntranet.setText("Intranet link")
         tab.RadioButtonInternet.toggled.connect(self.ToggleLink)
         tab.RadioButtonIntranet.toggled.connect(self.ToggleLink)
-        tab.RadioButtonInternet.move(210, 58)
-        tab.RadioButtonIntranet.move(210, 90)
+        tab.RadioButtonInternet.move(230, 58)
+        tab.RadioButtonIntranet.move(230, 90)
 
     def download_file(self, url):
         user = self.tab2.TextBoxUser.text()
