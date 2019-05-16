@@ -791,7 +791,7 @@ class Test(Application):
         # Wholeness
             if ok == 0 or ok == 1:
                 FileMeasure.DOC3Info2(self.DOC3Workbook, self)
-        #
+
                 check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
                 if check_indicator == True:
                     ok_indicator = 1

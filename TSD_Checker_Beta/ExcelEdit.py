@@ -14,7 +14,7 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
         TSDApp.criticity_blocking += 1
     else:
         if criticity.casefold() == "warning":
-            TSDApp.citicity_warning += 1
+            TSDApp.criticity_warning += 1
         else:
             TSDApp.criticity_information += 1
 
@@ -113,8 +113,8 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Convergence Indicator:", str(TSDApp.convergence)[0:4] + "%")))
     colList.append(list(("", "")))
     colList.append(list(("Blocking Points", str(TSDApp.criticity_blocking))))
-    colList.append(list(("Warning Points", str(TSDApp.citicity_warning))))
-    colList.append(list(("Information Points", str(TSDApp.citicity_information))))
+    colList.append(list(("Warning Points", str(TSDApp.criticity_warning))))
+    colList.append(list(("Information Points", str(TSDApp.criticity_information))))
     reportInformationWorkSheet.Range("A1:B24").Value = colList
     for column in reportInformationWorkSheet.Range("A1:B24").Columns:
         column.AutoFit()
