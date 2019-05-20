@@ -20,7 +20,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -41,11 +41,14 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
             list_table = list()
             list_measure = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == "N/A" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
-                    list_table.append(workSheet.Cells(index, refColIndex).Value)
+                    dict = {}
+                    dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict)
 
             if TSDApp.WorkbookStats.hasMeasure == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -57,7 +60,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                 measureColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
                         if str(workSheet.Cells(index1,index2).Value).casefold().strip() == "libellé (signification)".casefold():
                             measureColIndex = index2
                             measureRowIndex = index1
@@ -70,7 +73,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                 nrCols = measureCellRange.Columns.Count
                 localisation = list()
 
-                for index in range(measureRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
+                for index in range(measureRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow + 1):
                     if workSheet.Cells(index, measureColIndex).Value == None:
                         pass
                     else:
@@ -78,15 +81,19 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 
             for element in list_table:
                 if element in list_measure:
-                    localisation = None
+                    pass
                 else:
-                    localisation = ""
-                    check = True
-                    break
-            if list_table == "[]":
+                    localisation.append(element["localisation"])
+
+            if not localisation:
                 localisation = None
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+            if localisation is None:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook,TSDApp)
+                check = True
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+
     return check
 
 def is_ascii(s):
@@ -106,7 +113,7 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
         refColIndex = 0
         refRowIndex = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -123,27 +130,30 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
             localisation = []
             contor = 0
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
-                try:
-                    cel = workSheet.Cells(index, refColIndex).Value.split("-")
-                    if len(cel) == 2:
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    pass
+                else:
+                    try:
+                        cel = workSheet.Cells(index, refColIndex).Value.split("-")
+                        if len(cel) == 2:
 
-                        check1 = False
-                        if len(cel[1]) == 4:
-                            check1 = True
+                            check1 = False
+                            if len(cel[1]) == 4:
+                                check1 = True
 
-                        check2 = True
-                        mystring = cel[0]
-                        for char in mystring:
-                            if not (is_ascii(char)):
-                                check2 = False
-                                break
-                        if check1 == True and check2 == True:
-                            contor = contor + 1
-                    else:
+                            check2 = True
+                            mystring = cel[0]
+                            for char in mystring:
+                                if not (is_ascii(char)):
+                                    check2 = False
+                                    break
+                            if check1 == True and check2 == True:
+                                contor = contor + 1
+                        else:
+                            localisation.append(workSheet.Cells(index, refColIndex))
+                    except:
                         localisation.append(workSheet.Cells(index, refColIndex))
-                except:
-                    localisation.append(workSheet.Cells(index, refColIndex))
             if not localisation:
                 localisation = None
             if contor == TSDApp.WorkbookStats.tableLastRow - refRowIndex - 1:
@@ -168,7 +178,7 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -184,7 +194,7 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
 
             localisation = []
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if cel[0] not in DOC8List:
@@ -214,7 +224,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
         codeRowIndex = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -230,7 +240,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
 
             localisation = []
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if len(cel) == 2:
@@ -269,7 +279,7 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -286,7 +296,7 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
             localisation = []
             contor = 0
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if cel[0] not in DOC8List:
@@ -377,7 +387,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -396,7 +406,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
             nrCols = refCellRange.Columns.Count
             localisation = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == "NO DTC" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -413,7 +423,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 codeColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                             codeColIndex = index2
                             codeRowIndex = index1
@@ -427,22 +437,25 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 localisation = list()
 
 
-                for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+                for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                     if workSheet.Cells(index, codeColIndex).Value == None:
                         pass
                     else:
-                        list_code.append(workSheet.Cells(index, codeColIndex).Value)
+                        list_code.append(workSheet.Cells(index, codeColIndex).Value.strip())
+
+
 
             for element in tempList:
                 if ',' in element["value"]:
                     elem = element["value"].split(",")
-                    if elem[0] in list_code and elem[1] in list_code:
-                        pass
-                    else:
-                        localisation.append(element["localisation"])
-                        check = True
+                    for i in elem:
+                        if i.strip() in list_code:
+                            pass
+                        else:
+                            localisation.append(element["localisation"])
+                            check = True
                 else:
-                    if element["value"] in list_code:
+                    if element["value"].strip() in list_code or element["value"] in list_code:
                         pass
                     else:
                         localisation.append(element["localisation"])
@@ -467,7 +480,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Constituant défaillant détecté".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -489,7 +502,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
             list_constituants = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -505,7 +518,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 constituantsColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                             constituantsColIndex = index2
                             constituantsRowIndex = index1
@@ -517,7 +530,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 nrLines = constituantsCellRange.Rows.Count
                 localisation = list()
 
-                for index in range(constituantsRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
+                for index in range(constituantsRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow + 1):
                     if workSheet.Cells(index, constituantsColIndex).Value == None:
                         pass
                     else:
@@ -549,7 +562,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Effet(s) client(s)".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -573,7 +586,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
             tempList = list()
 
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -592,7 +605,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                 effColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -618,14 +631,15 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                         TSDApp.WorkbookStats.effLastRow = row.Row
                         break
 
-                for index in range(effRowIndex + nrLines, nrRows):
+
+                for index in range(effRowIndex + nrLines, nrRows + 1):
                     if workSheet.Cells(index, effColIndex).Value == None:
                         pass
                     else:
-                        list_eff.append(workSheet.Cells(index, effColIndex).Value)
+                        list_eff.append(workSheet.Cells(index, effColIndex).Value.strip())
 
             for element in tempList:
-                if element["value"] in list_eff:
+                if element["value"].strip() in list_eff:
                     pass
                 else:
                     localisation.append(element["localisation"])
@@ -650,7 +664,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
         refColIndex = 0
         var = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -673,7 +687,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
             list_diag = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == "N/A" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -690,7 +704,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 diagColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "libellé (signification)".casefold():
                             diagColIndex = index2
                             diagRowIndex = index1
@@ -703,7 +717,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 nrCols = diagCellRange.Columns.Count
                 localisation = list()
 
-                for index in range(diagRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
+                for index in range(diagRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow + 1):
                     if workSheet.Cells(index, diagColIndex).Value == None:
                         pass
                     else:
@@ -735,7 +749,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
         refColIndex = 0
         var = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Evenement(s) redouté(s) (ER)".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -757,7 +771,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
             list_ER = list()
             tempList = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == "No DTC" or workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -774,7 +788,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 ERColIndex = 0
                 var = 0
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.ERLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.ERLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "nom".casefold():
                             ERColIndex = index2
                             ERRowIndex = index1
@@ -785,7 +799,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 ERCellRange = workSheet.Cells(ERRowIndex, ERColIndex).MergeArea
                 nrLines = ERCellRange.Rows.Count
                 localisation = list()
-                for index in range(ERRowIndex + nrLines, TSDApp.WorkbookStats.ERLastRow):
+                for index in range(ERRowIndex + nrLines, TSDApp.WorkbookStats.ERLastRow + 1):
                     if workSheet.Cells(index, ERColIndex).Value == None:
                         pass
                     else:
@@ -817,7 +831,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         effColIndex = 0
         var = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                     effColIndex = index2
                     effRowIndex = index1
@@ -838,7 +852,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             list_eff = list()
             list_ref = list()
 
-            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow):
+            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow + 1):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
@@ -1063,7 +1077,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                     effColIndex = index2
                     effRowIndex = index1
@@ -1238,7 +1252,7 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -1253,7 +1267,7 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
             nrLines = refCellRange.Rows.Count
 
             localisation = []
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 cel = workSheet.Cells(index, codeColIndex).Value
                 if cel not in DOC8List:
                     localisation.append(workSheet.Cells(index, codeColIndex))
@@ -1282,7 +1296,7 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
         var = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     ColIndex = index2
                     RowIndex = index1
@@ -1299,10 +1313,13 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
             localisation = []
             contor = 0
 
-            for index in range(RowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
+            for index in range(RowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow + 1):
                 cel = workSheet.Cells(index, ColIndex).Value
-                if cel not in DOC8List:
-                    localisation.append(workSheet.Cells(index, ColIndex))
+                if cel is None:
+                    pass
+                else:
+                    if cel not in DOC8List:
+                        localisation.append(workSheet.Cells(index, ColIndex))
 
             if not localisation:
                 localisation = None
@@ -1338,7 +1355,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
             localisation = list()
             flag = False
 
-            for index in range(TSDApp.WorkbookStats.ReqTechRefRowIndex + nrLines, TSDApp.WorkbookStats.ReqTechLastRow):
+            for index in range(TSDApp.WorkbookStats.ReqTechRefRowIndex + nrLines, TSDApp.WorkbookStats.ReqTechLastRow + 1):
                 if workSheet.Cells(index, TSDApp.WorkbookStats.ReqTechRefColIndex).Value == None:
                     pass
                 else:
@@ -1397,7 +1414,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Référence".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Reference".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1501,7 +1518,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "code défauts induits".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1521,7 +1538,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list_table_dict = {}
                 list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
                 list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
@@ -1537,7 +1554,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -1552,7 +1569,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                     nrCols = effCellRange.Columns.Count
 
 
-                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1589,7 +1606,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1609,7 +1626,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1626,7 +1643,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -1639,7 +1656,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
 
-                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1677,7 +1694,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "supporté par constituant (s)".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1697,7 +1714,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.measureLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1714,7 +1731,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -1728,7 +1745,7 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
 
-                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.constituantsLastRow + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1769,7 +1786,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.DataCodesLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.DataCodesLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Stored by the ECU".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1789,7 +1806,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, nrRows + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1807,7 +1824,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -1836,7 +1853,7 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
                             break
 
 
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, nrRows + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1876,7 +1893,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Stored by the ECU".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1896,7 +1913,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, nrRows):
+            for index in range(refRowIndex + nrLines, nrRows + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -1913,7 +1930,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.constituantsLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -1942,7 +1959,7 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
                             break
 
 
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, nrRows + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -1979,7 +1996,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "situation de vie".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -1999,7 +2016,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2016,7 +2033,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Situations de vie".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -2030,7 +2047,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
 
-                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.SitDeVieLastRow):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.SitDeVieLastRow + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -2068,7 +2085,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Situation".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -2088,7 +2105,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
                     pass
                 else:
@@ -2106,7 +2123,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.SitDeVieLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Description".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -2135,7 +2152,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                             break
 
 
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, nrRows + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -2172,7 +2189,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diagnostic debarque".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -2192,11 +2209,14 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list_table_dict = {}
-                list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
-                list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
-                list_table.append(dict(list_table_dict))
+                if workSheet.Cells(index, refColIndex).Value is None:
+                    pass
+                else:
+                    list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
+                    list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
+                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasDiagDeb == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2206,7 +2226,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                 effColIndex = 0
 
                 for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol):
+                    for index2 in range(1, TSDApp.WorkbookStats.DiagDebLastCol + 1):
                         if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "libellé (signification)".casefold():
                             effColIndex = index2
                             effRowIndex = index1
@@ -2220,7 +2240,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                     nrLines = effCellRange.Rows.Count
                     nrCols = effCellRange.Columns.Count
 
-                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow):
+                    for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.DiagDebLastRow + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -2258,7 +2278,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
         localisation = list()
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Non-embedded diagnosis".casefold():
                     refColIndex = index2
                     refRowIndex = index1
@@ -2278,7 +2298,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list_table_dict = {}
                 list_table_dict["value"] = workSheet.Cells(index, refColIndex).Value
                 list_table_dict["localisation"] = workSheet.Cells(index, refColIndex)
@@ -2314,7 +2334,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                     workSheetRange = workSheet.Range(firstCell, lastCell)
                     flag = False
 
-                    for index in range(effRowIndex + nrLines, nrRows):
+                    for index in range(effRowIndex + nrLines, nrRows + 1):
                         if workSheet.Cells(index, effColIndex).Value == None:
                             pass
                         else:
@@ -2353,7 +2373,7 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
         codeRowIndex = 0
         var = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -2368,7 +2388,7 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
             nrLines = refCellRange.Rows.Count
             localisation = []
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
                     if cel[0] == subfamily_name and cel[1].lstrip('_') in DOC15List:
@@ -2400,7 +2420,7 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
         codeColIndex = 0
         codeRowIndex = 0
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variante/\noption".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -2417,7 +2437,7 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
             localisation = []
             contor = 0
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
                 cel = []
                 try:
@@ -2525,7 +2545,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
         codeRowIndex = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diversity".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -2542,7 +2562,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
             localisation = []
             contor = 0
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list2 = ['AND', 'OR', "NOT", "N/A",""]
                 cel = []
                 try:
@@ -2650,7 +2670,7 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
         codeRowIndex = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Variante/\noption".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -2667,7 +2687,7 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
             localisation = []
             contor = 0
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
                 cel = []
                 try:
@@ -2774,7 +2794,7 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
         codeRowIndex = 0
 
         for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Diversity".casefold():
                     codeColIndex = index2
                     codeRowIndex = index1
@@ -2791,7 +2811,7 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
             localisation = []
             contor = 0
 
-            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 list2 = ['AND', 'OR', "NOT", "N/A"]
                 try:
                     cel = cel.replace(",", "").replace(";", "")

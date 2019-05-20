@@ -1,6 +1,7 @@
 import TSD_Checker_V3_1_sans_limites
 import inspect
 from ExcelEdit import TestReturn as result
+from ExcelEdit import TestReturnName as show
 from ErrorMessages import errorMessagesDict as error
 
 class WorkbookProperties:
@@ -600,7 +601,7 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
                 dict['4'] = row
                 list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -608,12 +609,12 @@ def Test_02043_18_04939_STRUCT_0110(ExcelApp, workBook, TSDApp, DOC3Name):
                     if elem1['2'] == elem2['2']:
                         found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0120(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -657,7 +658,7 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -665,12 +666,12 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -714,7 +715,7 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -722,12 +723,12 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0160(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -771,7 +772,7 @@ def Test_02043_18_04939_STRUCT_0170(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -779,12 +780,12 @@ def Test_02043_18_04939_STRUCT_0170(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0180(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -828,7 +829,7 @@ def Test_02043_18_04939_STRUCT_0190(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -836,12 +837,12 @@ def Test_02043_18_04939_STRUCT_0190(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0200(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -892,7 +893,7 @@ def Test_02043_18_04939_STRUCT_0210(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -900,12 +901,12 @@ def Test_02043_18_04939_STRUCT_0210(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0220(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -955,7 +956,7 @@ def Test_02043_18_04939_STRUCT_0230(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -963,12 +964,12 @@ def Test_02043_18_04939_STRUCT_0230(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0240(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1020,7 +1021,7 @@ def Test_02043_18_04939_STRUCT_0250(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1028,12 +1029,12 @@ def Test_02043_18_04939_STRUCT_0250(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0260(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1077,7 +1078,7 @@ def Test_02043_18_04939_STRUCT_0270(ExcelApp, workBook, TSDApp, DOC3Name):
             dict['4'] = 2
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -1085,12 +1086,12 @@ def Test_02043_18_04939_STRUCT_0270(ExcelApp, workBook, TSDApp, DOC3Name):
                 if elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 
 #DOC4
@@ -1146,7 +1147,7 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['5'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1154,12 +1155,12 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
                     if elem1['1'] == elem2['1'] and elem1['2'] == elem2['2'] and elem1['3'] == elem2['3']:
                         found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['5'], elem1['4']))
+                name.append(workSheetRef.Cells(elem1['5'], elem1['4']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0420(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1211,7 +1212,7 @@ def Test_02043_18_04939_STRUCT_0430(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1219,12 +1220,12 @@ def Test_02043_18_04939_STRUCT_0430(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1'] :
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0440(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1270,7 +1271,7 @@ def Test_02043_18_04939_STRUCT_0450(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1278,12 +1279,12 @@ def Test_02043_18_04939_STRUCT_0450(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0460(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1340,7 +1341,7 @@ def Test_02043_18_04939_STRUCT_0470(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1348,12 +1349,12 @@ def Test_02043_18_04939_STRUCT_0470(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0480(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1411,7 +1412,7 @@ def Test_02043_18_04939_STRUCT_0490(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1419,12 +1420,12 @@ def Test_02043_18_04939_STRUCT_0490(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0500(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1477,7 +1478,7 @@ def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1485,12 +1486,12 @@ def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0520(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1536,7 +1537,7 @@ def Test_02043_18_04939_STRUCT_0530(ExcelApp, workBook, TSDApp, DOC4Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1544,12 +1545,12 @@ def Test_02043_18_04939_STRUCT_0530(ExcelApp, workBook, TSDApp, DOC4Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 
 #DOC5
@@ -1605,7 +1606,7 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
                 dict['4'] = row
                 list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -1613,12 +1614,12 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1'] and elem1['2'] == elem2['2']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['4'], elem1['3']))
+                name.append(workSheetRef.Cells(elem1['4'], elem1['3']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0720(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1672,7 +1673,7 @@ def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = 1
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -1680,12 +1681,12 @@ def Test_02043_18_04939_STRUCT_0730(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0740(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1740,7 +1741,7 @@ def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = 1
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -1748,12 +1749,12 @@ def Test_02043_18_04939_STRUCT_0750(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0760(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1808,7 +1809,7 @@ def Test_02043_18_04939_STRUCT_0770(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = []
+        name = []
 
         for elem1 in list_ref:
             found = False
@@ -1816,12 +1817,12 @@ def Test_02043_18_04939_STRUCT_0770(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0780(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1869,7 +1870,7 @@ def Test_02043_18_04939_STRUCT_0790(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1877,12 +1878,12 @@ def Test_02043_18_04939_STRUCT_0790(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0800(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -1941,7 +1942,7 @@ def Test_02043_18_04939_STRUCT_0810(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -1949,12 +1950,12 @@ def Test_02043_18_04939_STRUCT_0810(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0820(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -2013,7 +2014,7 @@ def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -2021,12 +2022,12 @@ def Test_02043_18_04939_STRUCT_0830(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0840(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -2085,7 +2086,7 @@ def Test_02043_18_04939_STRUCT_0850(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -2093,12 +2094,12 @@ def Test_02043_18_04939_STRUCT_0850(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0860(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -2147,7 +2148,7 @@ def Test_02043_18_04939_STRUCT_0870(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -2155,12 +2156,12 @@ def Test_02043_18_04939_STRUCT_0870(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0880(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -2219,7 +2220,7 @@ def Test_02043_18_04939_STRUCT_0890(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -2227,12 +2228,12 @@ def Test_02043_18_04939_STRUCT_0890(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0900(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -2291,7 +2292,7 @@ def Test_02043_18_04939_STRUCT_0910(ExcelApp, workBook, TSDApp, DOC5Name):
             dict['3'] = row
             list_ref.append(dict)
 
-        localisation = list()
+        name = list()
 
         for elem1 in list_ref:
             found = False
@@ -2299,9 +2300,9 @@ def Test_02043_18_04939_STRUCT_0910(ExcelApp, workBook, TSDApp, DOC5Name):
                 if elem1['1'] == elem2['1']:
                     found = True
             if not found:
-                localisation.append(workSheet.Cells(elem1['3'], elem1['2']))
+                name.append(workSheetRef.Cells(elem1['3'], elem1['2']).Value)
 
-        if not localisation:
-            localisation = None
+        if not name:
+            name = None
 
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)

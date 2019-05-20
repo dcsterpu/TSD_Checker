@@ -373,13 +373,13 @@ def getListeMDDInfo(workBook, TSDApp):
                     ExitFromFct = 1
                     break
                 if ok == 0:
-                    if str(cell.Value).casefold().strip() == "Modes dégradés:".casefold() or str(cell.Value).casefold().strip() == "N°".casefold():
+                    if  str(cell.Value).casefold().strip() == "N°".casefold():
                         TSDApp.WorkbookStats.MDDRefColIndex = cell.Column
                         TSDApp.WorkbookStats.MDDRefRowIndex = cell.Row
                         indexCol = 1
                         col_range = 1
                     if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                        if cell.Borders(8).LineStyle != -4142:
                             indexCol += 1
                             pass
                         else:
