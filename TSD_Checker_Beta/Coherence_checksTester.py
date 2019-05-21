@@ -856,12 +856,15 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
-                    list_eff.append(workSheet.Cells(index, effColIndex).Value)
+                    dict = {}
+                    dict["value"] = workSheet.Cells(index, effColIndex).Value
+                    dict["localisation"] = workSheet.Cells(index, effColIndex)
+                    list_eff.append(dict)
 
             DOC7 = ExcelApp.Workbooks.Open(DOC7Name)
-            try:
+            if workBook.Sheets("Effets clients"):
                 workSheetRef = DOC7.Sheets("FR")
-            except:
+            elif workBook.Sheets("Customer Effects") or workBook.Sheets("Customer Effect"):
                 workSheetRef = DOC7.Sheets("GB")
 
             workSheetRange = workSheetRef.UsedRange
@@ -909,13 +912,13 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N1ColIndex).Value)
-            elif N2RowIndex != 0:
+            if N2RowIndex != 0:
                 for index in range(N2RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N2ColIndex).Value == None:
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N2ColIndex).Value)
-            else:
+            if N3RowIndex != 0:
                 for index in range(N3RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N3ColIndex).Value == None:
                         pass
@@ -923,33 +926,39 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         list_ref.append(workSheetRef.Cells(index, N3ColIndex).Value)
 
             for element in list_eff:
-                if element in list_ref:
-                    localisation = None
+                if element["value"] in list_ref:
                     pass
                 else:
-                    localisation = ""
+                    localisation.append(element["localisation"])
                     check = True
-                    break
 
+            if not localisation:
+                localisation = None
+
+        if localisation is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasCustEff == False:
+    if TSDApp.WorkbookStats.hasEffClients == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.CustEffIndex)
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
+        nrRows = workSheet.Rows
         effColIndex = 0
         var = 0
-        for cellRow in workSheet.Rows:
-            for cell in cellRow.Cells:
-                if str(cell.Value).casefold() == "Name":
-                    effColIndex = cellRow.index(cell) + 1
-                    effRowIndex = workSheet.Value.index(cellRow) + 1
+        for index1 in range(1, 15):
+            for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Name".casefold():
+                    effColIndex = index2
+                    effRowIndex = index1
                     break
             if effColIndex != 0:
                 break
@@ -963,33 +972,23 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
             localisation = list()
-            firstCell = workSheet.Cells(effRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheet.Rows.Count, nrCols)
-            workSheetRange = workSheet.Range(firstCell, lastCell)
-            flag = False
+
             list_eff = list()
             list_ref = list()
 
-            for row in workSheetRange.Rows:
-                flag = False
-                for valueTuple in row.Value:
-                    for value in valueTuple:
-                        if value != None:
-                            flag = True
-                if flag == False:
-                    TSDApp.WorkbookStats.CustEffLastRow = row.Row
-                    break
-
-            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.CustEffLastRow):
+            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow + 1):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
-                    list_eff.append(workSheet.Cells(index, effColIndex).Value)
+                    dict = {}
+                    dict["value"] = workSheet.Cells(index, effColIndex).Value
+                    dict["localisation"] = workSheet.Cells(index, effColIndex)
+                    list_eff.append(dict)
 
             DOC7 = ExcelApp.Workbooks.Open(DOC7Name)
-            try:
+            if workBook.Sheets("Effets clients"):
                 workSheetRef = DOC7.Sheets("FR")
-            except:
+            elif workBook.Sheets("Customer Effects") or workBook.Sheets("Customer Effect"):
                 workSheetRef = DOC7.Sheets("GB")
 
             workSheetRange = workSheetRef.UsedRange
@@ -1026,7 +1025,6 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                 except:
                     refCellRange = workSheetRef.Cells(N3RowIndex, N3ColIndex).MergeArea
 
-
             nrLines = refCellRange.Rows.Count
             localisation = list()
             flag = False
@@ -1037,13 +1035,13 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N1ColIndex).Value)
-            elif N2RowIndex != 0:
+            if N2RowIndex != 0:
                 for index in range(N2RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N2ColIndex).Value == None:
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N2ColIndex).Value)
-            else:
+            if N3RowIndex != 0:
                 for index in range(N3RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N3ColIndex).Value == None:
                         pass
@@ -1051,16 +1049,22 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                         list_ref.append(workSheetRef.Cells(index, N3ColIndex).Value)
 
             for element in list_eff:
-                if element in list_ref:
-                    localisation = None
+                if element["value"] in list_ref:
                     pass
                 else:
-                    localisation = ""
+                    localisation.append(element["localisation"])
                     check = True
-                    break
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    return  check
+            if not localisation:
+                localisation = None
+
+        if localisation is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                   TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
 
 def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
@@ -1071,11 +1075,9 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
-        workSheetRange = workSheet.UsedRange
-        nrCols = workSheetRange.Columns.Count
+        nrRows = workSheet.Rows
         effColIndex = 0
         var = 0
-
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
                 if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Noms".casefold():
@@ -1094,33 +1096,23 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
             effCellRange = workSheet.Cells(effRowIndex, effColIndex).MergeArea
             nrLines = effCellRange.Rows.Count
             localisation = list()
-            firstCell = workSheet.Cells(effRowIndex + nrLines, 1)
-            lastCell = workSheet.Cells(workSheetRange.Rows.Count, nrCols)
-            workSheetRange = workSheet.Range(firstCell, lastCell)
-            flag = False
+
             list_eff = list()
             list_ref = list()
 
-            for row in workSheetRange.Rows:
-                flag = False
-                for valueTuple in row.Value:
-                    for value in valueTuple:
-                        if value != None:
-                            flag = True
-                if flag == False:
-                    TSDApp.WorkbookStats.effLastRow = row.Row
-                    break
-
-            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.effLastRow):
+            for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow + 1):
                 if workSheet.Cells(index, effColIndex).Value == None:
                     pass
                 else:
-                    list_eff.append(workSheet.Cells(index, effColIndex).Value)
+                    dict = {}
+                    dict["value"] = workSheet.Cells(index, effColIndex).Value
+                    dict["localisation"] = workSheet.Cells(index, effColIndex)
+                    list_eff.append(dict)
 
             DOC7 = ExcelApp.Workbooks.Open(DOC7Name)
-            try:
+            if workBook.Sheets("Effets clients"):
                 workSheetRef = DOC7.Sheets("FR")
-            except:
+            elif workBook.Sheets("Customer Effects") or workBook.Sheets("Customer Effect"):
                 workSheetRef = DOC7.Sheets("GB")
 
             workSheetRange = workSheetRef.UsedRange
@@ -1157,7 +1149,6 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                 except:
                     refCellRange = workSheetRef.Cells(N3RowIndex, N3ColIndex).MergeArea
 
-
             nrLines = refCellRange.Rows.Count
             localisation = list()
             flag = False
@@ -1168,13 +1159,13 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N1ColIndex).Value)
-            elif N2RowIndex != 0:
+            if N2RowIndex != 0:
                 for index in range(N2RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N2ColIndex).Value == None:
                         pass
                     else:
                         list_ref.append(workSheetRef.Cells(index, N2ColIndex).Value)
-            else:
+            if N3RowIndex != 0:
                 for index in range(N3RowIndex + nrLines, nrRows + 1):
                     if workSheetRef.Cells(index, N3ColIndex).Value == None:
                         pass
@@ -1182,15 +1173,21 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                         list_ref.append(workSheetRef.Cells(index, N3ColIndex).Value)
 
             for element in list_eff:
-                if element in list_ref:
-                    localisation = None
+                if element["value"] in list_ref:
                     pass
                 else:
-                    localisation = ""
+                    localisation.append(element["localisation"])
                     check = True
-                    break
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+            if not localisation:
+                localisation = None
+
+        if localisation is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                   TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2091(workBook, TSDApp):

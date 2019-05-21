@@ -578,6 +578,7 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
         refColIndex = 0
         var = 0
+        localisation = list()
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
@@ -595,20 +596,30 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             nrCols = refCellRange.Columns.Count
-            localisation = list()
             list_table = list()
 
-            for index in range(refColIndex, refColIndex + nrCols):
-                if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
-                    pass
-                else :
-                    localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
-                    check = True
-            if str(localisation) == "[]":
+            contor = 0
+            for index in range(refColIndex,TSDApp.WorkbookStats.codeLastCol + 1):
+                if workSheet.Cells(refRowIndex + 1, index).Borders(8).LineStyle != -4142 and workSheet.Cells(refRowIndex + 1, index).Value != None:
+                    contor = contor + 1
+
+            values = ["x", "X", "NA"]
+            if contor != 0:
+                for index1 in range(refColIndex, refColIndex + contor):
+                    for index2 in range(refRowIndex + 2, TSDApp.WorkbookStats.codeLastRow + 1):
+                        if workSheet.Cells(index2, index1).Value is None:
+                            localisation.append(workSheet.Cells(index2, index1))
+                        elif workSheet.Cells(index2, index1).Value.strip() in values:
+                            pass
+                        else:
+                            localisation.append(workSheet.Cells(index2, index1))
+
+            if not localisation:
                 localisation = None
 
+        if localisation is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return  check

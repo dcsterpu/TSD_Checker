@@ -1,6 +1,7 @@
 import TSD_Checker_V3_1_sans_limites
 from lxml import etree, objectify
 
+
 def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
 
     try:
@@ -111,118 +112,149 @@ def DOC15Parser(TSDApp ,DOC15Path):
     else:
         return None, None
 
-def DOC10Coherence():
-    dict10 = {}
-    dict10['02043_18_04939_WHOLENESS_1600'] = True
-    dict10['02043_18_04939_WHOLENESS_1601'] = True
-    dict10['02043_18_04939_WHOLENESS_1602'] = True
-    dict10['02043_18_04939_WHOLENESS_1603'] = True
-    dict10['02043_18_04939_WHOLENESS_1604'] = True
-    dict10['02043_18_04939_WHOLENESS_1605'] = True
-    dict10['02043_18_04939_WHOLENESS_1606'] = True
-    dict10['02043_18_04939_WHOLENESS_1607'] = True
-    dict10['02043_18_04939_WHOLENESS_1608'] = True
-    dict10['02043_18_04939_WHOLENESS_1609'] = True
-    dict10['02043_18_04939_WHOLENESS_1610'] = True
-    dict10['02043_18_04939_WHOLENESS_1611'] = False
-    dict10['02043_18_04939_WHOLENESS_1612'] = False
-    dict10['02043_18_04939_WHOLENESS_1613'] = True
-    dict10['02043_18_04939_WHOLENESS_1615'] = True
-    dict10['02043_18_04939_WHOLENESS_1616'] = True
-    dict10['02043_18_04939_WHOLENESS_1617'] = False
-    dict10['02043_18_04939_WHOLENESS_1618'] = True
-    dict10['02043_18_04939_WHOLENESS_1619'] = True
-    dict10['02043_18_04939_WHOLENESS_1620'] = True
-    dict10['02043_18_04939_WHOLENESS_1621'] = True
-    dict10['02043_18_04939_WHOLENESS_1622'] = False
-    dict10['02043_18_04939_WHOLENESS_1623'] = True
-    dict10['02043_18_04939_WHOLENESS_1624'] = False
-    dict10['02043_18_04939_WHOLENESS_1625'] = True
-    dict10['02043_18_04939_WHOLENESS_1626'] = False
-    dict10['02043_18_04939_WHOLENESS_1627'] = False
-    dict10['02043_18_04939_WHOLENESS_1628'] = False
-    dict10['02043_18_04939_WHOLENESS_1629'] = False
-    dict10['02043_18_04939_WHOLENESS_1630'] = False
-    dict10['02043_18_04939_WHOLENESS_1631'] = False
-    dict10['02043_18_04939_WHOLENESS_1632'] = False
-    dict10['02043_18_04939_WHOLENESS_1633'] = True
-    dict10['02043_18_04939_WHOLENESS_1650'] = True
-    dict10['02043_18_04939_WHOLENESS_1651'] = True
-    dict10['02043_18_04939_WHOLENESS_1652'] = True
-    dict10['02043_18_04939_WHOLENESS_1653'] = True
-    dict10['02043_18_04939_WHOLENESS_1654'] = True
-    dict10['02043_18_04939_WHOLENESS_1655'] = True
-    dict10['02043_18_04939_WHOLENESS_1656'] = True
-    dict10['02043_18_04939_WHOLENESS_1657'] = True
-    dict10['02043_18_04939_WHOLENESS_1658'] = True
-    dict10['02043_18_04939_WHOLENESS_1659'] = True
-    dict10['02043_18_04939_WHOLENESS_1660'] = True
-    dict10['02043_18_04939_WHOLENESS_1661'] = False
-    dict10['02043_18_04939_WHOLENESS_1662'] = False
-    dict10['02043_18_04939_WHOLENESS_1663'] = True
-    dict10['02043_18_04939_WHOLENESS_1664'] = True
-    dict10['02043_18_04939_WHOLENESS_1684'] = True
-    dict10['02043_18_04939_WHOLENESS_1685'] = True
-    dict10['02043_18_04939_WHOLENESS_1686'] = False
-    dict10['02043_18_04939_WHOLENESS_1687'] = False
-    dict10['02043_18_04939_WHOLENESS_1688'] = True
-    dict10['02043_18_04939_WHOLENESS_1689'] = True
-    dict10['02043_18_04939_WHOLENESS_1690'] = True
-    dict10['02043_18_04939_WHOLENESS_1691'] = True
-    dict10['02043_18_04939_WHOLENESS_1692'] = True
-    dict10['02043_18_04939_WHOLENESS_1693'] = False
-    dict10['02043_18_04939_WHOLENESS_1694'] = False
-    dict10['02043_18_04939_WHOLENESS_1700'] = True
-    dict10['02043_18_04939_WHOLENESS_1701'] = True
-    dict10['02043_18_04939_WHOLENESS_1702'] = True
-    dict10['02043_18_04939_WHOLENESS_1703'] = True
-    dict10['02043_18_04939_WHOLENESS_1704'] = True
-    dict10['02043_18_04939_WHOLENESS_1705'] = True
-    dict10['02043_18_04939_WHOLENESS_1706'] = True
-    dict10['02043_18_04939_WHOLENESS_1707'] = False
-    dict10['02043_18_04939_WHOLENESS_1708'] = True
-    dict10['02043_18_04939_WHOLENESS_1709'] = True
-    dict10['02043_18_04939_WHOLENESS_1710'] = True
-    dict10['02043_18_04939_WHOLENESS_1711'] = False
-    dict10['02043_18_04939_WHOLENESS_1712'] = False
-    dict10['02043_18_04939_WHOLENESS_1713'] = True
-    dict10['02043_18_04939_WHOLENESS_1714'] = True
-    dict10['02043_18_04939_WHOLENESS_1715'] = True
-    dict10['02043_18_04939_WHOLENESS_1716'] = True
-    dict10['02043_18_04939_WHOLENESS_1717'] = True
-    dict10['02043_18_04939_WHOLENESS_1718'] = False
-    dict10['02043_18_04939_WHOLENESS_1719'] = False
-    dict10['02043_18_04939_WHOLENESS_1720'] = True
-    dict10['02043_18_04939_WHOLENESS_1750'] = True
-    dict10['02043_18_04939_WHOLENESS_1751'] = True
-    dict10['02043_18_04939_WHOLENESS_1752'] = True
-    dict10['02043_18_04939_WHOLENESS_1753'] = True
-    dict10['02043_18_04939_WHOLENESS_1754'] = False
-    dict10['02043_18_04939_WHOLENESS_1755'] = False
-    dict10['02043_18_04939_WHOLENESS_1756'] = True
-    dict10['02043_18_04939_WHOLENESS_1757'] = True
-    dict10['02043_18_04939_WHOLENESS_1758'] = False
-    dict10['02043_18_04939_WHOLENESS_1759'] = False
-    dict10['02043_18_04939_WHOLENESS_1800'] = True
-    dict10['02043_18_04939_WHOLENESS_1801'] = True
-    dict10['02043_18_04939_WHOLENESS_1802'] = True
-    dict10['02043_18_04939_WHOLENESS_1803'] = False
-    dict10['02043_18_04939_WHOLENESS_1810'] = True
-    dict10['02043_18_04939_WHOLENESS_1811'] = True
-    dict10['02043_18_04939_WHOLENESS_1812'] = True
-    dict10['02043_18_04939_WHOLENESS_1813'] = True
-    dict10['02043_18_04939_WHOLENESS_1814'] = False
-    dict10['02043_18_04939_WHOLENESS_1815'] = False
-    dict10['02043_18_04939_WHOLENESS_1820'] = True
-    dict10['02043_18_04939_WHOLENESS_1821'] = True
-    dict10['02043_18_04939_WHOLENESS_1822'] = False
-    dict10['02043_18_04939_WHOLENESS_1823'] = False
-    dict10['02043_18_04939_WHOLENESS_1824'] = True
-    dict10['02043_18_04939_WHOLENESS_1825'] = False
-    dict10['02043_18_04939_WHOLENESS_1830'] = True
-    dict10['02043_18_04939_WHOLENESS_1831'] = False
-    dict10['02043_18_04939_WHOLENESS_1840'] = True
-    dict10['02043_18_04939_WHOLENESS_1841'] = False
+def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
+    DOC10 = ExcelApp.Workbooks.Open(DOC10Path)
+    sheets =  DOC10.Sheets
+    sheetNames = list()
+    for sheet in sheets:
+        sheetNames.append(sheet.Name.strip().casefold())
+    names = ["tableau", "codes défauts", "mesures et commandes", "Diagnostic débarqués", "Effets clients", "ER", "Constituants", "situations de vie", "Liste MDD"]
+    dict10 = []
+
+    if "tableau" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("tableau") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        x = workSheet.Cells(row,32).Value
+        for index in range(col + 1, TSDApp.WorkbookStats.tableLastCol + 1):
+            dictionary = {}
+            if workSheet.Cells(row, index).Value is not None:
+                dictionary["name"] = workSheet.Cells(row, index).Value
+                dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                if dictionary["value"] == "Oui":
+                    dictionary["value"] = True
+                else:
+                    dictionary["value"] = False
+                dict10.append(dictionary)
+    print("da")
+
+
+    # dict10 = {}
+    # dict10['02043_18_04939_WHOLENESS_1600'] = True
+    # dict10['02043_18_04939_WHOLENESS_1601'] = True
+    # dict10['02043_18_04939_WHOLENESS_1602'] = True
+    # dict10['02043_18_04939_WHOLENESS_1603'] = True
+    # dict10['02043_18_04939_WHOLENESS_1604'] = True
+    # dict10['02043_18_04939_WHOLENESS_1605'] = True
+    # dict10['02043_18_04939_WHOLENESS_1606'] = True
+    # dict10['02043_18_04939_WHOLENESS_1607'] = True
+    # dict10['02043_18_04939_WHOLENESS_1608'] = True
+    # dict10['02043_18_04939_WHOLENESS_1609'] = True
+    # dict10['02043_18_04939_WHOLENESS_1610'] = True
+    # dict10['02043_18_04939_WHOLENESS_1611'] = False
+    # dict10['02043_18_04939_WHOLENESS_1612'] = False
+    # dict10['02043_18_04939_WHOLENESS_1613'] = True
+    # dict10['02043_18_04939_WHOLENESS_1615'] = True
+    # dict10['02043_18_04939_WHOLENESS_1616'] = True
+    # dict10['02043_18_04939_WHOLENESS_1617'] = False
+    # dict10['02043_18_04939_WHOLENESS_1618'] = True
+    # dict10['02043_18_04939_WHOLENESS_1619'] = True
+    # dict10['02043_18_04939_WHOLENESS_1620'] = True
+    # dict10['02043_18_04939_WHOLENESS_1621'] = True
+    # dict10['02043_18_04939_WHOLENESS_1622'] = False
+    # dict10['02043_18_04939_WHOLENESS_1623'] = True
+    # dict10['02043_18_04939_WHOLENESS_1624'] = False
+    # dict10['02043_18_04939_WHOLENESS_1625'] = True
+    # dict10['02043_18_04939_WHOLENESS_1626'] = False
+    # dict10['02043_18_04939_WHOLENESS_1627'] = False
+    # dict10['02043_18_04939_WHOLENESS_1628'] = False
+    # dict10['02043_18_04939_WHOLENESS_1629'] = False
+    # dict10['02043_18_04939_WHOLENESS_1630'] = False
+    # dict10['02043_18_04939_WHOLENESS_1631'] = False
+    # dict10['02043_18_04939_WHOLENESS_1632'] = False
+    # dict10['02043_18_04939_WHOLENESS_1633'] = True
+    # dict10['02043_18_04939_WHOLENESS_1650'] = True
+    # dict10['02043_18_04939_WHOLENESS_1651'] = True
+    # dict10['02043_18_04939_WHOLENESS_1652'] = True
+    # dict10['02043_18_04939_WHOLENESS_1653'] = True
+    # dict10['02043_18_04939_WHOLENESS_1654'] = True
+    # dict10['02043_18_04939_WHOLENESS_1655'] = True
+    # dict10['02043_18_04939_WHOLENESS_1656'] = True
+    # dict10['02043_18_04939_WHOLENESS_1657'] = True
+    # dict10['02043_18_04939_WHOLENESS_1658'] = True
+    # dict10['02043_18_04939_WHOLENESS_1659'] = True
+    # dict10['02043_18_04939_WHOLENESS_1660'] = True
+    # dict10['02043_18_04939_WHOLENESS_1661'] = False
+    # dict10['02043_18_04939_WHOLENESS_1662'] = False
+    # dict10['02043_18_04939_WHOLENESS_1663'] = True
+    # dict10['02043_18_04939_WHOLENESS_1664'] = True
+    # dict10['02043_18_04939_WHOLENESS_1684'] = True
+    # dict10['02043_18_04939_WHOLENESS_1685'] = True
+    # dict10['02043_18_04939_WHOLENESS_1686'] = False
+    # dict10['02043_18_04939_WHOLENESS_1687'] = False
+    # dict10['02043_18_04939_WHOLENESS_1688'] = True
+    # dict10['02043_18_04939_WHOLENESS_1689'] = True
+    # dict10['02043_18_04939_WHOLENESS_1690'] = True
+    # dict10['02043_18_04939_WHOLENESS_1691'] = True
+    # dict10['02043_18_04939_WHOLENESS_1692'] = True
+    # dict10['02043_18_04939_WHOLENESS_1693'] = False
+    # dict10['02043_18_04939_WHOLENESS_1694'] = False
+    # dict10['02043_18_04939_WHOLENESS_1700'] = True
+    # dict10['02043_18_04939_WHOLENESS_1701'] = True
+    # dict10['02043_18_04939_WHOLENESS_1702'] = True
+    # dict10['02043_18_04939_WHOLENESS_1703'] = True
+    # dict10['02043_18_04939_WHOLENESS_1704'] = True
+    # dict10['02043_18_04939_WHOLENESS_1705'] = True
+    # dict10['02043_18_04939_WHOLENESS_1706'] = True
+    # dict10['02043_18_04939_WHOLENESS_1707'] = False
+    # dict10['02043_18_04939_WHOLENESS_1708'] = True
+    # dict10['02043_18_04939_WHOLENESS_1709'] = True
+    # dict10['02043_18_04939_WHOLENESS_1710'] = True
+    # dict10['02043_18_04939_WHOLENESS_1711'] = False
+    # dict10['02043_18_04939_WHOLENESS_1712'] = False
+    # dict10['02043_18_04939_WHOLENESS_1713'] = True
+    # dict10['02043_18_04939_WHOLENESS_1714'] = True
+    # dict10['02043_18_04939_WHOLENESS_1715'] = True
+    # dict10['02043_18_04939_WHOLENESS_1716'] = True
+    # dict10['02043_18_04939_WHOLENESS_1717'] = True
+    # dict10['02043_18_04939_WHOLENESS_1718'] = False
+    # dict10['02043_18_04939_WHOLENESS_1719'] = False
+    # dict10['02043_18_04939_WHOLENESS_1720'] = True
+    # dict10['02043_18_04939_WHOLENESS_1750'] = True
+    # dict10['02043_18_04939_WHOLENESS_1751'] = True
+    # dict10['02043_18_04939_WHOLENESS_1752'] = True
+    # dict10['02043_18_04939_WHOLENESS_1753'] = True
+    # dict10['02043_18_04939_WHOLENESS_1754'] = False
+    # dict10['02043_18_04939_WHOLENESS_1755'] = False
+    # dict10['02043_18_04939_WHOLENESS_1756'] = True
+    # dict10['02043_18_04939_WHOLENESS_1757'] = True
+    # dict10['02043_18_04939_WHOLENESS_1758'] = False
+    # dict10['02043_18_04939_WHOLENESS_1759'] = False
+    # dict10['02043_18_04939_WHOLENESS_1800'] = True
+    # dict10['02043_18_04939_WHOLENESS_1801'] = True
+    # dict10['02043_18_04939_WHOLENESS_1802'] = True
+    # dict10['02043_18_04939_WHOLENESS_1803'] = False
+    # dict10['02043_18_04939_WHOLENESS_1810'] = True
+    # dict10['02043_18_04939_WHOLENESS_1811'] = True
+    # dict10['02043_18_04939_WHOLENESS_1812'] = True
+    # dict10['02043_18_04939_WHOLENESS_1813'] = True
+    # dict10['02043_18_04939_WHOLENESS_1814'] = False
+    # dict10['02043_18_04939_WHOLENESS_1815'] = False
+    # dict10['02043_18_04939_WHOLENESS_1820'] = True
+    # dict10['02043_18_04939_WHOLENESS_1821'] = True
+    # dict10['02043_18_04939_WHOLENESS_1822'] = False
+    # dict10['02043_18_04939_WHOLENESS_1823'] = False
+    # dict10['02043_18_04939_WHOLENESS_1824'] = True
+    # dict10['02043_18_04939_WHOLENESS_1825'] = False
+    # dict10['02043_18_04939_WHOLENESS_1830'] = True
+    # dict10['02043_18_04939_WHOLENESS_1831'] = False
+    # dict10['02043_18_04939_WHOLENESS_1840'] = True
+    # dict10['02043_18_04939_WHOLENESS_1841'] = False
     return dict10
 
 def DOC11Coherence():

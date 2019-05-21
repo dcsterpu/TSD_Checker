@@ -38,6 +38,9 @@ class Application(QWidget):
         self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
         self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
         self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+        self.DOC10Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05077/v.6.0/nPj.3"
+        self.DOC11Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05077/v.6.0/nPj.2"
+        self.DOC12Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05077/v.6.0/nPj.1"
         self.tabs.addTab(self.tab1, "TSD Checker")
         self.tabs.addTab(self.tab2, "Options")
         self.initUI(self.tab1)
@@ -646,6 +649,7 @@ class Test(Application):
 
         self.DOC14Name = self.download_file(self.DOC14Link)
         self.DOC7Name = self.download_file(self.DOC7Link)
+        self.DOC10Path = self.download_file(self.DOC10Link)
         archi_type = self.tab1.combo2.currentText()
 
 
@@ -668,7 +672,7 @@ class Test(Application):
 
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
-            self.DOC10List = OptionalFilesParser.DOC10Coherence()
+            self.DOC10List = OptionalFilesParser.DOC10Coherence(self.excelApp, self, self.DOC10Path)
             self.opening_time = time.time()
 
         #GeneralStructure
@@ -806,9 +810,9 @@ class Test(Application):
                 # if check_indicator == True:
                 #     ok_indicator = 1
                 #
-                check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
-                if check_indicator == True:
-                    ok_indicator = 1
+                # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
+                # if check_indicator == True:
+                #     ok_indicator = 1
                 #
                 # check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
                 # if check_indicator == True:
@@ -1496,18 +1500,10 @@ class Test(Application):
                 # if check_indicator == True:
                 #     ok_indicator = 1
                 #
-                # check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
-                # if check_indicator == True:
-                #     ok_indicator = 1
-                #
-                # check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
-                # if check_indicator == True:
-                #     ok_indicator = 1
-                #
-                # check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC3Workbook, self, self.DOC7Name)
-                # if check_indicator == True:
-                #     ok_indicator = 1
-                #
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Path)
+                if check_indicator == True:
+                    ok_indicator = 1
+
                 # #check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC3Workbook, self)
                 #
                 # check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2100(self.DOC3Workbook, self, self.DOC8List)
@@ -2221,15 +2217,7 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC4Workbook, self, self.DOC7Name)
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC4Workbook, self, self.DOC7Path)
                 if check_indicator == True:
                     ok_indicator = 1
 
@@ -3047,15 +3035,7 @@ class Test(Application):
                 if check_indicator == True:
                     ok_indicator = 1
 
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC5Workbook, self, self.DOC7Name)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC5Workbook, self, self.DOC7Name)
-                if check_indicator == True:
-                    ok_indicator = 1
-
-                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC5Workbook, self, self.DOC7Path)
                 if check_indicator == True:
                     ok_indicator = 1
 
