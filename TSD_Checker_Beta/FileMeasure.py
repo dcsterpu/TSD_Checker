@@ -1816,7 +1816,6 @@ def DOC5Info1(workBook, TSDApp):
     getDataTroubleCodesInfo(workBook, TSDApp)
     getReadDataIOInfo(workBook, TSDApp)
     getEffetsClientsInfo(workBook, TSDApp)
-    getListeMDDInfo(workBook, TSDApp)
     getNotEmbeddedDiagnosisInfo(workBook, TSDApp)
 
 def DOC5Info2(workBook, TSDApp):

@@ -118,7 +118,6 @@ def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
     sheetNames = list()
     for sheet in sheets:
         sheetNames.append(sheet.Name.strip().casefold())
-    names = ["tableau", "codes défauts", "mesures et commandes", "Diagnostic débarqués", "Effets clients", "ER", "Constituants", "situations de vie", "Liste MDD"]
     dict10 = []
 
     if "tableau" in sheetNames:
@@ -130,18 +129,185 @@ def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
             if workSheet.Cells(index, 1).Value == "Requirement N°":
                 row = index
                 break
-        x = workSheet.Cells(row,32).Value
-        for index in range(col + 1, TSDApp.WorkbookStats.tableLastCol + 1):
-            dictionary = {}
-            if workSheet.Cells(row, index).Value is not None:
-                dictionary["name"] = workSheet.Cells(row, index).Value
-                dictionary["value"] = workSheet.Cells(row + 1, index).Value
-                if dictionary["value"] == "Oui":
-                    dictionary["value"] = True
-                else:
-                    dictionary["value"] = False
-                dict10.append(dictionary)
-    print("da")
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.tableLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "codes défauts" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("codes défauts") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.codeLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "mesures et commandes" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("mesures et commandes") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.measureLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "diagnostic débarqués" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("diagnostic débarqués") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.DiagDebLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "effets clients" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("effets clients") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "er" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("er") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.ERLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "constituants" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("constituants") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.constituantsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "situations de vie" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("situations de vie") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.SitDeVieLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
+
+    if "liste mdd" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("liste mdd") + 1
+        workSheet = DOC10.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.MDDLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict10.append(dictionary)
 
 
     # dict10 = {}
@@ -257,170 +423,546 @@ def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
     # dict10['02043_18_04939_WHOLENESS_1841'] = False
     return dict10
 
-def DOC11Coherence():
-    doc11 = {}
-    doc11['02043_18_04939_WHOLENESS_1300'] = True
-    doc11['02043_18_04939_WHOLENESS_1301'] = True
-    doc11['02043_18_04939_WHOLENESS_1302'] = True
-    doc11['02043_18_04939_WHOLENESS_1303'] = True
-    doc11['02043_18_04939_WHOLENESS_1304'] = True
-    doc11['02043_18_04939_WHOLENESS_1305'] = True
-    doc11['02043_18_04939_WHOLENESS_1306'] = True
-    doc11['02043_18_04939_WHOLENESS_1307'] = True
-    doc11['02043_18_04939_WHOLENESS_1308'] = True
-    doc11['02043_18_04939_WHOLENESS_1309'] = True
-    doc11['02043_18_04939_WHOLENESS_1310'] = True
-    doc11['02043_18_04939_WHOLENESS_1311'] = True
-    doc11['02043_18_04939_WHOLENESS_1312'] = True
-    doc11['02043_18_04939_WHOLENESS_1313'] = True
-    doc11['02043_18_04939_WHOLENESS_1314'] = True
-    doc11['02043_18_04939_WHOLENESS_1315'] = True
-    doc11['02043_18_04939_WHOLENESS_1316'] = False
-    doc11['02043_18_04939_WHOLENESS_1317'] = True
-    doc11['02043_18_04939_WHOLENESS_1318'] = True
-    doc11['02043_18_04939_WHOLENESS_1319'] = False
-    doc11['02043_18_04939_WHOLENESS_1320'] = False
-    doc11['02043_18_04939_WHOLENESS_1321'] = False
-    doc11['02043_18_04939_WHOLENESS_1322'] = False
-    doc11['02043_18_04939_WHOLENESS_1323'] = True
-    doc11['02043_18_04939_WHOLENESS_1324'] = True
-    doc11['02043_18_04939_WHOLENESS_1325'] = False
-    doc11['02043_18_04939_WHOLENESS_1326'] = False
-    doc11['02043_18_04939_WHOLENESS_1327'] = True
-    doc11['02043_18_04939_WHOLENESS_1328'] = True
-    doc11['02043_18_04939_WHOLENESS_1329'] = True
-    doc11['02043_18_04939_WHOLENESS_1330'] = False
-    doc11['02043_18_04939_WHOLENESS_1331'] = True
-    doc11['02043_18_04939_WHOLENESS_1332'] = False
-    doc11['02043_18_04939_WHOLENESS_1333'] = True
-    doc11['02043_18_04939_WHOLENESS_1334'] = False
-    doc11['02043_18_04939_WHOLENESS_1350'] = True
-    doc11['02043_18_04939_WHOLENESS_1351'] = True
-    doc11['02043_18_04939_WHOLENESS_1352'] = True
-    doc11['02043_18_04939_WHOLENESS_1353'] = True
-    doc11['02043_18_04939_WHOLENESS_1354'] = True
-    doc11['02043_18_04939_WHOLENESS_1355'] = True
-    doc11['02043_18_04939_WHOLENESS_1356'] = True
-    doc11['02043_18_04939_WHOLENESS_1357'] = True
-    doc11['02043_18_04939_WHOLENESS_1358'] = True
-    doc11['02043_18_04939_WHOLENESS_1359'] = True
-    doc11['02043_18_04939_WHOLENESS_1360'] = False
-    doc11['02043_18_04939_WHOLENESS_1361'] = True
-    doc11['02043_18_04939_WHOLENESS_1400'] = True
-    doc11['02043_18_04939_WHOLENESS_1401'] = True
-    doc11['02043_18_04939_WHOLENESS_1402'] = True
-    doc11['02043_18_04939_WHOLENESS_1403'] = False
-    doc11['02043_18_04939_WHOLENESS_1430'] = True
-    doc11['02043_18_04939_WHOLENESS_1431'] = True
-    doc11['02043_18_04939_WHOLENESS_1432'] = True
-    doc11['02043_18_04939_WHOLENESS_1433'] = True
-    doc11['02043_18_04939_WHOLENESS_1434'] = True
-    doc11['02043_18_04939_WHOLENESS_1435'] = True
-    doc11['02043_18_04939_WHOLENESS_1450'] = True
-    doc11['02043_18_04939_WHOLENESS_1451'] = True
-    doc11['02043_18_04939_WHOLENESS_1452'] = True
-    doc11['02043_18_04939_WHOLENESS_1453'] = True
-    doc11['02043_18_04939_WHOLENESS_1454'] = True
-    doc11['02043_18_04939_WHOLENESS_1455'] = False
-    doc11['02043_18_04939_WHOLENESS_1456'] = False
-    doc11['02043_18_04939_WHOLENESS_1500'] = True
-    doc11['02043_18_04939_WHOLENESS_1501'] = True
-    doc11['02043_18_04939_WHOLENESS_1550'] = True
-    doc11['02043_18_04939_WHOLENESS_1551'] = True
-    doc11['02043_18_04939_WHOLENESS_1552'] = False
-    return doc11
+def DOC11Coherence(ExcelApp, TSDApp, DOC11Path):
+    DOC11 = ExcelApp.Workbooks.Open(DOC11Path)
+    sheets = DOC11.Sheets
+    sheetNames = list()
+    for sheet in sheets:
+        sheetNames.append(sheet.Name.strip().casefold())
 
-def DOC12Coherence():
-    doc12 = {}
-    doc12['02043_18_04939_WHOLENESS_1900'] = True
-    doc12['02043_18_04939_WHOLENESS_1901'] = True
-    doc12['02043_18_04939_WHOLENESS_1902'] = True
-    doc12['02043_18_04939_WHOLENESS_1903'] = True
-    doc12['02043_18_04939_WHOLENESS_1904'] = True
-    doc12['02043_18_04939_WHOLENESS_1905'] = True
-    doc12['02043_18_04939_WHOLENESS_1906'] = True
-    doc12['02043_18_04939_WHOLENESS_1907'] = True
-    doc12['02043_18_04939_WHOLENESS_1908'] = True
-    doc12['02043_18_04939_WHOLENESS_1909'] = True
-    doc12['02043_18_04939_WHOLENESS_1910'] = False
-    doc12['02043_18_04939_WHOLENESS_1911'] = True
-    doc12['02043_18_04939_WHOLENESS_1912'] = True
-    doc12['02043_18_04939_WHOLENESS_1913'] = True
-    doc12['02043_18_04939_WHOLENESS_1914'] = True
-    doc12['02043_18_04939_WHOLENESS_1915'] = False
-    doc12['02043_18_04939_WHOLENESS_1916'] = False
-    doc12['02043_18_04939_WHOLENESS_1917'] = True
-    doc12['02043_18_04939_WHOLENESS_1918'] = True
-    doc12['02043_18_04939_WHOLENESS_1919'] = True
-    doc12['02043_18_04939_WHOLENESS_1920'] = True
-    doc12['02043_18_04939_WHOLENESS_1921'] = True
-    doc12['02043_18_04939_WHOLENESS_1922'] = False
-    doc12['02043_18_04939_WHOLENESS_1923'] = True
-    doc12['02043_18_04939_WHOLENESS_1924'] = False
-    doc12['02043_18_04939_WHOLENESS_1925'] = False
-    doc12['02043_18_04939_WHOLENESS_1926'] = False
-    doc12['02043_18_04939_WHOLENESS_1927'] = False
-    doc12['02043_18_04939_WHOLENESS_1928'] = True
-    doc12['02043_18_04939_WHOLENESS_1950'] = True
-    doc12['02043_18_04939_WHOLENESS_1951'] = True
-    doc12['02043_18_04939_WHOLENESS_1952'] = True
-    doc12['02043_18_04939_WHOLENESS_1953'] = True
-    doc12['02043_18_04939_WHOLENESS_1954'] = True
-    doc12['02043_18_04939_WHOLENESS_1955'] = True
-    doc12['02043_18_04939_WHOLENESS_1956'] = True
-    doc12['02043_18_04939_WHOLENESS_1957'] = True
-    doc12['02043_18_04939_WHOLENESS_1958'] = True
-    doc12['02043_18_04939_WHOLENESS_1959'] = True
-    doc12['02043_18_04939_WHOLENESS_1960'] = False
-    doc12['02043_18_04939_WHOLENESS_1961'] = True
-    doc12['02043_18_04939_WHOLENESS_1962'] = True
-    doc12['02043_18_04939_WHOLENESS_1963'] = False
-    doc12['02043_18_04939_WHOLENESS_1964'] = True
-    doc12['02043_18_04939_WHOLENESS_1965'] = True
-    doc12['02043_18_04939_WHOLENESS_1966'] = True
-    doc12['02043_18_04939_WHOLENESS_1967'] = True
-    doc12['02043_18_04939_WHOLENESS_1968'] = True
-    doc12['02043_18_04939_WHOLENESS_1969'] = True
-    doc12['02043_18_04939_WHOLENESS_2000'] = True
-    doc12['02043_18_04939_WHOLENESS_2001'] = True
-    doc12['02043_18_04939_WHOLENESS_2002'] = True
-    doc12['02043_18_04939_WHOLENESS_2003'] = True
-    doc12['02043_18_04939_WHOLENESS_2004'] = True
-    doc12['02043_18_04939_WHOLENESS_2005'] = True
-    doc12['02043_18_04939_WHOLENESS_2006'] = True
-    doc12['02043_18_04939_WHOLENESS_2007'] = True
-    doc12['02043_18_04939_WHOLENESS_2008'] = True
-    doc12['02043_18_04939_WHOLENESS_2009'] = True
-    doc12['02043_18_04939_WHOLENESS_2010'] = True
-    doc12['02043_18_04939_WHOLENESS_2011'] = True
-    doc12['02043_18_04939_WHOLENESS_2050'] = True
-    doc12['02043_18_04939_WHOLENESS_2051'] = True
-    doc12['02043_18_04939_WHOLENESS_2052'] = True
-    doc12['02043_18_04939_WHOLENESS_2053'] = True
-    doc12['02043_18_04939_WHOLENESS_2054'] = True
-    doc12['02043_18_04939_WHOLENESS_2055'] = True
-    doc12['02043_18_04939_WHOLENESS_2056'] = True
-    doc12['02043_18_04939_WHOLENESS_2060'] = True
-    doc12['02043_18_04939_WHOLENESS_2061'] = True
-    doc12['02043_18_04939_WHOLENESS_2062'] = True
-    doc12['02043_18_04939_WHOLENESS_2070'] = True
-    doc12['02043_18_04939_WHOLENESS_2071'] = True
-    doc12['02043_18_04939_WHOLENESS_2072'] = True
-    doc12['02043_18_04939_WHOLENESS_2080'] = True
-    doc12['02043_18_04939_WHOLENESS_2081'] = True
-    doc12['02043_18_04939_WHOLENESS_2082'] = True
-    doc12['02043_18_04939_WHOLENESS_2083'] = False
-    doc12['02043_18_04939_WHOLENESS_2084'] = False
-    doc12['02043_18_04939_WHOLENESS_2090'] = True
-    doc12['02043_18_04939_WHOLENESS_2091'] = True
-    doc12['02043_18_04939_WHOLENESS_2092'] = True
-    doc12['02043_18_04939_WHOLENESS_2100'] = True
-    doc12['02043_18_04939_WHOLENESS_2101'] = True
-    doc12['02043_18_04939_WHOLENESS_2102'] = True
-    doc12['02043_18_04939_WHOLENESS_2110'] = True
-    doc12['02043_18_04939_WHOLENESS_2111'] = True
-    doc12['02043_18_04939_WHOLENESS_2112'] = False
-    doc12['02043_18_04939_WHOLENESS_2120'] = True
-    doc12['02043_18_04939_WHOLENESS_2121'] = True
-    return doc12
+    dict11 = []
+
+    if "table" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("table") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.tableLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+
+    if "diagnostic needs" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("diagnostic needs") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.DiagNeedsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+
+    if "customer effects" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("customer effects") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+
+    if "feared events" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("feared events") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+
+    if "system" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("system") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.SystemLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+
+    if "operation situation" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("operation situation") + 1
+        workSheet = DOC11.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.OpSitLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict11.append(dictionary)
+    return dict11
+    # doc11 = {}
+    # doc11['02043_18_04939_WHOLENESS_1300'] = True
+    # doc11['02043_18_04939_WHOLENESS_1301'] = True
+    # doc11['02043_18_04939_WHOLENESS_1302'] = True
+    # doc11['02043_18_04939_WHOLENESS_1303'] = True
+    # doc11['02043_18_04939_WHOLENESS_1304'] = True
+    # doc11['02043_18_04939_WHOLENESS_1305'] = True
+    # doc11['02043_18_04939_WHOLENESS_1306'] = True
+    # doc11['02043_18_04939_WHOLENESS_1307'] = True
+    # doc11['02043_18_04939_WHOLENESS_1308'] = True
+    # doc11['02043_18_04939_WHOLENESS_1309'] = True
+    # doc11['02043_18_04939_WHOLENESS_1310'] = True
+    # doc11['02043_18_04939_WHOLENESS_1311'] = True
+    # doc11['02043_18_04939_WHOLENESS_1312'] = True
+    # doc11['02043_18_04939_WHOLENESS_1313'] = True
+    # doc11['02043_18_04939_WHOLENESS_1314'] = True
+    # doc11['02043_18_04939_WHOLENESS_1315'] = True
+    # doc11['02043_18_04939_WHOLENESS_1316'] = False
+    # doc11['02043_18_04939_WHOLENESS_1317'] = True
+    # doc11['02043_18_04939_WHOLENESS_1318'] = True
+    # doc11['02043_18_04939_WHOLENESS_1319'] = False
+    # doc11['02043_18_04939_WHOLENESS_1320'] = False
+    # doc11['02043_18_04939_WHOLENESS_1321'] = False
+    # doc11['02043_18_04939_WHOLENESS_1322'] = False
+    # doc11['02043_18_04939_WHOLENESS_1323'] = True
+    # doc11['02043_18_04939_WHOLENESS_1324'] = True
+    # doc11['02043_18_04939_WHOLENESS_1325'] = False
+    # doc11['02043_18_04939_WHOLENESS_1326'] = False
+    # doc11['02043_18_04939_WHOLENESS_1327'] = True
+    # doc11['02043_18_04939_WHOLENESS_1328'] = True
+    # doc11['02043_18_04939_WHOLENESS_1329'] = True
+    # doc11['02043_18_04939_WHOLENESS_1330'] = False
+    # doc11['02043_18_04939_WHOLENESS_1331'] = True
+    # doc11['02043_18_04939_WHOLENESS_1332'] = False
+    # doc11['02043_18_04939_WHOLENESS_1333'] = True
+    # doc11['02043_18_04939_WHOLENESS_1334'] = False
+    # doc11['02043_18_04939_WHOLENESS_1350'] = True
+    # doc11['02043_18_04939_WHOLENESS_1351'] = True
+    # doc11['02043_18_04939_WHOLENESS_1352'] = True
+    # doc11['02043_18_04939_WHOLENESS_1353'] = True
+    # doc11['02043_18_04939_WHOLENESS_1354'] = True
+    # doc11['02043_18_04939_WHOLENESS_1355'] = True
+    # doc11['02043_18_04939_WHOLENESS_1356'] = True
+    # doc11['02043_18_04939_WHOLENESS_1357'] = True
+    # doc11['02043_18_04939_WHOLENESS_1358'] = True
+    # doc11['02043_18_04939_WHOLENESS_1359'] = True
+    # doc11['02043_18_04939_WHOLENESS_1360'] = False
+    # doc11['02043_18_04939_WHOLENESS_1361'] = True
+    # doc11['02043_18_04939_WHOLENESS_1400'] = True
+    # doc11['02043_18_04939_WHOLENESS_1401'] = True
+    # doc11['02043_18_04939_WHOLENESS_1402'] = True
+    # doc11['02043_18_04939_WHOLENESS_1403'] = False
+    # doc11['02043_18_04939_WHOLENESS_1430'] = True
+    # doc11['02043_18_04939_WHOLENESS_1431'] = True
+    # doc11['02043_18_04939_WHOLENESS_1432'] = True
+    # doc11['02043_18_04939_WHOLENESS_1433'] = True
+    # doc11['02043_18_04939_WHOLENESS_1434'] = True
+    # doc11['02043_18_04939_WHOLENESS_1435'] = True
+    # doc11['02043_18_04939_WHOLENESS_1450'] = True
+    # doc11['02043_18_04939_WHOLENESS_1451'] = True
+    # doc11['02043_18_04939_WHOLENESS_1452'] = True
+    # doc11['02043_18_04939_WHOLENESS_1453'] = True
+    # doc11['02043_18_04939_WHOLENESS_1454'] = True
+    # doc11['02043_18_04939_WHOLENESS_1455'] = False
+    # doc11['02043_18_04939_WHOLENESS_1456'] = False
+    # doc11['02043_18_04939_WHOLENESS_1500'] = True
+    # doc11['02043_18_04939_WHOLENESS_1501'] = True
+    # doc11['02043_18_04939_WHOLENESS_1550'] = True
+    # doc11['02043_18_04939_WHOLENESS_1551'] = True
+    # doc11['02043_18_04939_WHOLENESS_1552'] = False
+    # return doc11
+
+
+def DOC12Coherence(ExcelApp, TSDApp, DOC12Path):
+    DOC12 = ExcelApp.Workbooks.Open(DOC12Path)
+    sheets = DOC12.Sheets
+    sheetNames = list()
+    for sheet in sheets:
+        sheetNames.append(sheet.Name.strip().casefold())
+
+    dict12 = []
+
+    if "table" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("table") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.tableLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "data trouble codes" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("data trouble codes") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.codeLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "read data and io control" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("read data and io control") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.ReadDataIOLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "not embedded diagnosis" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("not embedded diagnosis") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.NotEmbDiagLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "technical effect" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("technical effect") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.TechEffLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "customer effect" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("customer effect") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "feared events" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("feared events") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.FearedEventLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "parts" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("parts") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.PartsLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "variant" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("variant") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.VariantLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "situation" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("situation") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.SituationLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    if "degraded mode" in sheetNames:
+        col = 1
+        row = 0
+        index = sheetNames.index("Degraded mode") + 1
+        workSheet = DOC12.Sheets(index)
+        for index in range(1, 20):
+            if workSheet.Cells(index, 1).Value == "Requirement N°":
+                row = index
+                break
+        if row > 0:
+            for index in range(col + 1, TSDApp.WorkbookStats.DegradedModeLastCol + 1):
+                dictionary = {}
+                if workSheet.Cells(row, index).Value is not None:
+                    dictionary["name"] = workSheet.Cells(row, index).Value
+                    dictionary["value"] = workSheet.Cells(row + 1, index).Value
+                    if dictionary["value"] == "Oui":
+                        dictionary["value"] = True
+                    else:
+                        dictionary["value"] = False
+                    dict12.append(dictionary)
+
+    return dict12
+
+    # doc12 = {}
+    # doc12['02043_18_04939_WHOLENESS_1900'] = True
+    # doc12['02043_18_04939_WHOLENESS_1901'] = True
+    # doc12['02043_18_04939_WHOLENESS_1902'] = True
+    # doc12['02043_18_04939_WHOLENESS_1903'] = True
+    # doc12['02043_18_04939_WHOLENESS_1904'] = True
+    # doc12['02043_18_04939_WHOLENESS_1905'] = True
+    # doc12['02043_18_04939_WHOLENESS_1906'] = True
+    # doc12['02043_18_04939_WHOLENESS_1907'] = True
+    # doc12['02043_18_04939_WHOLENESS_1908'] = True
+    # doc12['02043_18_04939_WHOLENESS_1909'] = True
+    # doc12['02043_18_04939_WHOLENESS_1910'] = False
+    # doc12['02043_18_04939_WHOLENESS_1911'] = True
+    # doc12['02043_18_04939_WHOLENESS_1912'] = True
+    # doc12['02043_18_04939_WHOLENESS_1913'] = True
+    # doc12['02043_18_04939_WHOLENESS_1914'] = True
+    # doc12['02043_18_04939_WHOLENESS_1915'] = False
+    # doc12['02043_18_04939_WHOLENESS_1916'] = False
+    # doc12['02043_18_04939_WHOLENESS_1917'] = True
+    # doc12['02043_18_04939_WHOLENESS_1918'] = True
+    # doc12['02043_18_04939_WHOLENESS_1919'] = True
+    # doc12['02043_18_04939_WHOLENESS_1920'] = True
+    # doc12['02043_18_04939_WHOLENESS_1921'] = True
+    # doc12['02043_18_04939_WHOLENESS_1922'] = False
+    # doc12['02043_18_04939_WHOLENESS_1923'] = True
+    # doc12['02043_18_04939_WHOLENESS_1924'] = False
+    # doc12['02043_18_04939_WHOLENESS_1925'] = False
+    # doc12['02043_18_04939_WHOLENESS_1926'] = False
+    # doc12['02043_18_04939_WHOLENESS_1927'] = False
+    # doc12['02043_18_04939_WHOLENESS_1928'] = True
+    # doc12['02043_18_04939_WHOLENESS_1950'] = True
+    # doc12['02043_18_04939_WHOLENESS_1951'] = True
+    # doc12['02043_18_04939_WHOLENESS_1952'] = True
+    # doc12['02043_18_04939_WHOLENESS_1953'] = True
+    # doc12['02043_18_04939_WHOLENESS_1954'] = True
+    # doc12['02043_18_04939_WHOLENESS_1955'] = True
+    # doc12['02043_18_04939_WHOLENESS_1956'] = True
+    # doc12['02043_18_04939_WHOLENESS_1957'] = True
+    # doc12['02043_18_04939_WHOLENESS_1958'] = True
+    # doc12['02043_18_04939_WHOLENESS_1959'] = True
+    # doc12['02043_18_04939_WHOLENESS_1960'] = False
+    # doc12['02043_18_04939_WHOLENESS_1961'] = True
+    # doc12['02043_18_04939_WHOLENESS_1962'] = True
+    # doc12['02043_18_04939_WHOLENESS_1963'] = False
+    # doc12['02043_18_04939_WHOLENESS_1964'] = True
+    # doc12['02043_18_04939_WHOLENESS_1965'] = True
+    # doc12['02043_18_04939_WHOLENESS_1966'] = True
+    # doc12['02043_18_04939_WHOLENESS_1967'] = True
+    # doc12['02043_18_04939_WHOLENESS_1968'] = True
+    # doc12['02043_18_04939_WHOLENESS_1969'] = True
+    # doc12['02043_18_04939_WHOLENESS_2000'] = True
+    # doc12['02043_18_04939_WHOLENESS_2001'] = True
+    # doc12['02043_18_04939_WHOLENESS_2002'] = True
+    # doc12['02043_18_04939_WHOLENESS_2003'] = True
+    # doc12['02043_18_04939_WHOLENESS_2004'] = True
+    # doc12['02043_18_04939_WHOLENESS_2005'] = True
+    # doc12['02043_18_04939_WHOLENESS_2006'] = True
+    # doc12['02043_18_04939_WHOLENESS_2007'] = True
+    # doc12['02043_18_04939_WHOLENESS_2008'] = True
+    # doc12['02043_18_04939_WHOLENESS_2009'] = True
+    # doc12['02043_18_04939_WHOLENESS_2010'] = True
+    # doc12['02043_18_04939_WHOLENESS_2011'] = True
+    # doc12['02043_18_04939_WHOLENESS_2050'] = True
+    # doc12['02043_18_04939_WHOLENESS_2051'] = True
+    # doc12['02043_18_04939_WHOLENESS_2052'] = True
+    # doc12['02043_18_04939_WHOLENESS_2053'] = True
+    # doc12['02043_18_04939_WHOLENESS_2054'] = True
+    # doc12['02043_18_04939_WHOLENESS_2055'] = True
+    # doc12['02043_18_04939_WHOLENESS_2056'] = True
+    # doc12['02043_18_04939_WHOLENESS_2060'] = True
+    # doc12['02043_18_04939_WHOLENESS_2061'] = True
+    # doc12['02043_18_04939_WHOLENESS_2062'] = True
+    # doc12['02043_18_04939_WHOLENESS_2070'] = True
+    # doc12['02043_18_04939_WHOLENESS_2071'] = True
+    # doc12['02043_18_04939_WHOLENESS_2072'] = True
+    # doc12['02043_18_04939_WHOLENESS_2080'] = True
+    # doc12['02043_18_04939_WHOLENESS_2081'] = True
+    # doc12['02043_18_04939_WHOLENESS_2082'] = True
+    # doc12['02043_18_04939_WHOLENESS_2083'] = False
+    # doc12['02043_18_04939_WHOLENESS_2084'] = False
+    # doc12['02043_18_04939_WHOLENESS_2090'] = True
+    # doc12['02043_18_04939_WHOLENESS_2091'] = True
+    # doc12['02043_18_04939_WHOLENESS_2092'] = True
+    # doc12['02043_18_04939_WHOLENESS_2100'] = True
+    # doc12['02043_18_04939_WHOLENESS_2101'] = True
+    # doc12['02043_18_04939_WHOLENESS_2102'] = True
+    # doc12['02043_18_04939_WHOLENESS_2110'] = True
+    # doc12['02043_18_04939_WHOLENESS_2111'] = True
+    # doc12['02043_18_04939_WHOLENESS_2112'] = False
+    # doc12['02043_18_04939_WHOLENESS_2120'] = True
+    # doc12['02043_18_04939_WHOLENESS_2121'] = True
+    # return doc12
 
