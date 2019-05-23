@@ -544,12 +544,12 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                 break
         if refColIndex == 0:
             var = 1
-
+        localisation = list()
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             nrCols = refCellRange.Columns.Count
-            localisation = list()
+
             list_table = list()
 
             for index in range(refColIndex, refColIndex + nrCols):
@@ -4388,7 +4388,7 @@ def Test_02043_18_04939_WHOLENESS_1600(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("ana")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1601(workBook, TSDApp):
@@ -4431,7 +4431,7 @@ def Test_02043_18_04939_WHOLENESS_1601(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("razvan")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1602(workBook, TSDApp):
@@ -5920,7 +5920,7 @@ def Test_02043_18_04939_WHOLENESS_1653(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("daniel")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1654(workBook, TSDApp):
@@ -5963,7 +5963,7 @@ def Test_02043_18_04939_WHOLENESS_1654(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("1")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1655(workBook, TSDApp):
@@ -6006,7 +6006,7 @@ def Test_02043_18_04939_WHOLENESS_1655(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("2")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1656(workBook, TSDApp):
@@ -6049,7 +6049,7 @@ def Test_02043_18_04939_WHOLENESS_1656(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("3")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1657(workBook, TSDApp):
@@ -6092,7 +6092,7 @@ def Test_02043_18_04939_WHOLENESS_1657(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("4")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1658(workBook, TSDApp):
@@ -6135,7 +6135,7 @@ def Test_02043_18_04939_WHOLENESS_1658(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("5")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1659(workBook, TSDApp):
@@ -6264,7 +6264,7 @@ def Test_02043_18_04939_WHOLENESS_1661(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("6")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1662(workBook, TSDApp):
@@ -6393,7 +6393,7 @@ def Test_02043_18_04939_WHOLENESS_1664(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("7")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1684(workBook, TSDApp):
@@ -6565,7 +6565,7 @@ def Test_02043_18_04939_WHOLENESS_1687(workBook, TSDApp):
             check = True
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    print("5")
+
     return check
 
 def Test_02043_18_04939_WHOLENESS_1688(workBook, TSDApp):
