@@ -1,4 +1,4 @@
-import TSD_Checker_V3_1_sans_limites
+import TSD_Checker_V3_4
 import inspect
 
 
@@ -373,7 +373,7 @@ def getListeMDDInfo(workBook, TSDApp):
                     ExitFromFct = 1
                     break
                 if ok == 0:
-                    if  str(cell.Value).casefold().strip() == "N°".casefold():
+                    if  (str(cell.Value).casefold().strip() == "N°".casefold() or str(cell.Value).casefold().strip() == "Modes dégradés:".casefold()) and workSheet.Cells(cell.Row, cell.Column + 1).Value is not None:
                         TSDApp.WorkbookStats.MDDRefColIndex = cell.Column
                         TSDApp.WorkbookStats.MDDRefRowIndex = cell.Row
                         indexCol = 1
