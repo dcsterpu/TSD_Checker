@@ -1,6 +1,5 @@
-import TSD_Checker_V3_4
+import TSD_Checker_V4_0
 import inspect
-
 
 
 def getTableInfo(workBook, TSDApp):
@@ -57,7 +56,7 @@ def getTableInfo(workBook, TSDApp):
                         indexCol = 1
                         col_range = 1
                     if col_range == 1:
-                        if cell.Borders(8).LineStyle != -4142 and cell != None:
+                        if cell.Borders(8).LineStyle != -4142 and cell != None :
                             indexCol += 1
                             pass
                         else:
@@ -373,7 +372,7 @@ def getListeMDDInfo(workBook, TSDApp):
                     ExitFromFct = 1
                     break
                 if ok == 0:
-                    if  (str(cell.Value).casefold().strip() == "N°".casefold() or str(cell.Value).casefold().strip() == "Modes dégradés:".casefold()) and workSheet.Cells(cell.Row, cell.Column + 1).Value is not None:
+                    if  (str(cell.Value).casefold().strip() == "N°".casefold() or str(cell.Value).casefold().strip() == "Modes dégradés:".casefold()) and (workSheet.Cells(cell.Row, cell.Column + 1).Value is not None or workSheet.Cells(cell.Row, cell.Column + 2).Value is not None):
                         TSDApp.WorkbookStats.MDDRefColIndex = cell.Column
                         TSDApp.WorkbookStats.MDDRefRowIndex = cell.Row
                         indexCol = 1

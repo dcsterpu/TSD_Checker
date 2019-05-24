@@ -1,4 +1,4 @@
-import TSD_Checker_V3_4
+import TSD_Checker_V4_0
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -201,9 +201,12 @@ def Test_02043_18_04939_STRUCT_0011(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.InfGenIndex)
         cell = workSheet.Cells(52,2)
 
-        if cell.Value.strip() in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"}:
-            localisation = None
-        else:
+        try:
+            if cell.Value.strip() in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"}:
+                localisation = None
+            else:
+                localisation = cell
+        except:
             localisation = cell
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
