@@ -75,7 +75,7 @@ def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
             testReportSheet.Cells(lastRow + index, 1).Value = criticity
             testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
 
-    if name is None:
+    if name is None or name == "":
         testReportSheet.Cells(lastRow, 3).Value = "OK"
         tempString = "OK"
     else:
