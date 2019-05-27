@@ -1404,7 +1404,7 @@ def Test_02043_18_04939_WHOLENESS_1240(workBook, TSDApp):
 
         if var == 0:
             if workSheet.Cells(refRowIndex1+1, refColIndex1).Value is not None:
-                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], None, workBook, TSDApp)
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
             else:
                 localisation.append(workSheet.Cells(refRowIndex1+1, refColIndex1))

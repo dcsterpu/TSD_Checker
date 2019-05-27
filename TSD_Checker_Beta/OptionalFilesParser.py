@@ -113,7 +113,10 @@ def DOC15Parser(TSDApp ,DOC15Path):
         return None, None
 
 def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
-    DOC10 = ExcelApp.Workbooks.Open(DOC10Path)
+    try:
+        DOC10 = ExcelApp.Workbooks.Open(DOC10Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the Plan type Synthese diagnosticabilite file " + DOC10Path.split('/')[-1])
     sheets =  DOC10.Sheets
     sheetNames = list()
     for sheet in sheets:
@@ -424,7 +427,10 @@ def DOC10Coherence(ExcelApp, TSDApp, DOC10Path):
     return dict10
 
 def DOC11Coherence(ExcelApp, TSDApp, DOC11Path):
-    DOC11 = ExcelApp.Workbooks.Open(DOC11Path)
+    try:
+        DOC11 = ExcelApp.Workbooks.Open(DOC11Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the Plan type AMDE TSD fonction vehicule file " + DOC11Path.split('/')[-1])
     sheets = DOC11.Sheets
     sheetNames = list()
     for sheet in sheets:
@@ -632,7 +638,10 @@ def DOC11Coherence(ExcelApp, TSDApp, DOC11Path):
 
 
 def DOC12Coherence(ExcelApp, TSDApp, DOC12Path):
-    DOC12 = ExcelApp.Workbooks.Open(DOC12Path)
+    try:
+        DOC12 = ExcelApp.Workbooks.Open(DOC12Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the Plan type TSD Systeme file " + DOC12Path.split('/')[-1])
     sheets = DOC12.Sheets
     sheetNames = list()
     for sheet in sheets:
