@@ -259,11 +259,11 @@ errorMessagesDict["Test_02043_18_04939_COH_2040"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2050"] = "The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document 'Customer effects file' 02043_18_05499 in French or English. Please check it or ask ADRD people to add this new customer effect."
 
-errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect"
+errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document 'Customer effects file' 02043_18_05499  in French or English. Please check it or ask ADRD people to add this new customer effect."
 
-errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document [DOC7] in French or English. Please check it or ask ADRD people to add this new customer effect."
+errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified in the column “Noms” of the “Effets clients” sheet is missing in the document 'Customer effects file' 02043_18_05499 in French or English. Please check it or ask ADRD people to add this new customer effect."
 
 errorMessagesDict["Test_02043_18_04939_COH_2091"] = " The text chain XXXX is present in the cell YYYY of the sheet ZZZZ. Please check it."
 
@@ -271,7 +271,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2120"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC5] 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
+errorMessagesDict["Test_02043_18_04939_COH_2120"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document 'TSD System template' 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
 
 errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The reference indicated in the column “Référence” of the sheet “tableau”, is missing in document [DOC5] 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
 
@@ -295,9 +295,9 @@ errorMessagesDict["Test_02043_18_04939_COH_2220"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” (or “table”) shall be present in the diagnostic message."
 
-errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'Table' sheet has not the correct format"
+errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'Table' sheet has not the correct format:\nCode_LCDV with following autorized word in between AND, OR, NOT, (, )\nWhere:\nCode_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
-errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information specified in the column 'Diversity' of the 'Table' sheet has not the correct format"
+errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information specified in the column 'Diversity' of the 'Table' sheet has not the correct format:\nCode_LCDV with following autorized word in between AND, OR, NOT, (, )\nWhere:\nCode_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00) »"
 
 errorMessagesDict["Test_02043_18_04939_COH_2250"] = "The information specified in the column 'Variante/option' of the 'Table' sheet has not the correct format"
 

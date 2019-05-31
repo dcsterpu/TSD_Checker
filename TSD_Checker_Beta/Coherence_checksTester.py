@@ -80,7 +80,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                         list_measure.append(workSheet.Cells(index, measureColIndex).Value)
 
             for element in list_table:
-                if element in list_measure:
+                if element["value"] in list_measure:
                     pass
                 else:
                     localisation.append(element["localisation"])
@@ -104,6 +104,7 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
     print(testName)
     check = False
     if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
@@ -455,10 +456,19 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                             localisation.append(element["localisation"])
                             check = True
                 else:
-                    if element["value"].strip() in list_code or element["value"] in list_code:
-                        pass
+                    if ';' in element["value"]:
+                        elem = element["value"].split(";")
+                        for i in elem:
+                            if i.strip() in list_code:
+                                pass
+                            else:
+                                localisation.append(element["localisation"])
+                                check = True
                     else:
-                        localisation.append(element["localisation"])
+                        if element["value"].strip() in list_code or element["value"] in list_code:
+                            pass
+                        else:
+                            localisation.append(element["localisation"])
 
             if not localisation:
                 localisation = None

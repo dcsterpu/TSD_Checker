@@ -46,6 +46,7 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         refColIndex = 0
         var = 0
+        localisation = []
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
@@ -61,7 +62,6 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
                 if workSheet.Cells(index, refColIndex).Value == None:
@@ -702,6 +702,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         refColIndex = 0
         var = 0
+        localisation = []
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
@@ -717,23 +718,64 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
         if var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
-            localisation = []
 
             for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
-                if workSheet.Cells(index, refColIndex).Value == "NO DTC":
-                    pass
-                else:
+                if workSheet.Cells(index, refColIndex).Value is None:
                     localisation.append(workSheet.Cells(index, refColIndex))
                     check = True
+
             if not localisation:
                 localisation = None
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                   TSDApp)
 
         elif var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check
+    # testName = inspect.currentframe().f_code.co_name
+    # print(testName)
+    # check = False
+    # if TSDApp.WorkbookStats.hasTable == False:
+    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    #     check = True
+    # else:
+    #     workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+    #     refColIndex = 0
+    #     var = 0
+    #
+    #     for index1 in range(1, 15):
+    #         for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
+    #             if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Code défaut".casefold():
+    #                 refColIndex = index2
+    #                 refRowIndex = index1
+    #                 break
+    #         if refColIndex != 0:
+    #             break
+    #     if refColIndex == 0:
+    #         var = 1
+    #
+    #     if var == 0:
+    #         refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+    #         nrLines = refCellRange.Rows.Count
+    #         localisation = []
+    #
+    #         for index in range(refRowIndex + nrLines, TSDApp.WorkbookStats.tableLastRow + 1):
+    #             if workSheet.Cells(index, refColIndex).Value == "NO DTC":
+    #                 pass
+    #             else:
+    #                 localisation.append(workSheet.Cells(index, refColIndex))
+    #                 check = True
+    #         if not localisation:
+    #             localisation = None
+    #
+    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    #
+    #     elif var == 1:
+    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    #         check = True
+    # return check
 
 def Test_02043_18_04939_WHOLENESS_1080(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
