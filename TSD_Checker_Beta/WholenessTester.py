@@ -1,6 +1,7 @@
 import TSD_Checker_V4_0
 import inspect
 from ExcelEdit import TestReturn as result
+from ExcelEdit import TestReturnName as show
 import win32timezone
 from ErrorMessages import errorMessagesDict as error
 
@@ -365,7 +366,9 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
         list_code = list()
         list_table = list()
         var = 0
-        localisation = list()
+        name = []
+        contor = 0
+        table_project = []
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
@@ -386,14 +389,9 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
             nrLines = refCellRange.Rows.Count
             nrCols = refCellRange.Columns.Count
 
-
-
-            for index in range(refColIndex, refColIndex + nrCols):
-                if workSheet.Cells(refRowIndex + nrLines, refColIndex).Value == None:
-                    pass
-                else:
-                    list_table.append(workSheet.Cells(refRowIndex + nrLines, index).Value)
-                    check = True
+            for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol + 1):
+                if workSheet.Cells(refRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.Cells(refRowIndex + nrLines, index).Value != None:
+                    table_project.append(workSheet.Cells(refRowIndex + nrLines, index).Value.strip())
 
             if TSDApp.WorkbookStats.hasCode == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -415,26 +413,24 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                 nrLines = codeCellRange.Rows.Count
                 nrCols = codeCellRange.Columns.Count
 
+                code_project = []
+                for index in range(codeColIndex, TSDApp.WorkbookStats.codeLastCol + 1):
+                    if workSheet.Cells(codeRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.Cells(codeRowIndex + nrLines, index).Value != None:
+                        code_project.append(workSheet.Cells(codeRowIndex + nrLines, index).Value.strip())
 
-                for index in range(codeColIndex, codeColIndex + nrCols):
-                    if workSheet.Cells(codeRowIndex + nrLines, codeColIndex).Value == None:
-                        pass
-                    else:
-                        list_code.append(workSheet.Cells(codeRowIndex + nrLines, index).Value)
 
-        flag = True
-        if len(list_table) > 0 and len(list_code) > 0:
-            for index in range(1,len(list_table) + 1):
-                if list_table[index] == list_code[index]:
-                    pass
-                else:
-                    flag = False
-                    break
+                if len(table_project) == len(code_project):
+                    for project in table_project:
+                        if project in code_project:
+                            contor += 1
+                            break
 
-        if flag == True:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook, TSDApp)
+        if contor == len(table_project):
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,TSDApp)
+            name.append("Different projects!")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook,TSDApp)
     return check
 
 def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
@@ -448,89 +444,12 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
         refColIndex = 0
         refRowIndex = 0
-        list_measure = list()
+        list_code = list()
         list_table = list()
         var = 0
-
-        for index1 in range(1, 15):
-            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
-                if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
-                    refColIndex = index2
-                    refRowIndex = index1
-                    break
-            if refColIndex != 0:
-                break
-        if refColIndex == 0:
-            var = 1
-
-        if var == 1:
-            result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-            check = True
-        elif var == 0:
-            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
-            nrLines = refCellRange.Rows.Count
-            nrCols = refCellRange.Columns.Count
-            localisation = list()
-
-            for index in range(refColIndex, refColIndex + nrCols):
-                if workSheet.Cells(refRowIndex + nrLines, refColIndex).Value == None:
-                    pass
-                else:
-                    list_table.append(workSheet.Cells(refRowIndex + nrLines, index).Value)
-
-            if TSDApp.WorkbookStats.hasMeasure == False:
-                result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-                check = True
-            else:
-                workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-                measureColIndex = 0
-                var = 0
-                for index1 in range(1, 15):
-                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
-                        if str(workSheet.Cells(index1,
-                                               index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
-                                workSheet.Cells(index1,
-                                                index2).Value).casefold().strip() == "Project applicability".casefold():
-                            measureColIndex = index2
-                            measureRowIndex = index1
-                            break
-                    if measureColIndex != 0:
-                        break
-
-                measureCellRange = workSheet.Cells(measureRowIndex, measureColIndex).MergeArea
-                nrLines = measureCellRange.Rows.Count
-                nrCols = measureCellRange.Columns.Count
-                localisation = list()
-
-
-                for index in range(measureColIndex, measureColIndex + nrCols):
-                    if workSheet.Cells(measureRowIndex + nrLines, measureColIndex).Value == None:
-                        pass
-                    else:
-                        list_measure.append(workSheet.Cells(measureRowIndex + nrLines, index).Value)
-
-            for element in list_table:
-                if element in list_measure:
-                    localisation = None
-                else:
-                    localisation = ""
-                    check = True
-                    break
-
-            result(TSDApp.DOC9Dict["Test_02043_18_04939_WHOLENESS _1055"][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    return check
-
-def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
-    testName = inspect.currentframe().f_code.co_name
-    print(testName)
-    check = False
-    if TSDApp.WorkbookStats.hasTable == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-        check = True
-    else:
-        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-        refColIndex = 0
-        var = 0
+        name = []
+        contor = -1
+        table_project = []
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
@@ -544,26 +463,115 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                 break
         if refColIndex == 0:
             var = 1
-        localisation = list()
-        if var == 0:
+
+        if var == 1:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        elif var == 0:
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             nrCols = refCellRange.Columns.Count
 
+            for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol + 1):
+                if workSheet.Cells(refRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.Cells(refRowIndex + nrLines, index).Value != None:
+                    table_project.append(workSheet.Cells(refRowIndex + nrLines, index).Value.strip())
+
+            if TSDApp.WorkbookStats.hasMeasure == False:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+                check = True
+            else:
+                workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
+                codeColIndex = 0
+                var = 0
+                for index1 in range(1, 15):
+                    for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
+                        if str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                            measureColIndex = index2
+                            measureRowIndex = index1
+                            break
+                    if codeColIndex != 0:
+                        break
+
+                codeCellRange = workSheet.Cells(measureRowIndex, measureColIndex).MergeArea
+                nrLines = codeCellRange.Rows.Count
+                nrCols = codeCellRange.Columns.Count
+
+                measure_project = []
+                for index in range(measureColIndex, TSDApp.WorkbookStats.codeLastCol + 1):
+                    if workSheet.Cells(measureRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.Cells(measureRowIndex + nrLines, index).Value != None:
+                        measure_project.append(workSheet.Cells(measureRowIndex + nrLines, index).Value.strip())
+
+                contor = 0
+                if len(table_project) == len(measure_project):
+                    for project in table_project:
+                        if project in measure_project:
+                            contor += 1
+                            break
+
+        if contor == len(table_project):
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            name.append("Different projects!")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
+    return check
+
+def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
+        refColIndex = 0
+        var = 0
+        localisation = list()
+
+        for index1 in range(1, 15):
+            for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
+                if str(workSheet.Cells(index1,
+                                       index2).Value).casefold().strip() == "Applicabilité projet".casefold() or str(
+                        workSheet.Cells(index1, index2).Value).casefold().strip() == "Project applicability".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
+                    break
+            if refColIndex != 0:
+                break
+        if refColIndex == 0:
+            var = 1
+
+        if var == 0:
+            refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
+            nrLines = refCellRange.Rows.Count
+            nrCols = refCellRange.Columns.Count
             list_table = list()
 
-            for index in range(refColIndex, refColIndex + nrCols):
-                if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
-                    pass
-                else:
-                    localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
-                    check = True
-            if str(localisation) == "[]":
+            contor = 0
+            for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol + 1):
+                if workSheet.Cells(refRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.Cells(refRowIndex + nrLines, index).Value != None:
+                    contor = contor + 1
+
+            values = ["x", "X", "NA"]
+            if contor != 0:
+                for index1 in range(refColIndex, refColIndex + contor):
+                    for index2 in range(refRowIndex + nrLines + 1, TSDApp.WorkbookStats.tableLastRow + 1):
+                        if workSheet.Cells(index2, index1).Value is None:
+                            localisation.append(workSheet.Cells(index2, index1))
+                        elif workSheet.Cells(index2, index1).Value.strip() in values:
+                            pass
+                        else:
+                            localisation.append(workSheet.Cells(index2, index1))
+
+            if not localisation:
                 localisation = None
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisation, workBook, TSDApp)
+        if localisation is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                   TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check
 
@@ -630,11 +638,12 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
     check = False
     if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-        check =True
+        check = True
     else:
         workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
         refColIndex = 0
         var = 0
+        localisation = list()
 
         for index1 in range(1, 15):
             for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
@@ -653,20 +662,31 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
             refCellRange = workSheet.Cells(refRowIndex, refColIndex).MergeArea
             nrLines = refCellRange.Rows.Count
             nrCols = refCellRange.Columns.Count
-            localisation = list()
             list_table = list()
 
-            for index in range(refColIndex, refColIndex + nrCols):
-                if workSheet.Cells(refRowIndex + nrLines, index).Value == "NA" or workSheet.Cells(refRowIndex + nrLines, index).Value == "X":
-                    pass
-                else :
-                    localisation.append(workSheet.Cells(refRowIndex + nrLines, index))
-                    check = True
-            if str(localisation) == "[]":
+            contor = 0
+            for index in range(refColIndex, TSDApp.WorkbookStats.measureLastCol + 1):
+                if workSheet.Cells(refRowIndex + 1, index).Borders(8).LineStyle != -4142 and workSheet.Cells(refRowIndex + 1, index).Value != None:
+                    contor = contor + 1
+
+            values = ["x", "X", "NA"]
+            if contor != 0:
+                for index1 in range(refColIndex, refColIndex + contor):
+                    for index2 in range(refRowIndex + 2, TSDApp.WorkbookStats.measureLastRow + 1):
+                        if workSheet.Cells(index2, index1).Value is None:
+                            localisation.append(workSheet.Cells(index2, index1))
+                        elif workSheet.Cells(index2, index1).Value.strip() in values:
+                            pass
+                        else:
+                            localisation.append(workSheet.Cells(index2, index1))
+
+            if not localisation:
                 localisation = None
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-        elif var == 1:
+        if localisation is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+                   TSDApp)
+        else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
     return check

@@ -60,10 +60,20 @@ def getTableInfo(workBook, TSDApp):
                             indexCol += 1
                             pass
                         else:
-                            lastCol = cell.Column
-                            tmp = 1
-                            ok = 1
-                            break
+                            if workSheet.Cells(cell.Row + 1, cell.Column + 2).Value is not None:
+                                indexCol += 2
+                                j = 1
+                                while workSheet.Cells(cell.Row + 1, cell.Column + 2 + j).Value is not None:
+                                    indexCol += 1
+                                    j +=1
+                                tmp = 1
+                                ok = 1
+                                break
+                            else:
+                                lastCol = indexCol
+                                tmp = 1
+                                ok = 1
+                                break
                 else:
                     break
 
@@ -72,7 +82,7 @@ def getTableInfo(workBook, TSDApp):
 
         if var == 0:
             TSDApp.WorkbookStats.tableLastRow = lastFilledCell
-            TSDApp.WorkbookStats.tableLastCol = lastCol
+            TSDApp.WorkbookStats.tableLastCol = indexCol
 
         else:
             TSDApp.WorkbookStats.tableLastRow = None

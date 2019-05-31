@@ -142,7 +142,7 @@ def WriteReportInformationSheet(workBook, TSDApp):
     colList.append(list(("Tool version:", TSD_Checker_V4_0.appName)))
     colList.append(list(("Criticity configuration file:", TSDApp.DOC9Path)))
     colList.append(list(("","")))
-    colList.append(list(("Extract CESARE file:", TSDApp.DOC8Name)))
+    colList.append(list(("Extract CESARE file:", TSDApp.DOC8Path)))
     colList.append(list(("Customer effects file:", TSDApp.DOC7Name)))
     colList.append(list(("Check level:", TSDApp.checkLevel)))
     colList.append(list(("","")))
