@@ -99,7 +99,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 def is_ascii(s):
     return all(ord(c) < 128 for c in s)
 
-def Test_02043_18_04939_COH_2001(workBook, TSDApp):
+def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
@@ -150,9 +150,11 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp):
                                     check2 = False
                                     break
                             if check1 == True and check2 == True:
-                                contor = contor + 1
+                                if cel[0] in DOC8List:
+                                    contor = contor + 1
                         else:
                             localisation.append(workSheet.Cells(index, refColIndex))
+
                     except:
                         localisation.append(workSheet.Cells(index, refColIndex))
             if not localisation:
@@ -198,7 +200,9 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
-                    if cel[0] not in DOC8List:
+                    if len(cel) == 2:
+                        pass
+                    elif cel[0] not in DOC8List:
                         localisation.append(workSheet.Cells(index, codeColIndex))
                 except:
                     localisation.append(workSheet.Cells(index, codeColIndex))
@@ -300,8 +304,11 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
             for index in range(codeRowIndex + nrLines, TSDApp.WorkbookStats.codeLastRow + 1):
                 try:
                     cel = workSheet.Cells(index, codeColIndex).Value.split("-")
-                    if cel[0] not in DOC8List:
-                        localisation.append(workSheet.Cells(index, codeColIndex))
+                    if len(cel) == 2:
+                        pass
+                    else:
+                        if cel[0] not in DOC8List:
+                            localisation.append(workSheet.Cells(index, codeColIndex))
                 except:
                     localisation.append(workSheet.Cells(index, codeColIndex))
             if not localisation:
