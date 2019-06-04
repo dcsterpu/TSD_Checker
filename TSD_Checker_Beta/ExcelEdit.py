@@ -6,10 +6,14 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
-    testReportSheet = workBook.Sheets("Test report")
-    lastRow = testReportSheet.UsedRange.Rows.Count + 1
 
-    testReportSheet.Cells(lastRow, 1).Value = criticity
+    return_dict = {}
+    return_dict["criticity"] = criticity
+    return_dict["testName"] = testName
+    return_dict["message"] = message
+    return_dict["localisation"] = localisation
+    TSDApp.return_list.append(return_dict)
+
     if criticity.casefold() == "blocking":
         TSDApp.criticity_blocking += 1
     else:
@@ -18,30 +22,11 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
         else:
             TSDApp.criticity_information += 1
 
-    ColorCell(criticity, testReportSheet.Cells(lastRow, 1))
     tempString = str()
-
-    testReportSheet.Cells(lastRow, 2).Value = testName
-    if localisation is not None:
-        localisation_len = len(localisation)
-        for index in range(1,localisation_len):
-            testReportSheet.Cells(lastRow + index, 2).Value = testName
-            testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
-            testReportSheet.Cells(lastRow + index, 1).Value = criticity
-            testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
-
     if localisation is None or localisation == "":
-        testReportSheet.Cells(lastRow, 3).Value = "OK"
         tempString = "OK"
     else:
-        testReportSheet.Cells(lastRow, 3).Value = message
         tempString = "NOK"
-
-    if localisation is None or localisation == "":
-        testReportSheet.Cells(lastRow, 4).Value = localisation
-    else:
-        for index, element in enumerate(localisation):
-            testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
 
     textBoxText = TSDApp.tab1.textbox.toPlainText()
     textBoxText = textBoxText + "\n" + testName + " " + tempString
@@ -49,12 +34,100 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
 
     TSDApp.IncrementProgressBar()
+
+def ExcelWrite( return_list, workBook):
+    testReportSheet = workBook.Sheets("Test report")
+    lastRow = testReportSheet.UsedRange.Rows.Count + 1
+
+    for elem in return_list:
+        testReportSheet.Cells(lastRow, 1).Value = elem["criticity"]
+
+        ColorCell(elem["criticity"], testReportSheet.Cells(lastRow, 1))
+        tempString = str()
+        nrRows = -1
+
+        testReportSheet.Cells(lastRow, 2).Value = elem["testName"]
+        if elem["localisation"] is not None:
+            localisation_len = len(elem["localisation"])
+            nrRows = 0
+            for index in range(1,localisation_len):
+                testReportSheet.Cells(lastRow + index, 2).Value = elem["testName"]
+                testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
+                testReportSheet.Cells(lastRow + index, 1).Value = elem["criticity"]
+                testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
+                nrRows = index
+
+
+        if elem["localisation"] is None or elem["localisation"] == "":
+            testReportSheet.Cells(lastRow, 3).Value = "OK"
+        else:
+            testReportSheet.Cells(lastRow, 3).Value = elem["message"]
+
+        if elem["localisation"] is None or elem["localisation"] == "":
+            testReportSheet.Cells(lastRow, 4).Value = elem["localisation"]
+            if nrRows > 0:
+                lastRow += nrRows
+            else:
+                lastRow += 1
+        else:
+            if isinstance(elem["localisation"][0],str):
+                for index, element in enumerate(elem["localisation"]):
+                    testReportSheet.Cells(lastRow + index, 4).Value = element
+                    lastRow += 1
+            else:
+                for index, element in enumerate(elem["localisation"]):
+                    testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
+                lastRow = lastRow + index + 1
+
+
+
+                # def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
+#     testReportSheet = workBook.Sheets("Test report")
+#     lastRow = testReportSheet.UsedRange.Rows.Count + 1
+#
+#     testReportSheet.Cells(lastRow, 1).Value = criticity
+#
+#
+#     ColorCell(criticity, testReportSheet.Cells(lastRow, 1))
+#     tempString = str()
+#
+#     testReportSheet.Cells(lastRow, 2).Value = testName
+#     if localisation is not None:
+#         localisation_len = len(localisation)
+#         for index in range(1,localisation_len):
+#             testReportSheet.Cells(lastRow + index, 2).Value = testName
+#             testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
+#             testReportSheet.Cells(lastRow + index, 1).Value = criticity
+#             testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
+#
+#     if localisation is None or localisation == "":
+#         testReportSheet.Cells(lastRow, 3).Value = "OK"
+#         tempString = "OK"
+#     else:
+#         testReportSheet.Cells(lastRow, 3).Value = message
+#         tempString = "NOK"
+#
+#     if localisation is None or localisation == "":
+#         testReportSheet.Cells(lastRow, 4).Value = localisation
+#     else:
+#         for index, element in enumerate(localisation):
+#             testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
+#
+#     textBoxText = TSDApp.tab1.textbox.toPlainText()
+#     textBoxText = textBoxText + "\n" + testName + " " + tempString
+#     TSDApp.tab1.textbox.setText(textBoxText)
+#     TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
+#
+#     TSDApp.IncrementProgressBar()
 
 def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
-    testReportSheet = workBook.Sheets("Test report")
-    lastRow = testReportSheet.UsedRange.Rows.Count + 1
+    return_dict = {}
+    return_dict["criticity"] = criticity
+    return_dict["testName"] = testName
+    return_dict["message"] = message
+    return_dict["localisation"] = name
+    TSDApp.return_list.append(return_dict)
 
-    testReportSheet.Cells(lastRow, 1).Value = criticity
     if criticity.casefold() == "blocking":
         TSDApp.criticity_blocking += 1
     else:
@@ -63,30 +136,11 @@ def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
         else:
             TSDApp.criticity_information += 1
 
-    ColorCell(criticity, testReportSheet.Cells(lastRow, 1))
     tempString = str()
-
-    testReportSheet.Cells(lastRow, 2).Value = testName
-    if name is not None:
-        name_len = len(name)
-        for index in range(1,name_len):
-            testReportSheet.Cells(lastRow + index, 2).Value = testName
-            testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
-            testReportSheet.Cells(lastRow + index, 1).Value = criticity
-            testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
-
     if name is None or name == "":
-        testReportSheet.Cells(lastRow, 3).Value = "OK"
         tempString = "OK"
     else:
-        testReportSheet.Cells(lastRow, 3).Value = message
         tempString = "NOK"
-
-    if name is None or name == "":
-        testReportSheet.Cells(lastRow, 4).Value = name
-    else:
-        for index, element in enumerate(name):
-            testReportSheet.Cells(lastRow + index, 4).Value = name
 
     textBoxText = TSDApp.tab1.textbox.toPlainText()
     textBoxText = textBoxText + "\n" + testName + " " + tempString
@@ -94,6 +148,49 @@ def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
 
     TSDApp.IncrementProgressBar()
+    # testReportSheet = workBook.Sheets("Test report")
+    # lastRow = testReportSheet.UsedRange.Rows.Count + 1
+    #
+    # testReportSheet.Cells(lastRow, 1).Value = criticity
+    # if criticity.casefold() == "blocking":
+    #     TSDApp.criticity_blocking += 1
+    # else:
+    #     if criticity.casefold() == "warning":
+    #         TSDApp.criticity_warning += 1
+    #     else:
+    #         TSDApp.criticity_information += 1
+    #
+    # ColorCell(criticity, testReportSheet.Cells(lastRow, 1))
+    # tempString = str()
+    #
+    # testReportSheet.Cells(lastRow, 2).Value = testName
+    # if name is not None:
+    #     name_len = len(name)
+    #     for index in range(1,name_len):
+    #         testReportSheet.Cells(lastRow + index, 2).Value = testName
+    #         testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
+    #         testReportSheet.Cells(lastRow + index, 1).Value = criticity
+    #         testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
+    #
+    # if name is None or name == "":
+    #     testReportSheet.Cells(lastRow, 3).Value = "OK"
+    #     tempString = "OK"
+    # else:
+    #     testReportSheet.Cells(lastRow, 3).Value = message
+    #     tempString = "NOK"
+    #
+    # if name is None or name == "":
+    #     testReportSheet.Cells(lastRow, 4).Value = name
+    # else:
+    #     for index, element in enumerate(name):
+    #         testReportSheet.Cells(lastRow + index, 4).Value = name
+    #
+    # textBoxText = TSDApp.tab1.textbox.toPlainText()
+    # textBoxText = textBoxText + "\n" + testName + " " + tempString
+    # TSDApp.tab1.textbox.setText(textBoxText)
+    # TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
+    #
+    # TSDApp.IncrementProgressBar()
 
 def ColorCell(criticity, cell):
     if criticity == "Blocking":

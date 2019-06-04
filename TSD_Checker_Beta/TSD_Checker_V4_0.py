@@ -60,6 +60,8 @@ class Application(QWidget):
         self.end_time = 0
         self.opening_time = 0
 
+        self.return_list = []
+
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
             self.DOC8Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
@@ -388,7 +390,7 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180,25)
         tab.TextBoxPass.move(550, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        tab.TextBoxPass.setText("Cst67677")
+        tab.TextBoxPass.setText("cST12122")
 
 
         # File Selectiom Dialog5
@@ -1665,6 +1667,9 @@ class Test(Application):
 
                 self.end_time = time.time()
                 ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
+
+                ExcelEdit.ExcelWrite(self.return_list, self.DOC3Workbook)
+
                 self.DOC3Workbook.Save()
 
 
