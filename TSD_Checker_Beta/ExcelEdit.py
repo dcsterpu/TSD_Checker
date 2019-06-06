@@ -1,7 +1,9 @@
 import TSD_Checker_V4_0
 import time
 from PyQt5 import QtGui
-
+import xlrd
+import xlwt
+from xlutils.copy import copy
 
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 
@@ -35,53 +37,128 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
     TSDApp.IncrementProgressBar()
 
-def ExcelWrite( return_list, workBook):
-    testReportSheet = workBook.Sheets("Test report")
-    lastRow = testReportSheet.UsedRange.Rows.Count + 1
+def ExcelWrite(return_list, workBook):
+    # testReportSheet = workBook.Sheets("Test report")
+    # lastRow = testReportSheet.UsedRange.Rows.Count + 1
+    #
+    # for elem in return_list:
+    #     testReportSheet.Cells(lastRow, 1).Value = elem["criticity"]
+    #
+    #     ColorCell(elem["criticity"], testReportSheet.Cells(lastRow, 1))
+    #     tempString = str()
+    #     nrRows = -1
+    #
+    #     testReportSheet.Cells(lastRow, 2).Value = elem["testName"]
+    #     if elem["localisation"] is not None:
+    #         localisation_len = len(elem["localisation"])
+    #         nrRows = 0
+    #         for index in range(1,localisation_len):
+    #             testReportSheet.Cells(lastRow + index, 2).Value = elem["testName"]
+    #             testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
+    #             testReportSheet.Cells(lastRow + index, 1).Value = elem["criticity"]
+    #             testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
+    #             nrRows = index
+    #
+    #
+    #     if elem["localisation"] is None or elem["localisation"] == "":
+    #         testReportSheet.Cells(lastRow, 3).Value = "OK"
+    #     else:
+    #         testReportSheet.Cells(lastRow, 3).Value = elem["message"]
+    #
+    #     if elem["localisation"] is None or elem["localisation"] == "":
+    #         testReportSheet.Cells(lastRow, 4).Value = elem["localisation"]
+    #         if nrRows > 0:
+    #             lastRow += nrRows
+    #         else:
+    #             lastRow += 1
+    #     else:
+    #         if isinstance(elem["localisation"][0],str):
+    #             for index, element in enumerate(elem["localisation"]):
+    #                 testReportSheet.Cells(lastRow + index, 4).Value = element
+    #                 lastRow += 1
+    #         else:
+    #             for index, element in enumerate(elem["localisation"]):
+    #                 testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
+    #             lastRow = lastRow + index + 1
+
+    # rb = xlrd.open_workbook(workBook, on_demand=True)
+    # rb_sheet = rb.sheet_by_name("Test report")
+    # lastRow = rb_sheet.nrows + 1
+    # wb = copy(rb)
+    # rb.release_resources()
+    # del rb
+    # ws = wb.get_sheet("Test report")
+    #
+    # for elem in return_list:
+    #     blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+    #     ws.write(lastRow, 1, elem["criticity"], blocking_style)
+    #     lastRow += 1
+    #
+    # wb.save(workBook)
+
+    wb = xlwt.Workbook()
+    ws = wb.add_sheet('Test report',  cell_overwrite_ok=True)
+    ws11 = wb.add_sheet('codes défauts', cell_overwrite_ok=True)
+    lastRow = 0
+
+    ws.write(lastRow, 0, 'Criticity')
+    ws.write(lastRow, 1, 'Requirements')
+    ws.write(lastRow, 2, 'Message')
+    ws.write(lastRow, 3, 'Localisation')
+
+    lastRow += 1
+    blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+    warning_style = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
+    text_style = xlwt.easyxf('font: colour white, bold False;')
 
     for elem in return_list:
-        testReportSheet.Cells(lastRow, 1).Value = elem["criticity"]
 
-        ColorCell(elem["criticity"], testReportSheet.Cells(lastRow, 1))
-        tempString = str()
-        nrRows = -1
+        if elem["criticity"].casefold().strip() == "blocking":
+            ws.write(lastRow, 0, elem["criticity"], blocking_style)
+        elif elem["criticity"].casefold().strip() == "warning":
+            ws.write(lastRow, 0, elem["criticity"], warning_style)
+        else:
+            ws.write(lastRow, 0, elem["criticity"])
 
-        testReportSheet.Cells(lastRow, 2).Value = elem["testName"]
-        if elem["localisation"] is not None:
-            localisation_len = len(elem["localisation"])
-            nrRows = 0
-            for index in range(1,localisation_len):
-                testReportSheet.Cells(lastRow + index, 2).Value = elem["testName"]
-                testReportSheet.Cells(lastRow + index, 2).Font.ColorIndex = 2
-                testReportSheet.Cells(lastRow + index, 1).Value = elem["criticity"]
-                testReportSheet.Cells(lastRow + index, 1).Font.ColorIndex = 2
-                nrRows = index
-
+        ws.write(lastRow, 1, elem["testName"])
 
         if elem["localisation"] is None or elem["localisation"] == "":
-            testReportSheet.Cells(lastRow, 3).Value = "OK"
+            ws.write(lastRow, 2, "OK")
         else:
-            testReportSheet.Cells(lastRow, 3).Value = elem["message"]
+            ws.write(lastRow, 2, elem["message"])
 
         if elem["localisation"] is None or elem["localisation"] == "":
-            testReportSheet.Cells(lastRow, 4).Value = elem["localisation"]
-            if nrRows > 0:
-                lastRow += nrRows
-            else:
-                lastRow += 1
-        else:
-            if isinstance(elem["localisation"][0],str):
+            ws.write(lastRow, 3, elem["localisation"])
+            lastRow += 1
+
+        if elem["localisation"] is not None and elem["localisation"] != "":
+            if isinstance(elem["localisation"][0], str):
                 for index, element in enumerate(elem["localisation"]):
-                    testReportSheet.Cells(lastRow + index, 4).Value = element
-                    lastRow += 1
+                    ws.write(lastRow + index, 3, element)
+
+                for index in range(1, len(elem["localisation"]) + 1):
+                    ws.write(lastRow + index, 0, elem["criticity"], text_style)
+                    ws.write(lastRow + index, 1, elem["testName"], text_style)
+
+                lastRow += index
             else:
                 for index, element in enumerate(elem["localisation"]):
-                    testReportSheet.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
-                lastRow = lastRow + index + 1
+                    sheet = element.Worksheet.Name
+                    link = 'HYPERLINK("#\''+ str(sheet) +  '\'!A1", "Link")'
+                    ws.write(lastRow + index, 3, xlwt.Formula(link))
+
+                    # ws.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
+
+                for index in range(1, len(elem["localisation"]) + 1):
+                    ws.write(lastRow + index, 0, elem["criticity"], text_style)
+                    ws.write(lastRow + index, 1, elem["testName"], text_style)
+
+                lastRow = lastRow + index
 
 
+    wb.save('C:\\Users\\msnecula\\Downloads\\output.xls')
 
-                # def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
+    # def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 #     testReportSheet = workBook.Sheets("Test report")
 #     lastRow = testReportSheet.UsedRange.Rows.Count + 1
 #
