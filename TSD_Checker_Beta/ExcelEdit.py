@@ -95,7 +95,7 @@ def ExcelWrite(return_list, workBook):
     #     lastRow += 1
     #
     # wb.save(workBook)
-
+    # ########################################################################################################
     wb = xlwt.Workbook()
     ws = wb.add_sheet('Test report',  cell_overwrite_ok=True)
     ws11 = wb.add_sheet('codes défauts', cell_overwrite_ok=True)
@@ -143,11 +143,9 @@ def ExcelWrite(return_list, workBook):
                 lastRow += index
             else:
                 for index, element in enumerate(elem["localisation"]):
-                    sheet = element.Worksheet.Name
-                    link = 'HYPERLINK("#\''+ str(sheet) +  '\'!A1", "Link")'
-                    ws.write(lastRow + index, 3, xlwt.Formula(link))
 
-                    # ws.Cells(lastRow + index, 4).Formula = "=HYPERLINK(\"#\'" + element.Worksheet.Name + "\'!"+ element.Address + "\",\"" + element.Address +"\")"
+                    link = "HYPERLINK(\"#\'"+ str(element.Worksheet.Name) + "\'!" + str(element.Address) + "\",\"" + str(element.Address) + "\")"
+                    ws.write(lastRow + index, 3, xlwt.Formula(link))
 
                 for index in range(1, len(elem["localisation"]) + 1):
                     ws.write(lastRow + index, 0, elem["criticity"], text_style)
@@ -157,6 +155,9 @@ def ExcelWrite(return_list, workBook):
 
 
     wb.save('C:\\Users\\msnecula\\Downloads\\output.xls')
+
+    # ########################################################################################################
+
 
     # def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 #     testReportSheet = workBook.Sheets("Test report")
@@ -197,6 +198,8 @@ def ExcelWrite(return_list, workBook):
 #
 #     TSDApp.IncrementProgressBar()
 
+
+
 def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     return_dict = {}
     return_dict["criticity"] = criticity
@@ -225,6 +228,7 @@ def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
 
     TSDApp.IncrementProgressBar()
+
     # testReportSheet = workBook.Sheets("Test report")
     # lastRow = testReportSheet.UsedRange.Rows.Count + 1
     #

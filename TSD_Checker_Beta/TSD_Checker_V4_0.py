@@ -917,20 +917,20 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1080"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1090"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1100"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
+                if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1080"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
+                    if check_indicator == True:
+                        ok_indicator = 1
+
+                if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1090"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
+                    if check_indicator == True:
+                        ok_indicator = 1
+
+                if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1100"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
+                    if check_indicator == True:
+                        ok_indicator = 1
                 #
                 # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1110"][self.checkLevel].casefold().strip() != "n/a":
                 #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
@@ -1669,16 +1669,13 @@ class Test(Application):
                     self.status = "Passed"
                     self.tab1.buttonNew.setEnabled(True)
 
+                ExcelEdit.ExcelWrite(self.return_list, self.DOC3Path)
+
                 self.end_time = time.time()
 
                 ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
 
                 self.DOC3Workbook.Save()
-
-                ExcelEdit.ExcelWrite(self.return_list, self.DOC3Path)
-
-
-                # self.DOC3Workbook.Save()
 
 
             elif ok == 1:
