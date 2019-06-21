@@ -186,7 +186,7 @@ def convergenceIndicator(workBook, TSDApp):
     #     workBook2.save(path2)
 
     # p.save_book_as(file_name=path2, dest_file_name=path)
-
+    print("a")
     return (NbUniqueSignatureTests / NbAMDECLine)
 
 
