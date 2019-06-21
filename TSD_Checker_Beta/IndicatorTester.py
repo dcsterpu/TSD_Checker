@@ -6,7 +6,6 @@ from ErrorMessages import errorMessagesDict as error
 import xlrd
 import xlwt
 from xlutils.copy import copy
-import pyexcel as p
 
 def coverageIndicator(workBook, TSDApp):
     index = 0

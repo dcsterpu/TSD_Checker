@@ -4,7 +4,6 @@ from PyQt5 import QtGui
 import xlrd
 import xlwt
 from xlutils.copy import copy
-import pyexcel as p
 import openpyxl
 from openpyxl.styles import Color, PatternFill, Font, Border
 from openpyxl.styles import colors
@@ -399,22 +398,8 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
                     lastRow = lastRow + index
 
+    workBook2.save(TSDApp.DOC3Path)
 
-    if TSDApp.DOC3Path.split('.')[-1] == "xls":
-        workBook2.save(TSDApp.DOC3Path)
-    else:
-        path = TSDApp.DOC3Path.split('.')[0]
-        path2 = TSDApp.DOC3Path.split('/')[0]
-        for i in range(1, len(TSDApp.DOC3Path.split('.')) - 1):
-            path = path + "." + TSDApp.DOC3Path.split('.')[i]
-        for i in range(1, len(TSDApp.DOC3Path.split('/')) - 1):
-            path2 = path2 + "/" + TSDApp.DOC3Path.split('/')[i]
-        path = path + ".xlsx"
-        path2 = path2 + "/Temporal.xls"
-
-        workBook2.save(path2)
-
-        p.save_book_as(file_name=path2, dest_file_name=path)
 
     # ws = wb.add_sheet('Test report',  cell_overwrite_ok=True)
     # ws11 = wb.add_sheet('codes défauts', cell_overwrite_ok=True)
@@ -750,8 +735,70 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                             workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
 
                     lastRow += index + 1
+    else:
+        workSheet_test_report = wb.get_sheet_by_name("Test report")
+        wb.remove_sheet(workSheet_test_report)
+        workSheet_test_report = wb.create_sheet("Test report")
 
+        lastRow = 1
+        workSheet_test_report['A1'] = "Criticity"
+        workSheet_test_report['B1'] = "Requirements"
+        workSheet_test_report['C1'] = "Message"
+        workSheet_test_report['D1'] = "Localisation"
 
+        lastRow += 1
+
+        my_red = openpyxl.styles.colors.Color(rgb='00FF0000')
+        blocking_style = openpyxl.styles.fills.PatternFill(patternType='solid', fgColor=my_red)
+        my_yellow = openpyxl.styles.colors.Color(rgb='00FFFF00')
+        warning_style = openpyxl.styles.fills.PatternFill(patternType='solid', fgColor=my_yellow)
+        text_style = Font(color='FFFFFFFF')
+
+        for elem in return_list:
+
+            if elem["criticity"].casefold().strip() == "blocking":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = blocking_style
+            elif elem["criticity"].casefold().strip() == "warning":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = warning_style
+            else:
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"])
+
+            workSheet_test_report.cell(lastRow, 2, elem["testName"])
+
+            if elem["localisation"] is None or elem["localisation"] == "":
+                workSheet_test_report.cell(lastRow, 3, "OK")
+            else:
+                workSheet_test_report.cell(lastRow, 3, elem["message"])
+
+            if elem["localisation"] is None or elem["localisation"] == "":
+                workSheet_test_report.cell(lastRow, 4, elem["localisation"])
+                lastRow += 1
+
+            if elem["localisation"] is not None and elem["localisation"] != "":
+                if isinstance(elem["localisation"][0], str):
+                    for index, element in enumerate(elem["localisation"]):
+                        workSheet_test_report.cell(lastRow + index, 4, element)
+
+                    if len(elem['localisation']) > 1:
+                        for index in range(1, len(elem["localisation"])):
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+
+                    lastRow += index + 1
+                else:
+                    for index, element in enumerate(elem["localisation"]):
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(
+                            list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % (
+                        "'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
+
+                    if len(elem['localisation']) > 1:
+                        for index in range(1, len(elem["localisation"])):
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+
+                    lastRow += index + 1
 
     wb.save(workBook)
 
