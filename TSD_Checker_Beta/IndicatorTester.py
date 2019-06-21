@@ -1,4 +1,4 @@
-import TSD_Checker_V4_0
+import TSD_Checker_V5_0
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -186,7 +186,7 @@ def convergenceIndicator(workBook, TSDApp):
     #     workBook2.save(path2)
 
     # p.save_book_as(file_name=path2, dest_file_name=path)
-    print("a")
+
     return (NbUniqueSignatureTests / NbAMDECLine)
 
 
