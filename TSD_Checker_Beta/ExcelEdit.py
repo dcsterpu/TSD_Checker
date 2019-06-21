@@ -672,6 +672,9 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report['A31'] = "Information Points"
         workSheet_info_report['B31'] = str(TSDApp.criticity_information)
 
+    workSheet_info_report.column_dimensions['A'].width = 40
+    workSheet_info_report.column_dimensions['B'].width = 140
+
     list_alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ']
     if index_test_report == -1:
         workSheet_test_report = wb.create_sheet("Test report")
@@ -799,6 +802,11 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                             workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
 
                     lastRow += index + 1
+
+    workSheet_test_report.column_dimensions['A'].width = 20
+    workSheet_test_report.column_dimensions['B'].width = 40
+    workSheet_test_report.column_dimensions['C'].width = 80
+    workSheet_test_report.column_dimensions['D'].width = 20
 
     wb.save(workBook)
 
