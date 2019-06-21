@@ -318,7 +318,7 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
         localisation1 = ""
         flag = True
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
     return flag
 
     # testName = inspect.currentframe().f_code.co_name
@@ -365,10 +365,10 @@ def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -382,10 +382,10 @@ def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -400,10 +400,10 @@ def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -418,10 +418,10 @@ def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -436,10 +436,10 @@ def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -454,10 +454,10 @@ def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -472,10 +472,10 @@ def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -490,10 +490,10 @@ def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -509,10 +509,10 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
                     localisation1.append(("reference docs", index, 2))
                     break
 
-    if not localisation1:
-        localisation1 = None
+        if not localisation1:
+            localisation1 = None
 
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -527,10 +527,10 @@ def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
-    
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        if not localisation1:
+            localisation1 = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -545,10 +545,10 @@ def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
-                
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        if not localisation1:
+            localisation1 = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -563,10 +563,10 @@ def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
                 if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
-    if not localisation1:
-        localisation1 = None
-    
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+        if not localisation1:
+            localisation1 = None
+
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
 
 #[DOC3]
 
@@ -671,7 +671,7 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
         for elem1 in list_ref:
             found = False
             for elem2 in list_test:
-                if elem1['2'] == elem2['2']:
+                if elem1['2'] == elem2['2'] or elem1['2'] == "":
                     found = True
             if not found:
                 name.append((elem1['2']))
