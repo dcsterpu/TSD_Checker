@@ -173,9 +173,10 @@ def Test_02043_18_04939_STRUCT_0005(workBook, TSDApp):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.InfGenIndex)
-        if str(workSheet.cell(51,1).value)[0] != "=":
-            localisation = None
-        else:
+        try:
+            if str(workSheet.cell(51,1).value)[0] != "=":
+                localisation = None
+        except:
             localisation.append(("informations générales", 51, 1))
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)

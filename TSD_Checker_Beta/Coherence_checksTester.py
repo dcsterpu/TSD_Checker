@@ -98,7 +98,7 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
             localisations = []
             contor = 0
 
-            for index in range(TSDApp.tableHeaderRow, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, refColIndex).value == "":
                     pass
                 else:
@@ -201,7 +201,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                                 localisations.append(("codes défauts",index,codeColIndex))
                     else:
                         if len(cel) == 3:
-                            a = 3
+                            pass
                 except:
                     localisations.append(("codes défauts",index,codeColIndex))
 
