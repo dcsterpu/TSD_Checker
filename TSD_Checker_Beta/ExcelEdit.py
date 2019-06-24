@@ -504,7 +504,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
 
 def ExcelWrite2(return_list, workBook, TSDApp):
-    wb = openpyxl.load_workbook(workBook)
+    wb = openpyxl.load_workbook(workBook, keep_vba=True)
 
     index_test_report = -1
     index_info_report = -1
