@@ -784,9 +784,14 @@ def ExcelWrite2(return_list, workBook, TSDApp):
 
         lastRow = 1
         workSheet_test_report['A1'] = "Criticity"
+        workSheet_test_report['A1'].font = fontStyle_b
         workSheet_test_report['B1'] = "Requirements"
+        workSheet_test_report['B1'].font = fontStyle_b
         workSheet_test_report['C1'] = "Message"
+        workSheet_test_report['C1'].font = fontStyle_b
         workSheet_test_report['D1'] = "Localisation"
+        workSheet_test_report['D1'].font = fontStyle_b
+
 
         lastRow += 1
 
@@ -853,9 +858,13 @@ def ExcelWrite2(return_list, workBook, TSDApp):
 
         lastRow = 1
         workSheet_test_report['A1'] = "Criticity"
+        workSheet_test_report['A1'].font = fontStyle_b
         workSheet_test_report['B1'] = "Requirements"
+        workSheet_test_report['B1'].font = fontStyle_b
         workSheet_test_report['C1'] = "Message"
+        workSheet_test_report['C1'].font = fontStyle_b
         workSheet_test_report['D1'] = "Localisation"
+        workSheet_test_report['D1'].font = fontStyle_b
 
         lastRow += 1
 
