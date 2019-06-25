@@ -5,7 +5,7 @@ import xlrd
 import xlwt
 from xlutils.copy import copy
 import openpyxl
-from openpyxl.styles import Color, PatternFill, Font, Border
+from openpyxl.styles import Color, Font
 from openpyxl.styles import colors
 
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
@@ -514,83 +514,136 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         if sheetname == 'report information':
             index_info_report = TSDApp.WorkbookStats.sheetNames.index('report information')
 
+    fontStyle_b = Font(name="Calibri", size=12, color=colors.BLACK)
+    fontStyle_w = Font(name="Calibri", size=12, color=colors.WHITE)
+
     if index_info_report == -1:
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
+        workSheet_info_report['A1'].font = fontStyle_b
         workSheet_info_report['B1'] = TSD_Checker_V5_0.appName
+        workSheet_info_report['B1'].font = fontStyle_b
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
+        workSheet_info_report['A3'].font = fontStyle_b
         workSheet_info_report['B3'] = TSDApp.DOC9Path
+        workSheet_info_report['B3'].font = fontStyle_b
 
         workSheet_info_report['A4'] = "Extract CESARE file:"
+        workSheet_info_report['A4'].font = fontStyle_b
         workSheet_info_report['B4'] = TSDApp.DOC8Path
+        workSheet_info_report['B4'].font = fontStyle_b
 
         workSheet_info_report['A5'] = "Customer effects file:"
+        workSheet_info_report['A5'].font = fontStyle_b
         workSheet_info_report['B5'] = TSDApp.DOC7Name
+        workSheet_info_report['B5'].font = fontStyle_b
 
         workSheet_info_report['A6'] = "Diversity management file:"
-        workSheet_info_report['B1'] = TSDApp.DOC13Path
+        workSheet_info_report['A6'].font = fontStyle_b
+        workSheet_info_report['B6'] = TSDApp.DOC13Path
+        workSheet_info_report['B6'].font = fontStyle_b
 
         workSheet_info_report['A7'] = "CESARE file reference:"
+        workSheet_info_report['A7'].font = fontStyle_b
         workSheet_info_report['B7'] = TSDApp.DOC8Link.split("/")[-3]
+        workSheet_info_report['B7'].font = fontStyle_b
 
         workSheet_info_report['A8'] = "Criticity configuration file reference:"
+        workSheet_info_report['A8'].font = fontStyle_b
         workSheet_info_report['B8'] = TSDApp.DOC9Link.split("/")[-3]
+        workSheet_info_report['B8'].font = fontStyle_b
 
         workSheet_info_report['A9'] = "Customer effect file reference:"
+        workSheet_info_report['A9'].font = fontStyle_b
         workSheet_info_report['B9'] = TSDApp.DOC7Link.split("/")[-3]
+        workSheet_info_report['B9'].font = fontStyle_b
 
         workSheet_info_report['A10'] = "Diversity management file reference:"
+        workSheet_info_report['A10'].font = fontStyle_b
         workSheet_info_report['B10'] = TSDApp.DOC13Link.split("/")[-3]
+        workSheet_info_report['B10'].font = fontStyle_b
 
         workSheet_info_report['A11'] = "Check level:"
+        workSheet_info_report['A11'].font = fontStyle_b
         workSheet_info_report['B11'] = TSDApp.checkLevel
+        workSheet_info_report['B11'].font = fontStyle_b
 
         workSheet_info_report['A13'] = "Date of the test:"
+        workSheet_info_report['A13'].font = fontStyle_b
         workSheet_info_report['B13'] = time.strftime("%x")
+        workSheet_info_report['B13'].font = fontStyle_b
 
         workSheet_info_report['A14'] = "Time of the test:"
+        workSheet_info_report['A14'].font = fontStyle_b
         workSheet_info_report['B14'] = time.strftime("%X")
+        workSheet_info_report['B14'].font = fontStyle_b
 
         workSheet_info_report['A15'] = "Test duration:"
+        workSheet_info_report['A15'].font = fontStyle_b
         workSheet_info_report['B15'] = time.strftime('%H:%M:%S', time.gmtime(TSDApp.end_time - TSDApp.start_time))
+        workSheet_info_report['B15'].font = fontStyle_b
 
         workSheet_info_report['A16'] = "Opening duration:"
+        workSheet_info_report['A16'].font = fontStyle_b
         workSheet_info_report['B16'] = time.strftime('%H:%M:%S', time.gmtime(TSDApp.opening_time - TSDApp.start_time))
+        workSheet_info_report['B16'].font = fontStyle_b
 
         workSheet_info_report['A18'] = "TSD file checked:"
+        workSheet_info_report['A18'].font = fontStyle_b
         workSheet_info_report['B18'] = TSDApp.DOC3Path
+        workSheet_info_report['B18'].font = fontStyle_b
 
         workSheet_info_report['A19'] = "TSD function file checked:"
-        workSheet_info_report['b19'] = TSDApp.DOC4Path
+        workSheet_info_report['A19'].font = fontStyle_b
+        workSheet_info_report['B19'] = TSDApp.DOC4Path
+        workSheet_info_report['B19'].font = fontStyle_b
 
         workSheet_info_report['A20'] = "TSD system file checked:"
+        workSheet_info_report['A20'].font = fontStyle_b
         workSheet_info_report['B20'] = TSDApp.DOC5Path
+        workSheet_info_report['B20'].font = fontStyle_b
 
         workSheet_info_report['A22'] = "AMDEC:"
+        workSheet_info_report['A22'].font = fontStyle_b
         workSheet_info_report['B22'] = TSDApp.AMDECName
+        workSheet_info_report['B22'].font = fontStyle_b
 
         workSheet_info_report['A23'] = "Export MedialecMatrice:"
+        workSheet_info_report['A23'].font = fontStyle_b
         workSheet_info_report['B23'] = TSDApp.MedialecName
+        workSheet_info_report['B23'].font = fontStyle_b
 
         workSheet_info_report['A25'] = "Status:"
+        workSheet_info_report['A25'].font = fontStyle_b
         workSheet_info_report['B25'] = str(TSDApp.status)
+        workSheet_info_report['B25'].font = fontStyle_b
 
         workSheet_info_report['A26'] = "Coverage Indicator:"
+        workSheet_info_report['A26'].font = fontStyle_b
         workSheet_info_report['B26'] = str(TSDApp.coverage)[0:4] + "%"
+        workSheet_info_report['B26'].font = fontStyle_b
 
         workSheet_info_report['A27'] = "Convergence Indicator:"
+        workSheet_info_report['A27'].font = fontStyle_b
         workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
+        workSheet_info_report['B27'].font = fontStyle_b
 
         workSheet_info_report['A29'] = "Blocking Points"
+        workSheet_info_report['A29'].font = fontStyle_b
         workSheet_info_report['B29'] = str(TSDApp.criticity_blocking)
+        workSheet_info_report['B29'].font = fontStyle_b
 
         workSheet_info_report['A30'] = "Warning Points"
+        workSheet_info_report['A30'].font = fontStyle_b
         workSheet_info_report['B30'] = str(TSDApp.criticity_warning)
+        workSheet_info_report['B30'].font = fontStyle_b
 
         workSheet_info_report['A31'] = "Information Points"
+        workSheet_info_report['A31'].font = fontStyle_b
         workSheet_info_report['B31'] = str(TSDApp.criticity_information)
+        workSheet_info_report['B31'].font = fontStyle_b
 
     else:
         workSheet_info_report = wb.get_sheet_by_name("Report information")
@@ -598,79 +651,129 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
+        workSheet_info_report['A1'].font = fontStyle_b
         workSheet_info_report['B1'] = TSD_Checker_V5_0.appName
+        workSheet_info_report['B1'].font = fontStyle_b
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
+        workSheet_info_report['A3'].font = fontStyle_b
         workSheet_info_report['B3'] = TSDApp.DOC9Path
+        workSheet_info_report['B3'].font = fontStyle_b
 
         workSheet_info_report['A4'] = "Extract CESARE file:"
+        workSheet_info_report['A4'].font = fontStyle_b
         workSheet_info_report['B4'] = TSDApp.DOC8Path
+        workSheet_info_report['B4'].font = fontStyle_b
 
         workSheet_info_report['A5'] = "Customer effects file:"
+        workSheet_info_report['A5'].font = fontStyle_b
         workSheet_info_report['B5'] = TSDApp.DOC7Name
+        workSheet_info_report['B5'].font = fontStyle_b
 
         workSheet_info_report['A6'] = "Diversity management file:"
-        workSheet_info_report['B1'] = TSDApp.DOC13Path
+        workSheet_info_report['A6'].font = fontStyle_b
+        workSheet_info_report['B6'] = TSDApp.DOC13Path
+        workSheet_info_report['B6'].font = fontStyle_b
 
         workSheet_info_report['A7'] = "CESARE file reference:"
+        workSheet_info_report['A7'].font = fontStyle_b
         workSheet_info_report['B7'] = TSDApp.DOC8Link.split("/")[-3]
+        workSheet_info_report['B7'].font = fontStyle_b
 
         workSheet_info_report['A8'] = "Criticity configuration file reference:"
+        workSheet_info_report['A8'].font = fontStyle_b
         workSheet_info_report['B8'] = TSDApp.DOC9Link.split("/")[-3]
+        workSheet_info_report['B8'].font = fontStyle_b
 
         workSheet_info_report['A9'] = "Customer effect file reference:"
+        workSheet_info_report['A9'].font = fontStyle_b
         workSheet_info_report['B9'] = TSDApp.DOC7Link.split("/")[-3]
+        workSheet_info_report['B9'].font = fontStyle_b
 
         workSheet_info_report['A10'] = "Diversity management file reference:"
+        workSheet_info_report['A10'].font = fontStyle_b
         workSheet_info_report['B10'] = TSDApp.DOC13Link.split("/")[-3]
+        workSheet_info_report['B10'].font = fontStyle_b
 
         workSheet_info_report['A11'] = "Check level:"
+        workSheet_info_report['A11'].font = fontStyle_b
         workSheet_info_report['B11'] = TSDApp.checkLevel
+        workSheet_info_report['B11'].font = fontStyle_b
 
         workSheet_info_report['A13'] = "Date of the test:"
+        workSheet_info_report['A13'].font = fontStyle_b
         workSheet_info_report['B13'] = time.strftime("%x")
+        workSheet_info_report['B13'].font = fontStyle_b
 
         workSheet_info_report['A14'] = "Time of the test:"
+        workSheet_info_report['A14'].font = fontStyle_b
         workSheet_info_report['B14'] = time.strftime("%X")
+        workSheet_info_report['B14'].font = fontStyle_b
 
         workSheet_info_report['A15'] = "Test duration:"
+        workSheet_info_report['A15'].font = fontStyle_b
         workSheet_info_report['B15'] = time.strftime('%H:%M:%S', time.gmtime(TSDApp.end_time - TSDApp.start_time))
+        workSheet_info_report['B15'].font = fontStyle_b
 
         workSheet_info_report['A16'] = "Opening duration:"
+        workSheet_info_report['A16'].font = fontStyle_b
         workSheet_info_report['B16'] = time.strftime('%H:%M:%S', time.gmtime(TSDApp.opening_time - TSDApp.start_time))
+        workSheet_info_report['B16'].font = fontStyle_b
 
         workSheet_info_report['A18'] = "TSD file checked:"
+        workSheet_info_report['A18'].font = fontStyle_b
         workSheet_info_report['B18'] = TSDApp.DOC3Path
+        workSheet_info_report['B18'].font = fontStyle_b
 
         workSheet_info_report['A19'] = "TSD function file checked:"
-        workSheet_info_report['b19'] = TSDApp.DOC4Path
+        workSheet_info_report['A19'].font = fontStyle_b
+        workSheet_info_report['B19'] = TSDApp.DOC4Path
+        workSheet_info_report['B19'].font = fontStyle_b
 
         workSheet_info_report['A20'] = "TSD system file checked:"
+        workSheet_info_report['A20'].font = fontStyle_b
         workSheet_info_report['B20'] = TSDApp.DOC5Path
+        workSheet_info_report['B20'].font = fontStyle_b
 
         workSheet_info_report['A22'] = "AMDEC:"
+        workSheet_info_report['A22'].font = fontStyle_b
         workSheet_info_report['B22'] = TSDApp.AMDECName
+        workSheet_info_report['B22'].font = fontStyle_b
 
         workSheet_info_report['A23'] = "Export MedialecMatrice:"
+        workSheet_info_report['A23'].font = fontStyle_b
         workSheet_info_report['B23'] = TSDApp.MedialecName
+        workSheet_info_report['B23'].font = fontStyle_b
 
         workSheet_info_report['A25'] = "Status:"
+        workSheet_info_report['A25'].font = fontStyle_b
         workSheet_info_report['B25'] = str(TSDApp.status)
+        workSheet_info_report['B25'].font = fontStyle_b
 
         workSheet_info_report['A26'] = "Coverage Indicator:"
+        workSheet_info_report['A26'].font = fontStyle_b
         workSheet_info_report['B26'] = str(TSDApp.coverage)[0:4] + "%"
+        workSheet_info_report['B26'].font = fontStyle_b
 
         workSheet_info_report['A27'] = "Convergence Indicator:"
+        workSheet_info_report['A27'].font = fontStyle_b
         workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
+        workSheet_info_report['B27'].font = fontStyle_b
 
         workSheet_info_report['A29'] = "Blocking Points"
+        workSheet_info_report['A29'].font = fontStyle_b
         workSheet_info_report['B29'] = str(TSDApp.criticity_blocking)
+        workSheet_info_report['B29'].font = fontStyle_b
 
         workSheet_info_report['A30'] = "Warning Points"
+        workSheet_info_report['A30'].font = fontStyle_b
         workSheet_info_report['B30'] = str(TSDApp.criticity_warning)
+        workSheet_info_report['B30'].font = fontStyle_b
 
         workSheet_info_report['A31'] = "Information Points"
+        workSheet_info_report['A31'].font = fontStyle_b
         workSheet_info_report['B31'] = str(TSDApp.criticity_information)
+        workSheet_info_report['B31'].font = fontStyle_b
 
     workSheet_info_report.column_dimensions['A'].width = 40
     workSheet_info_report.column_dimensions['B'].width = 140
@@ -697,36 +800,41 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         for elem in return_list:
 
             if elem["criticity"].casefold().strip() == "blocking":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = blocking_style
+
             elif elem["criticity"].casefold().strip() == "warning":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = warning_style
-            else:
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"])
 
-            workSheet_test_report.cell(lastRow, 2, elem["testName"])
+            else:
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
+
+            workSheet_test_report.cell(lastRow, 2, elem["testName"]).font = fontStyle_b
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 3, "OK")
+                workSheet_test_report.cell(lastRow, 3, "OK").font = fontStyle_b
             else:
-                workSheet_test_report.cell(lastRow, 3, elem["message"])
+                workSheet_test_report.cell(lastRow, 3, elem["message"]).font = fontStyle_b
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 4, elem["localisation"])
+                workSheet_test_report.cell(lastRow, 4, elem["localisation"]).font = fontStyle_b
                 lastRow += 1
 
             if elem["localisation"] is not None and elem["localisation"] != "":
                 if isinstance(elem["localisation"][0], str):
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element)
+                        workSheet_test_report.cell(lastRow + index, 4, element).font = fontStyle_b
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = fontStyle_w
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = fontStyle_w
 
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
+                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
@@ -734,8 +842,8 @@ def ExcelWrite2(return_list, workBook, TSDApp):
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = fontStyle_w
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = fontStyle_w
 
                     lastRow += index + 1
     else:
@@ -760,46 +868,49 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         for elem in return_list:
 
             if elem["criticity"].casefold().strip() == "blocking":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = blocking_style
+
             elif elem["criticity"].casefold().strip() == "warning":
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = warning_style
-            else:
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"])
 
-            workSheet_test_report.cell(lastRow, 2, elem["testName"])
+            else:
+                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
+
+            workSheet_test_report.cell(lastRow, 2, elem["testName"]).font = fontStyle_b
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 3, "OK")
+                workSheet_test_report.cell(lastRow, 3, "OK").font = fontStyle_b
             else:
-                workSheet_test_report.cell(lastRow, 3, elem["message"])
+                workSheet_test_report.cell(lastRow, 3, elem["message"]).font = fontStyle_b
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 4, elem["localisation"])
+                workSheet_test_report.cell(lastRow, 4, elem["localisation"]).font = fontStyle_b
                 lastRow += 1
 
             if elem["localisation"] is not None and elem["localisation"] != "":
                 if isinstance(elem["localisation"][0], str):
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element)
+                        workSheet_test_report.cell(lastRow + index, 4, element).font = fontStyle_b
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = fontStyle_w
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = fontStyle_w
 
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(
-                            list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % (
-                        "'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = fontStyle_w
+                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = fontStyle_w
 
                     lastRow += index + 1
 
