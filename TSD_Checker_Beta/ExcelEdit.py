@@ -806,11 +806,11 @@ def ExcelWrite2(return_list, workBook, TSDApp):
 
             if elem["criticity"].casefold().strip() == "blocking":
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = blocking_style
+                workSheet_test_report.cell(lastRow, 1).fill = blocking_style
 
             elif elem["criticity"].casefold().strip() == "warning":
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = warning_style
+                workSheet_test_report.cell(lastRow, 1).fill = warning_style
 
             else:
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
@@ -839,8 +839,8 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
 
@@ -878,11 +878,11 @@ def ExcelWrite2(return_list, workBook, TSDApp):
 
             if elem["criticity"].casefold().strip() == "blocking":
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = blocking_style
+                workSheet_test_report.cell(lastRow, 1).fill = blocking_style
 
             elif elem["criticity"].casefold().strip() == "warning":
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
-                workSheet_test_report.cell(lastRow, 1, elem["criticity"]).fill = warning_style
+                workSheet_test_report.cell(lastRow, 1).fill = warning_style
 
             else:
                 workSheet_test_report.cell(lastRow, 1, elem["criticity"]).font = fontStyle_b
@@ -911,8 +911,8 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
 

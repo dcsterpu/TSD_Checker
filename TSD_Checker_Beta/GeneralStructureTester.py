@@ -314,12 +314,15 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
 
         if not localisation1:
             localisation1 = None
-    else:
-        TSDApp.WorkbookStats.hasRefDocs = False
-        localisation1 = ""
-        flag = True
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
+
+    else:
+        TSDApp.WorkbookStats.hasRefDocs = False
+        name = "Missing Reference docs sheet"
+        flag = True
+
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
     return flag
 
     # testName = inspect.currentframe().f_code.co_name
@@ -356,7 +359,8 @@ def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         localisation1 = []
@@ -375,7 +379,8 @@ def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
@@ -392,7 +397,8 @@ def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -410,7 +416,8 @@ def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -428,7 +435,8 @@ def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -446,7 +454,8 @@ def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -464,7 +473,8 @@ def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -482,7 +492,8 @@ def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -500,7 +511,8 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -519,7 +531,8 @@ def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -537,7 +550,8 @@ def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
@@ -555,7 +569,8 @@ def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation1 = []
     if TSDApp.WorkbookStats.hasRefDocs == False:
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+        name = "Missing Reference docs sheet"
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
