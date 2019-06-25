@@ -839,8 +839,9 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
-                        workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
+                        workSheet_test_report.cell(lastRow + index, 4, '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)).font = fontStyle_b
+                        # workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        # workSheet_info_report.cell(lastRow + index, 4).font = fontStyle_b
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
 
