@@ -257,65 +257,6 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
     return check
 
 def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
-    # testName = inspect.currentframe().f_code.co_name
-    # print(testName)
-    # check = False
-    # if TSDApp.WorkbookStats.famillyList == "[]":
-    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #     check = True
-    # else:
-    #
-    #     DOC14 = xlrd.open_workbook(DOC14Name, on_demand=True)
-    #     workSheetRef = DOC14.sheet_by_name("Matrix")
-    #
-    #     nrCols = workSheetRef.ncols
-    #     nrRows = workSheetRef.nrows
-    #     refColIndex = -1
-    #     refRowIndex = -1
-    #     var = 0
-    #
-    #     for index1 in range(0, nrRows):
-    #         for index2 in range(0, nrCols):
-    #             if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Data Trouble Code (DTC)".casefold():
-    #                 refColIndex = index2
-    #                 refRowIndex = index1
-    #                 break
-    #         if refColIndex != - 1 and refRowIndex != -1:
-    #             break
-    #
-    #     if refColIndex == -1 or refRowIndex == -1:
-    #         var = 1
-    #
-    #     if var == 1:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     elif var == 0:
-    #         localisations = []
-    #         flag = False
-    #         list_ref  = []
-    #
-    #
-    #         for index in range(refRowIndex + 1, nrRows):
-    #             if workSheetRef.cell(index, refColIndex).value == None:
-    #                 pass
-    #             else:
-    #                 list_ref.append(workSheetRef.cell(index, refColIndex).value)
-    #
-    #         for element in TSDApp.WorkbookStats.famillyList:
-    #             if element["codenr"] in list_ref:
-    #                 pass
-    #             else:
-    #                localisation.append(element["localisation"])
-    #                check = True
-    #
-    #
-    #         if not localisation:
-    #             localisation = None
-    #
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    #     return check
-
-
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
@@ -324,55 +265,144 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
         check = True
     else:
 
-        DOC14 = ExcelApp.Workbooks.Open(DOC14Name)
-        workSheetRef = DOC14.Sheets("Matrix")
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
 
-        workSheetRange = workSheetRef.UsedRange
-        nrCols = workSheetRange.Columns.Count
-        nrRows = workSheetRange.Rows.Count
-        refColIndex = 0
+        DOC14 = xlrd.open_workbook(DOC14Name, on_demand=True)
+        workSheetRef = DOC14.sheet_by_name("Matrix")
+
+        nrCols = workSheetRef.ncols
+        nrRows = workSheetRef.nrows
+        refColIndex = -1
+        refRowIndex = -1
         var = 0
 
-        for cellRow in workSheetRange.Rows:
-            for cell in cellRow.cell:
-                if str(cell.value).casefold().strip() == "Data Trouble Code (DTC)".casefold():
-                    refColIndex = cell.Column
-                    refRowIndex = cell.Row
+        for index1 in range(0, nrRows):
+            for index2 in range(0, nrCols):
+                if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Data Trouble Code (DTC)".casefold():
+                    refColIndex = index2
+                    refRowIndex = index1
                     break
-            if refColIndex != 0:
+            if refColIndex != - 1 and refRowIndex != -1:
                 break
-        if refColIndex == 0:
+
+        if refColIndex == -1 or refRowIndex == -1:
             var = 1
 
         if var == 1:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
         elif var == 0:
-            refCellRange = workSheetRef.cell(refRowIndex, refColIndex).MergeArea
-            nrLines = refCellRange.Rows.Count
-            localisation = []
+            localisations = []
             flag = False
-            list_ref = []
+            list_ref  = []
 
-            for index in range(refRowIndex + nrLines, nrRows + 1):
-                if workSheetRef.cell(index, refColIndex).value == "":
+
+            for index in range(refRowIndex + 1, nrRows):
+                if workSheetRef.cell(index, refColIndex).value == None or workSheetRef.cell(index, refColIndex).value == "":
                     pass
                 else:
                     list_ref.append(workSheetRef.cell(index, refColIndex).value)
 
-            for element in TSDApp.WorkbookStats.famillyList:
-                if element["codenr"] in list_ref:
-                    pass
-                else:
-                    localisation.append(element["localisation"])
-                    check = True
+            codeRefCol = -1
+            for index in range(0, TSDApp.WorkbookStats.codeLastCol):
+                if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Data trouble code".casefold():
+                    codeRefCol = index
+                    break
 
-            if not localisation:
-                localisation = None
+            if codeRefCol != -1:
+                code_defaut_list = []
+                for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
+                    try:
+                        if str(workSheet.cell(index, codeRefCol).value).strip() is not None and str(workSheet.cell(index, codeRefCol).value).strip() != "":
+                            dict = {}
+                            dict['value'] = workSheet.cell(index, codeRefCol).value
+                            dict['row'] = index
+                            dict['col'] = codeRefCol
+                            code_defaut_list.append(dict)
+                    except:
+                        pass
 
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
-                   TSDApp)
+                for element in code_defaut_list:
+                    try:
+                        elem = element['value'].split('-')
+                        if len(elem) == 2 and element['value'] in list_ref:
+                            pass
+                        else:
+                            localisations.append(('codes défauts',element['row'], element['col']))
+
+                        if len(elem) == 3:
+                            element['value'] = elem[1] + "-" + elem[2]
+                            if element['value'] in list_ref:
+                                pass
+                            else:
+                                localisations.append(('codes défauts', element['row'], element['col']))
+                    except:
+                        pass
+
+                if not localisations:
+                    localisations = None
+
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
         return check
+
+
+    # testName = inspect.currentframe().f_code.co_name
+    # print(testName)
+    # check = False
+    # if TSDApp.WorkbookStats.famillyList == "[]":
+    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    #     check = True
+    # else:
+    #
+    #     DOC14 = ExcelApp.Workbooks.Open(DOC14Name)
+    #     workSheetRef = DOC14.Sheets("Matrix")
+    #
+    #     workSheetRange = workSheetRef.UsedRange
+    #     nrCols = workSheetRange.Columns.Count
+    #     nrRows = workSheetRange.Rows.Count
+    #     refColIndex = 0
+    #     var = 0
+    #
+    #     for cellRow in workSheetRange.Rows:
+    #         for cell in cellRow.cell:
+    #             if str(cell.value).casefold().strip() == "Data Trouble Code (DTC)".casefold():
+    #                 refColIndex = cell.Column
+    #                 refRowIndex = cell.Row
+    #                 break
+    #         if refColIndex != 0:
+    #             break
+    #     if refColIndex == 0:
+    #         var = 1
+    #
+    #     if var == 1:
+    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+    #         check = True
+    #     elif var == 0:
+    #         refCellRange = workSheetRef.cell(refRowIndex, refColIndex).MergeArea
+    #         nrLines = refCellRange.Rows.Count
+    #         localisation = []
+    #         flag = False
+    #         list_ref = []
+    #
+    #         for index in range(refRowIndex + nrLines, nrRows + 1):
+    #             if workSheetRef.cell(index, refColIndex).value == "":
+    #                 pass
+    #             else:
+    #                 list_ref.append(workSheetRef.cell(index, refColIndex).value)
+    #
+    #         for element in TSDApp.WorkbookStats.famillyList:
+    #             if element["codenr"] in list_ref:
+    #                 pass
+    #             else:
+    #                 localisation.append(element["localisation"])
+    #                 check = True
+    #
+    #         if not localisation:
+    #             localisation = None
+    #
+    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook,
+    #                TSDApp)
+    #     return check
 
 def Test_02043_18_04939_COH_2010(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -387,7 +417,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
         tempList = list()
         var = 0
 
-        for index in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
+        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
                 refColIndex = index
                 break
@@ -1065,7 +1095,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         effColIndex = -1
 
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
-            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold():
+            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
                 effColIndex = index
                 break
 
@@ -1089,9 +1119,9 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                     list_eff.append(dict)
 
             DOC7 = xlrd.open_workbook(DOC7Name, on_demand=True)
-            if workBook.sheet_by_name("Effets clients"):
+            if "effets clients" in TSDApp.WorkbookStats.sheetNames:
                 workSheetRef = DOC7.sheet_by_name("FR")
-            elif workBook.sheet_by_name("Customer Effects") or workBook.sheet_by_name("Customer Effect"):
+            elif "customer effects" in TSDApp.WorkbookStats.sheetNames or "customer effect" in TSDApp.WorkbookStats.sheetNames:
                 workSheetRef = DOC7.sheet_by_name("GB")
 
             nrCols = workSheetRef.ncols
