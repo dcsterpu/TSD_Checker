@@ -381,22 +381,24 @@ def ExcelWrite(return_list, workBook, TSDApp):
                     for index, element in enumerate(elem["localisation"]):
                         workSheet_test_report.write(lastRow + index, 3, element)
 
-                    for index in range(1, len(elem["localisation"]) + 1):
-                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    if len(elem['localisation']) > 1:
+                        for index in range(1, len(elem["localisation"])):
+                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                    lastRow += index
+                    lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
 
                         link = "HYPERLINK(\"#\'"+ str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) +"\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
-                    for index in range(1, len(elem["localisation"]) + 1):
-                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    if len(elem['localisation']) > 1:
+                        for index in range(1, len(elem["localisation"])):
+                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                    lastRow = lastRow + index
+                    lastRow += index + 1
 
     workBook2.save(TSDApp.DOC3Path)
 
