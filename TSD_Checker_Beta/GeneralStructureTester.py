@@ -233,7 +233,8 @@ def Test_02043_18_04939_STRUCT_0025(workBook, TSDApp):
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.SuppIndex)
-        name = "Onglet/sheet"
+        name = []
+        name.append("Onglet/sheet")
         flag = False
         for index in range(0, workSheet.ncols):
             if str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "sheet" or str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "onglet":
