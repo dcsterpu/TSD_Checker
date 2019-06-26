@@ -751,6 +751,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
 
 def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    localisations = list()
     print(testName)
     check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
@@ -762,7 +763,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         effColIndex = -1
 
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
-            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold():
+            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
                 effColIndex = index
                 break
 
@@ -770,7 +771,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
         elif effColIndex != -1:
-            localisations = list()
+
 
             list_eff = list()
             list_ref = list()
@@ -785,12 +786,12 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                     dict["col"] = effColIndex
                     list_eff.append(dict)
 
-            DOC7 = xlrd.open_workbook(DOC7Name, on_demand=True)
-            if workBook.sheet_by_name("Effets clients"):
-                workSheetRef = DOC7.sheet_by_name("FR")
-            elif workBook.sheet_by_name("Customer Effects") or workBook.sheet_by_name("Customer Effect"):
-                workSheetRef = DOC7.sheet_by_name("GB")
 
+            DOC7 = xlrd.open_workbook(DOC7Name, on_demand=True)
+            if "effets clients" in TSDApp.WorkbookStats.sheetNames:
+                workSheetRef = DOC7.sheet_by_name("FR")
+            elif "customer effects" in TSDApp.WorkbookStats.sheetNames or "customer effect" in TSDApp.WorkbookStats.sheetNames:
+                workSheetRef = DOC7.sheet_by_name("GB")
 
             nrCols = workSheetRef.ncols
             nrRows = workSheetRef.nrows
@@ -844,12 +845,11 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                     localisations.append(("Effets clients", element["row"],element["col"]))
                     check = True
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
-                   TSDApp)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
@@ -980,6 +980,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    localisations = list()
     print(testName)
     check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
@@ -999,8 +1000,6 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
         elif effColIndex != -1:
-            localisations = list()
-
             list_eff = list()
             list_ref = list()
 
@@ -1015,9 +1014,9 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                     list_eff.append(dict)
 
             DOC7 = xlrd.open_workbook(DOC7Name, on_demand=True)
-            if workBook.sheet_by_name("Effets clients"):
+            if "effets clients" in TSDApp.WorkbookStats.sheetNames:
                 workSheetRef = DOC7.sheet_by_name("FR")
-            elif workBook.sheet_by_name("Customer Effects") or workBook.sheet_by_name("Customer Effect"):
+            elif "customer effects" in TSDApp.WorkbookStats.sheetNames or "customer effect" in TSDApp.WorkbookStats.sheetNames:
                 workSheetRef = DOC7.sheet_by_name("GB")
 
             nrCols = workSheetRef.ncols
@@ -1071,8 +1070,8 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                     localisations.append(("Customer Effects", element["row"], element["col"]))
                     check = True
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
@@ -1084,6 +1083,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
+    localisations = list()
     print(testName)
     check = False
     if TSDApp.WorkbookStats.hasEffClients == False:
@@ -1103,7 +1103,6 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
         elif effColIndex != -1:
-            localisations = list()
 
             list_eff = list()
             list_ref = list()
@@ -1175,8 +1174,8 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                     localisations.append(("Effets clients", element["row"], element["col"]))
                     check = True
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
