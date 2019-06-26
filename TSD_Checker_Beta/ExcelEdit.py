@@ -392,6 +392,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
                         link = "HYPERLINK(\"#\'"+ str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) +"\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
+                        print(element)
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):

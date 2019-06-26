@@ -661,8 +661,8 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                         else:
                             localisations.append(("tableau",index2, index1))
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
@@ -759,8 +759,8 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
                         else:
                             localisations.append(("mesures et commandes", index2, index1))
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
