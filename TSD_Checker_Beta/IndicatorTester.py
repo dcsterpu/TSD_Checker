@@ -118,6 +118,7 @@ def convergenceIndicator(workBook, TSDApp):
     refColDTC = -1
     refCelParam = -1
     refCelDiag = -1
+    refCelEff = -1
 
     refSignature = -1
     refCritere = -1
@@ -147,10 +148,12 @@ def convergenceIndicator(workBook, TSDApp):
             if str(rb_sheet.cell(index1, index2).value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
                 refCelDiag = index2
                 refRowIndex = index1
+            if str(rb_sheet.cell(index1, index2).value).casefold().strip() == "Effet(s) client(s)".casefold():
+                refCelEff = index2
+                refRowIndex = index1
 
     workBook2 = copy(workBook)
     workSheet = workBook2.get_sheet(index)
-
 
     # if refSignature == -1:
         # add column in position
@@ -158,34 +161,27 @@ def convergenceIndicator(workBook, TSDApp):
     NbUniqueSignatureTests = 0
     NbAMDECLine = 0
     unique_items = []
+    unique_list = []
 
     for index in range(TSDApp.tableFirstInfoRow, nrRows):
         if rb_sheet.cell(index, refColBase).value != "":
             NbAMDECLine += 1
-            if [rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value] not in unique_items:
-                unique_items.append([rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value, rb_sheet.cell(index, refCelDiag).value])
-                # workSheet.write(index, refSignature, '1')
-                NbUniqueSignatureTests += 1
-            else:
-                # workSheet.write(index, refSignature, '0')
-                pass
+            dict = {}
+            dict['value'] = [rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value]
+            dict['localisation'] = index
+            unique_items.append(dict)
+            unique_list.append([rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value])
 
 
-    # if TSDApp.DOC3Path.split('.')[-1] == "xls":
-    #     workBook2.save(TSDApp.DOC3Path)
-    # else:
-    #     path = TSDApp.DOC3Path.split('.')[0]
-    #     path2 = TSDApp.DOC3Path.split('/')[0]
-    #     for i in range(1, len(TSDApp.DOC3Path.split('.')) - 1):
-    #         path = path + "." + TSDApp.DOC3Path.split('.')[i]
-    #     for i in range(1, len(TSDApp.DOC3Path.split('/')) - 1):
-    #         path2 = path2 + "/" + TSDApp.DOC3Path.split('/')[i]
-    #     path = path + ".xlsx"
-    #     path2 = path2 + "/Temporal.xls"
-    #
-    #     workBook2.save(path2)
+    for element in unique_items:
+        if unique_list.count(element['value']) == 1:
 
-    # p.save_book_as(file_name=path2, dest_file_name=path)
+            workSheet.write(element['localisation'], refSignature, '1')
+            NbUniqueSignatureTests += 1
+        else:
+            for elem in unique_items:
+                if element['value'] == elem['value']:
+                    workSheet.write(elem['localisation'], refSignature, '0')
 
     return (NbUniqueSignatureTests / NbAMDECLine)
 

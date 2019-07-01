@@ -15,6 +15,7 @@ import WholenessTester
 import Coherence_checksTester
 import IndicatorTester
 import time
+import win32api
 import xlwt
 import xlrd
 from xlrd import open_workbook
@@ -320,7 +321,7 @@ class Application(QWidget):
         tab.button4.resize(45, 22)
 
         # File Selectiom Dialog5
-        tab.lbl9 = QLabel("export MedialecMatrice:", tab)
+        tab.lbl9 = QLabel("Diagnostic matrix:", tab)
         tab.lbl9.move(5, 135)
         tab.myTextBox5 = QtWidgets.QTextEdit(tab)
         tab.myTextBox5.resize(460, 25)
@@ -333,7 +334,7 @@ class Application(QWidget):
         tab.myTextBox5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
         # File Selectiom Dialog6
-        tab.lbl11 = QLabel("Diagnostic matrix file:", tab)
+        tab.lbl11 = QLabel("Diagnostic messagery (odx):", tab)
         tab.lbl11.move(5, 165)
         tab.myTextBox6 = QtWidgets.QTextEdit(tab)
         tab.myTextBox6.resize(460, 25)
@@ -364,19 +365,22 @@ class Application(QWidget):
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
 
         if self.tab1.myTextBox1.toPlainText():
-           fileName = self.tab1.myTextBox1.toPlainText()
-           self.excel.Visible = True
-           self.excel.Workbooks.Open(fileName)
+            win32api.MessageBox(0,'Feature not implemented yet','Information')
+           # fileName = self.tab1.myTextBox1.toPlainText()
+           # self.excel.Visible = True
+           # self.excel.Workbooks.Open(fileName)
 
         if self.tab1.myTextBox2.toPlainText():
-           fileName = self.tab1.myTextBox2.toPlainText()
-           self.excel.Visible = True
-           self.excel.Workbooks.Open(fileName)
+            win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
+           # fileName = self.tab1.myTextBox2.toPlainText()
+           # self.excel.Visible = True
+           # self.excel.Workbooks.Open(fileName)
 
         if self.tab1.myTextBox3.toPlainText():
-           fileName = self.tab1.myTextBox3.toPlainText()
-           self.excel.Visible = True
-           self.excel.Workbooks.Open(fileName)
+            win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
+           # fileName = self.tab1.myTextBox3.toPlainText()
+           # self.excel.Visible = True
+           # self.excel.Workbooks.Open(fileName)
 
     def initUIOptions(self, tab):
 
@@ -693,7 +697,11 @@ class Test(Application):
 
             self.DOC3Path = self.tab1.myTextBox1.toPlainText()
             try:
-                self.DOC3Workbook = xlrd.open_workbook(self.DOC3Path, on_demand=True)
+                extension = self.DOC3Path.split(".")[-1]
+                if extension == "xls":
+                    self.DOC3Workbook = xlrd.open_workbook(self.DOC3Path, formatting_info=True)
+                else:
+                    self.DOC3Workbook = xlrd.open_workbook(self.DOC3Path)
             except:
                 self.tab1.textbox.setText("ERROR: when trying to parse the plan type Tableau de synthèse diagnosticabilité file " + self.DOC3Path.split('/')[-1])
                 return
@@ -742,6 +750,9 @@ class Test(Application):
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                 GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC3Workbook, self)
+
+            if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC3Workbook, self)
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                 check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC3Workbook, self)
@@ -1664,8 +1675,8 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2250"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC3Workbook, self,self.DOC13List)
+                if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
                     if check_indicator == True:
                         ok_indicator = 1
 
@@ -1689,7 +1700,7 @@ class Test(Application):
 
 
                 if self.DOC3Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC3Path, self)
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self)
                 elif self.DOC3Path.split('.')[-1] in ["xlsx","xlsm"]:
                     ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
 
@@ -1733,7 +1744,7 @@ class Test(Application):
 
             self.DOC4Path = self.tab1.myTextBox2.toPlainText()
             try:
-                self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, on_demand=True)
+                self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
             except:
                 self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Fonction véhicule file " + self.DOC4Path.split('/')[-1])
                 return
@@ -1780,6 +1791,9 @@ class Test(Application):
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                 GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC4Workbook, self)
+
+            if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC4Workbook, self)
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                 check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC4Workbook, self)
@@ -2456,8 +2470,8 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC4Workbook, self, self.DOC13List)
+                if self.DOC9Dict["Test_02043_18_04939_COH_2250"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC4Workbook, self, self.DOC13List)
                     if check_indicator == True:
                         ok_indicator = 1
 
@@ -2520,7 +2534,7 @@ class Test(Application):
 
             self.DOC5Path = self.tab1.myTextBox3.toPlainText()
             try:
-                self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, on_demand=True)
+                self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
             except:
                 self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file " + self.DOC5Path.split('/')[-1])
                 return
@@ -2567,6 +2581,9 @@ class Test(Application):
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                 GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC5Workbook, self)
+
+            if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
+                GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC5Workbook, self)
 
             if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                 check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC5Workbook, self)
@@ -3415,8 +3432,8 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2250"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC5Workbook, self, self.DOC13List)
+                if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
+                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC5Workbook, self, self.DOC13List)
                     if check_indicator == True:
                         ok_indicator = 1
 

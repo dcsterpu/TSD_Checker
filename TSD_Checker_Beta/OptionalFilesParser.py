@@ -145,14 +145,16 @@ def DOC8Parser(TSDApp ,ExcelApp, DOC8Path):
 
     sheet_list = DOC8.sheet_names()
     cnt = 0
-    index = -1
+    index_1 = -1
+    index_2 = -1
     for sheet in sheet_list:
         cnt += 1
         if "sous familles Cesare" in sheet:
-            index = cnt - 1
-            break
+            index_1 = cnt - 1
+        if "ECU Exception" in sheet:
+            index_2 = cnt - 1
 
-    workSheet = DOC8.sheet_by_index(index)
+    workSheet = DOC8.sheet_by_index(index_1)
     rows = workSheet.nrows
     cols = workSheet.ncols
     flag = False
@@ -174,6 +176,28 @@ def DOC8Parser(TSDApp ,ExcelApp, DOC8Path):
     for index in range(refRow + 1, rows):
         if workSheet.cell(index, refCol).value is not None and workSheet.cell(index, refCol).value != "":
             final_list.append(workSheet.cell(index, refCol).value.replace(u'\xa0', u''))
+
+    workSheet2 = DOC8.sheet_by_index(index_2)
+    rows2 = workSheet2.nrows
+    cols2 = workSheet2.ncols
+    flag = False
+
+    for index1 in range(0,rows2):
+        for index2 in range(0,cols2):
+            try:
+                if workSheet2.cell(index1,index2).value.casefold().strip() == 'Nom de la sous famille'.casefold():
+                    refRow = index1
+                    refCol = index2
+                    flag = True
+                    break
+            except:
+                pass
+        if flag is True:
+            break
+
+    for index in range(refRow + 1, rows2):
+        if workSheet2.cell(index, refCol).value is not None and workSheet2.cell(index, refCol).value != "":
+            final_list.append(workSheet2.cell(index, refCol).value.replace(u'\xa0', u''))
 
     return final_list
 

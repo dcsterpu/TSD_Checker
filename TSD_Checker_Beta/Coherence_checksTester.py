@@ -58,11 +58,29 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                     else:
                         list_measure.append(workSheet.cell(index, measureColIndex).value)
 
-            for element in list_table:
-                if element["value"] in list_measure:
-                    pass
-                else:
-                    localisations.append(("tableau", element["row"], element["col"]))
+                for element in list_table:
+                    if ',' in element["value"]:
+                        elem = element["value"].split(",")
+                        for i in elem:
+                            if i.strip() in list_measure:
+                                pass
+                            else:
+                                localisations.append(("tableau",element["row"],element["col"]))
+                                check = True
+                    else:
+                        if ';' in element["value"]:
+                            elem = element["value"].split(";")
+                            for i in elem:
+                                if i.strip() in list_measure:
+                                    pass
+                                else:
+                                    localisations.append(("tableau", element["row"], element["col"]))
+                                    check = True
+                        else:
+                            if element["value"].strip() in list_measure or element["value"] in list_measure:
+                                pass
+                            else:
+                                localisations.append(("tableau",element["row"],element["col"]))
 
             if not localisations:
                 localisations = None
@@ -101,6 +119,54 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, refColIndex).value == "":
                     pass
+                elif ',' in workSheet.cell(index, refColIndex).value:
+                    elems = workSheet.cell(index, refColIndex).value.split(',')
+                    for elem in elems:
+                        try:
+                            cel = elem.split("-")
+                            if len(cel) == 2:
+
+                                check1 = False
+                                if len(cel[1]) == 4:
+                                    check1 = True
+
+                                check2 = True
+                                mystring = cel[0]
+                                for char in mystring:
+                                    if not (is_ascii(char)):
+                                        check2 = False
+                                        break
+                                if check1 == True and check2 == True:
+                                    if cel[0] in DOC8List:
+                                        contor = contor + 1
+                            else:
+                                localisations.append(("tableau",index, refColIndex))
+                        except:
+                            localisations.append(("tableau",index, refColIndex))
+                elif ';' in workSheet.cell(index, refColIndex).value:
+                    elems = workSheet.cell(index, refColIndex).value.split(';')
+                    for elem in elems:
+                        try:
+                            cel = elem.split("-")
+                            if len(cel) == 2:
+
+                                check1 = False
+                                if len(cel[1]) == 4:
+                                    check1 = True
+
+                                check2 = True
+                                mystring = cel[0]
+                                for char in mystring:
+                                    if not (is_ascii(char)):
+                                        check2 = False
+                                        break
+                                if check1 == True and check2 == True:
+                                    if cel[0] in DOC8List:
+                                        contor = contor + 1
+                            else:
+                                localisations.append(("tableau", index, refColIndex))
+                        except:
+                            localisations.append(("tableau", index, refColIndex))
                 else:
                     try:
                         cel = workSheet.cell(index, refColIndex).value.split("-")
@@ -120,10 +186,11 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                                 if cel[0] in DOC8List:
                                     contor = contor + 1
                         else:
-                            localisations.append(("tableau",index, refColIndex))
-
+                            localisations.append(("tableau", index, refColIndex))
                     except:
-                        localisations.append(("tableau",index, refColIndex))
+                        localisations.append(("tableau", index, refColIndex))
+
+
             if not localisations:
                 localisations = None
             if contor == TSDApp.WorkbookStats.tableLastRow - TSDApp.tableHeaderRow - 1:
@@ -162,6 +229,7 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
                         localisations.append(("codes défauts",index, codeColIndex))
                 except:
                     localisations.append(("codes défauts",index, codeColIndex))
+
             if not localisations:
                 localisations = None
             if not localisations:
@@ -606,11 +674,22 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                         list_eff.append(workSheet.cell(index, effColIndex).value.strip())
 
             for element in tempList:
-                if element["value"].strip() in list_eff:
-                    pass
+                if ',' in element['value']:
+                    elems = element['value'].split(',')
+                    for elem in elems:
+                        if elem.strip() not in list_eff:
+                            localisations.append(("tableau", element["row"], element["col"]))
+                            check = True
+                elif ';' in element['value']:
+                    elems = element['value'].split(';')
+                    for elem in elems:
+                        if elem.strip() not in list_eff:
+                            localisations.append(("tableau", element["row"], element["col"]))
+                            check = True
                 else:
-                    localisations.append(("tableau", element["row"], element["col"]))
-                    check = True
+                    if element['value'].strip() not in list_eff:
+                        localisations.append(("tableau", element["row"], element["col"]))
+                        check = True
 
             if  not localisations:
                 localisations = None
@@ -671,11 +750,22 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                         list_diag.append(workSheet.cell(index, diagColIndex).value)
 
             for element in tempList:
-                if element["value"] in list_diag:
-                    pass
+                if ',' in element['value']:
+                    elems = element['value'].split(',')
+                    for elem in elems:
+                        if elem.strip() not in list_diag:
+                            localisations.append(("tableau", element["row"], element["col"]))
+                            check = True
+                elif ';' in element['value']:
+                    elems = element['value'].split(';')
+                    for elem in elems:
+                        if elem.strip() not in list_diag:
+                            localisations.append(("tableau", element["row"], element["col"]))
+                            check = True
                 else:
-                    localisations.append(("tableau",element["row"],element["col"]))
-                    check = True
+                    if element['value'].strip() not in list_diag:
+                        localisations.append(("tableau", element["row"], element["col"]))
+                        check = True
 
             if not localisations:
                 localisations = None
@@ -2082,7 +2172,7 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
-                codeColIndex = index
+                refColIndex = index
                 break
 
         if refColIndex != -1:

@@ -20,6 +20,8 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0035"] = "The document does not fo
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0040"] = "The document does not follow the template, the column “Justification de la modification” (or “Change reason”) of the sheet “Suppression” (or “suppression”) is not present or not written correctly."
 
+errorMessagesDict["Test_02043_18_04939_STRUCT_0046"] = "The sheet “Reference Docs” is not present or not written correctly."
+
 errorMessagesDict["Test_02043_18_04939_STRUCT_0051"] = "The “Vehicle Architecture Schematic” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0052"] = "The “Diagnostic Matrix” document is not referenced. As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
@@ -243,13 +245,13 @@ errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified i
 
 errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The DID/RI specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
 
-errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: BSI-B132C-1B"
+errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: BSI-B132C-1B (UDS)\nex: BSI-B132C (KW)"
 
 errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document ”Extract from CESARE” [DOC8]."
 
 errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]."
 
-errorMessagesDict["Test_02043_18_04939_COH_2010"] = "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts” "
+errorMessagesDict["Test_02043_18_04939_COH_2010"] = "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts”. The information shall be separate only by ',' or ';'"
 
 errorMessagesDict["Test_02043_18_04939_COH_2020"] = "The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants”."
 

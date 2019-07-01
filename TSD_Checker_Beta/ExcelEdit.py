@@ -40,6 +40,57 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
     TSDApp.IncrementProgressBar()
 
+
+def deleteSheet(workbook, sheet_name):
+    new_wb = copy(workbook)
+    new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name != sheet_name]
+    return new_wb
+
+
+def ExcelWrite_del_information(return_list, workBook, TSDApp):
+
+    # DOC3 = xlrd.open_workbook(workBook, formatting_info=True)
+    DOC3 = TSDApp.DOC3Workbook
+    index_test_report = -1
+    index_info_report = -1
+    for sheetname in TSDApp.WorkbookStats.sheetNames:
+        if sheetname == 'test report':
+            index_test_report = TSDApp.WorkbookStats.sheetNames.index('test report')
+        if sheetname == 'report information':
+            index_info_report = TSDApp.WorkbookStats.sheetNames.index('report information')
+
+    if index_info_report != -1:
+        new_wb = deleteSheet(DOC3,"report information")
+
+    xls_file = "C:\\Users\\msnecula\\Downloads\\Test TSDs\\02016_12_06260_TSD_Systeme_Perception_LKA_DAA_V9.1 (6).xls"
+
+    # new_wb.save(TSDApp.DOC3Path)
+    new_wb.save(xls_file)
+
+def deleteSheet(workbook, sheet_name, xls_file):
+    new_wb = copy(workbook)
+    new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name != sheet_name]
+    new_wb.save(xls_file)
+    # return new_wb
+
+
+def ExcelWrite_del_information(return_list, workBook, TSDApp):
+
+    DOC3 = xlrd.open_workbook(workBook, formatting_info=True)
+    # DOC3 = TSDApp.DOC3Workbook
+    index_test_report = -1
+    index_info_report = -1
+    for sheetname in TSDApp.WorkbookStats.sheetNames:
+        if sheetname == 'test report':
+            index_test_report = TSDApp.WorkbookStats.sheetNames.index('test report')
+        if sheetname == 'report information':
+            index_info_report = TSDApp.WorkbookStats.sheetNames.index('report information')
+
+    xls_file = "C:\\Users\\msnecula\\Downloads\\Test TSDs\\02016_12_06260_TSD_Systeme_Perception_LKA_DAA_V9.1 (6).xls"
+    if index_info_report != -1:
+        deleteSheet(DOC3,"report information",xls_file)
+    print("a")
+
 def ExcelWrite(return_list, workBook, TSDApp):
     # testReportSheet = workBook.Sheets("Test report")
     # lastRow = testReportSheet.UsedRange.Rows.Count + 1
@@ -98,7 +149,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
     # DOC3 = xlrd.open_workbook(workBook, on_demand=True)
     DOC3 = TSDApp.DOC3Workbook
-    list_alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ']
+    list_alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ']
 
     if index_test_report != -1:
         workSheet_test_report = DOC3.sheet_by_index(index_test_report)
@@ -381,25 +432,45 @@ def ExcelWrite(return_list, workBook, TSDApp):
                     for index, element in enumerate(elem["localisation"]):
                         workSheet_test_report.write(lastRow + index, 3, element)
 
-                    if len(elem['localisation']) > 1:
-                        for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    for index in range(1, len(elem["localisation"]) + 1):
+                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                    lastRow += index + 1
+                    lastRow += index
                 else:
                     for index, element in enumerate(elem["localisation"]):
-
-                        link = "HYPERLINK(\"#\'"+ str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) +"\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) + "\")"
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(
+                            element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
-                        print(element)
 
-                    if len(elem['localisation']) > 1:
-                        for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    for index in range(1, len(elem["localisation"]) + 1):
+                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                    lastRow += index + 1
+                    lastRow = lastRow + index
+
+            # if elem["localisation"] is not None and elem["localisation"] != "":
+            #     if isinstance(elem["localisation"][0], str):
+            #         for index, element in enumerate(elem["localisation"]):
+            #             workSheet_test_report.write(lastRow + index, 3, element)
+            #
+            #         if len(elem['localisation']) > 1:
+            #             for index in range(1, len(elem["localisation"])):
+            #                 workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+            #                 workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+            #
+            #         lastRow += index + 1
+            #     else:
+            #         for index, element in enumerate(elem["localisation"]):
+            #             link = "HYPERLINK(\"#\'"+ str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) +"\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1]+1) + "\")"
+            #             workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
+            #
+            #         if len(elem['localisation']) > 1:
+            #             for index in range(1, len(elem["localisation"])):
+            #                 workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+            #                 workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+            #
+            #         lastRow += index + 1
 
     workBook2.save(TSDApp.DOC3Path)
 
@@ -504,6 +575,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
 #     TSDApp.tab1.textbox.moveCursor(QtGui.QTextCursor.End)
 #
 #     TSDApp.IncrementProgressBar()
+
 
 
 def ExcelWrite2(return_list, workBook, TSDApp):
@@ -678,7 +750,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
     workSheet_info_report.column_dimensions['A'].width = 40
     workSheet_info_report.column_dimensions['B'].width = 140
 
-    list_alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ']
+    list_alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ']
     if index_test_report == -1:
         workSheet_test_report = wb.create_sheet("Test report")
 

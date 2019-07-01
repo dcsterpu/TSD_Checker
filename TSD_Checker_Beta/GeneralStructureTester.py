@@ -24,6 +24,7 @@ class WorkbookProperties:
         self.hasSituation = False
         self.hasDegradedMode = False
 
+
         self.DegradedModeIndex = 0
         self.DegradedModeLastRow = 0
         self.DegradedModeLastCol = 0
@@ -297,65 +298,42 @@ def Test_02043_18_04939_STRUCT_0040(workBook, TSDApp):
 
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
 
-def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
+
+def Test_02043_18_04939_STRUCT_0046(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     if "reference docs" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasRefDocs = True
         index = TSDApp.WorkbookStats.sheetNames.index("reference docs")
         TSDApp.WorkbookStats.refDocsIndex = index
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], "", workBook, TSDApp)
+    else:
+        TSDApp.WorkbookStats.hasRefDocs = False
+        name = []
+        name.append("Missing Reference docs sheet")
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
+
+
+def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
+    testName = inspect.currentframe().f_code.co_name
+    localisation1 = []
+    if TSDApp.WorkbookStats.hasRefDocs == False:
+        name = []
+        name.append("Missing Reference docs sheet")
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
+    else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
-        flag = False
         localisation1 = []
 
         for index in range(0, workSheet.nrows):
-            if str(workSheet.cell(index, 0).value).casefold().strip() in [ "vehicle architecture schematic", "planche d'architecture véhicule"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
-                    localisation1.append(("reference docs", index, 2))
-                    break
+                if str(workSheet.cell(index, 0).value).casefold().strip() in [ "vehicle architecture schematic", "planche d'architecture véhicule"]:
+                    if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                        localisation1.append(("reference docs", index, 2))
+                        break
 
         if not localisation1:
             localisation1 = None
 
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation1, workBook, TSDApp)
-
-    else:
-        TSDApp.WorkbookStats.hasRefDocs = False
-        name = []
-        name.append("Missing Reference docs sheet")
-        flag = True
-
-        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
-    return flag
-
-    # testName = inspect.currentframe().f_code.co_name
-    # if "reference docs" in TSDApp.WorkbookStats.sheetNames:
-    #     TSDApp.WorkbookStats.hasRefDocs = True
-    #     index = TSDApp.WorkbookStats.sheetNames.index("reference docs") + 1
-    #     TSDApp.WorkbookStats.refDocsIndex = index
-    #     workSheet = workBook.Sheets(TSDApp.WorkbookStats.refDocsIndex)
-    #     workSheetRange = workSheet.UsedRange
-    #     flag = False
-    #     for rowRange in workSheetRange:
-    #         for cell in rowRange:
-    #             if str(cell.value).casefold().strip() == "name":
-    #                 nameColIndex = cell.Column
-    #             if str(cell.value).strip().casefold() == "reference":
-    #                 refColIndex = cell.Column
-    #     colName = workSheetRange.Columns(nameColIndex)
-    #     TSDApp.WorkbookStats.nameRefDocsIndex = nameColIndex
-    #     colRef = workSheetRange.Columns(refColIndex)
-    #     TSDApp.WorkbookStats.refRefDocsIndex = refColIndex
-    #     localisation = None
-    #     for cell in colName.value:
-    #             if str(cell[0]).casefold().strip() in [ "vehicle architecture schematic", "planche d'architecture véhicule"]:
-    #                 if str(workSheet.cell(colName.value.index(cell) +1, refColIndex).value).strip() in ["None",""]:
-    #                     localisation = workSheet.Rows(colName.value.index(cell) +1)
-    # else:
-    #     TSDApp.WorkbookStats.hasRefDocs = False
-    #     localisation = ""
-    #     flag = True
-    # result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    # return flag
 
 def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -366,7 +344,6 @@ def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
-        localisation1 = []
 
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["diagnostic matrix", "matrice diag"]:
