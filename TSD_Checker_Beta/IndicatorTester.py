@@ -6,6 +6,7 @@ from ErrorMessages import errorMessagesDict as error
 import xlrd
 import xlwt
 from xlutils.copy import copy
+import openpyxl
 
 def coverageIndicator(workBook, TSDApp):
     index = 0
@@ -152,36 +153,111 @@ def convergenceIndicator(workBook, TSDApp):
                 refCelEff = index2
                 refRowIndex = index1
 
-    workBook2 = copy(workBook)
-    workSheet = workBook2.get_sheet(index)
+    if TSDApp.DOC3Path.split('.')[-1] == 'xls':
 
-    # if refSignature == -1:
-        # add column in position
+        workBook2 = copy(workBook)
+        workSheet = workBook2.get_sheet(index)
 
-    NbUniqueSignatureTests = 0
-    NbAMDECLine = 0
-    unique_items = []
-    unique_list = []
+        # if refSignature == -1:
+            # add column in position
 
-    for index in range(TSDApp.tableFirstInfoRow, nrRows):
-        if rb_sheet.cell(index, refColBase).value != "":
-            NbAMDECLine += 1
-            dict = {}
-            dict['value'] = [rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value]
-            dict['localisation'] = index
-            unique_items.append(dict)
-            unique_list.append([rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value])
+        NbUniqueSignatureTests = 0
+        NbAMDECLine = 0
+        unique_items = []
+        unique_list = []
+
+        for index in range(TSDApp.tableFirstInfoRow, nrRows):
+            if rb_sheet.cell(index, refColBase).value != "":
+                NbAMDECLine += 1
+                dict = {}
+                dict['value'] = [rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value]
+                dict['localisation'] = index
+                unique_items.append(dict)
+                unique_list.append([rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value])
 
 
-    for element in unique_items:
-        if unique_list.count(element['value']) == 1:
+        for element in unique_items:
+            if unique_list.count(element['value']) == 1:
 
-            workSheet.write(element['localisation'], refSignature, '1')
-            NbUniqueSignatureTests += 1
+                workSheet.write(element['localisation'], refSignature, '1')
+                NbUniqueSignatureTests += 1
+            else:
+                for elem in unique_items:
+                    if element['value'] == elem['value']:
+                        workSheet.write(elem['localisation'], refSignature, '0')
+
+    else:
+        if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
+            wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
         else:
-            for elem in unique_items:
-                if element['value'] == elem['value']:
-                    workSheet.write(elem['localisation'], refSignature, '0')
+            wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
+
+        if refSignature == -1:
+            if "tableau" in wb.sheetnames:
+                workSheet = wb.get_sheet_by_name("tableau")
+            elif "Table" in wb.sheetnames:
+                workSheet = wb.get_sheet_by_name("Table")
+
+            workSheet.insert_cols(refCritere+2)
+            workSheet.cell(4, refCritere+2, "Unique Test Signature")
+
+            NbUniqueSignatureTests = 0
+            NbAMDECLine = 0
+            unique_items = []
+            unique_list = []
+
+            for index in range(TSDApp.tableFirstInfoRow + 1, nrRows + 1):
+                if workSheet.cell(index, refColBase + 1).value != "":
+                    NbAMDECLine += 1
+                    dict = {}
+                    dict['value'] = [workSheet.cell(index, refColDTC + 1).value, workSheet.cell(index, refCelParam + 1).value,workSheet.cell(index, refCelDiag + 1).value, workSheet.cell(index, refCelEff + 1).value]
+                    dict['localisation'] = index
+                    unique_items.append(dict)
+                    unique_list.append([workSheet.cell(index, refColDTC + 1).value, workSheet.cell(index, refCelParam + 1).value,workSheet.cell(index, refCelDiag + 1).value, workSheet.cell(index, refCelEff + 1).value])
+
+            for element in unique_items:
+                if unique_list.count(element['value']) == 1:
+                    workSheet.cell(element['localisation'], refCritere + 2,'1')
+                    NbUniqueSignatureTests += 1
+                else:
+                    for elem in unique_items:
+                        if element['value'] == elem['value']:
+                            workSheet.cell(element['localisation'], refCritere + 2, '0')
+
+            wb.save(TSDApp.DOC3Path)
+        else:
+            if "tableau" in wb.sheetnames:
+                workSheet = wb.get_sheet_by_name("tableau")
+            elif "Table" in wb.sheetnames:
+                workSheet = wb.get_sheet_by_name("Table")
+
+            NbUniqueSignatureTests = 0
+            NbAMDECLine = 0
+            unique_items = []
+            unique_list = []
+
+            for index in range(TSDApp.tableFirstInfoRow + 1, nrRows + 1):
+                if workSheet.cell(index, refColBase + 1).value != "":
+                    NbAMDECLine += 1
+                    dict = {}
+                    dict['value'] = [workSheet.cell(index, refColDTC + 1).value,
+                                     workSheet.cell(index, refCelParam + 1).value,
+                                     workSheet.cell(index, refCelDiag + 1).value,
+                                     workSheet.cell(index, refCelEff + 1).value]
+                    dict['localisation'] = index
+                    unique_items.append(dict)
+                    unique_list.append(
+                        [workSheet.cell(index, refColDTC + 1).value, workSheet.cell(index, refCelParam + 1).value,
+                         workSheet.cell(index, refCelDiag + 1).value, workSheet.cell(index, refCelEff + 1).value])
+
+            for element in unique_items:
+                if unique_list.count(element['value']) == 1:
+                    workSheet.cell(element['localisation'], refCritere + 2,'1')
+                    NbUniqueSignatureTests += 1
+                else:
+                    for elem in unique_items:
+                        if element['value'] == elem['value']:
+                            workSheet.cell(element['localisation'], refCritere + 2, '0')
 
     return (NbUniqueSignatureTests / NbAMDECLine)
 

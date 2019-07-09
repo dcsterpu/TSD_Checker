@@ -9,6 +9,13 @@ from openpyxl.styles import Color, PatternFill, Font, Border
 from openpyxl.styles import colors
 
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
+import os
+import zipfile
+import shutil
+from shutil import copyfile
+from shutil import rmtree
+
+
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
@@ -250,7 +257,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
     else:
         workSheet_info_report = workBook2.add_sheet('Report information', cell_overwrite_ok=True)
 
-        workSheet_info_report.write(0,0,"Tool version:")
+        workSheet_info_report.write(0, 0, "Tool version:")
         workSheet_info_report.write(0, 1, TSD_Checker_V5_0.appName)
 
         workSheet_info_report.write(2, 0, "Criticity configuration file:")
@@ -537,7 +544,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
     # ########################################################################################################
 
 
-    # def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
+# def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 #     testReportSheet = workBook.Sheets("Test report")
 #     lastRow = testReportSheet.UsedRange.Rows.Count + 1
 #
@@ -579,7 +586,11 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
 
 def ExcelWrite2(return_list, workBook, TSDApp):
-    wb = openpyxl.load_workbook(workBook, keep_vba=True)
+
+    if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
+        wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
+    else:
+        wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
 
     index_test_report = -1
     index_info_report = -1
@@ -865,8 +876,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(
-                            list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % (
                         "'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
@@ -884,7 +894,6 @@ def ExcelWrite2(return_list, workBook, TSDApp):
     workSheet_test_report.column_dimensions['D'].width = 20
 
     wb.save(workBook)
-
 
 def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     return_dict = {}
@@ -996,8 +1005,6 @@ def AddTestReportSheetHeader(workBook):
     testReportWorkSheet.Columns("B").ColumnWidth = 35
     testReportWorkSheet.Columns("C").ColumnWidth = 150
     testReportWorkSheet.Columns("D").ColumnWidth = 12
-
-
     #testReportWorkSheet.Range("A1:D1").Font.Bold = True
 
 def WriteReportInformationSheet(workBook, TSDApp):

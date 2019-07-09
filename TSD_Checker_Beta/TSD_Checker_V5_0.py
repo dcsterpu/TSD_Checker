@@ -18,8 +18,7 @@ import time
 import win32api
 import xlwt
 import xlrd
-from xlrd import open_workbook
-from xlwt import easyxf
+import json
 
 appName = "TSD Checker V5.0"
 pBarIncrement = 100/159
@@ -66,6 +65,9 @@ class Application(QWidget):
         self.opening_time = 0
 
         self.return_list = []
+        self.list_element = []
+        self.flag_load_configuration = False
+
 
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
@@ -97,6 +99,36 @@ class Application(QWidget):
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
 
+    def setIntranet(self):
+        self.DOC8Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05471/v.vc/pj"
+        self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+        self.DOC7Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05499/v.vc/pj"
+        self.DOC13Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02016_11_04964/v.vc/pj"
+        self.DOC3Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.AEEV_IAEE07_0033/v.vc/pj'''
+        self.DOC4Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
+        self.DOC5Link = '''http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
+        self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+        self.DOC14Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+        self.tab2.link2.setText('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''')
+        self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
+        self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
+        self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
+
+    def setInternet(self):
+        self.DOC8Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05471/v.vc/pj'''
+        self.DOC9Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj'''
+        self.DOC7Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05499/v.vc/pj'''
+        self.DOC13Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02016_11_04964/v.vc/pj'''
+        self.DOC3Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.AEEV_IAEE07_0033/v.vc/pj'''
+        self.DOC4Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01665/v.vc/pj'''
+        self.DOC5Link = '''https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_12_01666/v.vc/pj'''
+        self.DOC9Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_18_05474/v.vc/pj"
+        self.DOC14Link = "https://docinfogroupe.psa-peugeot-citroen.com/ead/doc/ref.02043_19_00392/v.vc/pj"
+        self.tab2.link2.setText('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''')
+        self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
+        self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
+        self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
+
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox1.setText(fileName1)
@@ -123,7 +155,7 @@ class Application(QWidget):
         self.tab1.myTextBox6.setText(fileName6)
 
     def openFileNameDialog7(self):
-        fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        fileName7, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File4', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox4.setText(fileName7)
 
     def openFileNameDialog8(self):
@@ -227,7 +259,6 @@ class Application(QWidget):
 
         # Create a drop down list
         tab.lbl = QLabel("Check level", tab)
-
         tab.combo = QComboBox(tab)
         tab.combo.addItem("Previsional")
         tab.combo.addItem("Consolidated")
@@ -239,10 +270,9 @@ class Application(QWidget):
 
         # Create a drop down list
         tab.lbl1 = QLabel("Project name", tab)
-
         tab.combo1 = QComboBox(tab)
-        tab.combo1.addItem("   Generic   ")
-        tab.combo1.addItem("   All   ")
+        tab.combo1.addItem("Generic")
+        tab.combo1.addItem("All")
         tab.combo1.resize(330, 20.4)  # rezise the drop down list
         tab.combo1.move(200, 260)
         tab.lbl1.move(5, 265)
@@ -250,7 +280,6 @@ class Application(QWidget):
 
         # Create a dropdown list
         tab.lbl2 = QLabel("Architecture type", tab)
-
         tab.combo2 = QComboBox(tab)
         tab.combo2.addItem("Archi 2010")
         tab.combo2.addItem("Archi NEA R1")
@@ -264,9 +293,21 @@ class Application(QWidget):
         self.setWindowTitle('TSD Checker')
 
         tab.importNames = QPushButton(tab)
-        tab.importNames.setText("Import Project Names")
+        tab.importNames.setText("Import Project names")
         tab.importNames.resize(160, 20.4)
         tab.importNames.move(550, 260)
+
+        tab.save_config = QPushButton(tab)
+        tab.save_config.setText("Save \nconfiguration")
+        tab.save_config.resize(90,45)
+        tab.save_config.move(710, 343)
+        tab.save_config.clicked.connect(self.ButtonSaveConfigClick)
+
+        tab.load_config = QPushButton(tab)
+        tab.load_config.setText("Load \nconfiguration")
+        tab.load_config.resize(90, 45)
+        tab.load_config.move(710, 393)
+        tab.load_config.clicked.connect(self.ButtonLoadConfigClick)
 
         # File Selectiom Dialog1
         tab.lbl2 = QLabel("TSD File:", tab)
@@ -353,8 +394,8 @@ class Application(QWidget):
         tab.button.clicked.connect(self.buttonClicked)
         #button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         tab.buttonNew = QPushButton("Open \nReport", tab)
-        tab.buttonNew.resize(90, 60)
-        tab.buttonNew.move(710, 310)
+        tab.buttonNew.resize(90, 45)
+        tab.buttonNew.move(710, 293)
         tab.buttonNew.setEnabled(False)
         tab.buttonNew.clicked.connect(self.ButtonReportClick)
 
@@ -364,23 +405,181 @@ class Application(QWidget):
 
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
 
-        if self.tab1.myTextBox1.toPlainText():
+        if self.tab1.myTextBox1.toPlainText() != "" or self.list_element["TSD File"]["value"] != "null":
             win32api.MessageBox(0,'Feature not implemented yet','Information')
            # fileName = self.tab1.myTextBox1.toPlainText()
            # self.excel.Visible = True
            # self.excel.Workbooks.Open(fileName)
 
-        if self.tab1.myTextBox2.toPlainText():
+        if self.tab1.myTextBox2.toPlainText() != "" or self.list_element["TSD Vehicle Function File"]["value"] != "null":
             win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
            # fileName = self.tab1.myTextBox2.toPlainText()
            # self.excel.Visible = True
            # self.excel.Workbooks.Open(fileName)
 
-        if self.tab1.myTextBox3.toPlainText():
+        if self.tab1.myTextBox3.toPlainText() != "" or self.list_element["TSD System File"]["value"] != "null":
             win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
            # fileName = self.tab1.myTextBox3.toPlainText()
            # self.excel.Visible = True
            # self.excel.Workbooks.Open(fileName)
+
+    def ButtonSaveConfigClick(self):
+
+        if self.tab1.myTextBox1.toPlainText():
+            # win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
+            data = {}
+            list_elements = []
+
+            data['name'] = 'TSD File'
+            if self.DOC3Path is None or self.DOC3Path == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.DOC3Path
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'TSD Vehicle Function File'
+            if self.DOC4Path is None or self.DOC4Path == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.DOC4Path
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'TSD System File'
+            if self.DOC5Path is None or self.DOC5Path == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.DOC5Path
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'AMDEC'
+            if self.tab1.myTextBox4.toPlainText() is None or self.tab1.myTextBox4.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab1.myTextBox4.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Diagnostic matrix'
+            if self.tab1.myTextBox5.toPlainText() is None or self.tab1.myTextBox5.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab1.myTextBox5.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Diagnostic messagery (odx)'
+            if self.tab1.myTextBox6.toPlainText() is None or self.tab1.myTextBox6.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab1.myTextBox6.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Check level'
+            if self.tab1.combo.currentText() == "Previsional":
+                data['value'] = 'Previsional'
+            elif self.tab1.combo.currentText() == "Consolidated":
+                data['value'] = 'Consolidated'
+            elif self.tab1.combo.currentText() == "Validated":
+                data['value'] = 'Validated'
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Architecture type'
+            if self.tab1.combo2.currentText() == "Archi 2010":
+                data['value'] = 'Archi 2010'
+            elif self.tab1.combo2.currentText() == "Archi NEA R1":
+                data['value'] = 'Archi NEA R1'
+            elif self.tab1.combo2.currentText() == "Archi NEA R2":
+                data['value'] = 'Archi NEA R2'
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Project name'
+            if self.tab1.combo1.currentText() == "Generic":
+                data['value'] = 'Generic'
+            elif self.tab1.combo1.currentText() == "All":
+                data['value'] = 'All'
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Network type'
+            if self.tab2.RadioButtonInternet.isChecked() is True:
+                data['value'] = 'Internet'
+            else:
+                data['value'] = 'Intranet'
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'CESARE Export'
+            if self.tab2.myTextBox7.toPlainText() is None or self.tab2.myTextBox7.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox7.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Criticity'
+            if self.tab2.myTextBox8.toPlainText() is None or self.tab2.myTextBox8.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox8.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Customer Effect File'
+            if self.tab2.myTextBox9.toPlainText() is None or self.tab2.myTextBox9.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox9.toPlainText()
+            list_elements.append(data)
+
+
+            data = {}
+            data['name'] = 'Diversity'
+            if self.tab2.myTextBox10.toPlainText() is None or self.tab2.myTextBox10.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox10.toPlainText()
+            list_elements.append(data)
+
+
+            save_config_fileName, _filter = QtWidgets.QFileDialog.getSaveFileName(self.tab1, 'Save File',QtCore.QDir.rootPath(), 'JSON(*.json)')
+            with open(save_config_fileName,'w') as outfile:
+                json.dump(list_elements,outfile)
+
+    def ButtonLoadConfigClick(self):
+
+        load_config_fileName, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(),'*.*')
+        with open(load_config_fileName) as json_file:
+            data = json.load(json_file)
+            self.list_element = {}
+            for element in data:
+                dict = {}
+                dict['value'] = element['value']
+                self.list_element[element['name']] = dict
+
+        if not self.list_element:
+            self.list_element = None
+
+        if self.list_element is not None:
+            self.flag_load_configuration = True
+
 
     def initUIOptions(self, tab):
 
@@ -475,7 +674,7 @@ class Application(QWidget):
         tab.button10.move(670, 331)
         tab.button10.resize(45, 22)
 
-        tab.labelInternetAndIntranet = QLabel("Network Type:", tab)
+        tab.labelInternetAndIntranet = QLabel("Network type:", tab)
         tab.labelInternetAndIntranet.move(130, 60)
         tab.RadioButtonInternet = QRadioButton(self.tab2)
         tab.RadioButtonInternet.setText("Internet link")
@@ -603,9 +802,8 @@ class Test(Application):
 
     def buttonClicked(self):
 
-
         # self.tab1.textbox.setText("File analyzation starting...")
-        # self.start_time = time.time()
+        self.start_time = time.time()
         # os.system("taskkill /f /im EXCEL.EXE")
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
         # if self.excelApp is None:
@@ -616,60 +814,167 @@ class Test(Application):
         self.tab1.colorTextBox2.setStyleSheet(" background-color: grey ")
         self.tab1.colorTextBox3.setStyleSheet(" background-color: grey ")
 
-        self.tab1.textbox.setText("")
-        self.tab1.pbar.setValue(0)
-        if self.tab1.myTextBox6.toPlainText():
-            self.Doc15Path = self.tab1.myTextBox6.toPlainText()
+        if self.flag_load_configuration is False:
 
-        else:
-            self.Doc15Path = None
-        if not self.tab2.myTextBox7.toPlainText():
-            self.DOC8Path = self.download_file(self.DOC8Link)
-        else:
-            self.Doc8Path = self.tab2.myTextBox7.toPlainText()
-        if self.DOC8Path == "Error":
-            self.tab1.textbox.setText(
-                "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
-            return
-        if self.DOC8Path == "False":
-            return
-        if not self.tab2.myTextBox8.toPlainText():
-            self.DOC9Path = self.download_file(self.DOC9Link)
-        else:
-            self.DOC9Path = self.tab2.myTextBox8.toPlainText()
-        if not self.tab2.myTextBox9.toPlainText():
-            self.DOC7Path = self.download_file(self.DOC7Link)
-        else:
-            self.DOC7Path = self.tab2.myTextBox9.toPlainText()
-        if not self.tab2.myTextBox10.toPlainText():
-            self.DOC13Path = self.download_file(self.DOC13Link)
-        else:
-            self.DOC13Path = self.tab2.myTextBox10.toPlainText()
-        self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
-        if self.DOC9Dict == None:
-            return
-        self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
-        if self.DOC13List == None:
-            return
-        self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
-        if self.DOC8List == None:
-            return
-        if self.Doc15Path is not None:
-            self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
-            if self.subfamily_name == None or self.Doc15List == None:
+            self.tab1.textbox.setText("")
+            self.tab1.pbar.setValue(0)
+            if self.tab1.myTextBox6.toPlainText() is not None and self.tab1.myTextBox6.toPlainText() != "":
+                self.Doc15Path = self.tab1.myTextBox6.toPlainText()
+            else:
+                self.Doc15Path = None
+
+            if not self.tab2.myTextBox7.toPlainText():
+                self.DOC8Path = self.download_file(self.DOC8Link)
+            else:
+                self.Doc8Path = self.tab2.myTextBox7.toPlainText()
+
+            if self.DOC8Path == "Error":
+                self.tab1.textbox.setText(
+                    "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
                 return
+            if self.DOC8Path == "False":
+                return
+
+            if not self.tab2.myTextBox8.toPlainText():
+                self.DOC9Path = self.download_file(self.DOC9Link)
+            else:
+                self.DOC9Path = self.tab2.myTextBox8.toPlainText()
+
+            if not self.tab2.myTextBox9.toPlainText():
+                self.DOC7Path = self.download_file(self.DOC7Link)
+            else:
+                self.DOC7Path = self.tab2.myTextBox9.toPlainText()
+
+            if not self.tab2.myTextBox10.toPlainText():
+                self.DOC13Path = self.download_file(self.DOC13Link)
+            else:
+                self.DOC13Path = self.tab2.myTextBox10.toPlainText()
+
+            self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
+            if self.DOC9Dict == None:
+                return
+
+            self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
+            if self.DOC13List == None:
+                return
+
+            self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
+            if self.DOC8List == None:
+                return
+
+            if self.Doc15Path is not None and self.Doc15Path != "":
+                self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
+                if self.subfamily_name == None or self.Doc15List == None:
+                    return
+            else:
+                self.Doc15List = None
+                self.subfamily_name = None
+
+            #self.DOC8Name = self.download_file(self.DOC8Link)
+
+            if self.tab1.myTextBox5.toPlainText() is not None and self.tab1.myTextBox5.toPlainText() != "":
+                self.DOC14Name = self.tab1.myTextBox5.toPlainText()
+            else:
+                self.DOC14Name = None
+
+            self.DOC7Name = self.download_file(self.DOC7Link)
+            archi_type = self.tab1.combo2.currentText()
+
         else:
-            self.Doc15List = None
-            self.subfamily_name = None
+            if self.list_element["Network type"]["value"] == "Intranet":
+                Application.setIntranet(self)
+            else:
+                Application.setInternet(self)
 
-        #self.DOC8Name = self.download_file(self.DOC8Link)
+            if self.list_element["Check level"]["value"] == "Previsional":
+                self.tab1.combo.setCurrentIndex(0)
+            elif self.list_element["Check level"]["value"] == "Consolidated":
+                self.tab1.combo.setCurrentIndex(1)
+            elif self.list_element["Check level"]["value"] == "Validated":
+                self.tab1.combo.setCurrentIndex(2)
 
-        self.DOC14Name = self.download_file(self.DOC14Link)
-        self.DOC7Name = self.download_file(self.DOC7Link)
-        archi_type = self.tab1.combo2.currentText()
+            if self.list_element["Project name"]["value"] == "Generic":
+                self.tab1.combo1.setCurrentIndex(0)
+            elif self.list_element["Project name"]["value"] == "All":
+                self.tab1.combo1.setCurrentIndex(1)
+
+            if self.list_element["Architecture type"]["value"] == "Archi 2010":
+                self.tab1.combo2.setCurrentIndex(0)
+                archi_type = "Archi 2010"
+            elif self.list_element["Architecture type"]["value"] == "Archi NEA R1":
+                self.tab1.combo2.setCurrentIndex(1)
+                archi_type = "Archi NEA R1"
+            elif self.list_element["Architecture type"]["value"] == "Archi NEA R2":
+                self.tab1.combo2.setCurrentIndex(2)
+                archi_type = "Archi NEA R2"
 
 
-        if self.tab1.myTextBox1.toPlainText():
+            self.tab1.textbox.setText("")
+            self.tab1.pbar.setValue(0)
+
+            if self.list_element["Diagnostic messagery (odx)"]['value'] != "null":
+                self.Doc15Path = self.list_element["Diagnostic messagery (odx)"]['value']
+            else:
+                 self.Doc15Path = None
+
+            if self.list_element["CESARE Export"]["value"] == "null":
+                self.DOC8Path = self.download_file(self.DOC8Link)
+            else:
+                self.Doc8Path = self.list_element["CESARE Export"]["value"]
+
+            if self.DOC8Path == "Error":
+                self.tab1.textbox.setText(
+                    "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
+                return
+            if self.DOC8Path == "False":
+                return
+
+            if self.list_element["Criticity"]["value"] == "null":
+                self.DOC9Path = self.download_file(self.DOC9Link)
+            else:
+                self.DOC9Path = self.list_element["Criticity"]["value"]
+
+            if self.list_element["Customer Effect File"]["value"] == "null":
+                self.DOC7Path = self.download_file(self.DOC7Link)
+            else:
+                self.DOC7Path = self.list_element["Customer Effect File"]["value"]
+
+            if self.list_element["Diversity"]["value"] == "null":
+                self.DOC13Path = self.download_file(self.DOC13Link)
+            else:
+                self.DOC13Path = self.list_element["Diversity"]["value"]
+
+            self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
+            if self.DOC9Dict == None:
+                return
+
+            self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
+            if self.DOC13List == None:
+                return
+
+            self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
+            if self.DOC8List == None:
+                return
+
+            if self.Doc15Path is not None and self.Doc15Path != "":
+                self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self, self.Doc15Path)
+                if self.subfamily_name == None or self.Doc15List == None:
+                    return
+            else:
+                self.Doc15List = None
+                self.subfamily_name = None
+
+            # self.DOC8Name = self.download_file(self.DOC8Link)
+
+            if self.list_element["Diagnostic matrix"]["value"] != "null":
+                self.DOC14Name = self.list_element["Diagnostic matrix"]["value"]
+            else:
+                self.DOC14Name = None
+
+            self.DOC7Name = self.download_file(self.DOC7Link)
+
+
+        if self.tab1.myTextBox1.toPlainText() != "" or self.list_element["TSD File"]["value"] != "null":
 
             self.suppressionHeaderRow = 1
             self.tableHeaderRow = 3
@@ -693,9 +998,16 @@ class Test(Application):
             self.sitDeVieFirstInfoRow = 2
             self.listeMDDFirstInfoRow = 2
 
+
+
+
             self.DOC3Name = self.download_file(self.DOC3Link)
 
-            self.DOC3Path = self.tab1.myTextBox1.toPlainText()
+            if self.flag_load_configuration is False:
+                self.DOC3Path = self.tab1.myTextBox1.toPlainText()
+            else:
+                self.DOC3Path = self.list_element["TSD File"]["value"]
+
             try:
                 extension = self.DOC3Path.split(".")[-1]
                 if extension == "xls":
@@ -1593,10 +1905,12 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC3Workbook, self, self.DOC14Name)
-                    if check_indicator == True:
-                        ok_indicator = 1
+                if self.DOC14Name:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC3Workbook, self, self.DOC14Name)
+                        if check_indicator == True:
+                            ok_indicator = 1
+
 
                 if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                     check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC3Workbook, self)
@@ -1665,10 +1979,11 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC3Workbook, self, self.subfamily_name, self.Doc15List)
-                    if check_indicator == True:
-                        ok_indicator = 1
+                if self.Doc15Path is not None and self.Doc15Path != "":
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC3Workbook, self, self.subfamily_name, self.Doc15List)
+                        if check_indicator == True:
+                            ok_indicator = 1
 
                 if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
                     check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
@@ -1698,13 +2013,14 @@ class Test(Application):
                     self.status = "Passed"
                     self.tab1.buttonNew.setEnabled(True)
 
+                self.end_time = time.time()
+
 
                 if self.DOC3Path.split('.')[-1] == "xls":
                     ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self)
                 elif self.DOC3Path.split('.')[-1] in ["xlsx","xlsm"]:
                     ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
 
-                self.end_time = time.time()
 
 
 
@@ -1719,7 +2035,7 @@ class Test(Application):
 
 
 
-        if self.tab1.myTextBox2.toPlainText():
+        if self.tab1.myTextBox2.toPlainText() != "" or self.list_element["TSD Vehicle Function File"]["value"] != "null":
 
             self.suppressionHeaderRow = 0
             self.tableHeaderRow = 2
@@ -1742,7 +2058,11 @@ class Test(Application):
 
             self.DOC4Name = self.download_file(self.DOC4Link)
 
-            self.DOC4Path = self.tab1.myTextBox2.toPlainText()
+            if self.flag_load_configuration is False:
+                self.DOC4Path = self.tab1.myTextBox2.toPlainText()
+            else:
+                self.DOC4Path = self.list_element["TSD Vehicle Function File"]["value"]
+
             try:
                 self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
             except:
@@ -2423,10 +2743,11 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC4Workbook, self, self.DOC14Name)
-                    if check_indicator == True:
-                        ok_indicator = 1
+                if self.DOC14Name:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC4Workbook, self, self.DOC14Name)
+                        if check_indicator == True:
+                            ok_indicator = 1
 
                 if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                     check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC4Workbook, self)
@@ -2492,15 +2813,15 @@ class Test(Application):
                     self.status = "Passed"
                     self.tab1.buttonNew.setEnabled(True)
 
-                if self.DOC3Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC3Path, self)
-                elif self.DOC3Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
+                if self.DOC4Path.split('.')[-1] == "xls":
+                    ExcelEdit.ExcelWrite(self.return_list, self.DOC4Path, self)
+                elif self.DOC4Path.split('.')[-1] in ["xlsx", "xlsm"]:
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC4Path, self)
 
                 self.end_time = time.time()
 
 
-        if self.tab1.myTextBox3.toPlainText():
+        if self.tab1.myTextBox3.toPlainText() != "" or self.list_element["TSD System File"]["value"] != "null":
 
             self.suppressionHeaderRow = 0
             self.tableHeaderRow = 1
@@ -2531,8 +2852,11 @@ class Test(Application):
             self.degradedModeFirstInfoRow = 1
 
             self.DOC5Name = self.download_file(self.DOC5Link)
+            if self.flag_load_configuration is False:
+               self.DOC5Path = self.tab1.myTextBox3.toPlainText()
+            else:
+                self.DOC5Path = self.list_element["TSD System File"]["value"]
 
-            self.DOC5Path = self.tab1.myTextBox3.toPlainText()
             try:
                 self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
             except:
@@ -3360,10 +3684,11 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC5Workbook, self, self.DOC14Name)
-                    if check_indicator == True:
-                        ok_indicator = 1
+                if self.DOC14Name:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC5Workbook, self, self.DOC14Name)
+                        if check_indicator == True:
+                            ok_indicator = 1
 
                 if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                     check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC5Workbook, self)
@@ -3422,10 +3747,11 @@ class Test(Application):
                     if check_indicator == True:
                         ok_indicator = 1
 
-                if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
-                    check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC5Workbook, self,self.subfamily_name, self.Doc15List)
-                    if check_indicator == True:
-                       ok_indicator = 1
+                if self.Doc15Path is not None and self.Doc15Path != "":
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC5Workbook, self,self.subfamily_name, self.Doc15List)
+                        if check_indicator == True:
+                           ok_indicator = 1
 
                 if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
                     check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC5Workbook, self, self.DOC13List)
@@ -3454,10 +3780,10 @@ class Test(Application):
                     self.status = "Passed"
                     self.tab1.buttonNew.setEnabled(True)
 
-                if self.DOC3Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC3Path, self)
-                elif self.DOC3Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
+                if self.DOC5Path.split('.')[-1] == "xls":
+                    ExcelEdit.ExcelWrite(self.return_list, self.DOC5Path, self)
+                elif self.DOC5Path.split('.')[-1] in ["xlsx", "xlsm"]:
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC5Path, self)
 
                 self.end_time = time.time()
 
