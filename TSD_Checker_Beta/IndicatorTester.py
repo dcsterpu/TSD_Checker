@@ -1,4 +1,4 @@
-import TSD_Checker_V5_0
+import TSD_Checker_V5_5
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -132,7 +132,7 @@ def convergenceIndicator(workBook, TSDApp):
             if str(rb_sheet.cell(index1, index2).value).casefold().strip() == "Unique Test Signature".casefold():
                 refSignature = index2
                 refRowIndex = index1
-        if refCritere != -1 and refSignature != -1:
+        if refCritere != -1 or refSignature != -1:
             break
 
     for index1 in range(0, nrRows):
@@ -152,6 +152,8 @@ def convergenceIndicator(workBook, TSDApp):
             if str(rb_sheet.cell(index1, index2).value).casefold().strip() == "Effet(s) client(s)".casefold():
                 refCelEff = index2
                 refRowIndex = index1
+        if refColBase != -1 or refColDTC != -1 or refCelParam != -1 or refCelDiag != -1 or refCelEff != -1:
+            break
 
     if TSDApp.DOC3Path.split('.')[-1] == 'xls':
 
@@ -179,12 +181,12 @@ def convergenceIndicator(workBook, TSDApp):
         for element in unique_items:
             if unique_list.count(element['value']) == 1:
 
-                workSheet.write(element['localisation'], refSignature, '1')
+                # workSheet.write(element['localisation'], refSignature, '1')
                 NbUniqueSignatureTests += 1
-            else:
-                for elem in unique_items:
-                    if element['value'] == elem['value']:
-                        workSheet.write(elem['localisation'], refSignature, '0')
+            # else:
+            #     for elem in unique_items:
+            #         if element['value'] == elem['value']:
+            #             workSheet.write(elem['localisation'], refSignature, '0')
 
     else:
         if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
