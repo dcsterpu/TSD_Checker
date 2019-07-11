@@ -48,23 +48,7 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     TSDApp.IncrementProgressBar()
 
 
-def deleteSheet(workbook, sheet_name1,sheet_name2):
-    new_wb = copy(workbook)
-    new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name.casefold() != sheet_name1]
-    new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name.casefold() != sheet_name2]
-
-
-    if new_wb._Workbook__worksheet_idx_from_name['report information'] > -1:
-        del new_wb._Workbook__worksheet_idx_from_name['report information']
-    if new_wb._Workbook__worksheet_idx_from_name['test report'] > -1:
-        del new_wb._Workbook__worksheet_idx_from_name['test report']
-    return new_wb
-
-
-def ExcelWrite_del_information(return_list, workBook, TSDApp):
-
-    # DOC3 = xlrd.open_workbook(workBook, formatting_info=True)
-    DOC3 = TSDApp.DOC3Workbook
+def deleteSheet(TSDApp, workbook, sheet_name1, sheet_name2):
     index_test_report = -1
     index_info_report = -1
     for sheetname in TSDApp.WorkbookStats.sheetNames:
@@ -73,149 +57,165 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
         if sheetname == 'report information':
             index_info_report = TSDApp.WorkbookStats.sheetNames.index('report information')
 
+    new_wb = copy(workbook)
     if index_info_report != -1:
-        new_wb = deleteSheet(DOC3,"report information","test report")
-
-        workSheet_info_report = new_wb.add_sheet('Report information', cell_overwrite_ok=True)
-
-        workSheet_info_report.write(0, 0, "Tool version:")
-        workSheet_info_report.write(0, 1, TSD_Checker_V5_5.appName)
-
-        workSheet_info_report.write(2, 0, "Criticity configuration file:")
-        workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
-
-        workSheet_info_report.write(3, 0, "Extract CESARE file:")
-        workSheet_info_report.write(3, 1, TSDApp.DOC8Path)
-
-        workSheet_info_report.write(4, 0, "Customer effects file:")
-        workSheet_info_report.write(4, 1, TSDApp.DOC7Name)
-
-        workSheet_info_report.write(5, 0, "Diversity management file:")
-        workSheet_info_report.write(5, 1, TSDApp.DOC13Path)
-
-        workSheet_info_report.write(6, 0, "CESARE file reference:")
-        workSheet_info_report.write(6, 1, TSDApp.DOC8Link.split("/")[-3])
-
-        workSheet_info_report.write(7, 0, "Criticity configuration file reference:")
-        workSheet_info_report.write(7, 1, TSDApp.DOC9Link.split("/")[-3])
-
-        workSheet_info_report.write(8, 0, "Customer effect file reference:")
-        workSheet_info_report.write(8, 1, TSDApp.DOC7Link.split("/")[-3])
-
-        workSheet_info_report.write(9, 0, "Diversity management file reference:")
-        workSheet_info_report.write(9, 1, TSDApp.DOC13Link.split("/")[-3])
-
-        workSheet_info_report.write(10, 0, "Check level:")
-        workSheet_info_report.write(10, 1, TSDApp.checkLevel)
-
-        workSheet_info_report.write(12, 0, "Date of the test:")
-        workSheet_info_report.write(12, 1, time.strftime("%x"))
-
-        workSheet_info_report.write(13, 0, "Time of the test:")
-        workSheet_info_report.write(13, 1, time.strftime("%X"))
-
-        workSheet_info_report.write(14, 0, "Test duration:")
-        workSheet_info_report.write(14, 1, time.strftime('%H:%M:%S', time.gmtime(TSDApp.end_time - TSDApp.start_time)))
-
-        workSheet_info_report.write(15, 0, "Opening duration:")
-        workSheet_info_report.write(15, 1, time.strftime('%H:%M:%S', time.gmtime(TSDApp.opening_time - TSDApp.start_time)))
-
-        workSheet_info_report.write(17, 0, "TSD file checked:")
-        workSheet_info_report.write(17, 1, TSDApp.DOC3Path)
-
-        workSheet_info_report.write(18, 0, "TSD function file checked:")
-        workSheet_info_report.write(18, 1, TSDApp.DOC4Path)
-
-        workSheet_info_report.write(19, 0, "TSD system file checked:")
-        workSheet_info_report.write(19, 1, TSDApp.DOC5Path)
-
-        workSheet_info_report.write(21, 0, "AMDEC:")
-        workSheet_info_report.write(21, 1, TSDApp.AMDECName)
-
-        workSheet_info_report.write(22, 0, "Export MedialecMatrice:")
-        workSheet_info_report.write(22, 1, TSDApp.MedialecName)
-
-        workSheet_info_report.write(24, 0, "Status:")
-        workSheet_info_report.write(24, 1, str(TSDApp.status))
-
-        workSheet_info_report.write(25, 0, "Coverage Indicator:")
-        workSheet_info_report.write(25, 1, str(TSDApp.coverage)[0:4] + "%")
-
-        workSheet_info_report.write(26, 0, "Convergence Indicator:")
-        workSheet_info_report.write(26, 1, str(TSDApp.convergence)[0:4] + "%")
-
-        workSheet_info_report.write(28, 0, "Blocking Points")
-        workSheet_info_report.write(28, 1, str(TSDApp.criticity_blocking))
-
-        workSheet_info_report.write(29, 0, "Warning Points")
-        workSheet_info_report.write(29, 1, str(TSDApp.criticity_warning))
-
-        workSheet_info_report.write(30, 0, "Information Points")
-        workSheet_info_report.write(30, 1, str(TSDApp.criticity_information))
-
-
+        new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name.casefold() != sheet_name1]
     if index_test_report != -1:
+        new_wb._Workbook__worksheets = [worksheet for worksheet in new_wb._Workbook__worksheets if worksheet.name.casefold() != sheet_name2]
 
-        list_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                      'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ',
-                      'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
-                      'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP',
-                      'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ']
+    if index_info_report != -1:
+        if new_wb._Workbook__worksheet_idx_from_name['report information'] > -1:
+            del new_wb._Workbook__worksheet_idx_from_name['report information']
+    if index_test_report != -1:
+        if new_wb._Workbook__worksheet_idx_from_name['test report'] > -1:
+            del new_wb._Workbook__worksheet_idx_from_name['test report']
+    return new_wb
 
-        workSheet_test_report = new_wb.add_sheet('Test report', cell_overwrite_ok=True)
 
-        lastRow = 0
-        workSheet_test_report.write(lastRow, 0, 'Criticity')
-        workSheet_test_report.write(lastRow, 1, 'Requirements')
-        workSheet_test_report.write(lastRow, 2, 'Message')
-        workSheet_test_report.write(lastRow, 3, 'Localisation')
+def ExcelWrite_del_information(return_list, workBook, TSDApp):
 
-        lastRow += 1
-        blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
-        warning_style = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
-        text_style = xlwt.easyxf('font: colour white, bold False;')
+    DOC3 = TSDApp.DOC3Workbook
 
-        for elem in return_list:
+    new_wb = deleteSheet(TSDApp ,DOC3,"report information","test report")
 
-            if elem["criticity"].casefold().strip() == "blocking":
-                workSheet_test_report.write(lastRow, 0, elem["criticity"], blocking_style)
-            elif elem["criticity"].casefold().strip() == "warning":
-                workSheet_test_report.write(lastRow, 0, elem["criticity"], warning_style)
+    workSheet_info_report = new_wb.add_sheet('Report information', cell_overwrite_ok=True)
+
+    workSheet_info_report.write(0, 0, "Tool version:")
+    workSheet_info_report.write(0, 1, TSD_Checker_V5_5.appName)
+
+    workSheet_info_report.write(2, 0, "Criticity configuration file:")
+    workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
+
+    workSheet_info_report.write(3, 0, "Extract CESARE file:")
+    workSheet_info_report.write(3, 1, TSDApp.DOC8Path)
+
+    workSheet_info_report.write(4, 0, "Customer effects file:")
+    workSheet_info_report.write(4, 1, TSDApp.DOC7Name)
+
+    workSheet_info_report.write(5, 0, "Diversity management file:")
+    workSheet_info_report.write(5, 1, TSDApp.DOC13Path)
+
+    workSheet_info_report.write(6, 0, "CESARE file reference:")
+    workSheet_info_report.write(6, 1, TSDApp.DOC8Link.split("/")[-3])
+
+    workSheet_info_report.write(7, 0, "Criticity configuration file reference:")
+    workSheet_info_report.write(7, 1, TSDApp.DOC9Link.split("/")[-3])
+
+    workSheet_info_report.write(8, 0, "Customer effect file reference:")
+    workSheet_info_report.write(8, 1, TSDApp.DOC7Link.split("/")[-3])
+
+    workSheet_info_report.write(9, 0, "Diversity management file reference:")
+    workSheet_info_report.write(9, 1, TSDApp.DOC13Link.split("/")[-3])
+
+    workSheet_info_report.write(10, 0, "Check level:")
+    workSheet_info_report.write(10, 1, TSDApp.checkLevel)
+
+    workSheet_info_report.write(12, 0, "Date of the test:")
+    workSheet_info_report.write(12, 1, time.strftime("%x"))
+
+    workSheet_info_report.write(13, 0, "Time of the test:")
+    workSheet_info_report.write(13, 1, time.strftime("%X"))
+
+    workSheet_info_report.write(14, 0, "Test duration:")
+    workSheet_info_report.write(14, 1, time.strftime('%H:%M:%S', time.gmtime(TSDApp.end_time - TSDApp.start_time)))
+
+    workSheet_info_report.write(15, 0, "Opening duration:")
+    workSheet_info_report.write(15, 1, time.strftime('%H:%M:%S', time.gmtime(TSDApp.opening_time - TSDApp.start_time)))
+
+    workSheet_info_report.write(17, 0, "TSD file checked:")
+    workSheet_info_report.write(17, 1, TSDApp.DOC3Path)
+
+    workSheet_info_report.write(18, 0, "TSD function file checked:")
+    workSheet_info_report.write(18, 1, TSDApp.DOC4Path)
+
+    workSheet_info_report.write(19, 0, "TSD system file checked:")
+    workSheet_info_report.write(19, 1, TSDApp.DOC5Path)
+
+    workSheet_info_report.write(21, 0, "AMDEC:")
+    workSheet_info_report.write(21, 1, TSDApp.AMDECName)
+
+    workSheet_info_report.write(22, 0, "Export MedialecMatrice:")
+    workSheet_info_report.write(22, 1, TSDApp.MedialecName)
+
+    workSheet_info_report.write(24, 0, "Status:")
+    workSheet_info_report.write(24, 1, str(TSDApp.status))
+
+    workSheet_info_report.write(25, 0, "Coverage Indicator:")
+    workSheet_info_report.write(25, 1, str(TSDApp.coverage)[0:4] + "%")
+
+    workSheet_info_report.write(26, 0, "Convergence Indicator:")
+    workSheet_info_report.write(26, 1, str(TSDApp.convergence)[0:4] + "%")
+
+    workSheet_info_report.write(28, 0, "Blocking Points")
+    workSheet_info_report.write(28, 1, str(TSDApp.criticity_blocking))
+
+    workSheet_info_report.write(29, 0, "Warning Points")
+    workSheet_info_report.write(29, 1, str(TSDApp.criticity_warning))
+
+    workSheet_info_report.write(30, 0, "Information Points")
+    workSheet_info_report.write(30, 1, str(TSDApp.criticity_information))
+
+
+    list_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ',
+                  'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
+                  'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP',
+                  'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ']
+
+
+    workSheet_test_report = new_wb.add_sheet('Test report', cell_overwrite_ok=True)
+
+    lastRow = 0
+    workSheet_test_report.write(lastRow, 0, 'Criticity')
+    workSheet_test_report.write(lastRow, 1, 'Requirements')
+    workSheet_test_report.write(lastRow, 2, 'Message')
+    workSheet_test_report.write(lastRow, 3, 'Localisation')
+
+    lastRow += 1
+    blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+    warning_style = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
+    text_style = xlwt.easyxf('font: colour white, bold False;')
+
+    for elem in return_list:
+
+        if elem["criticity"].casefold().strip() == "blocking":
+            workSheet_test_report.write(lastRow, 0, elem["criticity"], blocking_style)
+        elif elem["criticity"].casefold().strip() == "warning":
+            workSheet_test_report.write(lastRow, 0, elem["criticity"], warning_style)
+        else:
+            workSheet_test_report.write(lastRow, 0, elem["criticity"])
+
+        workSheet_test_report.write(lastRow, 1, elem["testName"])
+
+        if elem["localisation"] is None or elem["localisation"] == "":
+            workSheet_test_report.write(lastRow, 2, "OK")
+        else:
+            workSheet_test_report.write(lastRow, 2, elem["message"])
+
+        if elem["localisation"] is None or elem["localisation"] == "":
+            workSheet_test_report.write(lastRow, 3, elem["localisation"])
+            lastRow += 1
+
+        if elem["localisation"] is not None and elem["localisation"] != "":
+            if isinstance(elem["localisation"][0], str):
+                for index, element in enumerate(elem["localisation"]):
+                    workSheet_test_report.write(lastRow + index, 3, element)
+
+                for index in range(1, len(elem["localisation"]) + 1):
+                    workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                    workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+
+                lastRow += index
             else:
-                workSheet_test_report.write(lastRow, 0, elem["criticity"])
+                for index, element in enumerate(elem["localisation"]):
+                    link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
+                    workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
-            workSheet_test_report.write(lastRow, 1, elem["testName"])
+                for index in range(1, len(elem["localisation"]) + 1):
+                    workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                    workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-            if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.write(lastRow, 2, "OK")
-            else:
-                workSheet_test_report.write(lastRow, 2, elem["message"])
-
-            if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.write(lastRow, 3, elem["localisation"])
-                lastRow += 1
-
-            if elem["localisation"] is not None and elem["localisation"] != "":
-                if isinstance(elem["localisation"][0], str):
-                    for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.write(lastRow + index, 3, element)
-
-                    for index in range(1, len(elem["localisation"]) + 1):
-                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
-
-                    lastRow += index
-                else:
-                    for index, element in enumerate(elem["localisation"]):
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(
-                            element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
-                        workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
-
-                    for index in range(1, len(elem["localisation"]) + 1):
-                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
-
-                    lastRow = lastRow + index
+                lastRow = lastRow + index
 
 
     new_wb.save(TSDApp.DOC3Path)
