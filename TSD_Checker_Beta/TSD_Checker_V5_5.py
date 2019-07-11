@@ -21,7 +21,7 @@ import xlrd
 import json
 
 appName = "TSD Checker V5.5"
-pBarIncrement = 100/159
+pBarIncrement = 100/135
 
 class Application(QWidget):
 
@@ -67,7 +67,9 @@ class Application(QWidget):
         self.return_list = []
         self.list_element = []
         self.flag_load_configuration = False
-
+        self.DOC3Exists = False
+        self.DOC4Exists = False
+        self.DOC5Exists = False
 
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
@@ -816,6 +818,13 @@ class Test(Application):
 
         if self.flag_load_configuration is False:
 
+            if self.tab1.myTextBox1.toPlainText() != "":
+                self.DOC3Exists = True
+            elif self.tab1.myTextBox2.toPlainText() != "":
+                self.DOC4Exists = True
+            elif self.tab1.myTextBox3.toPlainText() != "":
+                self.DOC5Exists = True
+
             self.tab1.textbox.setText("")
             self.tab1.pbar.setValue(0)
             if self.tab1.myTextBox6.toPlainText() is not None and self.tab1.myTextBox6.toPlainText() != "":
@@ -881,6 +890,14 @@ class Test(Application):
             archi_type = self.tab1.combo2.currentText()
 
         else:
+
+            if self.list_element["TSD File"]["value"] != "null":
+                self.DOC3Exists = True
+            elif self.list_element["TSD Vehicle Function File"]["value"] != "null":
+                self.DOC4Exists = True
+            elif self.list_element["TSD System File"]["value"] != "null":
+                self.DOC5Exists = True
+
             if self.list_element["Network type"]["value"] == "Intranet":
                 Application.setIntranet(self)
             else:
@@ -973,8 +990,7 @@ class Test(Application):
 
             self.DOC7Name = self.download_file(self.DOC7Link)
 
-
-        if self.tab1.myTextBox1.toPlainText() != "" or self.list_element["TSD File"]["value"] != "null":
+        if self.DOC3Exists is True:
 
             self.suppressionHeaderRow = 1
             self.tableHeaderRow = 3
@@ -2038,7 +2054,7 @@ class Test(Application):
 
 
 
-        if self.tab1.myTextBox2.toPlainText() != "" or self.list_element["TSD Vehicle Function File"]["value"] != "null":
+        if self.DOC4Exists is True:
 
             self.suppressionHeaderRow = 0
             self.tableHeaderRow = 2
@@ -2824,7 +2840,7 @@ class Test(Application):
                 self.end_time = time.time()
 
 
-        if self.tab1.myTextBox3.toPlainText() != "" or self.list_element["TSD System File"]["value"] != "null":
+        if self.DOC5Exists is True:
 
             self.suppressionHeaderRow = 0
             self.tableHeaderRow = 1
