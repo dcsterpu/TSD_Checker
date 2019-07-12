@@ -7,6 +7,9 @@ import xlrd
 import xlwt
 from xlutils.copy import copy
 import openpyxl
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel
+
 
 def coverageIndicator(workBook, TSDApp):
     index = 0
@@ -200,8 +203,15 @@ def convergenceIndicator(workBook, TSDApp):
             elif "Table" in wb.sheetnames:
                 workSheet = wb.get_sheet_by_name("Table")
 
-            workSheet.insert_cols(refCritere+2)
-            workSheet.cell(4, refCritere+2, "Unique Test Signature")
+
+            try:
+                workSheet.insert_cols(refCritere+2)
+            except:
+                TSDApp.tab1.textbox.setText("ERROR: not enough memory when inserting UniqueTestSignature column")
+                sys.exit(TSDApp.app.exec_())
+
+
+            workSheet.cell(4, refCritere + 2, "Unique Test Signature")
 
             NbUniqueSignatureTests = 0
             NbAMDECLine = 0
