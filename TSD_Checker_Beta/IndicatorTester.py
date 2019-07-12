@@ -208,8 +208,7 @@ def convergenceIndicator(workBook, TSDApp):
                 workSheet.insert_cols(refCritere+2)
             except:
                 TSDApp.tab1.textbox.setText("ERROR: not enough memory when inserting UniqueTestSignature column")
-                sys.exit(TSDApp.app.exec_())
-
+                return str(0.00000)
 
             workSheet.cell(4, refCritere + 2, "Unique Test Signature")
 
