@@ -744,7 +744,10 @@ def ExcelWrite(return_list, workBook, TSDApp):
 def ExcelWrite2(return_list, workBook, TSDApp):
 
     if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
-        wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
+        try:
+            wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
+        except:
+            return
     else:
         wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
 
