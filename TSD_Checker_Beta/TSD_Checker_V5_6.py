@@ -188,21 +188,21 @@ class Application(QWidget):
 
         # Create coverage textbox
         tab.lbl_coverage = QLabel("Coverage Indicator:", tab)
-        tab.lbl_coverage.move(5, 450)
+        tab.lbl_coverage.move(5, 490)
         tab.message = ""
         tab.textbox_coverage = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage.setText(tab.message)
-        tab.textbox_coverage.move(140, 450)
+        tab.textbox_coverage.move(140, 490)
         tab.textbox_coverage.resize(70, 20)
         tab.textbox_coverage.setReadOnly(True)
 
         # Create convergence textbox
         tab.lbl_coverage = QLabel("Convergence Indicator:", tab)
-        tab.lbl_coverage.move(300, 450)
+        tab.lbl_coverage.move(300, 490)
         tab.message = ""
         tab.textbox_convergence = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence.setText(tab.message)
-        tab.textbox_convergence.move(460, 450)
+        tab.textbox_convergence.move(460, 490)
         tab.textbox_convergence.resize(70, 20)
         tab.textbox_convergence.setReadOnly(True)
 
@@ -210,7 +210,7 @@ class Application(QWidget):
         tab.message = ""
         tab.textbox = QtWidgets.QTextEdit(self.tab1)
         tab.textbox.setText(tab.message)
-        tab.textbox.move(10, 290)
+        tab.textbox.move(10, 330)
         tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
 
@@ -221,7 +221,7 @@ class Application(QWidget):
         tab.pbar.setGeometry(10, 310, 700, 20)
         tab.pbar.setAlignment(QtCore.Qt.AlignCenter)
         tab.pbar.setValue(0)
-        tab.pbar.move(10, 420)
+        tab.pbar.move(10, 460)
 
         # Create a color textbox1
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
@@ -271,13 +271,23 @@ class Application(QWidget):
         tab.combo.activated[str].connect(self.onActivated)
 
         # Create a drop down list
+        tab.lbl3 = QLabel("Diversity management", tab)
+        tab.combo3 = QComboBox(tab)
+        tab.combo3.addItem("Codes LCDV")
+        tab.combo3.addItem("Codes EC")
+        tab.combo3.resize(508, 20.4)  # rezise the drop down list
+        tab.combo3.move(200, 260)
+        tab.lbl3.move(5, 265)
+        tab.combo3.activated[str].connect(self.onActivated)
+
+        # Create a drop down list
         tab.lbl1 = QLabel("Project name", tab)
         tab.combo1 = QComboBox(tab)
         tab.combo1.addItem("Generic")
         tab.combo1.addItem("All")
         tab.combo1.resize(330, 20.4)  # rezise the drop down list
-        tab.combo1.move(200, 260)
-        tab.lbl1.move(5, 265)
+        tab.combo1.move(200, 290)
+        tab.lbl1.move(5, 295)
         tab.combo1.activated[str].connect(self.onActivated)
 
         # Create a dropdown list
@@ -297,18 +307,18 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project names")
         tab.importNames.resize(160, 20.4)
-        tab.importNames.move(550, 260)
+        tab.importNames.move(550, 290)
 
         tab.save_config = QPushButton(tab)
         tab.save_config.setText("Save \nconfiguration")
         tab.save_config.resize(90,45)
-        tab.save_config.move(710, 343)
+        tab.save_config.move(710, 383)
         tab.save_config.clicked.connect(self.ButtonSaveConfigClick)
 
         tab.load_config = QPushButton(tab)
         tab.load_config.setText("Load \nconfiguration")
         tab.load_config.resize(90, 45)
-        tab.load_config.move(710, 393)
+        tab.load_config.move(710, 433)
         tab.load_config.clicked.connect(self.ButtonLoadConfigClick)
 
         # File Selectiom Dialog1
@@ -391,13 +401,13 @@ class Application(QWidget):
 
         # Check button
         tab.button = QPushButton('Check', tab)
-        tab.button.move(310, 470)
+        tab.button.move(310, 510)
         tab.button.resize(90, 25)
         tab.button.clicked.connect(self.buttonClicked)
         #button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         tab.buttonNew = QPushButton("Open \nReport", tab)
         tab.buttonNew.resize(90, 45)
-        tab.buttonNew.move(710, 293)
+        tab.buttonNew.move(710, 333)
         tab.buttonNew.setEnabled(False)
         tab.buttonNew.clicked.connect(self.ButtonReportClick)
 
@@ -506,6 +516,13 @@ class Application(QWidget):
                 data['value'] = 'Archi NEA R2'
             list_elements.append(data)
 
+            data = {}
+            data['name'] = 'Diversity management'
+            if self.tab1.combo3.currentText() == "Codes LCDV":
+                data['value'] = 'Codes LCDV'
+            elif self.tab1.combo3.currentText() == "Codes EC":
+                data['value'] = 'Codes EC'
+            list_elements.append(data)
 
             data = {}
             data['name'] = 'Project name'
@@ -772,6 +789,7 @@ class Test(Application):
         # Optional Files Content
         self.DOC9Dict = dict()
         self.DOC13List = []
+        self.DOC13List_2 = []
 
         # COM Object
         self.excelApp = None
@@ -863,8 +881,8 @@ class Test(Application):
             if self.DOC9Dict == None:
                 return
 
-            self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
-            if self.DOC13List == None:
+            self.DOC13List, self.DOC13List_2 = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
+            if self.DOC13List == None or self.DOC13List_2 == None:
                 return
 
             self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
@@ -888,6 +906,9 @@ class Test(Application):
 
             self.DOC7Name = self.download_file(self.DOC7Link)
             archi_type = self.tab1.combo2.currentText()
+            diversity_management = self.tab1.combo3.currentText()
+
+
 
         else:
 
@@ -924,6 +945,13 @@ class Test(Application):
             elif self.list_element["Architecture type"]["value"] == "Archi NEA R2":
                 self.tab1.combo2.setCurrentIndex(2)
                 archi_type = "Archi NEA R2"
+
+            if self.list_element["Diversity management"]["value"] == "Codes LCDV":
+                self.tab1.combo3.setCurrentIndex(0)
+                diversity_management = "Codes LCDV"
+            elif self.list_element["Diversity management"]["value"] == "Codes EC":
+                self.tab1.combo3.setCurrentIndex(1)
+                diversity_management = "Codes EC"
 
 
             self.tab1.textbox.setText("")
@@ -2124,6 +2152,12 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
+                if "Test_02043_18_04939_COH_2061" in self.DOC9Dict:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2061"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2061(self.excelApp, self.DOC3Workbook, self, self.DOC7Path)
+                        if check_indicator == True:
+                            ok_indicator = 1
+
                 #check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC3Workbook, self)
 
                 if "Test_02043_18_04939_COH_2100" in self.DOC9Dict:
@@ -2175,19 +2209,45 @@ class Test(Application):
                             if check_indicator == True:
                                 ok_indicator = 1
 
-                if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                if diversity_management == "Codes LCDV":
 
-                if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                    if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                            if check_indicator == True:
+                                ok_indicator = 1
 
+                    # if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
+                    #     if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
+                    #         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC3Workbook, self,self.DOC13List)
+                    #         if check_indicator == True:
+                    #             ok_indicator = 1
 
+                    if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                elif diversity_management == "Codes EC":
+
+                    if "Test_02043_18_04939_COH_2260" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2260"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC3Workbook, self,self.DOC13List_2)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                    # if "Test_02043_18_04939_COH_2261" in self.DOC9Dict:
+                    #     if self.DOC9Dict["Test_02043_18_04939_COH_2261"][self.checkLevel].casefold().strip() != "n/a":
+                    #         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC3Workbook, self,self.DOC13List_2)
+                    #         if check_indicator == True:
+                    #             ok_indicator = 1
+
+                    if "Test_02043_18_04939_COH_2270" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2270"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC3Workbook, self,self.DOC13List_2)
+                            if check_indicator == True:
+                                ok_indicator = 1
 
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC3Workbook, self) * 100
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
@@ -3119,17 +3179,21 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC4Workbook, self, self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                if diversity_management == "Codes LCDV":
 
-                if "Test_02043_18_04939_COH_2250" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2250"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2250(self.DOC4Workbook, self, self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                    if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC3Workbook, self,self.DOC13List)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                elif diversity_management == "Codes EC":
+
+                    if "Test_02043_18_04939_COH_2261" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2261"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC3Workbook, self,self.DOC13List_2)
+                            if check_indicator == True:
+                                ok_indicator = 1
 
 
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC4Workbook, self) * 100
@@ -4277,17 +4341,33 @@ class Test(Application):
                             if check_indicator == True:
                                ok_indicator = 1
 
-                if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC5Workbook, self, self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                if diversity_management == "Codes LCDV":
 
-                if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC5Workbook, self, self.DOC13List)
-                        if check_indicator == True:
-                            ok_indicator = 1
+                    if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                    if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                elif diversity_management == "Codes EC":
+
+                    if "Test_02043_18_04939_COH_2260" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2260"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC3Workbook, self,self.DOC13List_2)
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                    if "Test_02043_18_04939_COH_2270" in self.DOC9Dict:
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2270"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC3Workbook, self,self.DOC13List_2)
+                            if check_indicator == True:
+                                ok_indicator = 1
 
 
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC5Workbook, self) * 100

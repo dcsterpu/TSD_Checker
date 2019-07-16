@@ -96,21 +96,45 @@ def DOC13Parser(TSDApp, ExcelApp, DOC13Path):
     flag = False
     final_list = []
 
+
+    cnt = 0
     for index1 in range(0, rows):
         for index2 in range(0, cols):
             if workSheet.cell(index1, index2).value.casefold().strip() == 'Nom CF /\nNom CO PLM (CF_CO)'.casefold():
                 refRow = index1
                 refCol = index2
-                flag = True
+                cnt += 1
+            if workSheet.cell(index1, index2).value.casefold().strip() == 'EC name /\nDesignationFR CF PLM'.casefold():
+                refRowEC = index1
+                refColEC = index2
+                cnt += 1
+            if workSheet.cell(index1, index2).value.casefold().strip() == 'Values'.casefold():
+                refRowVal = index1
+                refColVal = index2
+                cnt += 1
+            if cnt == 3:
                 break
-        if flag is True:
+        if cnt == 3:
             break
 
     for index in range(refRow + 1, rows):
         if workSheet.cell(index, refCol).value is not None and workSheet.cell(index, refCol).value != "":
             final_list.append(workSheet.cell(index,refCol).value.strip())
 
-    return final_list
+    ECs = dict()
+    for index in range(refRow + 1, rows):
+        if workSheet.cell(index, refColEC).value != "" and workSheet.cell(index, refColVal).value == "":
+            values = []
+            for index1 in range(index + 1, rows):
+                if workSheet.cell(index1, refColEC).value == workSheet.cell(index, refColEC).value:
+                    values.append(workSheet.cell(index1,refColVal).value)
+                else:
+                    break
+
+            EC = workSheet.cell(index, refColEC).value
+            ECs[EC] = values
+
+    return final_list, ECs
 
     # try:
     #     DOC13 = ExcelApp.Workbooks.Open(DOC13Path)

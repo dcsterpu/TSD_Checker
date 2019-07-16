@@ -864,7 +864,9 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
 
 
             list_eff = list()
-            list_ref = list()
+            list1 = []
+            list2 = []
+            list3 = []
 
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, effColIndex).value == "":
@@ -888,7 +890,11 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             N1ColIndex = -1
             N2ColIndex = -1
             N2ColIndex = -1
+            N1EffColIndex = -1
+            N2EffColIndex = -1
+            N3EffColIndex = -1
             col = 0
+
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
                     if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
@@ -903,36 +909,90 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
-                    if col == 3:
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N1":
+                        N1EffColIndex = index2
+                        N1EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N2":
+                        N2EffColIndex = index2
+                        N2EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N3":
+                        N3EffColIndex = index2
+                        N3EffRowIndex = index1
+                        col += 1
+                    if col == 6:
                         break
-                if col == 3:
+                if col == 6:
                     break
 
 
-            if N1RowIndex != -1:
+            if N1ColIndex != -1 and N1EffColIndex != -1:
                 for index in range(N1RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N1ColIndex).value == "":
+                    if workSheetRef.cell(index, N1EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N1ColIndex).value)
-            if N2RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N1EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N1ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N2ColIndex != -1 and N2EffColIndex != -1:
                 for index in range(N2RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N2ColIndex).value == "":
+                    if workSheetRef.cell(index, N2EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N2ColIndex).value)
-            if N3RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N2EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N2ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N3ColIndex != -1 and N3EffColIndex != -1:
                 for index in range(N3RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N3ColIndex).value == "":
+                    if workSheetRef.cell(index, N3EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N3ColIndex).value)
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N3EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N3ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+
 
             for element in list_eff:
-                if element["value"] in list_ref:
-                    pass
+                elements = element["value"].split(":")
+                if len(elements) == 2:
+                    flag = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag = True
+                            break
+                    if flag is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
                 else:
-                    localisations.append(("Effets clients", element["row"],element["col"]))
+                    localisations.append(("Effets clients", element["row"], element["col"]))
                     check = True
 
         if not localisations:
@@ -945,128 +1005,201 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
             check = True
     return check
 
-    # testName = inspect.currentframe().f_code.co_name
-    # print(testName)
-    # check = False
-    # if TSDApp.WorkbookStats.hasEffClients == False:
-    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #     check = True
-    # else:
-    #     workSheet = workBook.Sheets(TSDApp.WorkbookStats.EffClientsIndex)
-    #     nrRows = workSheet.Rows
-    #     effColIndex = 0
-    #     var = 0
-    #     for index1 in range(1, 15):
-    #         for index2 in range(1, TSDApp.WorkbookStats.EffClientsLastCol + 1):
-    #             if str(workSheet.cell(index1, index2).value).casefold().strip() == "Noms".casefold():
-    #                 effColIndex = index2
-    #                 effRowIndex = index1
-    #                 break
-    #         if effColIndex != 0:
-    #             break
-    #     if effColIndex == 0:
-    #         var = 1
-    #
-    #     if var == 1:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     elif var == 0:
-    #         effCellRange = workSheet.cell(effRowIndex, effColIndex).MergeArea
-    #         nrLines = effCellRange.Rows.Count
-    #         localisation = list()
-    #
-    #         list_eff = list()
-    #         list_ref = list()
-    #
-    #         for index in range(effRowIndex + nrLines, TSDApp.WorkbookStats.EffClientsLastRow + 1):
-    #             if workSheet.cell(index, effColIndex).value == None:
-    #                 pass
-    #             else:
-    #                 dict = {}
-    #                 dict["value"] = workSheet.cell(index, effColIndex).value
-    #                 dict["localisation"] = workSheet.cell(index, effColIndex)
-    #                 list_eff.append(dict)
-    #
-    #         DOC7 = ExcelApp.Workbooks.Open(DOC7Name)
-    #         if workBook.Sheets("Effets clients"):
-    #             workSheetRef = DOC7.Sheets("FR")
-    #         elif workBook.Sheets("Customer Effects") or workBook.Sheets("Customer Effect"):
-    #             workSheetRef = DOC7.Sheets("GB")
-    #
-    #         workSheetRange = workSheetRef.UsedRange
-    #         nrCols = workSheetRange.Columns.Count
-    #         nrRows = workSheetRange.Rows.Count
-    #         N1ColIndex = 0
-    #         N2ColIndex = 0
-    #         N2ColIndex = 0
-    #         col = 0
-    #         for cellRow in workSheetRange.value:
-    #             for cell in cellRow:
-    #                 if cell == "Libellé N1":
-    #                     N1ColIndex = cellRow.index(cell) + 1
-    #                     N1RowIndex = workSheetRange.value.index(cellRow) + 1
-    #                     col += 1
-    #                 if cell == "Libellé N2":
-    #                     N2ColIndex = cellRow.index(cell) + 1
-    #                     N2RowIndex = workSheetRange.value.index(cellRow) + 1
-    #                     col += 1
-    #                 if cell == "Libellé N3":
-    #                     N3ColIndex = cellRow.index(cell) + 1
-    #                     N3RowIndex = workSheetRange.value.index(cellRow) + 1
-    #                     col += 1
-    #                 if col == 3:
-    #                     break
-    #             if col == 3:
-    #                 break
-    #
-    #         try:
-    #             refCellRange = workSheetRef.cell(N1RowIndex, N1ColIndex).MergeArea
-    #         except:
-    #             try:
-    #                 refCellRange = workSheetRef.cell(N2RowIndex, N2ColIndex).MergeArea
-    #             except:
-    #                 refCellRange = workSheetRef.cell(N3RowIndex, N3ColIndex).MergeArea
-    #
-    #
-    #         nrLines = refCellRange.Rows.Count
-    #         localisation = list()
-    #         flag = False
-    #
-    #         if N1RowIndex != 0:
-    #             for index in range(N1RowIndex + nrLines, nrRows + 1):
-    #                 if workSheetRef.cell(index, N1ColIndex).value == None:
-    #                     pass
-    #                 else:
-    #                     list_ref.append(workSheetRef.cell(index, N1ColIndex).value)
-    #         if N2RowIndex != 0:
-    #             for index in range(N2RowIndex + nrLines, nrRows + 1):
-    #                 if workSheetRef.cell(index, N2ColIndex).value == None:
-    #                     pass
-    #                 else:
-    #                     list_ref.append(workSheetRef.cell(index, N2ColIndex).value)
-    #         if N3RowIndex != 0:
-    #             for index in range(N3RowIndex + nrLines, nrRows + 1):
-    #                 if workSheetRef.cell(index, N3ColIndex).value == None:
-    #                     pass
-    #                 else:
-    #                     list_ref.append(workSheetRef.cell(index, N3ColIndex).value)
-    #
-    #         for element in list_eff:
-    #             if element["value"] in list_ref:
-    #                 pass
-    #             else:
-    #                 localisation.append(element["localisation"])
-    #                 check = True
-    #
-    #         if not localisation:
-    #             localisation = None
-    #
-    #     if localisation is not None:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
-    #     else:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    # return check
+def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
+    testName = inspect.currentframe().f_code.co_name
+    localisations = list()
+    print(testName)
+    check = False
+    if TSDApp.WorkbookStats.hasEffClients == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.EffClientsIndex)
+
+        effColIndex = -1
+
+        for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
+            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
+                effColIndex = index
+                break
+
+        if effColIndex == -1:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        elif effColIndex != -1:
+
+
+            list_eff = list()
+            list1 = []
+            list2 = []
+            list3 = []
+
+            for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
+                if workSheet.cell(index, effColIndex).value == "":
+                    pass
+                else:
+                    dict = {}
+                    dict["value"] = workSheet.cell(index, effColIndex).value
+                    dict["row"] = index
+                    dict["col"] = effColIndex
+                    list_eff.append(dict)
+
+
+            DOC7 = xlrd.open_workbook(DOC7Name, on_demand=True)
+            if "effets clients" in TSDApp.WorkbookStats.sheetNames:
+                workSheetRef = DOC7.sheet_by_name("FR")
+            elif "customer effects" in TSDApp.WorkbookStats.sheetNames or "customer effect" in TSDApp.WorkbookStats.sheetNames:
+                workSheetRef = DOC7.sheet_by_name("GB")
+
+            nrCols = workSheetRef.ncols
+            nrRows = workSheetRef.nrows
+            N1ColIndex = -1
+            N2ColIndex = -1
+            N2ColIndex = -1
+            N1EffColIndex = -1
+            N2EffColIndex = -1
+            N3EffColIndex = -1
+            col = 0
+
+            for index1 in range(0, nrRows):
+                for index2 in range(0, nrCols):
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
+                        N1ColIndex = index2
+                        N1RowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N2":
+                        N2ColIndex = index2
+                        N2RowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N3":
+                        N3ColIndex = index2
+                        N3RowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N1":
+                        N1EffColIndex = index2
+                        N1EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N2":
+                        N2EffColIndex = index2
+                        N2EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N3":
+                        N3EffColIndex = index2
+                        N3EffRowIndex = index1
+                        col += 1
+                    if col == 6:
+                        break
+                if col == 6:
+                    break
+
+
+            if N1ColIndex != -1 and N1EffColIndex != -1:
+                for index in range(N1RowIndex + 1, nrRows):
+                    if workSheetRef.cell(index, N1EffColIndex).value == "":
+                        pass
+                    else:
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N1EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N1ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N2ColIndex != -1 and N2EffColIndex != -1:
+                for index in range(N2RowIndex + 1, nrRows):
+                    if workSheetRef.cell(index, N2EffColIndex).value == "":
+                        pass
+                    else:
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N2EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N2ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N3ColIndex != -1 and N3EffColIndex != -1:
+                for index in range(N3RowIndex + 1, nrRows):
+                    if workSheetRef.cell(index, N3EffColIndex).value == "":
+                        pass
+                    else:
+                        dict = {}
+                        dict["effetClient"] = workSheetRef.cell(index, N3EffColIndex).value
+                        dict["libelle"] = workSheetRef.cell(index, N3ColIndex).value
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+
+
+            for element in list_eff:
+                elements = element["value"].split(":")
+                if len(elements) == 2:
+                    flag = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag = True
+                            break
+                    if flag is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 4:
+                    flag1 = False
+                    flag2 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if flag1 is True and flag2 is True:
+                            break
+                    if flag1 is False or flag2 is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 6:
+                    flag1 = False
+                    flag2 = False
+                    flag3 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if elements[4].strip() == pair["effetClient"] and elements[5].strip() == pair["libelle"]:
+                            flag3 = True
+                        if flag1 is True and flag2 is True and flag3 is True:
+                            break
+                    if flag1 is False or flag2 is False or flag3 is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
+                else:
+                    localisations.append(("Effets clients", element["row"], element["col"]))
+                    check = True
+
+        if not localisations:
+            localisations = None
+
+        if localisations is not None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+    return check
+
 
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
@@ -2250,15 +2383,15 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasTable == False:
+    if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
 
-        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
+        for index in range(0, TSDApp.WorkbookStats.codeLastCol):
+            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
                 codeColIndex = index
                 break
 
@@ -2266,8 +2399,8 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
             localisations = []
             contor = 0
 
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                list2 = ['AND', 'OR', "NOT", "N/A"]
+            for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
+                list2 = ['AND', 'OR', "NOT", "N/A", ","]
                 cel = []
                 try:
                     cel = workSheet.cell(index, codeColIndex).value.split(" ")
@@ -2344,14 +2477,14 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
                     if cnt == len(list) and check_list1 == True and check_list2 == True:
                         contor = contor + 1
                     else:
-                        localisations.append(("tableau",index,codeColIndex))
+                        localisations.append(("codes défauts",index,codeColIndex))
                 except:
                     pass
 
             if not localisations:
                 localisations = None
 
-            if contor == TSDApp.WorkbookStats.tableLastRow - TSDApp.tableFirstInfoRow - 1:
+            if contor == TSDApp.WorkbookStats.codeLastRow - TSDApp.codeFirstInfoRow - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
                 check = True
             else:
@@ -2362,15 +2495,15 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasTable == False:
+    if TSDApp.WorkbookStats.hasDiagNeeds == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.DiagNeedsIndex)
         codeColIndex = -1
 
-        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Diversity".casefold():
+        for index in range(0, TSDApp.WorkbookStats.DiagNeedsLastCol):
+            if str(workSheet.cell(TSDApp.diagNeedsHeaderRow, index).value).casefold().strip() == "Diversity".casefold():
                 codeColIndex = index
                 break
 
@@ -2378,7 +2511,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
             localisations = []
             contor = 0
 
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
                 list2 = ['AND', 'OR', "NOT", "N/A",""]
                 cel = []
                 try:
@@ -2456,7 +2589,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
                     if cnt == len(list) and check_list1 == True and check_list2 == True:
                         contor = contor + 1
                     else:
-                        localisations.append(("Table",index,codeColIndex))
+                        localisations.append(("Diagnostic Needs",index,codeColIndex))
                 except:
                     pass
 
@@ -2464,26 +2597,28 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
                 localisations = None
 
 
-            if contor == TSDApp.WorkbookStats.tableLastRow - TSDApp.tableFirstInfoRow - 1:
+            if contor == TSDApp.WorkbookStats.DiagNeedsLastRow - TSDApp.diagNeedsFirstInfoRow - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
-def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
+
+
+def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasTable == False:
+    if TSDApp.WorkbookStats.hasCode == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
 
-        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
+        for index in range(0, TSDApp.WorkbookStats.codeLastCol):
+            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Diversity".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Diversité".casefold():
                 codeColIndex = index
                 break
 
@@ -2491,8 +2626,8 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
             localisations = []
             contor = 0
 
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                list2 = ['AND', 'OR', "NOT", "N/A"]
+            for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
+                list2 = ['AND', 'OR', "NOT", "N/A", ","]
                 cel = []
                 try:
                     cel = workSheet.cell(index, codeColIndex).value.split(" ")
@@ -2569,21 +2704,22 @@ def Test_02043_18_04939_COH_2250(workBook, TSDApp, DOC13List):
                     if cnt == len(list) and check_list1 == True and check_list2 == True:
                         contor = contor + 1
                     else:
-                        localisations.append(("tableau",index,codeColIndex))
+                        localisations.append(("codes défauts",index,codeColIndex))
                 except:
                     pass
 
             if not localisations:
-                localisation = None
+                localisations = None
 
-            if contor == TSDApp.WorkbookStats.tableLastRow - TSDApp.tableFirstInfoRow - 1:
+            if contor == TSDApp.WorkbookStats.codeLastRow - TSDApp.codeFirstInfoRow - 1:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
-def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
+
+def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
@@ -2595,103 +2731,202 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
         codeColIndex = -1
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Diversity".casefold():
+            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
                 codeColIndex = index
                 break
 
+        localisations = []
         if codeColIndex != -1:
-            localisations = []
-            contor = 0
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                list2 = ['AND', 'OR', "NOT", "N/A"]
+                list2 = ['AND', 'OR', "NOT"]
+                cel = []
+                final_list = []
                 try:
-                    cel = cel.replace(",", "").replace(";", "")
-                    cel = workSheet.cell(index, codeColIndex).value.split(" ")
-                    list = []
-                    for elem in cel:
-                        objElem = {}
-                        objElem['NAME'] = elem
-                        objElem['CHECK'] = False
-                        list.append(objElem)
-
-                    check_list1 = False
-                    for i in range(len(list)):
-                        leng = len(list[i]['NAME'])
-                        if leng == 0:
-                            list[i]['CHECK'] = True
-
-                        poz = 0
-                        if list[i]['NAME'] == "(":
-                            for j in range(i+1,len(list)):
-                                if list[j]['NAME'] == '':
-                                    poz = poz + 1
-                                    list[i+poz]['CHECK'] = True
-                                    check_list1 = True
-                                else:
-                                    for k in range(len(DOC13List)):
-                                        new_val = DOC13List[k] + ')'
-                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-                                    break
-
-                        if list[i]['NAME'] == ")":
-                            for j in range(i - 1, -1, -1):
-                                if list[j]['NAME'] == '':
-                                    poz = poz + 1
-                                    list[i - poz]['CHECK'] = True
-                                    check_list1 = True
-                                else:
-                                    for k in range(len(DOC13List)):
-                                        new_val = '(' + DOC13List[k]
-                                        if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-                                    break
-
-                        if leng > 1:
-                            for j in range(len(DOC13List)):
-                                if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                    new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                    if new_elem1 == DOC13List[j]:
-                                        list[i]['CHECK'] = True
-                                        check_list1 = True
-                                        break
-                                else:
-                                    if list[i]['NAME'] == DOC13List[j]:
-                                        list[i]['CHECK'] = True
-                                        check_list1 = True
-                                        break
-
-                    check_list2 = False
-                    for elem1 in list:
-                        for elem2 in list2:
-                            if elem1['NAME'] == elem2:
-                                elem1['CHECK'] = True
-                                check_list2 = True
-                                break
-
-                    cnt = 0
-                    for elem in list:
-                        if elem['CHECK'] == True:
-                            cnt = cnt + 1
-                    if cnt == len(list) and check_list1 == True and check_list2 == True:
-                        contor = contor + 1
+                    if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("AND")
+                    elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("OR")
+                    elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
+                        cel = workSheet.cell(index, codeColIndex).value.split("AND")
+                        for elem in cel:
+                            if " OR " in elem:
+                                cels = []
+                                cels = elem.split("OR")
+                                for i in range(len(cels)):
+                                    final_list.append(cels[i])
+                            else:
+                                final_list.append(elem)
                     else:
-                        localisations.append(("Table",index,codeColIndex))
+                        localisations.append(("tableau", index, codeColIndex))
 
+
+                    contor = 0
+                    for element in final_list:
+                        try:
+                            element = element.split("=")
+                            if len(element) == 2:
+                                if element[0].strip() in DOC13List_2:
+                                    for index1 in range(len(DOC13List_2[element[0].strip()])):
+                                        if element[1].strip() == DOC13List_2[element[0].strip()][index1]:
+                                            contor += 1
+                                            break
+                        except:
+                            break
+
+                    if contor != len(final_list):
+                        localisations.append(("tableau",index,codeColIndex))
                 except:
-                    pass
+                    localisations.append(("tableau",index,codeColIndex))
 
             if not localisations:
                 localisations = None
 
-            if contor == TSDApp.WorkbookStats.tableLastRow - TSDApp.tableFirstInfoRow - 1:
+            if localisations is None:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+    return check
+
+
+def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+    if TSDApp.WorkbookStats.hasDiagNeeds == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.DiagNeedsIndex)
+        codeColIndex = -1
+
+        for index in range(0, TSDApp.WorkbookStats.DiagNeedsLastCol):
+            if str(workSheet.cell(TSDApp.diagNeedsHeaderRow, index).value).casefold().strip() == "Diversity".casefold():
+                codeColIndex = index
+                break
+
+        localisations = []
+        if codeColIndex != -1:
+
+            for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
+                list2 = ['AND', 'OR', "NOT"]
+                cel = []
+                final_list = []
+                try:
+                    if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("AND")
+                    elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("OR")
+                    elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
+                        cel = workSheet.cell(index, codeColIndex).value.split("AND")
+                        for elem in cel:
+                            if " OR " in elem:
+                                cels = []
+                                cels = elem.split("OR")
+                                for i in range(len(cels)):
+                                    final_list.append(cels[i])
+                            else:
+                                final_list.append(elem)
+                    else:
+                        localisations.append(("Diagnostic Needs", index, codeColIndex))
+
+
+                    contor = 0
+                    for element in final_list:
+                        try:
+                            element = element.split("=")
+                            if len(element) == 2:
+                                if element[0].strip() in DOC13List_2:
+                                    for index1 in range(len(DOC13List_2[element[0].strip()])):
+                                        if element[1].strip() == DOC13List_2[element[0].strip()][index1]:
+                                            contor += 1
+                                            break
+                        except:
+                            break
+
+                    if contor != len(final_list):
+                        localisations.append(("Diagnostic Needs",index,codeColIndex))
+                except:
+                    localisations.append(("Diagnostic Needs",index,codeColIndex))
+
+        if not localisations:
+            localisations = None
+
+        if localisations is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+    return check
+
+
+def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+    if TSDApp.WorkbookStats.hasTable == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        codeColIndex = -1
+
+        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
+            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Diversity".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Diversité".casefold():
+                codeColIndex = index
+                break
+
+        localisations = []
+        if codeColIndex != -1:
+
+            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+                list2 = ['AND', 'OR', "NOT"]
+                cel = []
+                final_list = []
+                try:
+                    if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("AND")
+                    elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        final_list = workSheet.cell(index, codeColIndex).value.split("OR")
+                    elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
+                        cel = workSheet.cell(index, codeColIndex).value.split("AND")
+                        for elem in cel:
+                            if " OR " in elem:
+                                cels = []
+                                cels = elem.split("OR")
+                                for i in range(len(cels)):
+                                    final_list.append(cels[i])
+                            else:
+                                final_list.append(elem)
+                    else:
+                        localisations.append(("tableau", index, codeColIndex))
+
+
+                    contor = 0
+                    for element in final_list:
+                        try:
+                            element = element.split("=")
+                            if len(element) == 2:
+                                if element[0].strip() in DOC13List_2:
+                                    for index1 in range(len(DOC13List_2[element[0].strip()])):
+                                        if element[1].strip() == DOC13List_2[element[0].strip()][index1]:
+                                            contor += 1
+                                            break
+                        except:
+                            break
+
+                    if contor != len(final_list):
+                        localisations.append(("tableau",index,codeColIndex))
+                except:
+                    localisations.append(("tableau",index,codeColIndex))
+
+        if not localisations:
+            localisations = None
+
+        if localisations is None:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
+            check = True
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check

@@ -199,27 +199,31 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
             workSheet_test_report.write(lastRow, 3, elem["localisation"])
             lastRow += 1
 
-        if elem["localisation"] is not None and elem["localisation"] != "":
-            if isinstance(elem["localisation"][0], str):
-                for index, element in enumerate(elem["localisation"]):
-                    workSheet_test_report.write(lastRow + index, 3, element)
+        try:
+            if elem["localisation"] is not None and elem["localisation"] != "":
+                if isinstance(elem["localisation"][0], str):
+                    for index, element in enumerate(elem["localisation"]):
+                        workSheet_test_report.write(lastRow + index, 3, element)
 
-                for index in range(1, len(elem["localisation"]) + 1):
-                    workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                    workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    for index in range(1, len(elem["localisation"]) + 1):
+                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                lastRow += index
-            else:
-                for index, element in enumerate(elem["localisation"]):
-                    link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
-                    workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
+                    lastRow += index
+                else:
+                    for index, element in enumerate(elem["localisation"]):
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
+                        workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
-                for index in range(1, len(elem["localisation"]) + 1):
-                    workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                    workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                    for index in range(1, len(elem["localisation"]) + 1):
+                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                lastRow = lastRow + index
-
+                    lastRow = lastRow + index
+        except:
+            TSDApp.tab1.textbox.setText("ERROR: when trying to write data in Test report")
+            new_wb.save(TSDApp.DOC3Path)
+            return
 
     new_wb.save(TSDApp.DOC3Path)
 
