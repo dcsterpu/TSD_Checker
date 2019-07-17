@@ -255,11 +255,11 @@ errorMessagesDict["Test_02043_18_04939_COH_2010"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2020"] = "The information specified in the column “Constituant défaillant détecté” of the sheet “tableau”, is missing in the column “Noms” of the sheet “Constituants”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2030"] = "The information specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”."
+errorMessagesDict["Test_02043_18_04939_COH_2030"] = "The information (other than 'N/A') specified in the column “Effet(s) client(s)” of the sheet “tableau” is missing in the  column “Noms” of the sheet “Effets clients”."
 
 errorMessagesDict["Test_02043_18_04939_COH_2040"] = "The information specified in the column “DIAGNOSTIC DEBARQUE” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “Diagnostic débarqués”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2050"] = "The information specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”"
+errorMessagesDict["Test_02043_18_04939_COH_2050"] = "The information (other than 'N/A') specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”"
 
 errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document 'Customer effects file' 02043_18_05499 in French or English or has the wrong format.\nFormat expected:  'Nr Customer effect': 'Description'. "
 

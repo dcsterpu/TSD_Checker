@@ -647,7 +647,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value == "N/A":
                     pass
                 else:
                     list_table["value"] = workSheet.cell(index, refColIndex).value
@@ -800,7 +800,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
             tempList = list()
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, refColIndex).value == "No DTC" or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value == "N/A":
                     pass
                 else:
                     list_table["value"] = workSheet.cell(index, refColIndex).value
