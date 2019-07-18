@@ -1703,7 +1703,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                 workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
                 effColIndex = -1
 
-                for index in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
+                for index in range(0, TSDApp.WorkbookStats.codeLastCol):
                     if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
                         effColIndex = index
                         break

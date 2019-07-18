@@ -709,8 +709,8 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
                         else:
                             localisations.append(("codes défauts", index2, index1))
 
-            if not localisations:
-                localisations = None
+        if not localisations:
+            localisations = None
 
         if localisations is not None:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,

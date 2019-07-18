@@ -41,16 +41,20 @@ def coverageIndicator(workBook, TSDApp):
 
     NbComponentsOfTheFunction = 0
     NbComponentWithDiagPossible = 0
-    for index in range(TSDApp.tableFirstInfoRow, nrRows):
-        if workSheet.cell(index, refColBase).value is not None and workSheet.cell(index,refColBase).value != "":
-            NbComponentsOfTheFunction += 1
-            if (workSheet.cell(index, refColDTC).value is not None and workSheet.cell(index, refColDTC).value !="" and workSheet.cell(index,refColDTC).value != "NO DTC") or (
-                    workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
-                    workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
-                NbComponentWithDiagPossible += 1
 
-    return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
+    if refColBase != -1 and refColDTC != -1 and refCelParam != -1 and refCelDiag != -1:
+        for index in range(TSDApp.tableFirstInfoRow, nrRows):
+            if workSheet.cell(index, refColBase).value is not None and workSheet.cell(index,refColBase).value != "":
+                NbComponentsOfTheFunction += 1
+                if (workSheet.cell(index, refColDTC).value is not None and workSheet.cell(index, refColDTC).value !="" and workSheet.cell(index,refColDTC).value != "NO DTC") or (
+                        workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
+                        workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
+                    NbComponentWithDiagPossible += 1
 
+        return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
+    else:
+        TSDApp.tab1.textbox.setText("ERROR: at least one column is missing to calculate the coverage indicator")
+        return str(0.00000)
 
 
 def convergenceIndicator(workBook, TSDApp):

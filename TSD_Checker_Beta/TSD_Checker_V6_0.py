@@ -1891,7 +1891,7 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                if "Test_02043_18_04939_STRUCT_0005" in self.DOC9Dict:
+                if "Test_02043_18_04939_WHOLENESS_1821" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1821"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1821(self.DOC3Workbook, self)
                         if check_indicator == True:
