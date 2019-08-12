@@ -1,4 +1,4 @@
-import TSD_Checker_V6_0
+import TSD_Checker_V6_5
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -53,7 +53,10 @@ def coverageIndicator(workBook, TSDApp):
 
         return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
     else:
-        TSDApp.tab1.textbox.setText("ERROR: at least one column is missing to calculate the coverage indicator")
+        warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
+        textBoxText = TSDApp.tab1.textbox.toPlainText()
+        textBoxText = textBoxText + "\n" + warning
+        TSDApp.tab1.textbox.setText(textBoxText)
         return str(0.00000)
 
 
@@ -113,7 +116,10 @@ def convergenceIndicator(workBook, TSDApp):
             break
 
     if refColBase == -1 or refColDTC == -1 or refCelParam == -1 or refCelDiag == -1 or refCelEff == -1:
-        TSDApp.tab1.textbox.setText("ERROR: at least one column is missing to calculate the convergence indicator")
+        warning = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
+        textBoxText = TSDApp.tab1.textbox.toPlainText()
+        textBoxText = textBoxText + "\n" + warning
+        TSDApp.tab1.textbox.setText(textBoxText)
         return str(0.00000)
     else:
         if TSDApp.DOC3Path.split('.')[-1] == 'xls':
@@ -165,6 +171,10 @@ def convergenceIndicator(workBook, TSDApp):
                 try:
                     workSheet.insert_cols(refCritere+2)
                 except:
+                    warning = "ERROR: not enough memory when inserting UniqueTestSignature column."
+                    textBoxText = TSDApp.tab1.textbox.toPlainText()
+                    textBoxText = textBoxText + "\n" + warning
+                    TSDApp.tab1.textbox.setText(textBoxText)
                     TSDApp.tab1.textbox.setText("ERROR: not enough memory when inserting UniqueTestSignature column")
                     return str(0.00000)
 

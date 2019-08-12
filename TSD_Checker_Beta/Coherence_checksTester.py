@@ -1,4 +1,4 @@
-import TSD_Checker_V6_0
+import TSD_Checker_V6_5
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -2277,7 +2277,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                         if element["value"] in list_effets or element["value"] == "N/A":
                             pass
                         else:
-                            localisations.append(("Table"),element["row"],element["col"])
+                            localisations.append(("Table",element["row"],element["col"]))
                             check = True
 
                     if not localisations:
@@ -2395,8 +2395,8 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
                 codeColIndex = index
                 break
 
+        localisations = []
         if codeColIndex != -1:
-            localisations = []
             contor = 0
 
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
@@ -2489,6 +2489,11 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            text = "The column 'Variant/\noption' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+
     return check
 
 def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
@@ -2507,8 +2512,8 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
                 codeColIndex = index
                 break
 
+        localisations = []
         if codeColIndex != -1:
-            localisations = []
             contor = 0
 
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
@@ -2602,6 +2607,10 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            text = "The column 'Diversity' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
 
@@ -2622,8 +2631,8 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
                 codeColIndex = index
                 break
 
+        localisations = []
         if codeColIndex != -1:
-            localisations = []
             contor = 0
 
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
@@ -2716,6 +2725,10 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            text = "The column 'Diversity' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
 
@@ -2787,6 +2800,10 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            text = "The column 'Variant/\noption' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
 
@@ -2850,14 +2867,19 @@ def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
                 except:
                     localisations.append(("Diagnostic Needs",index,codeColIndex))
 
-        if not localisations:
-            localisations = None
+            if not localisations:
+                localisations = None
 
-        if localisations is None:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
-            check = True
+            if localisations is None:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
+                check = True
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+            text = "The column 'Diversity' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
+                   TSDApp)
     return check
 
 
@@ -2921,12 +2943,17 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                 except:
                     localisations.append(("tableau",index,codeColIndex))
 
-        if not localisations:
-            localisations = None
+            if not localisations:
+                localisations = None
 
-        if localisations is None:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
-            check = True
+            if localisations is None:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,TSDApp)
+                check = True
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+            text = "The column 'Diversity' does not exist"
+            localisations.append(text)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
+                   TSDApp)
     return check

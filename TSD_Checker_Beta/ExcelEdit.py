@@ -1,11 +1,15 @@
-import TSD_Checker_V6_0
+import TSD_Checker_V6_5
 import time
 from PyQt5 import QtGui
 import xlwt
 from xlutils.copy import copy
 import openpyxl
 from openpyxl.styles import Color, Font
-
+import zipfile
+from shutil import copyfile
+from shutil import rmtree
+import os
+import pandas as pd
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
@@ -62,6 +66,13 @@ def deleteSheet(TSDApp, workbook, sheet_name1, sheet_name2):
     return new_wb
 
 
+def column_string(n):
+    string = ""
+    while n > 0:
+        n, remainder = divmod(n - 1, 26)
+        string = chr(65 + remainder) + string
+    return string
+
 def ExcelWrite_del_information(return_list, workBook, TSDApp):
 
     DOC3 = TSDApp.DOC3Workbook
@@ -71,7 +82,7 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
     workSheet_info_report = new_wb.add_sheet('Report information', cell_overwrite_ok=True)
 
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V6_0.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V6_5.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -146,29 +157,6 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
     workSheet_info_report.write(30, 1, str(TSDApp.criticity_information))
 
 
-    list_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ',
-                  'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
-                  'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP',
-                  'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB', 'CC', 'CD', 'CE', 'CF',
-                  'CG', 'CH', 'CI', 'CJ', 'CK', 'CL', 'CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT', 'CU', 'CV',
-                  'CW', 'CX', 'CY', 'CZ', 'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'DJ', 'DK', 'DL',
-                  'DM', 'DN', 'DO', 'DP', 'DQ', 'DR', 'DS', 'DT', 'DU', 'DV', 'DW', 'DX', 'DY', 'DZ', 'EA', 'EB',
-                  'EC', 'ED', 'EE', 'EF', 'EG', 'EH', 'EI', 'EJ', 'EK', 'EL', 'EM', 'EN', 'EO', 'EP', 'EQ', 'ER',
-                  'ES', 'ET', 'EU', 'EV', 'EW', 'EX', 'EY', 'EZ', 'FA', 'FB', 'FC', 'FD', 'FE', 'FF', 'FG', 'FH',
-                  'FI', 'FJ', 'FK', 'FL', 'FM', 'FN', 'FO', 'FP', 'FQ', 'FR', 'FS', 'FT', 'FU', 'FV', 'FW', 'FX',
-                  'FY', 'FZ', 'GA', 'GB', 'GC', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GJ', 'GK', 'GL', 'GM', 'GN',
-                  'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GV', 'GW', 'GX', 'GY', 'GZ', 'HA', 'HB', 'HC', 'HD',
-                  'HE', 'HF', 'HG', 'HH', 'HI', 'HJ', 'HK', 'HL', 'HM', 'HN', 'HO', 'HP', 'HQ', 'HR', 'HS', 'HT',
-                  'HU', 'HV', 'HW', 'HX', 'HY', 'HZ', 'IA', 'IB', 'IC', 'ID', 'IE', 'IF', 'IG', 'IH', 'II', 'IJ',
-                  'IK', 'IL', 'IM', 'IN', 'IO', 'IP', 'IQ', 'IR', 'IS', 'IT', 'IU', 'IV', 'IW', 'IX', 'IY', 'IZ',
-                  'JA', 'JB', 'JC', 'JD', 'JE', 'JF', 'JG', 'JH', 'JI', 'JJ', 'JK', 'JL', 'JM', 'JN', 'JO', 'JP',
-                  'JQ', 'JR', 'JS', 'JT', 'JU', 'JV', 'JW', 'JX', 'JY', 'JZ', 'KA', 'KB', 'KC', 'KD', 'KE', 'KF',
-                  'KG', 'KH', 'KI', 'KJ', 'KK', 'KL', 'KM', 'KN', 'KO', 'KP', 'KQ', 'KR', 'KS', 'KT', 'KU', 'KV',
-                  'KW', 'KX', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LD', 'LE', 'LF', 'LG', 'LH', 'LI', 'LJ', 'LK', 'LL',
-                  'LM', 'LN', 'LO', 'LP', 'LQ', 'LR', 'LS', 'LT', 'LU', 'LV', 'LW', 'LX', 'LY', 'LZ']
-
-
     workSheet_test_report = new_wb.add_sheet('Test report', cell_overwrite_ok=True)
 
     lastRow = 0
@@ -215,7 +203,8 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
                     lastRow += index
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
+                        index_coloana = element[2]
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
                     for index in range(1, len(elem["localisation"]) + 1):
@@ -243,27 +232,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
     # DOC3 = xlrd.open_workbook(workBook, on_demand=True)
     DOC3 = TSDApp.DOC3Workbook
 
-    list_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ',
-                  'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
-                  'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP',
-                  'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB', 'CC', 'CD', 'CE', 'CF',
-                  'CG', 'CH', 'CI', 'CJ', 'CK', 'CL', 'CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT', 'CU', 'CV',
-                  'CW', 'CX', 'CY', 'CZ', 'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'DJ', 'DK', 'DL',
-                  'DM', 'DN', 'DO', 'DP', 'DQ', 'DR', 'DS', 'DT', 'DU', 'DV', 'DW', 'DX', 'DY', 'DZ', 'EA', 'EB',
-                  'EC', 'ED', 'EE', 'EF', 'EG', 'EH', 'EI', 'EJ', 'EK', 'EL', 'EM', 'EN', 'EO', 'EP', 'EQ', 'ER',
-                  'ES', 'ET', 'EU', 'EV', 'EW', 'EX', 'EY', 'EZ', 'FA', 'FB', 'FC', 'FD', 'FE', 'FF', 'FG', 'FH',
-                  'FI', 'FJ', 'FK', 'FL', 'FM', 'FN', 'FO', 'FP', 'FQ', 'FR', 'FS', 'FT', 'FU', 'FV', 'FW', 'FX',
-                  'FY', 'FZ', 'GA', 'GB', 'GC', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GJ', 'GK', 'GL', 'GM', 'GN',
-                  'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GV', 'GW', 'GX', 'GY', 'GZ', 'HA', 'HB', 'HC', 'HD',
-                  'HE', 'HF', 'HG', 'HH', 'HI', 'HJ', 'HK', 'HL', 'HM', 'HN', 'HO', 'HP', 'HQ', 'HR', 'HS', 'HT',
-                  'HU', 'HV', 'HW', 'HX', 'HY', 'HZ', 'IA', 'IB', 'IC', 'ID', 'IE', 'IF', 'IG', 'IH', 'II', 'IJ',
-                  'IK', 'IL', 'IM', 'IN', 'IO', 'IP', 'IQ', 'IR', 'IS', 'IT', 'IU', 'IV', 'IW', 'IX', 'IY', 'IZ',
-                  'JA', 'JB', 'JC', 'JD', 'JE', 'JF', 'JG', 'JH', 'JI', 'JJ', 'JK', 'JL', 'JM', 'JN', 'JO', 'JP',
-                  'JQ', 'JR', 'JS', 'JT', 'JU', 'JV', 'JW', 'JX', 'JY', 'JZ', 'KA', 'KB', 'KC', 'KD', 'KE', 'KF',
-                  'KG', 'KH', 'KI', 'KJ', 'KK', 'KL', 'KM', 'KN', 'KO', 'KP', 'KQ', 'KR', 'KS', 'KT', 'KU', 'KV',
-                  'KW', 'KX', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LD', 'LE', 'LF', 'LG', 'LH', 'LI', 'LJ', 'LK', 'LL',
-                  'LM', 'LN', 'LO', 'LP', 'LQ', 'LR', 'LS', 'LT', 'LU', 'LV', 'LW', 'LX', 'LY', 'LZ']
+
     if index_test_report != -1:
         workSheet_test_report = DOC3.sheet_by_index(index_test_report)
         nrCols_test_report = workSheet_test_report.ncols
@@ -282,7 +251,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
         workSheet_info_report._cell_overwrite_ok = True
 
         workSheet_info_report.write(0, 0, "Tool version:")
-        workSheet_info_report.write(0, 1, TSD_Checker_V6_0.appName)
+        workSheet_info_report.write(0, 1, TSD_Checker_V6_5.appName)
 
         workSheet_info_report.write(2, 0, "Criticity configuration file:")
         workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -361,7 +330,7 @@ def ExcelWrite(return_list, workBook, TSDApp):
         workSheet_info_report = workBook2.add_sheet('Report information', cell_overwrite_ok=True)
 
         workSheet_info_report.write(0, 0, "Tool version:")
-        workSheet_info_report.write(0, 1, TSD_Checker_V6_0.appName)
+        workSheet_info_report.write(0, 1, TSD_Checker_V6_5.appName)
 
         workSheet_info_report.write(2, 0, "Criticity configuration file:")
         workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -491,8 +460,8 @@ def ExcelWrite(return_list, workBook, TSDApp):
                     lastRow += index
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(
-                            element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
+                        index_coloana = element[2]
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
                     for index in range(1, len(elem["localisation"]) + 1):
@@ -549,8 +518,8 @@ def ExcelWrite(return_list, workBook, TSDApp):
                     lastRow += index
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + str(list_alpha[element[2]]) + "$" + str(
-                            element[1] + 1) + "\",\"$" + str(list_alpha[element[2]]) + "$" + str(element[1] + 1) + "\")"
+                        index_coloana = element[2]
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
                     for index in range(1, len(elem["localisation"]) + 1):
@@ -573,6 +542,36 @@ def ExcelWrite2(return_list, workBook, TSDApp):
     else:
         wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
 
+    #########################
+
+    # wb2 = openpyxl.Workbook()
+    # wb2.save('C:\\Users\\msnecula\\Downloads\\documente_TSD\\nou.xlsx')
+    #
+    # ws = wb.worksheets[0]
+    # ws.cell(row=2, column=3).value = "Edited"
+    #
+    # data = pd.read_excel(TSDApp.DOC3Path, sheet_name="Suppression")
+    # path = 'C:\\Users\\msnecula\\Downloads\\documente_TSD\\nou.xlsx'
+    # with pd.ExcelWriter(path) as writer:
+    #     data.to_excel(writer, sheet_name="a")
+    #
+    #
+    # path = 'C:\\Users\\msnecula\\Downloads\\documente_TSD\\nou.xlsx'
+    # data.to_excel(path, sheet_name='Sheet')
+    #
+    # wb2.save('C:\\Users\\msnecula\\Downloads\\documente_TSD\\nou.xlsx')
+    # wb.save('C:\\Users\\msnecula\\Downloads\\documente_TSD\\2.xlsx')
+    #
+    # with zipfile.ZipFile('C:\\Users\\msnecula\\Downloads\\documente_TSD\\AEEV_AESV07_0787_Synthese_diagnosticabilite_GAV_AEE2010_18_2.xlsm', 'r') as z:
+    #     z.extractall('C:\\Users\\msnecula\\Downloads\\documente_TSD\\xlsm')
+    #
+    # with zipfile.ZipFile('C:\\Users\\msnecula\\Downloads\\documente_TSD\\2.xlsx', 'r') as z:
+    #     z.extractall('C:\\Users\\msnecula\\Downloads\\documente_TSD\\xlsx')
+
+
+    #########################
+
+
     index_test_report = -1
     index_info_report = -1
     for sheetname in TSDApp.WorkbookStats.sheetNames:
@@ -585,7 +584,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V6_0.appName
+        workSheet_info_report['B1'] = TSD_Checker_V6_5.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -665,7 +664,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V6_0.appName
+        workSheet_info_report['B1'] = TSD_Checker_V6_5.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -742,27 +741,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
     workSheet_info_report.column_dimensions['A'].width = 40
     workSheet_info_report.column_dimensions['B'].width = 140
 
-    list_alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ',
-                  'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
-                  'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP',
-                  'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB', 'CC', 'CD', 'CE', 'CF',
-                  'CG', 'CH', 'CI', 'CJ', 'CK', 'CL', 'CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT', 'CU', 'CV',
-                  'CW', 'CX', 'CY', 'CZ', 'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'DJ', 'DK', 'DL',
-                  'DM', 'DN', 'DO', 'DP', 'DQ', 'DR', 'DS', 'DT', 'DU', 'DV', 'DW', 'DX', 'DY', 'DZ', 'EA', 'EB',
-                  'EC', 'ED', 'EE', 'EF', 'EG', 'EH', 'EI', 'EJ', 'EK', 'EL', 'EM', 'EN', 'EO', 'EP', 'EQ', 'ER',
-                  'ES', 'ET', 'EU', 'EV', 'EW', 'EX', 'EY', 'EZ', 'FA', 'FB', 'FC', 'FD', 'FE', 'FF', 'FG', 'FH',
-                  'FI', 'FJ', 'FK', 'FL', 'FM', 'FN', 'FO', 'FP', 'FQ', 'FR', 'FS', 'FT', 'FU', 'FV', 'FW', 'FX',
-                  'FY', 'FZ', 'GA', 'GB', 'GC', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GJ', 'GK', 'GL', 'GM', 'GN',
-                  'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GV', 'GW', 'GX', 'GY', 'GZ', 'HA', 'HB', 'HC', 'HD',
-                  'HE', 'HF', 'HG', 'HH', 'HI', 'HJ', 'HK', 'HL', 'HM', 'HN', 'HO', 'HP', 'HQ', 'HR', 'HS', 'HT',
-                  'HU', 'HV', 'HW', 'HX', 'HY', 'HZ', 'IA', 'IB', 'IC', 'ID', 'IE', 'IF', 'IG', 'IH', 'II', 'IJ',
-                  'IK', 'IL', 'IM', 'IN', 'IO', 'IP', 'IQ', 'IR', 'IS', 'IT', 'IU', 'IV', 'IW', 'IX', 'IY', 'IZ',
-                  'JA', 'JB', 'JC', 'JD', 'JE', 'JF', 'JG', 'JH', 'JI', 'JJ', 'JK', 'JL', 'JM', 'JN', 'JO', 'JP',
-                  'JQ', 'JR', 'JS', 'JT', 'JU', 'JV', 'JW', 'JX', 'JY', 'JZ', 'KA', 'KB', 'KC', 'KD', 'KE', 'KF',
-                  'KG', 'KH', 'KI', 'KJ', 'KK', 'KL', 'KM', 'KN', 'KO', 'KP', 'KQ', 'KR', 'KS', 'KT', 'KU', 'KV',
-                  'KW', 'KX', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LD', 'LE', 'LF', 'LG', 'LH', 'LI', 'LJ', 'LK', 'LL',
-                  'LM', 'LN', 'LO', 'LP', 'LQ', 'LR', 'LS', 'LT', 'LU', 'LV', 'LW', 'LX', 'LY', 'LZ']
+
 
     if index_test_report == -1:
         workSheet_test_report = wb.create_sheet("Test report")
@@ -815,9 +794,10 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        index_coloana = element[2]
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana) + str(element[1] + 1) )
 
 
                     if len(elem['localisation']) > 1:
@@ -878,10 +858,10 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                     lastRow += index + 1
                 else:
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + str(list_alpha[element[2]]) + '$' + str(element[1] + 1)
+                        index_coloana = element[2]
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % (
-                        "'" + str(element[0]) + "'", str(list_alpha[element[2]]) + str(element[1] + 1))
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):

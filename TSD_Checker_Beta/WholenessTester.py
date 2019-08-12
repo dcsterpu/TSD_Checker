@@ -1,4 +1,4 @@
-import TSD_Checker_V6_0
+import TSD_Checker_V6_5
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -649,7 +649,7 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                 if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     contor = contor + 1
 
-            values = ["x", "X", "NA"]
+            values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
@@ -698,7 +698,7 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
                         TSDApp.codeHeaderRow, index).value != "":
                     contor = contor + 1
 
-            values = ["x", "X", "NA"]
+            values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
@@ -747,15 +747,16 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
                         TSDApp.measureHeaderRow, index).value != "":
                     contor = contor + 1
 
-            values = ["x", "X", "NA"]
+            values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                        if workSheet.cell(index2, index1).value is None:
-                            localisations.append(("mesures et commandes", index2, index1))
-                        elif workSheet.cell(index2, index1).value.strip() in values:
-                            pass
-                        else:
+                        try:
+                            if workSheet.cell(index2, index1).value is None:
+                                localisations.append(("mesures et commandes", index2, index1))
+                            elif workSheet.cell(index2, index1).value.strip() in values:
+                                pass
+                        except:
                             localisations.append(("mesures et commandes", index2, index1))
 
         if not localisations:

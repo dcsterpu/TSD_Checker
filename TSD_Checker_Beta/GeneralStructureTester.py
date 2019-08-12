@@ -1,4 +1,4 @@
-import TSD_Checker_V6_0
+import TSD_Checker_V6_5
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -216,9 +216,12 @@ def Test_02043_18_04939_STRUCT_0011(workBook, TSDApp):
 def Test_02043_18_04939_STRUCT_0020(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     flag = False
-    if "Suppression" or "suppression" in TSDApp.WorkbookStats.sheetNames:
+    if "Suppression"  in TSDApp.WorkbookStats.sheetNames or "suppression" in TSDApp.WorkbookStats.sheetNames:
         TSDApp.WorkbookStats.hasSupp = True
-        index = TSDApp.WorkbookStats.sheetNames.index("suppression")
+        try:
+            index = TSDApp.WorkbookStats.sheetNames.index("suppression")
+        except:
+            index = TSDApp.WorkbookStats.sheetNames.index("Suppression")
         TSDApp.WorkbookStats.SuppIndex = index
         localisation = None
     else:
@@ -1094,9 +1097,9 @@ def Test_02043_18_04939_STRUCT_0410(ExcelApp, workBook, TSDApp, DOC4Name):
 
         DOC4 = xlrd.open_workbook(DOC4Name, on_demand=True)
         try:
-            workSheetRef = DOC4.Sheets("tableau")
+            workSheetRef = DOC4.sheet_by_name("tableau")
         except:
-            workSheetRef = DOC4.Sheets("Table")
+            workSheetRef = DOC4.sheet_by_name("Table")
 
         nrCols = workSheetRef.ncols
         list_ref = []
@@ -1381,7 +1384,7 @@ def Test_02043_18_04939_STRUCT_0510(ExcelApp, workBook, TSDApp, DOC4Name):
 
 
         DOC4 = xlrd.open_workbook(DOC4Name, on_demand=True)
-        workSheetRef = DOC4.sheet_by_index("Operation situation")
+        workSheetRef = DOC4.sheet_by_name("Operation situation")
         nrCols = workSheetRef.ncols
         list_ref = list()
 
@@ -1434,8 +1437,8 @@ def Test_02043_18_04939_STRUCT_0530(ExcelApp, workBook, TSDApp, DOC4Name):
             list_test.append(dict)
 
 
-        DOC4 = xlrd.open_workbook(DOC4Name, on_demand=True)
-        workSheetRef = DOC4.sheet_by_index("Req. of tech. effects")
+        DOC4 = xlrd.open_workbook(DOC4Name)
+        workSheetRef = DOC4.sheet_by_name("Req. of tech. effects")
         nrCols = workSheetRef.ncols
         list_ref = []
 
