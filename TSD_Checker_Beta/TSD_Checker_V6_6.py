@@ -1085,99 +1085,128 @@ class Test(Application):
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
             self.opening_time = time.time()
+            self.tab1.updatesEnabled(True)
 
         #GeneralStructure
 
             if "Test_02043_18_04939_STRUCT_0000" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0000"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0005" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0005"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0010" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0010"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0011" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0011"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0020" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0020"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0025" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0025"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0030" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0030"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0035" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0035"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0040" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0046" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0051" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0052" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0052"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0053" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0053"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0055" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0055"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0056" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0056"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0057" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0057"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if archi_type == "Archi 2010":
                 if "Test_02043_18_04939_STRUCT_0058" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0058"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0061"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+                        self.tab1.update()
+
             elif archi_type == "Archi NEA R1":
                 if "Test_02043_18_04939_STRUCT_0059" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0059"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0060"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0062"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0063" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0063"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+                        self.tab1.update()
+
             elif archi_type == "Archi NEA R2":
                 pass
 
@@ -1185,92 +1214,110 @@ class Test(Application):
             if "Test_02043_18_04939_STRUCT_0100" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0100"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0100(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0110" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0110"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0110(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0120" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0120"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0120(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0130" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0130"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0130(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0140" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0140"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0140(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0150" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0150"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0150(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0160" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0160"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0160(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0170" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0170"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0170(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0180" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0180"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0180(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0190" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0190"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0190(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0200" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0200"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0200(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0210" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0210"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0210(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0220" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0220"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0220(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0230" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0230"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0230(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0240" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0240"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0240(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0250" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0250"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0250(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0260" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0260"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0260(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0270" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0270"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
         # Wholeness
             if ok == 0 or ok == 1:

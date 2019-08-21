@@ -9,7 +9,6 @@ import zipfile
 from shutil import copyfile
 from shutil import rmtree
 import os
-import pandas as pd
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
