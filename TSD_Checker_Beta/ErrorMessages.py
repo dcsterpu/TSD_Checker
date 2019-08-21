@@ -560,6 +560,7 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_2052"] = "In the sheet “Not e
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2053"] = "In the sheet “Not embedded diagnosis”, the column “Description” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2054"] = "In the sheet “Not embedded diagnosis”, the column “Upstream requirements” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2055"] = "In the sheet “Not embedded diagnosis”, the column “Taken into account” is not completed. The following cells are not completed:"
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_2056"] = "In the sheet “Not embedded diagnosis”, the column “projet X” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2060"] = "In the sheet “Technical effect”, the column “Name” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2061"] = "In the sheet “Technical effect”, the column “Taken into account” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2062"] = "In the sheet “Technical effect”, the column “Upstream requirements” is not completed. The following cells are not completed:"

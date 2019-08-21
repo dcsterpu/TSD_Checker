@@ -16,6 +16,7 @@ import Coherence_checksTester
 import IndicatorTester
 import time
 import win32api
+import sys
 import xlwt
 import xlrd
 import json
@@ -60,6 +61,9 @@ class Application(QWidget):
         self.criticity_blocking = 0
         self.criticity_warning = 0
         self.criticity_information = 0
+        self.criticity_blocking_passed = 0
+        self.criticity_warning_passed = 0
+        self.criticity_information_passed = 0
         self.start_time = 0
         self.end_time = 0
         self.opening_time = 0
@@ -227,46 +231,46 @@ class Application(QWidget):
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox1.setStyleSheet(" background-color: grey ")
         tab.colorTextBox1.resize(20, 20)
-        tab.colorTextBox1.move(710, 10)
+        tab.colorTextBox1.move(725, 10)
 
         # Create a color textbox2
         tab.colorTextBox2 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox2.setStyleSheet(" background-color: grey ")
         tab.colorTextBox2.resize(20, 20)
-        tab.colorTextBox2.move(710, 40)
+        tab.colorTextBox2.move(725, 40)
 
         # Create a color textbox3
         tab.colorTextBox3 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox3.setStyleSheet(" background-color: grey ")
         tab.colorTextBox3.resize(20, 20)
-        tab.colorTextBox3.move(710, 70)
+        tab.colorTextBox3.move(725, 70)
 
         # Create a color textbox4
         tab.colorTextBox4 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox4.setStyleSheet(" background-color: grey ")
         tab.colorTextBox4.resize(20, 20)
-        tab.colorTextBox4.move(710, 100)
+        tab.colorTextBox4.move(725, 100)
 
         # Create a color textbox5
         tab.colorTextBox5 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox5.setStyleSheet(" background-color: grey ")
         tab.colorTextBox5.resize(20, 20)
-        tab.colorTextBox5.move(710, 130)
+        tab.colorTextBox5.move(725, 130)
 
         # Create a color textbox6
         tab.colorTextBox6 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox6.setStyleSheet(" background-color: grey ")
         tab.colorTextBox6.resize(20, 20)
-        tab.colorTextBox6.move(710, 160)
+        tab.colorTextBox6.move(725, 160)
 
         # Create a drop down list
         tab.lbl = QLabel("Check level", tab)
         tab.combo = QComboBox(tab)
+        tab.combo.addItem("Validated")
         tab.combo.addItem("Previsional")
         tab.combo.addItem("Consolidated")
-        tab.combo.addItem("Validated")
         tab.combo.resize(508, 20.4)  # rezise the drop down list
-        tab.combo.move(200, 200)
+        tab.combo.move(215, 200)
         tab.lbl.move(5, 205)
         tab.combo.activated[str].connect(self.onActivated)
 
@@ -276,7 +280,7 @@ class Application(QWidget):
         tab.combo3.addItem("Codes LCDV")
         tab.combo3.addItem("Codes EC")
         tab.combo3.resize(508, 20.4)  # rezise the drop down list
-        tab.combo3.move(200, 260)
+        tab.combo3.move(215, 260)
         tab.lbl3.move(5, 265)
         tab.combo3.activated[str].connect(self.onActivated)
 
@@ -286,7 +290,7 @@ class Application(QWidget):
         tab.combo1.addItem("Generic")
         tab.combo1.addItem("All")
         tab.combo1.resize(330, 20.4)  # rezise the drop down list
-        tab.combo1.move(200, 290)
+        tab.combo1.move(215, 290)
         tab.lbl1.move(5, 295)
         tab.combo1.activated[str].connect(self.onActivated)
 
@@ -297,7 +301,7 @@ class Application(QWidget):
         tab.combo2.addItem("Archi NEA R1")
         tab.combo2.addItem("Archi NEA R2")
         tab.combo2.resize(508, 20.4)
-        tab.combo2.move(200, 230)
+        tab.combo2.move(215, 230)
         tab.lbl2.move(5, 235)
         tab.combo2.activated[str].connect(self.onActivated)
 
@@ -307,7 +311,7 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project names")
         tab.importNames.resize(160, 20.4)
-        tab.importNames.move(550, 290)
+        tab.importNames.move(565, 290)
 
         tab.save_config = QPushButton(tab)
         tab.save_config.setText("Save \nconfiguration")
@@ -326,12 +330,12 @@ class Application(QWidget):
         tab.lbl2.move(5, 15)
         tab.myTextBox1 = QtWidgets.QTextEdit(tab)
         tab.myTextBox1.resize(460, 25)
-        tab.myTextBox1.move(200, 10)
+        tab.myTextBox1.move(215, 10)
         tab.myTextBox1.setReadOnly(True)
         tab.myTextBox1.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button1 = QPushButton('...', tab)
         tab.button1.clicked.connect(self.openFileNameDialog1)
-        tab.button1.move(660, 10)
+        tab.button1.move(675, 10)
         tab.button1.resize(45, 22)
 
         # File Selectiom Dialog2
@@ -339,12 +343,12 @@ class Application(QWidget):
         tab.lbl3.move(5, 45)
         tab.myTextBox2 = QtWidgets.QTextEdit(tab)
         tab.myTextBox2.resize(460, 25)
-        tab.myTextBox2.move(200, 40)
+        tab.myTextBox2.move(215, 40)
         tab.myTextBox2.setReadOnly(True)
         tab.myTextBox2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button2 = QPushButton('...', tab)
         tab.button2.clicked.connect(self.openFileNameDialog2)
-        tab.button2.move(660, 40)
+        tab.button2.move(675, 40)
         tab.button2.resize(45, 22)
 
         # File Selectiom Dialog3
@@ -352,12 +356,12 @@ class Application(QWidget):
         tab.lbl4.move(5, 75)
         tab.myTextBox3 = QtWidgets.QTextEdit(tab)
         tab.myTextBox3.resize(460, 25)
-        tab.myTextBox3.move(200, 70)
+        tab.myTextBox3.move(215, 70)
         tab.myTextBox3.setReadOnly(True)
         tab.myTextBox3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button3 = QPushButton('...', tab)
         tab.button3.clicked.connect(self.openFileNameDialog3)
-        tab.button3.move(660, 70)
+        tab.button3.move(675, 70)
         tab.button3.resize(45, 22)
 
         # File Selectiom Dialog4
@@ -365,12 +369,12 @@ class Application(QWidget):
         tab.lbl8.move(5, 105)
         tab.myTextBox4 = QtWidgets.QTextEdit(tab)
         tab.myTextBox4.resize(460, 25)
-        tab.myTextBox4.move(200, 100)
+        tab.myTextBox4.move(215, 100)
         tab.myTextBox4.setReadOnly(True)
         tab.myTextBox4.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button4 = QPushButton('...', tab)
         tab.button4.clicked.connect(self.openFileNameDialog7)
-        tab.button4.move(660, 100)
+        tab.button4.move(675, 100)
         tab.button4.resize(45, 22)
 
         # File Selectiom Dialog5
@@ -378,11 +382,11 @@ class Application(QWidget):
         tab.lbl9.move(5, 135)
         tab.myTextBox5 = QtWidgets.QTextEdit(tab)
         tab.myTextBox5.resize(460, 25)
-        tab.myTextBox5.move(200, 130)
+        tab.myTextBox5.move(215, 130)
         tab.myTextBox5.setReadOnly(True)
         tab.button5 = QPushButton('...', tab)
         tab.button5.clicked.connect(self.openFileNameDialog8)
-        tab.button5.move(660, 130)
+        tab.button5.move(675, 130)
         tab.button5.resize(45, 22)
         tab.myTextBox5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
@@ -391,12 +395,12 @@ class Application(QWidget):
         tab.lbl11.move(5, 165)
         tab.myTextBox6 = QtWidgets.QTextEdit(tab)
         tab.myTextBox6.resize(460, 25)
-        tab.myTextBox6.move(200, 160)
+        tab.myTextBox6.move(215, 160)
         tab.myTextBox6.setReadOnly(True)
         tab.myTextBox6.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button6 = QPushButton('...', tab)
         tab.button6.clicked.connect(self.openFileNameDialog20)
-        tab.button6.move(660, 160)
+        tab.button6.move(675, 160)
         tab.button6.resize(45, 22)
 
         # Check button
@@ -729,7 +733,10 @@ class Application(QWidget):
         try:
             FileName = response.headers['Content-Disposition'].split('"')[1]
         except:
-            FileName = response.raw.headers['Content-Disposition'].split('"')[1]
+            error_message = "\nThe file's metadata cannot be properly identified. Please check the network connection!"
+            text_box = self.tab1.textbox.toPlainText()
+            self.tab1.textbox.setText(text_box + error_message)
+            sys.exit(0)
 
         FilePath = self.fileFolder + FileName
         success_download = self.tab1.textbox.toPlainText()
@@ -825,6 +832,9 @@ class Test(Application):
 
 
     def buttonClicked(self):
+
+        self.tab1.textbox_coverage.setText("")
+        self.tab1.textbox_convergence.setText("")
 
         # self.tab1.textbox.setText("File analyzation starting...")
         self.start_time = time.time()
@@ -2114,7 +2124,7 @@ class Test(Application):
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC3Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC3Workbook, self, self.DOC3Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
 
@@ -2135,9 +2145,9 @@ class Test(Application):
 
 
                 if self.DOC3Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self)
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self, self.DOC3Workbook)
                 elif self.DOC3Path.split('.')[-1] in ["xlsx","xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self, self.DOC3Path)
 
             elif ok == 1:
                 self.tab1.colorTextBox1.setStyleSheet("background-color: red")
@@ -2178,10 +2188,15 @@ class Test(Application):
                 self.DOC4Path = self.list_element["TSD Vehicle Function File"]["value"]
 
             try:
-                self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
+                extension = self.DOC4Path.split(".")[-1]
+                if extension == "xls":
+                    self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
+                else:
+                    self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path)
             except:
-                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Fonction véhicule file " + self.DOC4Path.split('/')[-1])
+                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Vehicle Function file " + self.DOC4Path.split('/')[-1])
                 return
+
             if self.DOC4Workbook == None:
                 return
             check = False
@@ -2900,7 +2915,7 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC3Workbook, self,self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC4Workbook, self,self.DOC13List)
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -2908,7 +2923,7 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2261" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2261"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC4Workbook, self,self.DOC13List_2)
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -2917,7 +2932,7 @@ class Test(Application):
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self, self.DOC4Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
 
@@ -2933,13 +2948,13 @@ class Test(Application):
                     self.tab1.buttonNew.setEnabled(True)
                     self.tab1.pbar.setValue(100)
 
+                self.end_time = time.time()
 
                 if self.DOC4Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC4Path, self)
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC4Path, self, self.DOC4Workbook)
                 elif self.DOC4Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC4Path, self)
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC4Path, self, self.DOC4Path)
 
-                self.end_time = time.time()
 
 
         if self.DOC5Exists is True:
@@ -2979,10 +2994,16 @@ class Test(Application):
                 self.DOC5Path = self.list_element["TSD System File"]["value"]
 
             try:
-                self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
+                extension = self.DOC5Path.split(".")[-1]
+                if extension == "xls":
+                    self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
+                else:
+                    self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path)
             except:
-                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file " + self.DOC5Path.split('/')[-1])
+                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file file " + self.DOC5Path.split('/')[-1])
                 return
+
+
             if self.DOC5Workbook == None:
                 return
             check = False
@@ -3902,13 +3923,13 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC5Workbook, self, self.DOC13List)
                             if check_indicator == True:
                                 ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC5Workbook, self,self.DOC13List)
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -3916,13 +3937,13 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2260" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2260"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC5Workbook, self,self.DOC13List_2)
                             if check_indicator == True:
                                 ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2270" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2270"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC5Workbook, self,self.DOC13List_2)
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -3931,7 +3952,7 @@ class Test(Application):
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC5Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC5Workbook, self, self.DOC5Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
 
@@ -3947,13 +3968,13 @@ class Test(Application):
                     self.tab1.buttonNew.setEnabled(True)
                     self.tab1.pbar.setValue(100)
 
+                self.end_time = time.time()
 
                 if self.DOC5Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC5Path, self)
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC5Path, self, self.DOC5Workbook)
                 elif self.DOC5Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC5Path, self)
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC5Path, self, self.DOC5Path)
 
-                self.end_time = time.time()
 
 
 if __name__ == '__main__':

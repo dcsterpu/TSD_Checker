@@ -50,17 +50,18 @@ def coverageIndicator(workBook, TSDApp):
                         workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
                         workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
                     NbComponentWithDiagPossible += 1
-
+        print("Coverage Indicator computed")
         return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
     else:
         warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
         textBoxText = TSDApp.tab1.textbox.toPlainText()
         textBoxText = textBoxText + "\n" + warning
         TSDApp.tab1.textbox.setText(textBoxText)
+        print ("Coverage Indicator computed000")
         return str(0.00000)
 
 
-def convergenceIndicator(workBook, TSDApp):
+def convergenceIndicator(workBook, TSDApp, path):
 
     index = -1
     for sheetname in TSDApp.WorkbookStats.sheetNames:
@@ -120,9 +121,10 @@ def convergenceIndicator(workBook, TSDApp):
         textBoxText = TSDApp.tab1.textbox.toPlainText()
         textBoxText = textBoxText + "\n" + warning
         TSDApp.tab1.textbox.setText(textBoxText)
+        print("fara coloana")
         return str(0.00000)
     else:
-        if TSDApp.DOC3Path.split('.')[-1] == 'xls':
+        if path.split('.')[-1] == 'xls':
 
             workBook2 = copy(workBook)
             workSheet = workBook2.get_sheet(index)
@@ -156,10 +158,10 @@ def convergenceIndicator(workBook, TSDApp):
                 #             workSheet.write(elem['localisation'], refSignature, '0')
 
         else:
-            if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
-                wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
+            if path.split('.')[-1] == 'xlsm':
+                wb = openpyxl.load_workbook(path, keep_vba=True)
             else:
-                wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
+                wb = openpyxl.load_workbook(path, keep_vba=False)
 
             if refSignature == -1:
                 if "tableau" in wb.sheetnames:
@@ -176,6 +178,7 @@ def convergenceIndicator(workBook, TSDApp):
                     textBoxText = textBoxText + "\n" + warning
                     TSDApp.tab1.textbox.setText(textBoxText)
                     TSDApp.tab1.textbox.setText("ERROR: not enough memory when inserting UniqueTestSignature column")
+                    print("covergence000")
                     return str(0.00000)
 
                 workSheet.cell(4, refCritere + 2, "Unique Test Signature")
@@ -203,7 +206,7 @@ def convergenceIndicator(workBook, TSDApp):
                             if element['value'] == elem['value']:
                                 workSheet.cell(element['localisation'], refCritere + 2, '0')
 
-                wb.save(TSDApp.DOC3Path)
+                wb.save(path)
             else:
                 if "tableau" in wb.sheetnames:
                     workSheet = wb.get_sheet_by_name("tableau")
@@ -237,5 +240,5 @@ def convergenceIndicator(workBook, TSDApp):
                         for elem in unique_items:
                             if element['value'] == elem['value']:
                                 workSheet.cell(element['localisation'], refCritere + 2, '0')
-
+        print("Convergence Indicator computed")
         return (NbUniqueSignatureTests / NbAMDECLine)

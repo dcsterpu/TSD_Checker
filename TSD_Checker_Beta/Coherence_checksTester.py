@@ -522,7 +522,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                     if workSheet.cell(index, codeColIndex).value == "":
                         pass
                     else:
-                        list_code.append(workSheet.cell(index, codeColIndex).value.strip())
+                        list_code.append(str(workSheet.cell(index, codeColIndex).value).strip())
 
             for element in tempList:
                 if ',' in element["value"]:
@@ -738,7 +738,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.DiagDebIndex)
                 diagColIndex = -1
 
-                for index in range(1, TSDApp.WorkbookStats.DiagDebLastCol + 1):
+                for index in range(0, TSDApp.WorkbookStats.DiagDebLastCol):
                     if str(workSheet.cell(TSDApp.diagDebHeaderRow, index).value).casefold().strip() == "libellé (signification)".casefold():
                         diagColIndex = index
                         break

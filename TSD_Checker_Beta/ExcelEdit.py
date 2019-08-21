@@ -31,6 +31,13 @@ def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
     tempString = str()
     if localisation is None or localisation == "":
         tempString = "OK"
+        if criticity.casefold() == "blocking":
+            TSDApp.criticity_blocking_passed += 1
+        else:
+            if criticity.casefold() == "warning":
+                TSDApp.criticity_warning_passed += 1
+            else:
+                TSDApp.criticity_information_passed += 1
     else:
         tempString = "NOK"
 
@@ -73,9 +80,9 @@ def column_string(n):
         string = chr(65 + remainder) + string
     return string
 
-def ExcelWrite_del_information(return_list, workBook, TSDApp):
+def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
 
-    DOC3 = TSDApp.DOC3Workbook
+    DOC3 = workBook
 
     new_wb = deleteSheet(TSDApp ,DOC3,"report information","test report")
 
@@ -112,7 +119,7 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
     workSheet_info_report.write(10, 1, TSDApp.checkLevel)
 
     workSheet_info_report.write(12, 0, "Date of the test:")
-    workSheet_info_report.write(12, 1, time.strftime("%x"))
+    workSheet_info_report.write(12, 1, time.strftime("%d/%m/%Y"))
 
     workSheet_info_report.write(13, 0, "Time of the test:")
     workSheet_info_report.write(13, 1, time.strftime("%X"))
@@ -147,14 +154,17 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
     workSheet_info_report.write(26, 0, "Convergence Indicator:")
     workSheet_info_report.write(26, 1, str(TSDApp.convergence)[0:4] + "%")
 
-    workSheet_info_report.write(28, 0, "Blocking Points")
-    workSheet_info_report.write(28, 1, str(TSDApp.criticity_blocking))
+    workSheet_info_report.write(28, 0, "Blocking Points Failed")
+    workSheet_info_report.write(28, 1, str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed))
 
-    workSheet_info_report.write(29, 0, "Warning Points")
-    workSheet_info_report.write(29, 1, str(TSDApp.criticity_warning))
+    workSheet_info_report.write(29, 0, "Warning Points Failed")
+    workSheet_info_report.write(29, 1, str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed))
 
-    workSheet_info_report.write(30, 0, "Information Points")
-    workSheet_info_report.write(30, 1, str(TSDApp.criticity_information))
+    workSheet_info_report.write(30, 0, "Information Points Failed")
+    workSheet_info_report.write(30, 1, str(TSDApp.criticity_information - TSDApp.criticity_information_passed))
+
+    workSheet_info_report.write(31, 0, "Total number of tests performed")
+    workSheet_info_report.write(31, 1, str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information))
 
 
     workSheet_test_report = new_wb.add_sheet('Test report', cell_overwrite_ok=True)
@@ -204,7 +214,7 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
                 else:
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana) + "$" + str(element[1] + 1) + "\")"
+                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\")"
                         workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
                     for index in range(1, len(elem["localisation"]) + 1):
@@ -213,11 +223,11 @@ def ExcelWrite_del_information(return_list, workBook, TSDApp):
 
                     lastRow = lastRow + index
         except:
-            TSDApp.tab1.textbox.setText("ERROR: when trying to write data in Test report")
-            new_wb.save(TSDApp.DOC3Path)
+            TSDApp.tab1.textbox.setText("Warning: Only 65536 first rows filled in Test report (xls format limitation)")
+            new_wb.save(path)
             return
 
-    new_wb.save(TSDApp.DOC3Path)
+    new_wb.save(path)
 
 
 def ExcelWrite(return_list, workBook, TSDApp):
@@ -532,15 +542,15 @@ def ExcelWrite(return_list, workBook, TSDApp):
 
 
 
-def ExcelWrite2(return_list, workBook, TSDApp):
+def ExcelWrite2(return_list, workBook, TSDApp, path):
 
-    if TSDApp.DOC3Path.split('.')[-1] == 'xlsm':
+    if path.split('.')[-1] == 'xlsm':
         try:
-            wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=True)
+            wb = openpyxl.load_workbook(path, keep_vba=True)
         except:
             return
     else:
-        wb = openpyxl.load_workbook(TSDApp.DOC3Path, keep_vba=False)
+        wb = openpyxl.load_workbook(path, keep_vba=False)
 
     #########################
 
@@ -614,7 +624,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report['B11'] = TSDApp.checkLevel
 
         workSheet_info_report['A13'] = "Date of the test:"
-        workSheet_info_report['B13'] = time.strftime("%x")
+        workSheet_info_report['B13'] = time.strftime("%d/%m/%Y")
 
         workSheet_info_report['A14'] = "Time of the test:"
         workSheet_info_report['B14'] = time.strftime("%X")
@@ -649,14 +659,17 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report['A27'] = "Convergence Indicator:"
         workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
 
-        workSheet_info_report['A29'] = "Blocking Points"
+        workSheet_info_report['A29'] = "Blocking Points Failed"
         workSheet_info_report['B29'] = str(TSDApp.criticity_blocking)
 
-        workSheet_info_report['A30'] = "Warning Points"
+        workSheet_info_report['A30'] = "Warning Points Failed"
         workSheet_info_report['B30'] = str(TSDApp.criticity_warning)
 
-        workSheet_info_report['A31'] = "Information Points"
+        workSheet_info_report['A31'] = "Information Points Failed"
         workSheet_info_report['B31'] = str(TSDApp.criticity_information)
+
+        workSheet_info_report['A32'] = "Total number of tests performed"
+        workSheet_info_report['B32'] = str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information)
 
     else:
         workSheet_info_report = wb.get_sheet_by_name("Report information")
@@ -694,7 +707,7 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report['B11'] = TSDApp.checkLevel
 
         workSheet_info_report['A13'] = "Date of the test:"
-        workSheet_info_report['B13'] = time.strftime("%x")
+        workSheet_info_report['B13'] = time.strftime("%d/%m/%Y")
 
         workSheet_info_report['A14'] = "Time of the test:"
         workSheet_info_report['B14'] = time.strftime("%X")
@@ -729,13 +742,13 @@ def ExcelWrite2(return_list, workBook, TSDApp):
         workSheet_info_report['A27'] = "Convergence Indicator:"
         workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
 
-        workSheet_info_report['A29'] = "Blocking Points"
+        workSheet_info_report['A29'] = "Blocking Points Failed"
         workSheet_info_report['B29'] = str(TSDApp.criticity_blocking)
 
-        workSheet_info_report['A30'] = "Warning Points"
+        workSheet_info_report['A30'] = "Warning Points Failed"
         workSheet_info_report['B30'] = str(TSDApp.criticity_warning)
 
-        workSheet_info_report['A31'] = "Information Points"
+        workSheet_info_report['A31'] = "Information Points Failed"
         workSheet_info_report['B31'] = str(TSDApp.criticity_information)
 
     workSheet_info_report.column_dimensions['A'].width = 40
@@ -795,9 +808,9 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                 else:
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana) + '$' + str(element[1] + 1)
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana) + str(element[1] + 1) )
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1) )
 
 
                     if len(elem['localisation']) > 1:
@@ -859,9 +872,9 @@ def ExcelWrite2(return_list, workBook, TSDApp):
                 else:
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana) + '$' + str(element[1] + 1)
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s %s %s!%s' % ("'" + str(element[0]).split(' ')[-3],str(element[0]).split(' ')[-2],str(element[0]).split(' ')[-1] + "'", str(list_alpha[element[2]])+str(element[1] + 1) )
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana) + str(element[1] + 1))
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
@@ -896,6 +909,13 @@ def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     tempString = str()
     if name is None or name == "":
         tempString = "OK"
+        if criticity.casefold() == "blocking":
+            TSDApp.criticity_blocking_passed += 1
+        else:
+            if criticity.casefold() == "warning":
+                TSDApp.criticity_warning_passed += 1
+            else:
+                TSDApp.criticity_information_passed += 1
     else:
         tempString = "NOK"
 

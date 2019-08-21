@@ -653,11 +653,12 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                        if workSheet.cell(index2, index1).value is None:
-                            localisations.append(("tableau",index2, index1))
-                        elif workSheet.cell(index2, index1).value.strip() in values:
-                            pass
-                        else:
+                        try:
+                            if workSheet.cell(index2, index1).value is None:
+                                localisations.append(("tableau",index2, index1))
+                            elif workSheet.cell(index2, index1).value.strip() in values:
+                                pass
+                        except:
                             localisations.append(("tableau",index2, index1))
 
         if not localisations:
