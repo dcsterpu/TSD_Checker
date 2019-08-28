@@ -16,12 +16,13 @@ import Coherence_checksTester
 import IndicatorTester
 import time
 import win32api
+import sys
 import xlwt
 import xlrd
 import json
 
-appName = "TSD Checker V5.6"
-pBarIncrement = 100/135
+appName = "TSD Checker V6.7"
+pBarIncrement = 100/174
 
 class Application(QWidget):
 
@@ -60,6 +61,9 @@ class Application(QWidget):
         self.criticity_blocking = 0
         self.criticity_warning = 0
         self.criticity_information = 0
+        self.criticity_blocking_passed = 0
+        self.criticity_warning_passed = 0
+        self.criticity_information_passed = 0
         self.start_time = 0
         self.end_time = 0
         self.opening_time = 0
@@ -227,46 +231,46 @@ class Application(QWidget):
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox1.setStyleSheet(" background-color: grey ")
         tab.colorTextBox1.resize(20, 20)
-        tab.colorTextBox1.move(710, 10)
+        tab.colorTextBox1.move(725, 10)
 
         # Create a color textbox2
         tab.colorTextBox2 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox2.setStyleSheet(" background-color: grey ")
         tab.colorTextBox2.resize(20, 20)
-        tab.colorTextBox2.move(710, 40)
+        tab.colorTextBox2.move(725, 40)
 
         # Create a color textbox3
         tab.colorTextBox3 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox3.setStyleSheet(" background-color: grey ")
         tab.colorTextBox3.resize(20, 20)
-        tab.colorTextBox3.move(710, 70)
+        tab.colorTextBox3.move(725, 70)
 
         # Create a color textbox4
         tab.colorTextBox4 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox4.setStyleSheet(" background-color: grey ")
         tab.colorTextBox4.resize(20, 20)
-        tab.colorTextBox4.move(710, 100)
+        tab.colorTextBox4.move(725, 100)
 
         # Create a color textbox5
         tab.colorTextBox5 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox5.setStyleSheet(" background-color: grey ")
         tab.colorTextBox5.resize(20, 20)
-        tab.colorTextBox5.move(710, 130)
+        tab.colorTextBox5.move(725, 130)
 
         # Create a color textbox6
         tab.colorTextBox6 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox6.setStyleSheet(" background-color: grey ")
         tab.colorTextBox6.resize(20, 20)
-        tab.colorTextBox6.move(710, 160)
+        tab.colorTextBox6.move(725, 160)
 
         # Create a drop down list
         tab.lbl = QLabel("Check level", tab)
         tab.combo = QComboBox(tab)
+        tab.combo.addItem("Validated")
         tab.combo.addItem("Previsional")
         tab.combo.addItem("Consolidated")
-        tab.combo.addItem("Validated")
         tab.combo.resize(508, 20.4)  # rezise the drop down list
-        tab.combo.move(200, 200)
+        tab.combo.move(215, 200)
         tab.lbl.move(5, 205)
         tab.combo.activated[str].connect(self.onActivated)
 
@@ -276,7 +280,7 @@ class Application(QWidget):
         tab.combo3.addItem("Codes LCDV")
         tab.combo3.addItem("Codes EC")
         tab.combo3.resize(508, 20.4)  # rezise the drop down list
-        tab.combo3.move(200, 260)
+        tab.combo3.move(215, 260)
         tab.lbl3.move(5, 265)
         tab.combo3.activated[str].connect(self.onActivated)
 
@@ -286,7 +290,7 @@ class Application(QWidget):
         tab.combo1.addItem("Generic")
         tab.combo1.addItem("All")
         tab.combo1.resize(330, 20.4)  # rezise the drop down list
-        tab.combo1.move(200, 290)
+        tab.combo1.move(215, 290)
         tab.lbl1.move(5, 295)
         tab.combo1.activated[str].connect(self.onActivated)
 
@@ -297,7 +301,7 @@ class Application(QWidget):
         tab.combo2.addItem("Archi NEA R1")
         tab.combo2.addItem("Archi NEA R2")
         tab.combo2.resize(508, 20.4)
-        tab.combo2.move(200, 230)
+        tab.combo2.move(215, 230)
         tab.lbl2.move(5, 235)
         tab.combo2.activated[str].connect(self.onActivated)
 
@@ -307,7 +311,7 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project names")
         tab.importNames.resize(160, 20.4)
-        tab.importNames.move(550, 290)
+        tab.importNames.move(565, 290)
 
         tab.save_config = QPushButton(tab)
         tab.save_config.setText("Save \nconfiguration")
@@ -326,12 +330,12 @@ class Application(QWidget):
         tab.lbl2.move(5, 15)
         tab.myTextBox1 = QtWidgets.QTextEdit(tab)
         tab.myTextBox1.resize(460, 25)
-        tab.myTextBox1.move(200, 10)
+        tab.myTextBox1.move(215, 10)
         tab.myTextBox1.setReadOnly(True)
         tab.myTextBox1.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button1 = QPushButton('...', tab)
         tab.button1.clicked.connect(self.openFileNameDialog1)
-        tab.button1.move(660, 10)
+        tab.button1.move(675, 10)
         tab.button1.resize(45, 22)
 
         # File Selectiom Dialog2
@@ -339,12 +343,12 @@ class Application(QWidget):
         tab.lbl3.move(5, 45)
         tab.myTextBox2 = QtWidgets.QTextEdit(tab)
         tab.myTextBox2.resize(460, 25)
-        tab.myTextBox2.move(200, 40)
+        tab.myTextBox2.move(215, 40)
         tab.myTextBox2.setReadOnly(True)
         tab.myTextBox2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button2 = QPushButton('...', tab)
         tab.button2.clicked.connect(self.openFileNameDialog2)
-        tab.button2.move(660, 40)
+        tab.button2.move(675, 40)
         tab.button2.resize(45, 22)
 
         # File Selectiom Dialog3
@@ -352,12 +356,12 @@ class Application(QWidget):
         tab.lbl4.move(5, 75)
         tab.myTextBox3 = QtWidgets.QTextEdit(tab)
         tab.myTextBox3.resize(460, 25)
-        tab.myTextBox3.move(200, 70)
+        tab.myTextBox3.move(215, 70)
         tab.myTextBox3.setReadOnly(True)
         tab.myTextBox3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button3 = QPushButton('...', tab)
         tab.button3.clicked.connect(self.openFileNameDialog3)
-        tab.button3.move(660, 70)
+        tab.button3.move(675, 70)
         tab.button3.resize(45, 22)
 
         # File Selectiom Dialog4
@@ -365,12 +369,12 @@ class Application(QWidget):
         tab.lbl8.move(5, 105)
         tab.myTextBox4 = QtWidgets.QTextEdit(tab)
         tab.myTextBox4.resize(460, 25)
-        tab.myTextBox4.move(200, 100)
+        tab.myTextBox4.move(215, 100)
         tab.myTextBox4.setReadOnly(True)
         tab.myTextBox4.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button4 = QPushButton('...', tab)
         tab.button4.clicked.connect(self.openFileNameDialog7)
-        tab.button4.move(660, 100)
+        tab.button4.move(675, 100)
         tab.button4.resize(45, 22)
 
         # File Selectiom Dialog5
@@ -378,11 +382,11 @@ class Application(QWidget):
         tab.lbl9.move(5, 135)
         tab.myTextBox5 = QtWidgets.QTextEdit(tab)
         tab.myTextBox5.resize(460, 25)
-        tab.myTextBox5.move(200, 130)
+        tab.myTextBox5.move(215, 130)
         tab.myTextBox5.setReadOnly(True)
         tab.button5 = QPushButton('...', tab)
         tab.button5.clicked.connect(self.openFileNameDialog8)
-        tab.button5.move(660, 130)
+        tab.button5.move(675, 130)
         tab.button5.resize(45, 22)
         tab.myTextBox5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
@@ -391,12 +395,12 @@ class Application(QWidget):
         tab.lbl11.move(5, 165)
         tab.myTextBox6 = QtWidgets.QTextEdit(tab)
         tab.myTextBox6.resize(460, 25)
-        tab.myTextBox6.move(200, 160)
+        tab.myTextBox6.move(215, 160)
         tab.myTextBox6.setReadOnly(True)
         tab.myTextBox6.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button6 = QPushButton('...', tab)
         tab.button6.clicked.connect(self.openFileNameDialog20)
-        tab.button6.move(660, 160)
+        tab.button6.move(675, 160)
         tab.button6.resize(45, 22)
 
         # Check button
@@ -418,22 +422,22 @@ class Application(QWidget):
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
 
         if self.DOC3Exists:
-            win32api.MessageBox(0,'Feature not implemented yet','Information')
-           # fileName = self.tab1.myTextBox1.toPlainText()
-           # self.excel.Visible = True
-           # self.excel.Workbooks.Open(fileName)
+            # win32api.MessageBox(0,'Feature not implemented yet','Information')
+           fileName = self.tab1.myTextBox1.toPlainText()
+           self.excel.Visible = True
+           self.excel.Workbooks.Open(fileName)
 
         if self.DOC4Exists:
-            win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
-           # fileName = self.tab1.myTextBox2.toPlainText()
-           # self.excel.Visible = True
-           # self.excel.Workbooks.Open(fileName)
+           #  win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
+           fileName = self.tab1.myTextBox2.toPlainText()
+           self.excel.Visible = True
+           self.excel.Workbooks.Open(fileName)
 
         if self.DOC5Exists:
-            win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
-           # fileName = self.tab1.myTextBox3.toPlainText()
-           # self.excel.Visible = True
-           # self.excel.Workbooks.Open(fileName)
+            # win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
+           fileName = self.tab1.myTextBox3.toPlainText()
+           self.excel.Visible = True
+           self.excel.Workbooks.Open(fileName)
 
     def ButtonSaveConfigClick(self):
 
@@ -726,7 +730,15 @@ class Application(QWidget):
             self.tab1.textbox.setText("Username or Password Incorrect")
             return "False"
 
-        FileName = response.headers['Content-Disposition'].split('"')[1]
+        try:
+            FileName = response.headers['Content-Disposition'].split('"')[1]
+            version = response.cookies._cookies['.psa-peugeot-citroen.com']['/']['PSACountry'].version
+        except:
+            error_message = "\nThe file's metadata cannot be properly identified. Please check the network connection!"
+            text_box = self.tab1.textbox.toPlainText()
+            self.tab1.textbox.setText(text_box + error_message)
+            sys.exit(0)
+
         FilePath = self.fileFolder + FileName
         success_download = self.tab1.textbox.toPlainText()
         success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
@@ -822,6 +834,11 @@ class Test(Application):
 
     def buttonClicked(self):
 
+        self.tab1.textbox_coverage.setText("")
+        self.tab1.textbox_convergence.setText("")
+        self.tab1.buttonNew.setEnabled(False)
+        self.tab1.pbar.setValue(0)
+
         # self.tab1.textbox.setText("File analyzation starting...")
         self.start_time = time.time()
         # os.system("taskkill /f /im EXCEL.EXE")
@@ -853,7 +870,7 @@ class Test(Application):
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
             else:
-                self.Doc8Path = self.tab2.myTextBox7.toPlainText()
+                self.DOC8Path = self.tab2.myTextBox7.toPlainText()
 
             if self.DOC8Path == "Error":
                 self.tab1.textbox.setText(
@@ -965,7 +982,7 @@ class Test(Application):
             if self.list_element["CESARE Export"]["value"] == "null":
                 self.DOC8Path = self.download_file(self.DOC8Link)
             else:
-                self.Doc8Path = self.list_element["CESARE Export"]["value"]
+                self.DOC8Path = self.list_element["CESARE Export"]["value"]
 
             if self.DOC8Path == "Error":
                 self.tab1.textbox.setText(
@@ -1063,8 +1080,6 @@ class Test(Application):
                 return
             if self.DOC3Workbook == None:
                 return
-            # ExcelEdit.AddTestReportSheets(self.DOC3Workbook)
-            # ExcelEdit.AddTestReportSheetHeader(self.DOC3Workbook)
             check = False
             check_indicator = False
             ok_indicator = 0
@@ -1073,99 +1088,128 @@ class Test(Application):
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
             self.opening_time = time.time()
+            self.tab1.updatesEnabled()
 
         #GeneralStructure
 
             if "Test_02043_18_04939_STRUCT_0000" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0000"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0005" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0005"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0010" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0010"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0011" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0011"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0020" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0020"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0025" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0025"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0030" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0030"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0035" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0035"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0040" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0046" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0051" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0052" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0052"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0053" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0053"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0055" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0055"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0056" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0056"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0057" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0057"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC3Workbook, self)
+                    self.tab1.update()
 
             if archi_type == "Archi 2010":
                 if "Test_02043_18_04939_STRUCT_0058" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0058"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0061"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC3Workbook, self)
+                        self.tab1.update()
+
             elif archi_type == "Archi NEA R1":
                 if "Test_02043_18_04939_STRUCT_0059" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0059"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0060"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0062"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC3Workbook, self)
+                        self.tab1.update()
+
                 if "Test_02043_18_04939_STRUCT_0063" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0063"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC3Workbook, self)
+                        self.tab1.update()
+
             elif archi_type == "Archi NEA R2":
                 pass
 
@@ -1173,906 +1217,909 @@ class Test(Application):
             if "Test_02043_18_04939_STRUCT_0100" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0100"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0100(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0110" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0110"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0110(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0120" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0120"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0120(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0130" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0130"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0130(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0140" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0140"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0140(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0150" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0150"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0150(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0160" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0160"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0160(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0170" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0170"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0170(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0180" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0180"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0180(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0190" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0190"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0190(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0200" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0200"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0200(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0210" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0210"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0210(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0220" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0220"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0220(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0230" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0230"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0230(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0240" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0240"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0240(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0250" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0250"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0250(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0260" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0260"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0260(self.DOC3Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0270" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0270"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0270(self.excelApp, self.DOC3Workbook, self, self.DOC3Name)
+                    self.tab1.update()
 
         # Wholeness
             if ok == 0 or ok == 1:
 
-                # try:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1000"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC3Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                # except:
-                #     pass
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1001"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1010"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1011"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1020"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1021"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1030"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1031"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # '''check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC3Workbook, self)
-                # if check_indicator == True:
-                #     ok_indicator = 1'''
-                #
-                # '''check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC3Workbook, self)
-                # if check_indicator == True:
-                #     ok_indicator = 1'''
                 if "Test_02043_18_04939_WHOLENESS_1050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1055" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1055"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1060"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1061"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1062"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1070" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1070"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1080"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1090"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1100"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1110"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1120"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1130"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1140"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1150"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1160"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1170"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1180"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1190"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1200"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1210"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1220"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1230"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC3Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
                 if "Test_02043_18_04939_WHOLENESS_1240" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1240"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1240(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1600" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1600"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1600(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1600" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1600"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1601(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1602" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1602"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1602(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1603" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1603"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1603(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1604" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1604"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1604(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1605" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1605"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1605(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1606" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1606"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1606(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1607" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1607"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1607(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1608" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1608"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1608(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1609" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1609"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1609(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1610" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1610"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1610(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1611" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1611"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1611(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1612" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1612"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1612(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1613" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1613"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1613(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1615" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1615"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1615(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1616" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1616"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1616(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1617" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1617"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1617(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1618" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1618"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1618(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1619" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1619"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1619(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1620" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1620"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1620(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1621" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1621"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1621(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1622" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1622"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1622(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1623" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1623"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1623(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1624" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1624"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1624(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1625" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1625"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1625(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1626" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1626"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1626(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1627" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1627"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1627(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1628" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1628"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1628(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1629" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1629"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1629(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1630" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1630"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1630(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1631" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1631"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1631(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1632" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1632"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1632(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1650" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1650"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1650(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1651" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1651"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1651(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1652" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1652"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1652(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1653" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1653"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1653(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1654" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1654"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1654(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1655" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1655"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1655(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1656" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1656"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1656(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1657" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1657"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1657(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1658" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1658"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1658(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1659" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1659"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1659(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1660" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1660"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1660(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1661" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1661"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1661(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1662" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1662"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1662(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1663" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1663"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1663(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1664" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1664"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1664(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1684" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1684"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1684(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1685" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1685"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1685(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1686" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1686"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1686(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1687" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1687"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1687(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1688" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1688"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1688(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1689" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1689"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1689(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1690" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1690"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1690(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1691" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1691"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1691(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1692" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1692"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1692(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1693" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1693"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1693(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1700" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1700"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1700(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1701" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1701"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1701(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1702" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1702"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1702(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1703" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1703"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1703(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1704" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1704"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1704(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1705" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1705"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1705(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1706" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1706"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1706(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1707" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1707"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1707(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1708" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1708"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1708(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1709" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1709"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1709(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1710" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1710"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1710(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1711" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1711"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1711(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1712" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1712"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1712(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1713" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1713"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1713(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1714" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1714"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1714(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1715" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1715"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1715(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1716" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1716"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1716(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1717" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1717"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1717(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1718" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1718"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1718(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1719" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1719"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1719(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1750" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1750"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1750(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1751" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1751"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1751(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1752" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1752"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1752(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1753" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1753"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1753(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1754" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1754"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1754(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1755" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1755"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1755(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1756" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1756"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1756(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1757" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1757"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1757(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1758" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1758"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1758(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1759" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1759"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1759(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1800" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1800"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1800(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1801" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1801"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1801(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1802" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1802"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1802(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1803" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1803"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1803(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1810" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1810"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1810(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1811" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1811"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1811(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1812" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1812"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1812(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1813" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1813"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1813(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1814" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1814"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1814(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1815" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1815"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1815(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1820" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1820"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1820(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
-                if "Test_02043_18_04939_STRUCT_0005" in self.DOC9Dict:
+                if "Test_02043_18_04939_WHOLENESS_1821" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1821"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1821(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1822" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1822"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1822(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1823" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1823"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1823(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1824" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1824"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1824(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1825" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1825"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1825(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1830" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1830"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1830(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1831" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1831"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1831(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1840" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1840"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1840(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1841" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1841"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1841(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -2082,30 +2129,35 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2000" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2000"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2001" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2001"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC3Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2002" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2002"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2002(self.DOC3Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2005" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2005"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2006" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2006"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2006(self.DOC3Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -2113,48 +2165,56 @@ class Test(Application):
                     if self.DOC14Name:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC3Workbook, self, self.DOC14Name)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2010" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2020" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2020"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2030" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2030"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2040" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2040"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2060"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2060(self.excelApp, self.DOC3Workbook, self, self.DOC7Path)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2061"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2061(self.excelApp, self.DOC3Workbook, self, self.DOC7Path)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -2163,42 +2223,49 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2100" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2100"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2100(self.DOC3Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2110" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2110"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2110(self.DOC3Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2140" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2140"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2140(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2150" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2150"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2150(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2160" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2160"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2160(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2190" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2190"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2190(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2210" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2210"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2210(self.DOC3Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -2206,6 +2273,7 @@ class Test(Application):
                     if self.Doc15Path is not None and self.Doc15Path != "":
                         if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC3Workbook, self, self.subfamily_name, self.Doc15List)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -2214,18 +2282,16 @@ class Test(Application):
                     if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                            self.tab1.update()
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
-
-                    # if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
-                    #     if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
-                    #         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC3Workbook, self,self.DOC13List)
-                    #         if check_indicator == True:
-                    #             ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
+                            self.tab1.update()
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -2234,48 +2300,46 @@ class Test(Application):
                     if "Test_02043_18_04939_COH_2260" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2260"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC3Workbook, self,self.DOC13List_2)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
-
-                    # if "Test_02043_18_04939_COH_2261" in self.DOC9Dict:
-                    #     if self.DOC9Dict["Test_02043_18_04939_COH_2261"][self.checkLevel].casefold().strip() != "n/a":
-                    #         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC3Workbook, self,self.DOC13List_2)
-                    #         if check_indicator == True:
-                    #             ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2270" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2270"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC3Workbook, self,self.DOC13List_2)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC3Workbook, self) * 100
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
+                self.tab1.update()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC3Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC3Workbook, self, self.DOC3Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
+                self.tab1.update()
 
                 if ok_indicator == 1:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: red")
                     self.status = "Failed"
-                    self.tab1.buttonNew.setEnabled(True)
+
                 else:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: green")
                     self.status = "Passed"
-                    self.tab1.buttonNew.setEnabled(True)
+
 
                 self.end_time = time.time()
 
 
                 if self.DOC3Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self)
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC3Path, self, self.DOC3Workbook)
                 elif self.DOC3Path.split('.')[-1] in ["xlsx","xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self)
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC3Path, self, self.DOC3Path)
 
-
-
+                self.tab1.pbar.setValue(100)
+                self.tab1.buttonNew.setEnabled(True)
 
             elif ok == 1:
                 self.tab1.colorTextBox1.setStyleSheet("background-color: red")
@@ -2285,7 +2349,6 @@ class Test(Application):
                 self.end_time = time.time()
                 ExcelEdit.WriteReportInformationSheet(self.DOC3Workbook, self)
                 self.DOC3Workbook.Save()
-
 
 
         if self.DOC4Exists is True:
@@ -2317,26 +2380,31 @@ class Test(Application):
                 self.DOC4Path = self.list_element["TSD Vehicle Function File"]["value"]
 
             try:
-                self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
+                extension = self.DOC4Path.split(".")[-1]
+                if extension == "xls":
+                    self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path, formatting_info=True)
+                else:
+                    self.DOC4Workbook = xlrd.open_workbook(self.DOC4Path)
             except:
-                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Fonction véhicule file " + self.DOC4Path.split('/')[-1])
+                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Vehicle Function file " + self.DOC4Path.split('/')[-1])
                 return
+
             if self.DOC4Workbook == None:
                 return
-            # ExcelEdit.AddTestReportSheets(self.DOC4Workbook)
-            # ExcelEdit.AddTestReportSheetHeader(self.DOC4Workbook)
             check = False
             check_indicator = False
             ok_indicator = 0
             ok = 0
 
             FileMeasure.DOC4Info1(self.DOC4Workbook, self)
+            self.opening_time = time.time()
 
             # GeneralStructure
 
             if "Test_02043_18_04939_STRUCT_0000" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0000"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
@@ -2347,87 +2415,108 @@ class Test(Application):
             if "Test_02043_18_04939_STRUCT_0010" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0010"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0011" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0011"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0020" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0020"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0025" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0025"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0030" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0030"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0035" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0035"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0040" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0046" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0051" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0052" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0052"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0053" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0053"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0054" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0054"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0054(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0055" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0055"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0056" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0056"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0057" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0057"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC4Workbook, self)
+                    self.tab1.update()
 
             if archi_type == "Archi 2010":
                 if "Test_02043_18_04939_STRUCT_0058" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0058"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC4Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0061"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC4Workbook, self)
+                        self.tab1.update()
             elif archi_type == "Archi NEA R1":
                 if "Test_02043_18_04939_STRUCT_0059" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0059"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC4Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0060"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC4Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0062"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC4Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0063" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0063"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC4Workbook, self)
+                        self.tab1.update()
             elif archi_type == "Archi NEA R2":
                 pass
 
@@ -2435,328 +2524,213 @@ class Test(Application):
             if "Test_02043_18_04939_STRUCT_0400" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0400"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0400(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0410" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0410"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0410(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0420" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0420"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0420(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0430" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0430"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0430(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0440" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0440"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0440(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0450" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0450"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0450(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0460" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0460"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0460(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0470" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0470"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0470(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0480" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0480"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0480(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0490" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0490"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0490(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0500" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0500"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0500(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0510" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0510"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0510(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0520" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0520"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0520(self.DOC4Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
-            if "Test_02043_18_04939_STRUCT_0530" in self.DOC9Dict:
-                if self.DOC9Dict["Test_02043_18_04939_STRUCT_0530"][self.checkLevel].casefold().strip() != "n/a":
-                    GeneralStructureTester.Test_02043_18_04939_STRUCT_0530(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
+            # if "Test_02043_18_04939_STRUCT_0530" in self.DOC9Dict:
+            #     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0530"][self.checkLevel].casefold().strip() != "n/a":
+            #         GeneralStructureTester.Test_02043_18_04939_STRUCT_0530(self.excelApp, self.DOC4Workbook, self, self.DOC4Name)
 
             # Wholeness
 
             if ok == 1 or ok == 0:
 
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1000"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1001"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1010"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1011"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1020"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1021"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1030"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1031"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1040"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-                #
-                # if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1041"][self.checkLevel].casefold().strip() != "n/a":
-                #     check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC4Workbook, self)
-                #     if check_indicator == True:
-                #         ok_indicator = 1
-
                 if "Test_02043_18_04939_WHOLENESS_1050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1055" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1055"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1060"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1061"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1062"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1070" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1070"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1070(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1080" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1080"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1090" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1090"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1100" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1100"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1110" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1110"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1120" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1120"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1130" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1130"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1140" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1140"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1150" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1150"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1160" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1160"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1170" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1170"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1180" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1180"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1190" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1190"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1200" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1200"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1210" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1210"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1220" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1220"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC4Workbook, self)
-                        if check_indicator == True:
-                            ok_indicator = 1
-
-                if "Test_02043_18_04939_WHOLENESS_1230" in self.DOC9Dict:
-                    if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1230"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1240" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1240"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1240(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1300" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1300"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1300(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1301" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1301"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1301(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1302" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1302"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1302(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1303" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1303"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1303(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1304" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1304"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1304(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1305" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1305"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1305(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1306" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1306"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1306(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1307" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1307"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1307(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1308" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1308"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1308(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1309" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1309"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1309(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1310" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1310"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1310(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -2769,342 +2743,399 @@ class Test(Application):
                 if "Test_02043_18_04939_WHOLENESS_1312" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1312"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1312(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1313" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1313"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1313(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1314" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1314"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1314(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1315" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1315"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1315(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1316" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1316"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1316(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1317" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1317"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1317(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1318" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1318"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1318(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1319" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1319"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1319(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1320" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1320"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1320(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1321" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1321"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1321(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1322" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1322"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1322(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1323" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1323"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1323(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1324" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1324"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1324(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1325" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1325"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1325(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1326" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1326"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1326(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1327" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1327"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1327(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1328" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1328"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1328(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1329" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1329"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1329(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1330" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1330"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1330(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1331" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1331"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1331(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1332" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1332"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1332(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1333" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1333"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1333(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1334" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1334"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1334(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1350" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1350"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1350(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1351" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1351"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1351(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1352" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1352"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1352(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1353" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1353"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1353(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1354" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1354"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1354(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1355" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1355"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1355(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1356" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1356"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1356(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1357" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1357"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1357(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1358" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1358"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1358(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1359" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1359"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1359(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1360" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1360"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1360(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1361" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1361"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1361(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1400" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1400"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1400(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1401" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1401"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1401(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1402" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1402"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1402(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1403" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1403"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1403(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1430" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1430"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1430(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1431" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1431"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1431(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1432" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1432"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1432(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1433" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1433"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1433(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1434" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1434"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1434(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1435" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1435"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1435(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1450" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1450"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1450(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1451" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1451"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1451(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1452" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1452"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1452(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1453" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1453"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1453(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1454" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1454"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1454(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1455" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1455"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1455(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1456" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1456"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1456(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1500" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1500"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1500(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1501" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1501"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1501(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1550" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1550"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1550(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1551" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1551"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1551(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1552" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1552"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1552(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3113,18 +3144,21 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2000" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2000"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2001" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2001"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC4Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2005" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2005"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3132,42 +3166,49 @@ class Test(Application):
                     if self.DOC14Name:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC4Workbook, self, self.DOC14Name)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2010" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2020" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2020"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2030" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2030"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2040" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2040"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC4Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2070" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2070"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2070(self.excelApp, self.DOC4Workbook, self, self.DOC7Path)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3176,6 +3217,7 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2120" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2120"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3183,7 +3225,8 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2241" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2241"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC3Workbook, self,self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2241(self.DOC4Workbook, self,self.DOC13List)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -3191,7 +3234,8 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2261" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2261"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2261(self.DOC4Workbook, self,self.DOC13List_2)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -3199,26 +3243,30 @@ class Test(Application):
                 self.coverage = IndicatorTester.coverageIndicator(self.DOC4Workbook, self) * 100
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
+                self.tab1.update()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self, self.DOC4Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
+                self.tab1.update()
 
                 if ok_indicator == 1:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: red")
                     self.status = "Failed"
-                    self.tab1.buttonNew.setEnabled(True)
+
                 else:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: green")
                     self.status = "Passed"
-                    self.tab1.buttonNew.setEnabled(True)
-
-                if self.DOC4Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC4Path, self)
-                elif self.DOC4Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC4Path, self)
 
                 self.end_time = time.time()
+
+                if self.DOC4Path.split('.')[-1] == "xls":
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC4Path, self, self.DOC4Workbook)
+                elif self.DOC4Path.split('.')[-1] in ["xlsx", "xlsm"]:
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC4Path, self, self.DOC4Path)
+
+                self.tab1.pbar.setValue(100)
+                self.tab1.buttonNew.setEnabled(True)
 
 
         if self.DOC5Exists is True:
@@ -3258,118 +3306,146 @@ class Test(Application):
                 self.DOC5Path = self.list_element["TSD System File"]["value"]
 
             try:
-                self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
+                extension = self.DOC5Path.split(".")[-1]
+                if extension == "xls":
+                    self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path, formatting_info=True)
+                else:
+                    self.DOC5Workbook = xlrd.open_workbook(self.DOC5Path)
             except:
-                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file " + self.DOC5Path.split('/')[-1])
+                self.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file file " + self.DOC5Path.split('/')[-1])
                 return
+
+
             if self.DOC5Workbook == None:
                 return
-            # ExcelEdit.AddTestReportSheets(self.DOC5Workbook)
-            # ExcelEdit.AddTestReportSheetHeader(self.DOC5Workbook)
             check = False
             check_indicator = False
             ok_indicator = 0
             ok = 0
 
             FileMeasure.DOC5Info1(self.DOC5Workbook, self)
+            self.opening_time = time.time()
 
             # GeneralStructure
 
             if "Test_02043_18_04939_STRUCT_0000" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0000"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0000(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0005" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0005"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0005(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0010" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0010"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0010(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0011" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0011"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0011(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0020" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0020"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0020(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0025" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0025"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0025(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0030" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0030"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0030(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0035" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0035"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0035(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0040" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0040"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0040(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0046" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0046"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0046(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0051" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0051"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0051(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0052" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0052"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0052(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0053" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0053"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0053(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0054" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0054"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0054(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0055" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0055"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0055(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0056" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0056"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0056(self.DOC5Workbook, self)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0057" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0057"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0057(self.DOC5Workbook, self)
+                    self.tab1.update()
 
 
             if archi_type == "Archi 2010":
                 if "Test_02043_18_04939_STRUCT_0058" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0058"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0058(self.DOC5Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0061"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0061(self.DOC5Workbook, self)
+                        self.tab1.update()
             elif archi_type == "Archi NEA R1":
                 if "Test_02043_18_04939_STRUCT_0059" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0059"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0059(self.DOC5Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0060"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0060(self.DOC5Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0062"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0062(self.DOC5Workbook, self)
+                        self.tab1.update()
                 if "Test_02043_18_04939_STRUCT_0063" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_STRUCT_0063"][self.checkLevel].casefold().strip() != "n/a":
                         GeneralStructureTester.Test_02043_18_04939_STRUCT_0063(self.DOC5Workbook, self)
+                        self.tab1.update()
             elif archi_type == "Archi NEA R2":
                 pass
 
@@ -3377,205 +3453,172 @@ class Test(Application):
             if "Test_02043_18_04939_STRUCT_0700" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0700"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0700(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0710" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0710"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0710(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0720" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0720"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0720(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0730" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0730"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0730(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0740" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0740"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0740(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0750" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0750"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0750(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0760" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0760"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0760(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0770" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0770"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0770(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
 
             if "Test_02043_18_04939_STRUCT_0780" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0780"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0780(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0790" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0790"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0790(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0800" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0800"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0800(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0810" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0810"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0810(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0820" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0820"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0820(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0830" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0830"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0830(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0840" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0840"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0840(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0850" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0850"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0850(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0860" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0860"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0860(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0870" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0870"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0870(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0880" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0880"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0880(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0890" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0890"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0890(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
             if "Test_02043_18_04939_STRUCT_0900" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0900"][self.checkLevel].casefold().strip() != "n/a":
                     check = GeneralStructureTester.Test_02043_18_04939_STRUCT_0900(self.DOC5Workbook, self)
+                    self.tab1.update()
                     if check == True:
                         ok = 1
 
             if "Test_02043_18_04939_STRUCT_0910" in self.DOC9Dict:
                 if self.DOC9Dict["Test_02043_18_04939_STRUCT_0910"][self.checkLevel].casefold().strip() != "n/a":
                     GeneralStructureTester.Test_02043_18_04939_STRUCT_0910(self.excelApp, self.DOC5Workbook, self, self.DOC5Name)
+                    self.tab1.update()
 
 
             # Wholeness
             if ok == 0 or ok == 1:
 
-                # if "Test_02043_18_04939_WHOLENESS_1000" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1000"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1000(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1001" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1001"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1001(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1010" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1010"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1010(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1011" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1011"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1011(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1020" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1020"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1020(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1021" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1021"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1021(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1030" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1030"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1030(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1031" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1031"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1031(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1040" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1040"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1040(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1041" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1041"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1041(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-
                 if "Test_02043_18_04939_WHOLENESS_1050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1050(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1055" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1055"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1055(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1060"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1060(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1061"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1061(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1062"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1062(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3585,291 +3628,220 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                # if "Test_02043_18_04939_WHOLENESS_1080" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1080"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1080(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1090" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1090"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1090(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1100" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1100"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1100(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1110" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1110"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1110(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1120" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1120"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1120(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1130" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1130"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1130(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1140" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1140"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1140(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1150" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1150"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1150(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1160" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1160"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1160(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1170" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1170"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1170(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1180" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1180"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1180(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1190" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1190"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1190(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1200" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1200"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1200(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1210" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1210"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1210(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1220" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1220"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1220(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1230" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1230"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-                #
-                # if "Test_02043_18_04939_WHOLENESS_1230" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1230"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1230(self.DOC5Workbook, self)
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-
                 if "Test_02043_18_04939_WHOLENESS_1240" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1240"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1240(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1900" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1900"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1900(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1901" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1901"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1901(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1902" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1902"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1902(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1903" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1903"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1903(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1904" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1904"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1904(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1905" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1905"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1905(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1906" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1906"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1906(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1907" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1907"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1907(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1908" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1908"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1908(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1909" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1909"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1909(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1910" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1910"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1910(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1911" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1911"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1911(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1912" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1912"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1912(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1913" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1913"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1913(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1914" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1914"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1914(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1915" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1915"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1915(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1916" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1916"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1916(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1917" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1917"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1917(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1918" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1918"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1918(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1919" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1919"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1919(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1920" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1920"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1920(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1921" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1921"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1921(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1922" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1922"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1922(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1923" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1923"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1923(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1924" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1924"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1924(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1925" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1925"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1925(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1926" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1926"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1926(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1927" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1927"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1927(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1950" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1950"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1950(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1951" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1951"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1951(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3882,54 +3854,63 @@ class Test(Application):
                 if "Test_02043_18_04939_WHOLENESS_1953" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1953"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1953(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1954" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1954"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1954(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1955" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1955"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1955(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1956" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1956"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1956(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1957" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1957"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1957(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1958" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1958"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1958(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1959" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1959"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1959(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1960" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1960"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1960(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1961" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1961"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1961(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -3942,288 +3923,336 @@ class Test(Application):
                 if "Test_02043_18_04939_WHOLENESS_1963" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1963"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1963(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1964" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1964"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1964(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1965" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1965"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1965(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1966" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1966"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1966(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1967" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1967"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1967(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1968" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1968"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1968(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_1969" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_1969"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_1969(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2000" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2000"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2000(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2001" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2001"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2001(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2002" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2002"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2002(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2003" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2003"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2003(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2004" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2004"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2004(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2005" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2005"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2005(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2006" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2006"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2006(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2007" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2007"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2007(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2008" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2008"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2008(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2009" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2009"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2009(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2010" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2010"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2010(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2011" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2011"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2011(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2050(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2051" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2051"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2051(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2052" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2052"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2052(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2053" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2053"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2053(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2054" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2054"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2054(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2055" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2055"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2055(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2056" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2056"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2056(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2060" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2060"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2060(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2061" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2061"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2061(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2062" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2062"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2062(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2070" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2070"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2070(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2071" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2071"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2071(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2072" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2072"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2072(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2080" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2080"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2080(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2081" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2081"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2081(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2082" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2082"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2082(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2083" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2083"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2083(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2084" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2084"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2084(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2090" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2090"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2090(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2091" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2091"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2091(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2092" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2092"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2092(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2100" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2100"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2100(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2101" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2101"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2101(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2102" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2102"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2102(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2110" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2110"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2110(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2111" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2111"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2111(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2112" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2112"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2112(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2120" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2120"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2120(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_WHOLENESS_2121" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_WHOLENESS_2121"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = WholenessTester.Test_02043_18_04939_WHOLENESS_2121(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -4232,30 +4261,35 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2000" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2000"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2000(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2001" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2001"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC5Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2002" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2002"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2002(self.DOC5Workbook, self, self.DOC8List)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2005" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2005"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2005(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2006" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2006"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2006(self.DOC5Workbook, self, self.DOC8Name)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -4263,42 +4297,49 @@ class Test(Application):
                     if self.DOC14Name:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2007"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2007(self.excelApp, self.DOC5Workbook, self, self.DOC14Name)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2010" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2010"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2010(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2020" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2020"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2020(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2030" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2030"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2030(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2040" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2040"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2040(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2050" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2050"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2050(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2080" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2080"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2080(self.excelApp, self.DOC5Workbook, self, self.DOC7Path)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -4307,30 +4348,35 @@ class Test(Application):
                 if "Test_02043_18_04939_COH_2130" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2130"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2130(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2170" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2170"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2170(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2180" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2180"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2180(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2200" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2200"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2200(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2220" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2220"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2220(self.DOC5Workbook, self)
+                        self.tab1.update()
                         if check_indicator == True:
                             ok_indicator = 1
 
@@ -4338,6 +4384,7 @@ class Test(Application):
                     if self.Doc15Path is not None and self.Doc15Path != "":
                         if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC5Workbook, self,self.subfamily_name, self.Doc15List)
+                            self.tab1.update()
                             if check_indicator == True:
                                ok_indicator = 1
 
@@ -4345,13 +4392,15 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2240" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2240"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC3Workbook, self, self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2240(self.DOC5Workbook, self, self.DOC13List)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2251" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2251"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC3Workbook, self,self.DOC13List)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2251(self.DOC5Workbook, self,self.DOC13List)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -4359,13 +4408,15 @@ class Test(Application):
 
                     if "Test_02043_18_04939_COH_2260" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2260"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2260(self.DOC5Workbook, self,self.DOC13List_2)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
                     if "Test_02043_18_04939_COH_2270" in self.DOC9Dict:
                         if self.DOC9Dict["Test_02043_18_04939_COH_2270"][self.checkLevel].casefold().strip() != "n/a":
-                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC3Workbook, self,self.DOC13List_2)
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2270(self.DOC5Workbook, self,self.DOC13List_2)
+                            self.tab1.update()
                             if check_indicator == True:
                                 ok_indicator = 1
 
@@ -4374,31 +4425,28 @@ class Test(Application):
                 self.tab1.textbox_coverage.setText(str(self.coverage)[0:4] + "%")
                 self.IncrementProgressBar()
 
-                self.convergence = IndicatorTester.convergenceIndicator(self.DOC5Workbook, self) * 100
+                self.convergence = IndicatorTester.convergenceIndicator(self.DOC5Workbook, self, self.DOC5Path) * 100
                 self.tab1.textbox_convergence.setText(str(self.convergence)[0:4] + "%")
                 self.IncrementProgressBar()
 
                 if ok_indicator == 1:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: red")
                     self.status = "Failed"
-                    self.tab1.buttonNew.setEnabled(True)
+
                 else:
                     self.tab1.colorTextBox1.setStyleSheet("background-color: green")
                     self.status = "Passed"
-                    self.tab1.buttonNew.setEnabled(True)
 
-                if self.DOC5Path.split('.')[-1] == "xls":
-                    ExcelEdit.ExcelWrite(self.return_list, self.DOC5Path, self)
-                elif self.DOC5Path.split('.')[-1] in ["xlsx", "xlsm"]:
-                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC5Path, self)
 
                 self.end_time = time.time()
 
+                if self.DOC5Path.split('.')[-1] == "xls":
+                    ExcelEdit.ExcelWrite_del_information(self.return_list, self.DOC5Path, self, self.DOC5Workbook)
+                elif self.DOC5Path.split('.')[-1] in ["xlsx", "xlsm"]:
+                    ExcelEdit.ExcelWrite2(self.return_list, self.DOC5Path, self, self.DOC5Path)
 
-        # self.excelApp.Quit()
-        # self.excelApp = None
-
-        # i = 5
+                self.tab1.pbar.setValue(100)
+                self.tab1.buttonNew.setEnabled(True)
 
 
 if __name__ == '__main__':

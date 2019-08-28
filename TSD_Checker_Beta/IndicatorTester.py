@@ -1,4 +1,4 @@
-import TSD_Checker_V6_6
+import TSD_Checker_V6_7
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -50,14 +50,12 @@ def coverageIndicator(workBook, TSDApp):
                         workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
                         workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
                     NbComponentWithDiagPossible += 1
-        print("Coverage Indicator computed")
         return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
     else:
         warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
         textBoxText = TSDApp.tab1.textbox.toPlainText()
         textBoxText = textBoxText + "\n" + warning
         TSDApp.tab1.textbox.setText(textBoxText)
-        print ("Coverage Indicator computed000")
         return str(0.00000)
 
 
@@ -121,7 +119,6 @@ def convergenceIndicator(workBook, TSDApp, path):
         textBoxText = TSDApp.tab1.textbox.toPlainText()
         textBoxText = textBoxText + "\n" + warning
         TSDApp.tab1.textbox.setText(textBoxText)
-        print("fara coloana")
         return str(0.00000)
     else:
         if path.split('.')[-1] == 'xls':
@@ -178,7 +175,6 @@ def convergenceIndicator(workBook, TSDApp, path):
                     textBoxText = textBoxText + "\n" + warning
                     TSDApp.tab1.textbox.setText(textBoxText)
                     TSDApp.tab1.textbox.setText("ERROR: not enough memory when inserting UniqueTestSignature column")
-                    print("covergence000")
                     return str(0.00000)
 
                 workSheet.cell(4, refCritere + 2, "Unique Test Signature")
@@ -240,5 +236,4 @@ def convergenceIndicator(workBook, TSDApp, path):
                         for elem in unique_items:
                             if element['value'] == elem['value']:
                                 workSheet.cell(element['localisation'], refCritere + 2, '0')
-        print("Convergence Indicator computed")
         return (NbUniqueSignatureTests / NbAMDECLine)
