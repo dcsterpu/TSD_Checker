@@ -1,4 +1,4 @@
-import TSD_Checker_V6_7
+import TSD_Checker_V6_8
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -1572,8 +1572,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                         tempDict.append(dict)
 
 
-            DOC5 = xlrd.open_workbook(DOC5Name, on_demand=True)
-            workSheetRef = DOC5.sheet_by_name("Effets techniques")
+            workSheetRef = workBook.sheet_by_index(TSDApp.WorkbookStats.TechEffIndex)
             nrCols = workSheetRef.ncols
             nrRows = workSheetRef.nrows
             amontColIndex = -1
@@ -1671,7 +1670,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
                         if element["value"] in list_effets:
                             pass
                         else:
-                            localisations.append(("tableau"),element["row"],element["col"])
+                            localisations.append(("tableau",element["row"],element["col"]))
                             check = True
 
                     if not localisations:
@@ -2165,7 +2164,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                         if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("Table", element["row"], element["col"]))
+                            localisations.append(("tableau", element["row"], element["col"]))
                             check = True
 
                     if not localisations:
