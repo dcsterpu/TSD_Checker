@@ -153,7 +153,7 @@ def Test_02043_18_04939_WHOLENESS_1020(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("mesures et commandes", index, refColIndex))
                     check = True
 
@@ -186,7 +186,7 @@ def Test_02043_18_04939_WHOLENESS_1021(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("mesures et commandes", index, refColIndex))
                     check = True
 
@@ -220,7 +220,7 @@ def Test_02043_18_04939_WHOLENESS_1030(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("Diagnostic débarqués", index, refColIndex))
                     check = True
 
@@ -253,7 +253,7 @@ def Test_02043_18_04939_WHOLENESS_1031(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("Diagnostic débarqués", index, refColIndex))
                     check = True
 
@@ -286,7 +286,7 @@ def Test_02043_18_04939_WHOLENESS_1040(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.listeMDDFirstInfoRow, TSDApp.WorkbookStats.MDDLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("Diagnostic débarqués", index, refColIndex))
                     check = True
 
@@ -319,7 +319,7 @@ def Test_02043_18_04939_WHOLENESS_1041(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.listeMDDFirstInfoRow, TSDApp.WorkbookStats.MDDLastRow):
-                if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
                     localisations.append(("Diagnostic débarqués", index, refColIndex))
                     check = True
 
@@ -358,7 +358,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
             check = True
         elif refColIndex != -1:
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     table_project.append(workSheet.cell(TSDApp.tableHeaderRow + 1, index).value.strip())
 
             if TSDApp.WorkbookStats.hasCode == False:
@@ -376,7 +376,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                 if codeColIndex != -1:
                     code_project = []
                     for index in range(codeColIndex, TSDApp.WorkbookStats.codeLastCol):
-                        if workSheet.cell(TSDApp.codeHeaderRow, index).value != None and workSheet.cell(TSDApp.codeHeaderRow, index).value != "":
+                        if workSheet.cell(TSDApp.codeHeaderRow, index).value is not None and workSheet.cell(TSDApp.codeHeaderRow, index).value != "":
                             code_project.append(workSheet.cell(TSDApp.codeHeaderRow, index).value.strip())
 
                     if len(table_project) == len(code_project):
@@ -501,7 +501,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
             check = True
         elif refColIndex != -1:
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != None and workSheet.cell(
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(
                         TSDApp.tableHeaderRow + 1, index).value != "":
                     table_project.append(workSheet.cell(TSDApp.tableHeaderRow + 1, index).value.strip())
 
@@ -646,7 +646,7 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
         if refColIndex != -1:
             contor = 0
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     contor = contor + 1
 
             values = ["x", "X", "NA", "n/a"]
@@ -696,7 +696,7 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
         if refColIndex != -1:
             contor = 0
             for index in range(refColIndex, TSDApp.WorkbookStats.codeLastCol):
-                if workSheet.cell(TSDApp.codeHeaderRow, index).value != None and workSheet.cell(
+                if workSheet.cell(TSDApp.codeHeaderRow, index).value is not None and workSheet.cell(
                         TSDApp.codeHeaderRow, index).value != "":
                     contor = contor + 1
 

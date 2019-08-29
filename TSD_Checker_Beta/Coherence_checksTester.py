@@ -32,7 +32,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "N/A" or workSheet.cell(index, refColIndex).value == "":
+                    if str(workSheet.cell(index, refColIndex).value).casefold() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "":
                         pass
                     else:
                         dict = {}
@@ -656,7 +656,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "N/A":
+                    if workSheet.cell(index, refColIndex).value.casefold() == "N/A".casefold():
                         pass
                     else:
                         list_table["value"] = workSheet.cell(index, refColIndex).value
@@ -733,7 +733,7 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "N/A" or workSheet.cell(index, refColIndex).value == "":
+                    if workSheet.cell(index, refColIndex).value.casefold() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "":
                         pass
                     else:
                         list_table["value"] = workSheet.cell(index, refColIndex).value
@@ -811,7 +811,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "N/A":
+                    if workSheet.cell(index, refColIndex).value.casefold() == "N/A".casefold():
                         pass
                     else:
                         list_table["value"] = workSheet.cell(index, refColIndex).value
@@ -909,27 +909,27 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
 
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
                         N1ColIndex = index2
                         N1RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N2".casefold():
                         N2ColIndex = index2
                         N2RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N3".casefold():
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N1".casefold():
                         N1EffColIndex = index2
                         N1EffRowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N2".casefold():
                         N2EffColIndex = index2
                         N2EffRowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N3".casefold():
                         N3EffColIndex = index2
                         N3EffRowIndex = index1
                         col += 1
@@ -1076,27 +1076,27 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
 
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
                         N1ColIndex = index2
                         N1RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N2".casefold():
                         N2ColIndex = index2
                         N2RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N3".casefold():
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N1".casefold():
                         N1EffColIndex = index2
                         N1EffRowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N2".casefold():
                         N2EffColIndex = index2
                         N2EffRowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Effet Client N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N3".casefold():
                         N3EffColIndex = index2
                         N3EffRowIndex = index1
                         col += 1
@@ -1264,15 +1264,15 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             col = 0
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
                         N1ColIndex = index2
                         N1RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N2".casefold():
                         N2ColIndex = index2
                         N2RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N3".casefold():
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
@@ -1369,15 +1369,15 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
             col = 0
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N1":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
                         N1ColIndex = index2
                         N1RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N2":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N2".casefold():
                         N2ColIndex = index2
                         N2RowIndex = index1
                         col += 1
-                    if str(workSheetRef.cell(index1, index2).value).strip() == "Libellé N3":
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N3".casefold():
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
@@ -1457,7 +1457,7 @@ def Test_02043_18_04939_COH_2091(workBook, TSDApp):
 
             for rowIndex in range(1, nrLines):
                 for colIndex in range(1, nrCols):
-                    if workSheet.cell(rowIndex, colIndex).value == "?" or  workSheet.cell(rowIndex, colIndex).value == "tbd" or workSheet.cell(rowIndex, colIndex).value == "tbc":
+                    if workSheet.cell(rowIndex, colIndex).value == "?" or workSheet.cell(rowIndex, colIndex).value.casefold() == "tbd" or workSheet.cell(rowIndex, colIndex).value.casefold() == "tbc":
                         localisation.append(workSheet.cell(rowIndex, colIndex))
                         check = True
 
@@ -1736,7 +1736,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets or element["value"] == "N/A":
+                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
                             localisations.append(("tableau", element["row"], element["col"]))
@@ -2089,10 +2089,10 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets or element["value"] == "N/A":
+                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append(("tableau", element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2162,10 +2162,10 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets or element["value"] == "N/A":
+                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("Table"),element["row"],element["col"])
+                            localisations.append(("Table", element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2233,10 +2233,10 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets or element["value"] == "N/A":
+                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append(("tableau", element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2302,10 +2302,10 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets or element["value"] == "N/A":
+                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("Table",element["row"],element["col"]))
+                            localisations.append(("Table", element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2548,7 +2548,7 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
 
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
                 if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    list2 = ['AND', 'OR', "NOT", "N/A",""]
+                    list2 = ['AND', 'OR', "NOT", "N/A", ""]
                     cel = []
                     try:
                         cel = workSheet.cell(index, codeColIndex).value.split(" ")
@@ -2789,9 +2789,9 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                     cel = []
                     final_list = []
                     try:
-                        if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        if " AND " in workSheet.cell(index, codeColIndex).value and " OR " not in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("AND")
-                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("OR")
                         elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             cel = workSheet.cell(index, codeColIndex).value.split("AND")
@@ -2865,9 +2865,9 @@ def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
                     cel = []
                     final_list = []
                     try:
-                        if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        if " AND " in workSheet.cell(index, codeColIndex).value and " OR " not in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("AND")
-                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("OR")
                         elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             cel = workSheet.cell(index, codeColIndex).value.split("AND")
@@ -2942,9 +2942,9 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                     cel = []
                     final_list = []
                     try:
-                        if " AND " in workSheet.cell(index, codeColIndex).value and  " OR " not in workSheet.cell(index, codeColIndex).value:
+                        if " AND " in workSheet.cell(index, codeColIndex).value and " OR " not in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("AND")
-                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index,codeColIndex).value:
+                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             final_list = workSheet.cell(index, codeColIndex).value.split("OR")
                         elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
                             cel = workSheet.cell(index, codeColIndex).value.split("AND")

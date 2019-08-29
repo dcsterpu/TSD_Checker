@@ -143,10 +143,8 @@ def convergenceIndicator(workBook, TSDApp, path):
                     unique_items.append(dict)
                     unique_list.append([rb_sheet.cell(index, refColDTC).value, rb_sheet.cell(index, refCelParam).value,rb_sheet.cell(index, refCelDiag).value, rb_sheet.cell(index, refCelEff).value])
 
-
             for element in unique_items:
                 if unique_list.count(element['value']) == 1:
-
                     # workSheet.write(element['localisation'], refSignature, '1')
                     NbUniqueSignatureTests += 1
                 # else:

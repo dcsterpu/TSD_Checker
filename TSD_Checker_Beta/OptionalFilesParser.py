@@ -16,8 +16,8 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
     refCol = 0
     flag = False
 
-    for index1 in range(0, rows ):
-        for index2 in range(0, cols ):
+    for index1 in range(0, rows):
+        for index2 in range(0, cols):
             if workSheet.cell(index1, index2).value.casefold().strip() == "Requirements".casefold():
                 refRow = index1
                 refCol = index2
