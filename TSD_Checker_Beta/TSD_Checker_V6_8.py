@@ -714,26 +714,26 @@ class Application(QWidget):
         user = str(user)
         password = self.tab2.TextBoxPass.text()
         password = str(password)
-        print("1.1")
+
         if not user or not password:
             self.tab1.textbox.setText("Missing Username or Password")
             return "False"
-        print("1.2")
+
         try:
             os.stat(self.fileFolder)
         except:
             os.mkdir(self.fileFolder)
-            print("1.3")
+
         try:
             response = requests.get(url, stream=True, auth=(user, password))
         except:
             return "Error"
-        print("1.4")
+
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
             return "False"
-        print("1.5")
+
         try:
             FileName = response.headers['Content-Disposition'].split('"')[1]
         except:
@@ -741,17 +741,17 @@ class Application(QWidget):
             text_box = self.tab1.textbox.toPlainText()
             self.tab1.textbox.setText(text_box + error_message)
             sys.exit(0)
-        print("1.6")
+
         FilePath = self.fileFolder + FileName
         success_download = self.tab1.textbox.toPlainText()
         success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
         self.tab1.textbox.setText(success_download)
-        print("1.7")
+
         with open(FilePath, 'wb') as f:
             for chunk in response.iter_content(chunk_size=128):
                 f.write(chunk)
         return FilePath
-        print("1.8")
+
     def onActivated(self):
         return
 
@@ -839,22 +839,19 @@ class Test(Application):
     def buttonClicked(self):
 
 
-        print("1")
+
         self.tab1.textbox_coverage.setText("")
         self.tab1.textbox_convergence.setText("")
         self.tab1.buttonNew.setEnabled(False)
         self.tab1.pbar.setValue(0)
         self.tab1.textbox.setText(" ")
-        print("2")
 
         self.start_time = time.time()
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
-        print("3")
 
         self.tab1.colorTextBox1.setStyleSheet(" background-color: grey ")
         self.tab1.colorTextBox2.setStyleSheet(" background-color: grey ")
         self.tab1.colorTextBox3.setStyleSheet(" background-color: grey ")
-        print("4")
 
         if self.flag_load_configuration is False:
 
@@ -864,7 +861,6 @@ class Test(Application):
                 self.DOC4Exists = True
             if self.tab1.myTextBox3.toPlainText() != "":
                 self.DOC5Exists = True
-            print("5")
 
             self.tab1.textbox.setText("")
             self.tab1.pbar.setValue(0)
@@ -872,7 +868,6 @@ class Test(Application):
                 self.Doc15Path = self.tab1.myTextBox6.toPlainText()
             else:
                 self.Doc15Path = None
-            print("6")
 
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
@@ -885,40 +880,33 @@ class Test(Application):
                 return
             if self.DOC8Path == "False":
                 return
-            print("7")
 
             if not self.tab2.myTextBox8.toPlainText():
                 self.DOC9Path = self.download_file(self.DOC9Link)
             else:
                 self.DOC9Path = self.tab2.myTextBox8.toPlainText()
-            print("8")
 
             if not self.tab2.myTextBox9.toPlainText():
                 self.DOC7Path = self.download_file(self.DOC7Link)
             else:
                 self.DOC7Path = self.tab2.myTextBox9.toPlainText()
-            print("9")
 
             if not self.tab2.myTextBox10.toPlainText():
                 self.DOC13Path = self.download_file(self.DOC13Link)
             else:
                 self.DOC13Path = self.tab2.myTextBox10.toPlainText()
-            print("10")
 
             self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
             if self.DOC9Dict == None:
                 return
-            print("11")
 
             self.DOC13List, self.DOC13List_2 = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
             if self.DOC13List == None or self.DOC13List_2 == None:
                 return
-            print("12")
 
             self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
             if self.DOC8List == None:
                 return
-            print("13")
 
             if self.Doc15Path is not None and self.Doc15Path != "":
                 self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
@@ -927,7 +915,6 @@ class Test(Application):
             else:
                 self.Doc15List = None
                 self.subfamily_name = None
-            print("14")
 
             #self.DOC8Name = self.download_file(self.DOC8Link)
 
@@ -935,12 +922,10 @@ class Test(Application):
                 self.DOC14Name = self.tab1.myTextBox5.toPlainText()
             else:
                 self.DOC14Name = None
-            print("15")
 
             self.DOC7Name = self.download_file(self.DOC7Link)
             archi_type = self.tab1.combo2.currentText()
             diversity_management = self.tab1.combo3.currentText()
-            print("16")
 
 
         else:
@@ -1076,15 +1061,12 @@ class Test(Application):
             self.listeMDDFirstInfoRow = 2
 
 
-            print("17")
-
             self.DOC3Name = self.download_file(self.DOC3Link)
 
             if self.flag_load_configuration is False:
                 self.DOC3Path = self.tab1.myTextBox1.toPlainText()
             else:
                 self.DOC3Path = self.list_element["TSD File"]["value"]
-            print("18")
             try:
                 extension = self.DOC3Path.split(".")[-1]
                 if extension == "xls":
@@ -1100,7 +1082,6 @@ class Test(Application):
             check_indicator = False
             ok_indicator = 0
             ok = 0
-            print("19")
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
             self.opening_time = time.time()
