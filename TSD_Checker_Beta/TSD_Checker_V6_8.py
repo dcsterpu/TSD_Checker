@@ -714,40 +714,44 @@ class Application(QWidget):
         user = str(user)
         password = self.tab2.TextBoxPass.text()
         password = str(password)
+        print("1.1")
         if not user or not password:
             self.tab1.textbox.setText("Missing Username or Password")
             return "False"
+        print("1.2")
         try:
             os.stat(self.fileFolder)
         except:
             os.mkdir(self.fileFolder)
+            print("1.3")
         try:
             response = requests.get(url, stream=True, auth=(user, password))
         except:
             return "Error"
+        print("1.4")
         status = response.status_code
         if status == 401:
             self.tab1.textbox.setText("Username or Password Incorrect")
             return "False"
-
+        print("1.5")
         try:
             FileName = response.headers['Content-Disposition'].split('"')[1]
-            version = response.cookies._cookies['.psa-peugeot-citroen.com']['/']['PSACountry'].version
         except:
             error_message = "\nThe file's metadata cannot be properly identified. Please check the network connection!"
             text_box = self.tab1.textbox.toPlainText()
             self.tab1.textbox.setText(text_box + error_message)
             sys.exit(0)
-
+        print("1.6")
         FilePath = self.fileFolder + FileName
         success_download = self.tab1.textbox.toPlainText()
         success_download = success_download + "\nfile " + FileName + " has been successfully downloaded\n=======================\n"
         self.tab1.textbox.setText(success_download)
+        print("1.7")
         with open(FilePath, 'wb') as f:
             for chunk in response.iter_content(chunk_size=128):
                 f.write(chunk)
         return FilePath
-
+        print("1.8")
     def onActivated(self):
         return
 
