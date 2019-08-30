@@ -255,7 +255,8 @@ def Test_02043_18_04939_STRUCT_0030(workBook, TSDApp):
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.SuppIndex)
-        name = "Référence de la ligne/Line number"
+        name = []
+        name.append("Référence de la ligne/Line number")
         flag = False
         for index in range(0, workSheet.ncols):
             if str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "référence de la ligne" or str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "line number":
@@ -272,7 +273,8 @@ def Test_02043_18_04939_STRUCT_0035(workBook, TSDApp):
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.SuppIndex)
-        name = "Version du TSD/Version of the document"
+        name = []
+        name.append("Version du TSD/Version of the document")
         flag = False
         for index in range(0, workSheet.ncols):
             if str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "version du tsd" or str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "version of the document":
@@ -289,7 +291,8 @@ def Test_02043_18_04939_STRUCT_0040(workBook, TSDApp):
         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.SuppIndex)
-        name = "Justification de la modification/Change reason"
+        name = []
+        name.append("Justification de la modification/Change reason")
         flag = False
         for index in range(0, workSheet.ncols):
             if str(workSheet.cell(TSDApp.suppressionHeaderRow, index).value).casefold().strip() == "justification de la modification" or str(

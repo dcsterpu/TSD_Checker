@@ -20,6 +20,7 @@ import sys
 import xlwt
 import xlrd
 import json
+import zipfile
 
 appName = "TSD Checker V6.8"
 pBarIncrement = 100/174
@@ -68,7 +69,7 @@ class Application(QWidget):
         self.end_time = 0
         self.opening_time = 0
 
-        self.return_list = []
+
         self.list_element = []
         self.flag_load_configuration = False
         self.DOC3Exists = False
@@ -326,7 +327,7 @@ class Application(QWidget):
         tab.load_config.clicked.connect(self.ButtonLoadConfigClick)
 
         # File Selectiom Dialog1
-        tab.lbl2 = QLabel("TSD File:", tab)
+        tab.lbl2 = QLabel("FSE TSD File:", tab)
         tab.lbl2.move(5, 15)
         tab.myTextBox1 = QtWidgets.QTextEdit(tab)
         tab.myTextBox1.resize(460, 25)
@@ -446,7 +447,7 @@ class Application(QWidget):
             data = {}
             list_elements = []
 
-            data['name'] = 'TSD File'
+            data['name'] = 'FSE TSD File'
             if self.DOC3Path is None or self.DOC3Path == "":
                 data['value'] = 'null'
             else:
@@ -871,6 +872,8 @@ class Test(Application):
 
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
+                # with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
+                #     zip_ref.extractall("C:\\Users\\msnecula\\Downloads\\documente_TSD")
             else:
                 self.DOC8Path = self.tab2.myTextBox7.toPlainText()
 
@@ -930,7 +933,7 @@ class Test(Application):
 
         else:
 
-            if self.list_element["TSD File"]["value"] != "null":
+            if self.list_element["FSE TSD File"]["value"] != "null":
                 self.DOC3Exists = True
             elif self.list_element["TSD Vehicle Function File"]["value"] != "null":
                 self.DOC4Exists = True
@@ -1060,7 +1063,7 @@ class Test(Application):
             self.sitDeVieFirstInfoRow = 2
             self.listeMDDFirstInfoRow = 2
 
-
+            self.return_list = []
             self.DOC3Name = self.download_file(self.DOC3Link)
 
             if self.flag_load_configuration is False:
@@ -2368,7 +2371,7 @@ class Test(Application):
             self.opSitFirstInfoRow = 1
             self.reqTechFirstInfoRow = 1
 
-
+            self.return_list = []
             self.DOC4Name = self.download_file(self.DOC4Link)
             self.DOC5Name = self.download_file(self.DOC5Link)
 
@@ -3298,6 +3301,7 @@ class Test(Application):
             self.situationFirstInfoRow = 1
             self.degradedModeFirstInfoRow = 1
 
+            self.return_list = []
             self.DOC5Name = self.download_file(self.DOC5Link)
             if self.flag_load_configuration is False:
                self.DOC5Path = self.tab1.myTextBox3.toPlainText()
