@@ -32,7 +32,7 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
                 prev = index
             elif workSheet.cell(refRow, index).value.casefold().strip() == "consolidated":
                 cons = index
-            elif workSheet.cell(refRow, index).value.casefold().strip() == "validated":
+            elif workSheet.cell(refRow, index).value.casefold().strip() == "final":
                 val = index
 
 
@@ -42,7 +42,7 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
             tempDict = dict()
             tempDict["previsional"] = workSheet.cell(index, prev).value.strip()
             tempDict["consolidated"] = workSheet.cell(index, cons).value.strip()
-            tempDict["validated"] = workSheet.cell(index, val).value.strip()
+            tempDict["final"] = workSheet.cell(index, val).value.strip()
             try:
                 testName = "Test_" + workSheet.cell(index, refCol).value.strip()
                 DOC9Dict[testName] = tempDict

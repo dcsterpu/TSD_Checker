@@ -266,7 +266,7 @@ class Application(QWidget):
         # Create a drop down list
         tab.lbl = QLabel("Check level", tab)
         tab.combo = QComboBox(tab)
-        tab.combo.addItem("Validated")
+        tab.combo.addItem("Final")
         tab.combo.addItem("Previsional")
         tab.combo.addItem("Consolidated")
         tab.combo.resize(508, 20.4)  # rezise the drop down list
@@ -505,8 +505,8 @@ class Application(QWidget):
                 data['value'] = 'Previsional'
             elif self.tab1.combo.currentText() == "Consolidated":
                 data['value'] = 'Consolidated'
-            elif self.tab1.combo.currentText() == "Validated":
-                data['value'] = 'Validated'
+            elif self.tab1.combo.currentText() == "Final":
+                data['value'] = 'Final'
             list_elements.append(data)
 
 
@@ -838,6 +838,7 @@ class Test(Application):
         self.tab1.textbox_convergence.setText("")
         self.tab1.buttonNew.setEnabled(False)
         self.tab1.pbar.setValue(0)
+        self.tab1.textbox.setText(" ")
 
         # self.tab1.textbox.setText("File analyzation starting...")
         self.start_time = time.time()
@@ -945,7 +946,7 @@ class Test(Application):
                 self.tab1.combo.setCurrentIndex(0)
             elif self.list_element["Check level"]["value"] == "Consolidated":
                 self.tab1.combo.setCurrentIndex(1)
-            elif self.list_element["Check level"]["value"] == "Validated":
+            elif self.list_element["Check level"]["value"] == "Final":
                 self.tab1.combo.setCurrentIndex(2)
 
             if self.list_element["Project name"]["value"] == "Generic":
@@ -3217,10 +3218,11 @@ class Test(Application):
 
                 if "Test_02043_18_04939_COH_2120" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2120"][self.checkLevel].casefold().strip() != "n/a":
-                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
-                        self.tab1.update()
-                        if check_indicator == True:
-                            ok_indicator = 1
+                        if self.DOC5Exists:
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2120(self.excelApp, self.DOC4Workbook, self, self.DOC5Name)
+                            self.tab1.update()
+                            if check_indicator == True:
+                                ok_indicator = 1
 
                 if diversity_management == "Codes LCDV":
 
