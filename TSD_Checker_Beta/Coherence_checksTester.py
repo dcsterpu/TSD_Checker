@@ -1571,8 +1571,18 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                         dict["col"] = refColIndex
                         tempDict.append(dict)
 
+            TSDApp.DOC5Path = TSDApp.tab1.myTextBox3.toPlainText()
+            try:
+                extension = TSDApp.DOC5Path.split(".")[-1]
+                if extension == "xls":
+                    DOC5 = xlrd.open_workbook(TSDApp.DOC5Path, formatting_info=True)
+                else:
+                    DOC5 = xlrd.open_workbook(TSDApp.DOC5Path)
+            except:
+                TSDApp.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file file " + TSDApp.DOC5Path.split('/')[-1])
+                return
 
-            workSheetRef = workBook.sheet_by_index(TSDApp.WorkbookStats.TechEffIndex)
+            workSheetRef = DOC5.sheet_by_index(TSDApp.WorkbookStats.TechEffIndex)
             nrCols = workSheetRef.ncols
             nrRows = workSheetRef.nrows
             amontColIndex = -1

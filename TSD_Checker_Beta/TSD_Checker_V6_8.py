@@ -834,32 +834,33 @@ class Test(Application):
 
     def buttonClicked(self):
 
+
+        print("1")
         self.tab1.textbox_coverage.setText("")
         self.tab1.textbox_convergence.setText("")
         self.tab1.buttonNew.setEnabled(False)
         self.tab1.pbar.setValue(0)
         self.tab1.textbox.setText(" ")
+        print("2")
 
-        # self.tab1.textbox.setText("File analyzation starting...")
         self.start_time = time.time()
-        # os.system("taskkill /f /im EXCEL.EXE")
         self.checkLevel = str(self.tab1.combo.currentText()).strip().casefold()
-        # if self.excelApp is None:
-        #     self.excelApp = win32.gencache.EnsureDispatch('Excel.Application')
-        # self.excelApp.Visible = False
+        print("3")
 
         self.tab1.colorTextBox1.setStyleSheet(" background-color: grey ")
         self.tab1.colorTextBox2.setStyleSheet(" background-color: grey ")
         self.tab1.colorTextBox3.setStyleSheet(" background-color: grey ")
+        print("4")
 
         if self.flag_load_configuration is False:
 
             if self.tab1.myTextBox1.toPlainText() != "":
                 self.DOC3Exists = True
-            elif self.tab1.myTextBox2.toPlainText() != "":
+            if self.tab1.myTextBox2.toPlainText() != "":
                 self.DOC4Exists = True
-            elif self.tab1.myTextBox3.toPlainText() != "":
+            if self.tab1.myTextBox3.toPlainText() != "":
                 self.DOC5Exists = True
+            print("5")
 
             self.tab1.textbox.setText("")
             self.tab1.pbar.setValue(0)
@@ -867,6 +868,7 @@ class Test(Application):
                 self.Doc15Path = self.tab1.myTextBox6.toPlainText()
             else:
                 self.Doc15Path = None
+            print("6")
 
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
@@ -879,33 +881,40 @@ class Test(Application):
                 return
             if self.DOC8Path == "False":
                 return
+            print("7")
 
             if not self.tab2.myTextBox8.toPlainText():
                 self.DOC9Path = self.download_file(self.DOC9Link)
             else:
                 self.DOC9Path = self.tab2.myTextBox8.toPlainText()
+            print("8")
 
             if not self.tab2.myTextBox9.toPlainText():
                 self.DOC7Path = self.download_file(self.DOC7Link)
             else:
                 self.DOC7Path = self.tab2.myTextBox9.toPlainText()
+            print("9")
 
             if not self.tab2.myTextBox10.toPlainText():
                 self.DOC13Path = self.download_file(self.DOC13Link)
             else:
                 self.DOC13Path = self.tab2.myTextBox10.toPlainText()
+            print("10")
 
             self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
             if self.DOC9Dict == None:
                 return
+            print("11")
 
             self.DOC13List, self.DOC13List_2 = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
             if self.DOC13List == None or self.DOC13List_2 == None:
                 return
+            print("12")
 
             self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
             if self.DOC8List == None:
                 return
+            print("13")
 
             if self.Doc15Path is not None and self.Doc15Path != "":
                 self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
@@ -914,6 +923,7 @@ class Test(Application):
             else:
                 self.Doc15List = None
                 self.subfamily_name = None
+            print("14")
 
             #self.DOC8Name = self.download_file(self.DOC8Link)
 
@@ -921,11 +931,12 @@ class Test(Application):
                 self.DOC14Name = self.tab1.myTextBox5.toPlainText()
             else:
                 self.DOC14Name = None
+            print("15")
 
             self.DOC7Name = self.download_file(self.DOC7Link)
             archi_type = self.tab1.combo2.currentText()
             diversity_management = self.tab1.combo3.currentText()
-
+            print("16")
 
 
         else:
@@ -1061,7 +1072,7 @@ class Test(Application):
             self.listeMDDFirstInfoRow = 2
 
 
-
+            print("17")
 
             self.DOC3Name = self.download_file(self.DOC3Link)
 
@@ -1069,7 +1080,7 @@ class Test(Application):
                 self.DOC3Path = self.tab1.myTextBox1.toPlainText()
             else:
                 self.DOC3Path = self.list_element["TSD File"]["value"]
-
+            print("18")
             try:
                 extension = self.DOC3Path.split(".")[-1]
                 if extension == "xls":
@@ -1085,7 +1096,7 @@ class Test(Application):
             check_indicator = False
             ok_indicator = 0
             ok = 0
-
+            print("19")
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
             self.opening_time = time.time()
