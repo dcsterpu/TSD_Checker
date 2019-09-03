@@ -1,6 +1,36 @@
 import TSD_Checker_V6_8
 import inspect
 
+def resetFlags(TSDApp):
+    TSDApp.WorkbookStats.hasInfGen = False
+    TSDApp.WorkbookStats.hasTable = False
+    TSDApp.WorkbookStats.hasCode = False
+    TSDApp.WorkbookStats.hasMDD = False
+    TSDApp.WorkbookStats.hasSitDeVie = False
+    TSDApp.WorkbookStats.hasConstituants = False
+    TSDApp.WorkbookStats.hasER = False
+    TSDApp.WorkbookStats.hasEffClients = False
+    TSDApp.WorkbookStats.hasNotEmbDiag = False
+    TSDApp.WorkbookStats.hasDiagDeb = False
+    TSDApp.WorkbookStats.hasMeasure = False
+    TSDApp.WorkbookStats.hasSupp = False
+    TSDApp.WorkbookStats.hasRefDocs = False
+    TSDApp.WorkbookStats.hasSituation = False
+    TSDApp.WorkbookStats.hasDegradedMode = False
+    TSDApp.WorkbookStats.hasDiagNeeds = False
+    TSDApp.WorkbookStats.hasFearedEvent = False
+    TSDApp.WorkbookStats.hasSystem = False
+    TSDApp.WorkbookStats.hasOpSit = False
+    TSDApp.WorkbookStats.hasTechEff = False
+    TSDApp.WorkbookStats.hasReqTech = False
+    TSDApp.WorkbookStats.hasParts = False
+    TSDApp.WorkbookStats.hasDataCodes = False
+    TSDApp.WorkbookStats.hasReadDataIO = False
+    TSDApp.WorkbookStats.hasNotEmbDiag = False
+    TSDApp.WorkbookStats.hasCustEff = False
+    TSDApp.WorkbookStats.hasNotEmbDiag = False
+    TSDApp.WorkbookStats.hasVariant = False
+    TSDApp.WorkbookStats.hasNotEmbDiag = False
 
 def getTableInfo(workBook, TSDApp):
     sheetNames = []

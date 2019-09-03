@@ -9,18 +9,18 @@ from ctypes import windll
 import OptionalFilesParser
 import GeneralStructureTester
 import FileMeasure
-from timeit import default_timer as timer
+from lxml import etree, objectify
 import ExcelEdit
 import WholenessTester
 import Coherence_checksTester
 import IndicatorTester
 import time
-import win32api
 import sys
 import xlwt
 import xlrd
 import json
 import zipfile
+import shutil
 
 appName = "TSD Checker V6.8"
 pBarIncrement = 100/174
@@ -75,6 +75,11 @@ class Application(QWidget):
         self.DOC3Exists = False
         self.DOC4Exists = False
         self.DOC5Exists = False
+
+        self.version_cesare_file = ""
+        self.version_criticity_file = ""
+        self.version_cutomer_effect = ""
+        self.version_diversity_file = ""
 
     def ToggleLink(self):
         if self.tab2.RadioButtonInternet.isChecked() == True:
@@ -139,7 +144,6 @@ class Application(QWidget):
     def openFileNameDialog1(self):
         fileName1, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab1.myTextBox1.setText(fileName1)
-        # self.tab1.textbox.setText("next file")
 
     def openFileNameDialog2(self):
         fileName2, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab1, 'Open File', QtCore.QDir.rootPath(), '*.*')
@@ -218,8 +222,6 @@ class Application(QWidget):
         tab.textbox.move(10, 330)
         tab.textbox.resize(700, 130)
         tab.textbox.setReadOnly(True)
-
-
 
         # create a progress bar
         tab.pbar = QProgressBar(self.tab1)
@@ -423,19 +425,16 @@ class Application(QWidget):
         self.excel = win32.gencache.EnsureDispatch('Excel.Application')
 
         if self.DOC3Exists:
-            # win32api.MessageBox(0,'Feature not implemented yet','Information')
            fileName = self.tab1.myTextBox1.toPlainText()
            self.excel.Visible = True
            self.excel.Workbooks.Open(fileName)
 
         if self.DOC4Exists:
-           #  win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
            fileName = self.tab1.myTextBox2.toPlainText()
            self.excel.Visible = True
            self.excel.Workbooks.Open(fileName)
 
         if self.DOC5Exists:
-            # win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
            fileName = self.tab1.myTextBox3.toPlainText()
            self.excel.Visible = True
            self.excel.Workbooks.Open(fileName)
@@ -443,7 +442,6 @@ class Application(QWidget):
     def ButtonSaveConfigClick(self):
 
         if self.tab1.myTextBox1.toPlainText():
-            # win32api.MessageBox(0, 'Feature not implemented yet', 'Information')
             data = {}
             list_elements = []
 
@@ -643,7 +641,6 @@ class Application(QWidget):
         tab.button7.clicked.connect(self.openFileNameDialog30)
 
 
-
         # File Selectiom Dialog4
         tab.lbl5 = QLabel("Criticity configuration file:", tab)
         tab.lbl5.move(5,215)
@@ -660,7 +657,6 @@ class Application(QWidget):
         tab.button8.clicked.connect(self.openFileNameDialog40)
         tab.button8.move(670, 211)
         tab.button8.resize(45, 22)
-
 
 
         # File Selectiom Dialog6
@@ -816,8 +812,6 @@ class Test(Application):
         self.WorkbookStats = GeneralStructureTester.WorkbookProperties()
 
 
-
-
         try:
             os.stat(self.fileFolder)
             for file in os.listdir(self.fileFolder):
@@ -838,7 +832,6 @@ class Test(Application):
 
 
     def buttonClicked(self):
-
 
 
         self.tab1.textbox_coverage.setText("")
@@ -872,8 +865,23 @@ class Test(Application):
 
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
-                # with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
-                #     zip_ref.extractall("C:\\Users\\msnecula\\Downloads\\documente_TSD")
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC8Path.split(".")[-1] in extensions:
+                    ext = self.DOC8Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_cesare_file = root.find(".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC8Path = self.tab2.myTextBox7.toPlainText()
 
@@ -886,16 +894,70 @@ class Test(Application):
 
             if not self.tab2.myTextBox8.toPlainText():
                 self.DOC9Path = self.download_file(self.DOC9Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC9Path.split(".")[-1] in extensions:
+                    ext = self.DOC9Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_criticity_file = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC9Path = self.tab2.myTextBox8.toPlainText()
 
             if not self.tab2.myTextBox9.toPlainText():
                 self.DOC7Path = self.download_file(self.DOC7Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC7Path.split(".")[-1] in extensions:
+                    ext = self.DOC7Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_cutomer_effect = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC7Path = self.tab2.myTextBox9.toPlainText()
 
             if not self.tab2.myTextBox10.toPlainText():
                 self.DOC13Path = self.download_file(self.DOC13Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC13Path.split(".")[-1] in extensions:
+                    ext = self.DOC13Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_diversity_file = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC13Path = self.tab2.myTextBox10.toPlainText()
 
@@ -918,8 +980,6 @@ class Test(Application):
             else:
                 self.Doc15List = None
                 self.subfamily_name = None
-
-            #self.DOC8Name = self.download_file(self.DOC8Link)
 
             if self.tab1.myTextBox5.toPlainText() is not None and self.tab1.myTextBox5.toPlainText() != "":
                 self.DOC14Name = self.tab1.myTextBox5.toPlainText()
@@ -985,6 +1045,24 @@ class Test(Application):
 
             if self.list_element["CESARE Export"]["value"] == "null":
                 self.DOC8Path = self.download_file(self.DOC8Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC8Path.split(".")[-1] in extensions:
+                    ext = self.DOC8Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_cesare_file = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC8Path = self.list_element["CESARE Export"]["value"]
 
@@ -997,16 +1075,70 @@ class Test(Application):
 
             if self.list_element["Criticity"]["value"] == "null":
                 self.DOC9Path = self.download_file(self.DOC9Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC9Path.split(".")[-1] in extensions:
+                    ext = self.DOC9Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_criticity_file = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC9Path = self.list_element["Criticity"]["value"]
 
             if self.list_element["Customer Effect File"]["value"] == "null":
                 self.DOC7Path = self.download_file(self.DOC7Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC7Path.split(".")[-1] in extensions:
+                    ext = self.DOC7Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_cutomer_effect = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC7Path = self.list_element["Customer Effect File"]["value"]
 
             if self.list_element["Diversity"]["value"] == "null":
                 self.DOC13Path = self.download_file(self.DOC13Link)
+
+                extensions = ["xlsx", "xlsm"]
+                if self.DOC13Path.split(".")[-1] in extensions:
+                    ext = self.DOC13Path.split(".")[0]
+                    with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
+                        zip_ref.extractall(ext)
+
+                    try:
+                        if os.path.isfile(ext + "\docProps\custom.xml"):
+                            path = ext + "\docProps\custom.xml"
+                            parser = etree.XMLParser(remove_comments=True)
+                            tree = objectify.parse(path, parser=parser)
+                            root = tree.getroot()
+                            self.version_diversity_file = root.find(
+                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                            shutil.rmtree(ext, ignore_errors=True)
+                    except:
+                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC13Path = self.list_element["Diversity"]["value"]
 
@@ -1085,6 +1217,7 @@ class Test(Application):
             check_indicator = False
             ok_indicator = 0
             ok = 0
+            FileMeasure.resetFlags(self)
             FileMeasure.DOC3Info1(self.DOC3Workbook, self)
 
             self.opening_time = time.time()
@@ -2397,6 +2530,7 @@ class Test(Application):
             ok_indicator = 0
             ok = 0
 
+            FileMeasure.resetFlags(self)
             FileMeasure.DOC4Info1(self.DOC4Workbook, self)
             self.opening_time = time.time()
 
@@ -3326,6 +3460,7 @@ class Test(Application):
             ok_indicator = 0
             ok = 0
 
+            FileMeasure.resetFlags(self)
             FileMeasure.DOC5Info1(self.DOC5Workbook, self)
             self.opening_time = time.time()
 

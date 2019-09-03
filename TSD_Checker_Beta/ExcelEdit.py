@@ -90,15 +90,19 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
+    workSheet_info_report.write(2, 2, TSDApp.version_criticity_file)
 
     workSheet_info_report.write(3, 0, "Extract CESARE file:")
     workSheet_info_report.write(3, 1, TSDApp.DOC8Path)
+    workSheet_info_report.write(3, 2, TSDApp.version_cesare_file)
 
     workSheet_info_report.write(4, 0, "Customer effects file:")
     workSheet_info_report.write(4, 1, TSDApp.DOC7Name)
+    workSheet_info_report.write(4, 2, TSDApp.version_cutomer_effect)
 
     workSheet_info_report.write(5, 0, "Diversity management file:")
     workSheet_info_report.write(5, 1, TSDApp.DOC13Path)
+    workSheet_info_report.write(5, 2, TSDApp.version_diversity_file)
 
     workSheet_info_report.write(6, 0, "CESARE file reference:")
     workSheet_info_report.write(6, 1, TSDApp.DOC8Link.split("/")[-3])
@@ -256,15 +260,19 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
+        workSheet_info_report['C3'] = TSDApp.version_cesare_file
 
         workSheet_info_report['A4'] = "Extract CESARE file:"
         workSheet_info_report['B4'] = TSDApp.DOC8Path
+        workSheet_info_report['C4'] = TSDApp.version_criticity_file
 
         workSheet_info_report['A5'] = "Customer effects file:"
         workSheet_info_report['B5'] = TSDApp.DOC7Name
+        workSheet_info_report['C5'] = TSDApp.version_cutomer_effect
 
         workSheet_info_report['A6'] = "Diversity management file:"
         workSheet_info_report['B6'] = TSDApp.DOC13Path
+        workSheet_info_report['C6'] = TSDApp.version_diversity_file
 
         workSheet_info_report['A7'] = "CESARE file reference:"
         workSheet_info_report['B7'] = TSDApp.DOC8Link.split("/")[-3]
@@ -343,15 +351,19 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
+        workSheet_info_report['C3'] = TSDApp.version_cesare_file
 
         workSheet_info_report['A4'] = "Extract CESARE file:"
         workSheet_info_report['B4'] = TSDApp.DOC8Path
+        workSheet_info_report['C4'] = TSDApp.version_criticity_file
 
         workSheet_info_report['A5'] = "Customer effects file:"
         workSheet_info_report['B5'] = TSDApp.DOC7Name
+        workSheet_info_report['C5'] = TSDApp.version_cutomer_effect
 
         workSheet_info_report['A6'] = "Diversity management file:"
         workSheet_info_report['B6'] = TSDApp.DOC13Path
+        workSheet_info_report['C6'] = TSDApp.version_diversity_file
 
         workSheet_info_report['A7'] = "CESARE file reference:"
         workSheet_info_report['B7'] = TSDApp.DOC8Link.split("/")[-3]
