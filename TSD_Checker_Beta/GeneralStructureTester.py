@@ -1,4 +1,4 @@
-import TSD_Checker_V6_8
+import TSD_Checker_V6_9
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -333,7 +333,7 @@ def Test_02043_18_04939_STRUCT_0051(workBook, TSDApp):
 
         for index in range(0, workSheet.nrows):
                 if str(workSheet.cell(index, 0).value).casefold().strip() in [ "vehicle architecture schematic", "planche d'architecture véhicule"]:
-                    if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                    if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                         localisation1.append(("reference docs", index, 2))
                         break
 
@@ -354,7 +354,7 @@ def Test_02043_18_04939_STRUCT_0052(workBook, TSDApp):
 
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["diagnostic matrix", "matrice diag"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -373,7 +373,7 @@ def Test_02043_18_04939_STRUCT_0053(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["fault tree", "amdec"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -393,7 +393,7 @@ def Test_02043_18_04939_STRUCT_0054(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["ecu schematic", "synoptique ecu"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -413,7 +413,7 @@ def Test_02043_18_04939_STRUCT_0055(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["std"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -433,7 +433,7 @@ def Test_02043_18_04939_STRUCT_0056(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["complexity matrix (decli ee)"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -453,7 +453,7 @@ def Test_02043_18_04939_STRUCT_0057(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["décli"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -473,7 +473,7 @@ def Test_02043_18_04939_STRUCT_0058(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["dcee"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -493,7 +493,7 @@ def Test_02043_18_04939_STRUCT_0059(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["eead"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -513,7 +513,7 @@ def Test_02043_18_04939_STRUCT_0060(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["tfd"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
 
@@ -534,7 +534,7 @@ def Test_02043_18_04939_STRUCT_0061(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["sto"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -554,7 +554,7 @@ def Test_02043_18_04939_STRUCT_0062(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["view 5 and 8"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:
@@ -574,7 +574,7 @@ def Test_02043_18_04939_STRUCT_0063(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.refDocsIndex)
         for index in range(0, workSheet.nrows):
             if str(workSheet.cell(index, 0).value).casefold().strip() in ["allocation matrix"]:
-                if str(workSheet.cell(index, 2).value).casefold().strip() is None or str(workSheet.cell(index, 2).value).casefold().strip() == "":
+                if str(workSheet.cell(index, 2).value).casefold().strip() == "":
                     localisation1.append(("reference docs", index, 2))
                     break
         if not localisation1:

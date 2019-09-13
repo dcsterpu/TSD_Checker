@@ -1,4 +1,4 @@
-import TSD_Checker_V6_8
+import TSD_Checker_V6_9
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -358,7 +358,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
             check = True
         elif refColIndex != -1:
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     table_project.append(workSheet.cell(TSDApp.tableHeaderRow + 1, index).value.strip())
 
             if TSDApp.WorkbookStats.hasCode == False:
@@ -376,7 +376,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                 if codeColIndex != -1:
                     code_project = []
                     for index in range(codeColIndex, TSDApp.WorkbookStats.codeLastCol):
-                        if workSheet.cell(TSDApp.codeHeaderRow, index).value is not None and workSheet.cell(TSDApp.codeHeaderRow, index).value != "":
+                        if workSheet.cell(TSDApp.codeHeaderRow, index).value != "":
                             code_project.append(workSheet.cell(TSDApp.codeHeaderRow, index).value.strip())
 
                     if len(table_project) == len(code_project):
@@ -394,85 +394,7 @@ def Test_02043_18_04939_WHOLENESS_1050(workBook, TSDApp):
                 else:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     return check
-    # testName = inspect.currentframe().f_code.co_name
-    # print(testName)
-    # check = False
-    # if TSDApp.WorkbookStats.hasTable == False:
-    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #     check = True
-    # else:
-    #     workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-    #     refColIndex = 0
-    #     refRowIndex = 0
-    #     list_code = list()
-    #     list_table = list()
-    #     var = 0
-    #     name = []
-    #     contor = 0
-    #     table_project = []
-    #
-    #     for index1 in range(1, 15):
-    #         for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
-    #             if str(workSheet.cell(index1, index2).value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.cell(index1, index2).value).casefold().strip() == "Project applicability".casefold():
-    #                 refColIndex = index2
-    #                 refRowIndex = index1
-    #                 break
-    #         if refColIndex != 0:
-    #             break
-    #     if refColIndex == 0:
-    #         var = 1
-    #
-    #     if var == 1:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     elif var == 0:
-    #         refCellRange = workSheet.cell(refRowIndex, refColIndex).MergeArea
-    #         nrLines = refCellRange.Rows.Count
-    #         nrCols = refCellRange.Columns.Count
-    #
-    #         for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol + 1):
-    #             if workSheet.cell(refRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.cell(refRowIndex + nrLines, index).value != None:
-    #                 table_project.append(workSheet.cell(refRowIndex + nrLines, index).value.strip())
-    #
-    #         if TSDApp.WorkbookStats.hasCode == False:
-    #             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #             check = True
-    #         else:
-    #             workSheet = workBook.Sheets(TSDApp.WorkbookStats.codeIndex)
-    #             codeColIndex = 0
-    #             var = 0
-    #             for index1 in range(1, 15):
-    #                 for index2 in range(1, TSDApp.WorkbookStats.codeLastCol + 1):
-    #                     if str(workSheet.cell(index1, index2).value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.cell(index1,index2).value).casefold().strip() == "Project applicability".casefold():
-    #                         codeColIndex = index2
-    #                         codeRowIndex = index1
-    #                         break
-    #                 if codeColIndex != 0:
-    #                     break
-    #
-    #             codeCellRange = workSheet.cell(codeRowIndex, codeColIndex).MergeArea
-    #             nrLines = codeCellRange.Rows.Count
-    #             nrCols = codeCellRange.Columns.Count
-    #
-    #             code_project = []
-    #             for index in range(codeColIndex, TSDApp.WorkbookStats.codeLastCol + 1):
-    #                 if workSheet.cell(codeRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.cell(codeRowIndex + nrLines, index).value != None:
-    #                     code_project.append(workSheet.cell(codeRowIndex + nrLines, index).value.strip())
-    #
-    #
-    #             if len(table_project) == len(code_project):
-    #                 for project in table_project:
-    #                     if project in code_project:
-    #                         contor += 1
-    #                         break
-    #
-    #     if contor == len(table_project):
-    #         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     else:
-    #         name.append("Different projects!")
-    #         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook,TSDApp)
-    # return check
+
 
 def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -501,8 +423,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
             check = True
         elif refColIndex != -1:
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(
-                        TSDApp.tableHeaderRow + 1, index).value != "":
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     table_project.append(workSheet.cell(TSDApp.tableHeaderRow + 1, index).value.strip())
 
             if TSDApp.WorkbookStats.hasMeasure == False:
@@ -523,8 +444,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
                 if measureColIndex != -1:
                     measure_project = []
                     for index in range(measureColIndex, TSDApp.WorkbookStats.measureLastCol):
-                        if workSheet.cell(TSDApp.measureHeaderRow, index).value != None and workSheet.cell(
-                                TSDApp.measureHeaderRow, index).value != "":
+                        if workSheet.cell(TSDApp.measureHeaderRow, index).value != "":
                             measure_project.append(workSheet.cell(TSDApp.measureHeaderRow, index).value.strip())
 
                     if len(table_project) == len(measure_project):
@@ -544,87 +464,7 @@ def Test_02043_18_04939_WHOLENESS_1055(workBook, TSDApp):
                 else:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     return check
-    # testName = inspect.currentframe().f_code.co_name
-    # print(testName)
-    # check = False
-    # if TSDApp.WorkbookStats.hasTable == False:
-    #     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #     check = True
-    # else:
-    #     workSheet = workBook.Sheets(TSDApp.WorkbookStats.tableIndex)
-    #     refColIndex = 0
-    #     refRowIndex = 0
-    #     list_code = list()
-    #     list_table = list()
-    #     var = 0
-    #     name = []
-    #     contor = -1
-    #     table_project = []
-    #
-    #     for index1 in range(1, 15):
-    #         for index2 in range(1, TSDApp.WorkbookStats.tableLastCol + 1):
-    #             if str(workSheet.cell(index1,
-    #                                    index2).value).casefold().strip() == "Applicabilité projet".casefold() or str(
-    #                     workSheet.cell(index1, index2).value).casefold().strip() == "Project applicability".casefold():
-    #                 refColIndex = index2
-    #                 refRowIndex = index1
-    #                 break
-    #         if refColIndex != 0:
-    #             break
-    #     if refColIndex == 0:
-    #         var = 1
-    #
-    #     if var == 1:
-    #         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     elif var == 0:
-    #         refCellRange = workSheet.cell(refRowIndex, refColIndex).MergeArea
-    #         nrLines = refCellRange.Rows.Count
-    #         nrCols = refCellRange.Columns.Count
-    #
-    #         for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol + 1):
-    #             if workSheet.cell(refRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.cell(refRowIndex + nrLines, index).value != None:
-    #                 table_project.append(workSheet.cell(refRowIndex + nrLines, index).value.strip())
-    #
-    #         if TSDApp.WorkbookStats.hasMeasure == False:
-    #             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #             check = True
-    #         else:
-    #             workSheet = workBook.Sheets(TSDApp.WorkbookStats.measureIndex)
-    #             codeColIndex = 0
-    #             var = 0
-    #             for index1 in range(1, 15):
-    #                 for index2 in range(1, TSDApp.WorkbookStats.measureLastCol + 1):
-    #                     if str(workSheet.cell(index1, index2).value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.cell(index1, index2).value).casefold().strip() == "Project applicability".casefold():
-    #                         measureColIndex = index2
-    #                         measureRowIndex = index1
-    #                         break
-    #                 if codeColIndex != 0:
-    #                     break
-    #
-    #             codeCellRange = workSheet.cell(measureRowIndex, measureColIndex).MergeArea
-    #             nrLines = codeCellRange.Rows.Count
-    #             nrCols = codeCellRange.Columns.Count
-    #
-    #             measure_project = []
-    #             for index in range(measureColIndex, TSDApp.WorkbookStats.codeLastCol + 1):
-    #                 if workSheet.cell(measureRowIndex + nrLines, index).Borders(8).LineStyle != -4142 and workSheet.cell(measureRowIndex + nrLines, index).value != None:
-    #                     measure_project.append(workSheet.cell(measureRowIndex + nrLines, index).value.strip())
-    #
-    #             contor = 0
-    #             if len(table_project) == len(measure_project):
-    #                 for project in table_project:
-    #                     if project in measure_project:
-    #                         contor += 1
-    #                         break
-    #
-    #     if contor == len(table_project):
-    #         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-    #         check = True
-    #     else:
-    #         name.append("Different projects!")
-    #         show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
-    # return check
+
 
 def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -646,14 +486,14 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
         if refColIndex != -1:
             contor = 0
             for index in range(refColIndex, TSDApp.WorkbookStats.tableLastCol):
-                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value is not None and workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
+                if workSheet.cell(TSDApp.tableHeaderRow + 1, index).value != "":
                     contor = contor + 1
 
             values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                        if workSheet.cell(index2,0).value is not None or workSheet.cell(index2, 0).value != "":
+                        if workSheet.cell(index2, 0).value != "":
                             try:
                                 if workSheet.cell(index2, index1).value is None:
                                     localisations.append(("tableau",index2, index1))
@@ -696,15 +536,14 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
         if refColIndex != -1:
             contor = 0
             for index in range(refColIndex, TSDApp.WorkbookStats.codeLastCol):
-                if workSheet.cell(TSDApp.codeHeaderRow, index).value is not None and workSheet.cell(
-                        TSDApp.codeHeaderRow, index).value != "":
+                if workSheet.cell(TSDApp.codeHeaderRow, index).value != "":
                     contor = contor + 1
 
             values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                        if workSheet.cell(index2, 0).value is not None or workSheet.cell(index2, 0).value != "":
+                        if workSheet.cell(index2, 0).value != "":
                             try:
                                 if workSheet.cell(index2, index1).value is None:
                                     localisations.append(("codes défauts", index2, index1))
@@ -747,15 +586,14 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
         if refColIndex != -1:
             contor = 0
             for index in range(refColIndex, TSDApp.WorkbookStats.measureLastCol):
-                if workSheet.cell(TSDApp.measureHeaderRow, index).value != None and workSheet.cell(
-                        TSDApp.measureHeaderRow, index).value != "":
+                if workSheet.cell(TSDApp.measureHeaderRow, index).value != "":
                     contor = contor + 1
 
             values = ["x", "X", "NA", "n/a"]
             if contor != 0:
                 for index1 in range(refColIndex, refColIndex + contor):
                     for index2 in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                        if workSheet.cell(index2, 0).value is not None or workSheet.cell(index2, 0).value != "":
+                        if workSheet.cell(index2, 0).value != "":
                             try:
                                 if workSheet.cell(index2, index1).value is None:
                                     localisations.append(("mesures et commandes", index2, index1))
@@ -795,8 +633,8 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau",index, refColIndex))
                         check = True
 
@@ -1413,8 +1251,8 @@ def Test_02043_18_04939_WHOLENESS_1300(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1448,8 +1286,8 @@ def Test_02043_18_04939_WHOLENESS_1301(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1483,8 +1321,8 @@ def Test_02043_18_04939_WHOLENESS_1302(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1518,8 +1356,8 @@ def Test_02043_18_04939_WHOLENESS_1303(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1554,8 +1392,8 @@ def Test_02043_18_04939_WHOLENESS_1304(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1590,8 +1428,8 @@ def Test_02043_18_04939_WHOLENESS_1305(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1626,8 +1464,8 @@ def Test_02043_18_04939_WHOLENESS_1306(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1662,8 +1500,8 @@ def Test_02043_18_04939_WHOLENESS_1307(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1698,8 +1536,8 @@ def Test_02043_18_04939_WHOLENESS_1308(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1734,8 +1572,8 @@ def Test_02043_18_04939_WHOLENESS_1309(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1770,8 +1608,8 @@ def Test_02043_18_04939_WHOLENESS_1310(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1806,8 +1644,8 @@ def Test_02043_18_04939_WHOLENESS_1311(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1842,8 +1680,8 @@ def Test_02043_18_04939_WHOLENESS_1312(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1878,8 +1716,8 @@ def Test_02043_18_04939_WHOLENESS_1313(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1914,8 +1752,8 @@ def Test_02043_18_04939_WHOLENESS_1314(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1950,8 +1788,8 @@ def Test_02043_18_04939_WHOLENESS_1315(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -1986,8 +1824,8 @@ def Test_02043_18_04939_WHOLENESS_1316(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2022,8 +1860,8 @@ def Test_02043_18_04939_WHOLENESS_1317(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2051,15 +1889,14 @@ def Test_02043_18_04939_WHOLENESS_1318(workBook, TSDApp):
         localisations = []
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow,
-                                  index).value).casefold().strip() == "Reference".casefold():
+            if str(workSheet.cell(TSDApp.tableHeaderRow,index).value).casefold().strip() == "Reference".casefold():
                 refColIndex = index
                 break
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2094,8 +1931,8 @@ def Test_02043_18_04939_WHOLENESS_1319(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2130,8 +1967,8 @@ def Test_02043_18_04939_WHOLENESS_1320(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2166,8 +2003,8 @@ def Test_02043_18_04939_WHOLENESS_1321(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2202,8 +2039,8 @@ def Test_02043_18_04939_WHOLENESS_1322(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2238,8 +2075,8 @@ def Test_02043_18_04939_WHOLENESS_1323(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2274,8 +2111,8 @@ def Test_02043_18_04939_WHOLENESS_1324(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2310,8 +2147,8 @@ def Test_02043_18_04939_WHOLENESS_1325(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2346,8 +2183,8 @@ def Test_02043_18_04939_WHOLENESS_1326(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2382,8 +2219,8 @@ def Test_02043_18_04939_WHOLENESS_1327(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2418,8 +2255,8 @@ def Test_02043_18_04939_WHOLENESS_1328(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2454,8 +2291,8 @@ def Test_02043_18_04939_WHOLENESS_1329(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2490,8 +2327,8 @@ def Test_02043_18_04939_WHOLENESS_1330(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2526,8 +2363,8 @@ def Test_02043_18_04939_WHOLENESS_1331(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2562,8 +2399,8 @@ def Test_02043_18_04939_WHOLENESS_1332(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2598,8 +2435,8 @@ def Test_02043_18_04939_WHOLENESS_1333(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2634,8 +2471,8 @@ def Test_02043_18_04939_WHOLENESS_1334(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Table", index, refColIndex))
                         check = True
 
@@ -2670,8 +2507,8 @@ def Test_02043_18_04939_WHOLENESS_1350(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2706,8 +2543,8 @@ def Test_02043_18_04939_WHOLENESS_1351(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2742,8 +2579,8 @@ def Test_02043_18_04939_WHOLENESS_1352(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2778,8 +2615,8 @@ def Test_02043_18_04939_WHOLENESS_1353(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2814,8 +2651,8 @@ def Test_02043_18_04939_WHOLENESS_1354(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2850,8 +2687,8 @@ def Test_02043_18_04939_WHOLENESS_1355(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2886,8 +2723,8 @@ def Test_02043_18_04939_WHOLENESS_1356(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2922,8 +2759,8 @@ def Test_02043_18_04939_WHOLENESS_1357(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2958,8 +2795,8 @@ def Test_02043_18_04939_WHOLENESS_1358(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -2994,8 +2831,8 @@ def Test_02043_18_04939_WHOLENESS_1359(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -3030,8 +2867,8 @@ def Test_02043_18_04939_WHOLENESS_1360(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -3066,8 +2903,8 @@ def Test_02043_18_04939_WHOLENESS_1361(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagNeedsFirstInfoRow, TSDApp.WorkbookStats.DiagNeedsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic Needs", index, refColIndex))
                         check = True
 
@@ -3101,8 +2938,8 @@ def Test_02043_18_04939_WHOLENESS_1400(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer Effects", index, refColIndex))
                         check = True
 
@@ -3136,8 +2973,8 @@ def Test_02043_18_04939_WHOLENESS_1401(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer Effects", index, refColIndex))
                         check = True
 
@@ -3171,8 +3008,8 @@ def Test_02043_18_04939_WHOLENESS_1402(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer Effects", index, refColIndex))
                         check = True
 
@@ -3206,8 +3043,8 @@ def Test_02043_18_04939_WHOLENESS_1403(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer Effects", index, refColIndex))
                         check = True
 
@@ -3241,8 +3078,8 @@ def Test_02043_18_04939_WHOLENESS_1430(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3276,8 +3113,8 @@ def Test_02043_18_04939_WHOLENESS_1431(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3311,8 +3148,8 @@ def Test_02043_18_04939_WHOLENESS_1432(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3346,8 +3183,8 @@ def Test_02043_18_04939_WHOLENESS_1433(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3381,8 +3218,8 @@ def Test_02043_18_04939_WHOLENESS_1434(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3416,8 +3253,8 @@ def Test_02043_18_04939_WHOLENESS_1435(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Req. of tech. effects", index, refColIndex))
                         check = True
 
@@ -3452,8 +3289,8 @@ def Test_02043_18_04939_WHOLENESS_1450(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3488,8 +3325,8 @@ def Test_02043_18_04939_WHOLENESS_1451(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3524,8 +3361,8 @@ def Test_02043_18_04939_WHOLENESS_1452(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3560,8 +3397,8 @@ def Test_02043_18_04939_WHOLENESS_1453(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3596,8 +3433,8 @@ def Test_02043_18_04939_WHOLENESS_1454(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3632,8 +3469,8 @@ def Test_02043_18_04939_WHOLENESS_1455(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3668,8 +3505,8 @@ def Test_02043_18_04939_WHOLENESS_1456(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("feared events", index, refColIndex))
                         check = True
 
@@ -3704,8 +3541,8 @@ def Test_02043_18_04939_WHOLENESS_1500(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.systemFirstInfoRow, TSDApp.WorkbookStats.SystemLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("System", index, refColIndex))
                         check = True
 
@@ -3740,8 +3577,8 @@ def Test_02043_18_04939_WHOLENESS_1501(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.systemFirstInfoRow, TSDApp.WorkbookStats.SystemLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("System", index, refColIndex))
                         check = True
 
@@ -3776,8 +3613,8 @@ def Test_02043_18_04939_WHOLENESS_1550(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.opSitFirstInfoRow, TSDApp.WorkbookStats.OpSitLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Operation situation", index, refColIndex))
                         check = True
 
@@ -3812,8 +3649,8 @@ def Test_02043_18_04939_WHOLENESS_1551(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.opSitFirstInfoRow, TSDApp.WorkbookStats.OpSitLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Operation situation", index, refColIndex))
                         check = True
 
@@ -3848,8 +3685,8 @@ def Test_02043_18_04939_WHOLENESS_1552(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.opSitFirstInfoRow, TSDApp.WorkbookStats.OpSitLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Operation situation", index, refColIndex))
                         check = True
 
@@ -3883,8 +3720,8 @@ def Test_02043_18_04939_WHOLENESS_1600(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -3919,8 +3756,8 @@ def Test_02043_18_04939_WHOLENESS_1601(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -3954,8 +3791,8 @@ def Test_02043_18_04939_WHOLENESS_1602(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -3989,8 +3826,8 @@ def Test_02043_18_04939_WHOLENESS_1603(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4024,8 +3861,8 @@ def Test_02043_18_04939_WHOLENESS_1604(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4059,8 +3896,8 @@ def Test_02043_18_04939_WHOLENESS_1605(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4094,8 +3931,8 @@ def Test_02043_18_04939_WHOLENESS_1606(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4129,8 +3966,8 @@ def Test_02043_18_04939_WHOLENESS_1607(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4164,8 +4001,8 @@ def Test_02043_18_04939_WHOLENESS_1608(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4199,8 +4036,8 @@ def Test_02043_18_04939_WHOLENESS_1609(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4234,8 +4071,8 @@ def Test_02043_18_04939_WHOLENESS_1610(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4269,8 +4106,8 @@ def Test_02043_18_04939_WHOLENESS_1611(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4304,8 +4141,8 @@ def Test_02043_18_04939_WHOLENESS_1612(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4339,8 +4176,8 @@ def Test_02043_18_04939_WHOLENESS_1613(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4374,8 +4211,8 @@ def Test_02043_18_04939_WHOLENESS_1614(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4409,8 +4246,8 @@ def Test_02043_18_04939_WHOLENESS_1615(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4444,8 +4281,8 @@ def Test_02043_18_04939_WHOLENESS_1616(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4479,8 +4316,8 @@ def Test_02043_18_04939_WHOLENESS_1617(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4514,8 +4351,8 @@ def Test_02043_18_04939_WHOLENESS_1618(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4549,8 +4386,8 @@ def Test_02043_18_04939_WHOLENESS_1619(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4584,8 +4421,8 @@ def Test_02043_18_04939_WHOLENESS_1620(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4619,8 +4456,8 @@ def Test_02043_18_04939_WHOLENESS_1621(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4654,8 +4491,8 @@ def Test_02043_18_04939_WHOLENESS_1622(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4689,8 +4526,8 @@ def Test_02043_18_04939_WHOLENESS_1623(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4724,8 +4561,8 @@ def Test_02043_18_04939_WHOLENESS_1624(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4759,8 +4596,8 @@ def Test_02043_18_04939_WHOLENESS_1625(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4794,8 +4631,8 @@ def Test_02043_18_04939_WHOLENESS_1626(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4829,8 +4666,8 @@ def Test_02043_18_04939_WHOLENESS_1627(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4864,8 +4701,8 @@ def Test_02043_18_04939_WHOLENESS_1628(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4899,8 +4736,8 @@ def Test_02043_18_04939_WHOLENESS_1629(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4934,8 +4771,8 @@ def Test_02043_18_04939_WHOLENESS_1630(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -4969,8 +4806,8 @@ def Test_02043_18_04939_WHOLENESS_1631(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -5004,8 +4841,8 @@ def Test_02043_18_04939_WHOLENESS_1632(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -5039,8 +4876,8 @@ def Test_02043_18_04939_WHOLENESS_1650(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5074,8 +4911,8 @@ def Test_02043_18_04939_WHOLENESS_1651(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5109,8 +4946,8 @@ def Test_02043_18_04939_WHOLENESS_1652(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5144,8 +4981,8 @@ def Test_02043_18_04939_WHOLENESS_1653(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5179,8 +5016,8 @@ def Test_02043_18_04939_WHOLENESS_1654(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5214,8 +5051,8 @@ def Test_02043_18_04939_WHOLENESS_1655(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5249,8 +5086,8 @@ def Test_02043_18_04939_WHOLENESS_1656(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5284,8 +5121,8 @@ def Test_02043_18_04939_WHOLENESS_1657(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5319,8 +5156,8 @@ def Test_02043_18_04939_WHOLENESS_1658(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5354,8 +5191,8 @@ def Test_02043_18_04939_WHOLENESS_1659(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5389,8 +5226,8 @@ def Test_02043_18_04939_WHOLENESS_1660(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5424,8 +5261,8 @@ def Test_02043_18_04939_WHOLENESS_1661(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5459,8 +5296,8 @@ def Test_02043_18_04939_WHOLENESS_1662(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5494,8 +5331,8 @@ def Test_02043_18_04939_WHOLENESS_1663(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5529,8 +5366,8 @@ def Test_02043_18_04939_WHOLENESS_1664(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5564,8 +5401,8 @@ def Test_02043_18_04939_WHOLENESS_1684(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5599,8 +5436,8 @@ def Test_02043_18_04939_WHOLENESS_1685(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5634,8 +5471,8 @@ def Test_02043_18_04939_WHOLENESS_1686(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5669,8 +5506,8 @@ def Test_02043_18_04939_WHOLENESS_1687(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5704,8 +5541,8 @@ def Test_02043_18_04939_WHOLENESS_1688(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5739,8 +5576,8 @@ def Test_02043_18_04939_WHOLENESS_1689(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5774,8 +5611,8 @@ def Test_02043_18_04939_WHOLENESS_1690(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5809,8 +5646,8 @@ def Test_02043_18_04939_WHOLENESS_1691(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5844,8 +5681,8 @@ def Test_02043_18_04939_WHOLENESS_1692(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5879,8 +5716,8 @@ def Test_02043_18_04939_WHOLENESS_1693(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("codes défauts", index, refColIndex))
                         check = True
 
@@ -5914,8 +5751,8 @@ def Test_02043_18_04939_WHOLENESS_1700(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -5949,8 +5786,8 @@ def Test_02043_18_04939_WHOLENESS_1701(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -5984,8 +5821,8 @@ def Test_02043_18_04939_WHOLENESS_1702(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6019,8 +5856,8 @@ def Test_02043_18_04939_WHOLENESS_1703(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6054,8 +5891,8 @@ def Test_02043_18_04939_WHOLENESS_1704(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6089,8 +5926,8 @@ def Test_02043_18_04939_WHOLENESS_1705(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6124,8 +5961,8 @@ def Test_02043_18_04939_WHOLENESS_1706(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6159,8 +5996,8 @@ def Test_02043_18_04939_WHOLENESS_1707(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6194,8 +6031,8 @@ def Test_02043_18_04939_WHOLENESS_1708(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6229,8 +6066,8 @@ def Test_02043_18_04939_WHOLENESS_1709(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6265,8 +6102,8 @@ def Test_02043_18_04939_WHOLENESS_1710(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6301,8 +6138,8 @@ def Test_02043_18_04939_WHOLENESS_1711(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6336,8 +6173,8 @@ def Test_02043_18_04939_WHOLENESS_1712(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6371,8 +6208,8 @@ def Test_02043_18_04939_WHOLENESS_1713(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6406,8 +6243,8 @@ def Test_02043_18_04939_WHOLENESS_1714(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6441,8 +6278,8 @@ def Test_02043_18_04939_WHOLENESS_1715(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6476,8 +6313,8 @@ def Test_02043_18_04939_WHOLENESS_1716(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6511,8 +6348,8 @@ def Test_02043_18_04939_WHOLENESS_1717(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6546,8 +6383,8 @@ def Test_02043_18_04939_WHOLENESS_1718(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6581,8 +6418,8 @@ def Test_02043_18_04939_WHOLENESS_1719(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("mesures et commandes", index, refColIndex))
                         check = True
 
@@ -6616,8 +6453,8 @@ def Test_02043_18_04939_WHOLENESS_1750(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6651,8 +6488,8 @@ def Test_02043_18_04939_WHOLENESS_1751(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6686,8 +6523,8 @@ def Test_02043_18_04939_WHOLENESS_1752(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6721,8 +6558,8 @@ def Test_02043_18_04939_WHOLENESS_1753(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6756,8 +6593,8 @@ def Test_02043_18_04939_WHOLENESS_1754(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6791,8 +6628,8 @@ def Test_02043_18_04939_WHOLENESS_1755(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6826,8 +6663,8 @@ def Test_02043_18_04939_WHOLENESS_1756(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6861,8 +6698,8 @@ def Test_02043_18_04939_WHOLENESS_1757(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6896,8 +6733,8 @@ def Test_02043_18_04939_WHOLENESS_1758(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6931,8 +6768,8 @@ def Test_02043_18_04939_WHOLENESS_1759(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.diagDebFirstInfoRow, TSDApp.WorkbookStats.DiagDebLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Diagnostic débarqués", index, refColIndex))
                         check = True
 
@@ -6966,8 +6803,8 @@ def Test_02043_18_04939_WHOLENESS_1800(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Effets clients", index, refColIndex))
                         check = True
 
@@ -7002,8 +6839,8 @@ def Test_02043_18_04939_WHOLENESS_1801(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Effets clients", index, refColIndex))
                         check = True
 
@@ -7038,8 +6875,8 @@ def Test_02043_18_04939_WHOLENESS_1802(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Effets clients", index, refColIndex))
                         check = True
 
@@ -7074,8 +6911,8 @@ def Test_02043_18_04939_WHOLENESS_1803(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Effets clients", index, refColIndex))
                         check = True
 
@@ -7110,8 +6947,8 @@ def Test_02043_18_04939_WHOLENESS_1810(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7146,8 +6983,8 @@ def Test_02043_18_04939_WHOLENESS_1811(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7182,8 +7019,8 @@ def Test_02043_18_04939_WHOLENESS_1812(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7218,8 +7055,8 @@ def Test_02043_18_04939_WHOLENESS_1813(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7254,8 +7091,8 @@ def Test_02043_18_04939_WHOLENESS_1814(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7290,8 +7127,8 @@ def Test_02043_18_04939_WHOLENESS_1815(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.ERFirstInfoRow, TSDApp.WorkbookStats.ERLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("ER", index, refColIndex))
                         check = True
 
@@ -7325,8 +7162,8 @@ def Test_02043_18_04939_WHOLENESS_1820(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7360,8 +7197,8 @@ def Test_02043_18_04939_WHOLENESS_1821(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7395,8 +7232,8 @@ def Test_02043_18_04939_WHOLENESS_1822(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7430,8 +7267,8 @@ def Test_02043_18_04939_WHOLENESS_1823(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7465,8 +7302,8 @@ def Test_02043_18_04939_WHOLENESS_1824(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7500,8 +7337,8 @@ def Test_02043_18_04939_WHOLENESS_1825(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.constituantsFirstInfoRow, TSDApp.WorkbookStats.constituantsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Constituants", index, refColIndex))
                         check = True
 
@@ -7535,8 +7372,8 @@ def Test_02043_18_04939_WHOLENESS_1830(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.sitDeVieFirstInfoRow, TSDApp.WorkbookStats.SitDeVieLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("situations de vie", index, refColIndex))
                         check = True
 
@@ -7571,8 +7408,8 @@ def Test_02043_18_04939_WHOLENESS_1831(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.sitDeVieFirstInfoRow, TSDApp.WorkbookStats.SitDeVieLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("situations de vie", index, refColIndex))
                         check = True
 
@@ -7607,8 +7444,8 @@ def Test_02043_18_04939_WHOLENESS_1840(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.listeMDDFirstInfoRow, TSDApp.WorkbookStats.MDDLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Liste MDD", index, refColIndex))
                         check = True
 
@@ -7643,8 +7480,8 @@ def Test_02043_18_04939_WHOLENESS_1841(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.listeMDDFirstInfoRow, TSDApp.WorkbookStats.MDDLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Liste MDD", index, refColIndex))
                         check = True
 
@@ -7678,8 +7515,8 @@ def Test_02043_18_04939_WHOLENESS_1900(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7713,8 +7550,8 @@ def Test_02043_18_04939_WHOLENESS_1901(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7748,8 +7585,8 @@ def Test_02043_18_04939_WHOLENESS_1902(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7783,8 +7620,8 @@ def Test_02043_18_04939_WHOLENESS_1903(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7818,8 +7655,8 @@ def Test_02043_18_04939_WHOLENESS_1904(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7853,8 +7690,8 @@ def Test_02043_18_04939_WHOLENESS_1905(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7888,8 +7725,8 @@ def Test_02043_18_04939_WHOLENESS_1906(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7923,8 +7760,8 @@ def Test_02043_18_04939_WHOLENESS_1907(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7958,8 +7795,8 @@ def Test_02043_18_04939_WHOLENESS_1908(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -7993,8 +7830,8 @@ def Test_02043_18_04939_WHOLENESS_1909(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8028,8 +7865,8 @@ def Test_02043_18_04939_WHOLENESS_1910(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8063,8 +7900,8 @@ def Test_02043_18_04939_WHOLENESS_1911(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8098,8 +7935,8 @@ def Test_02043_18_04939_WHOLENESS_1912(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8134,8 +7971,8 @@ def Test_02043_18_04939_WHOLENESS_1913(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8169,8 +8006,8 @@ def Test_02043_18_04939_WHOLENESS_1914(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8204,8 +8041,8 @@ def Test_02043_18_04939_WHOLENESS_1915(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8239,8 +8076,8 @@ def Test_02043_18_04939_WHOLENESS_1916(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8274,8 +8111,8 @@ def Test_02043_18_04939_WHOLENESS_1917(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8309,8 +8146,8 @@ def Test_02043_18_04939_WHOLENESS_1918(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8344,8 +8181,8 @@ def Test_02043_18_04939_WHOLENESS_1919(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8379,8 +8216,8 @@ def Test_02043_18_04939_WHOLENESS_1920(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8414,8 +8251,8 @@ def Test_02043_18_04939_WHOLENESS_1921(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8449,8 +8286,8 @@ def Test_02043_18_04939_WHOLENESS_1922(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8484,8 +8321,8 @@ def Test_02043_18_04939_WHOLENESS_1923(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8519,8 +8356,8 @@ def Test_02043_18_04939_WHOLENESS_1924(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8554,8 +8391,8 @@ def Test_02043_18_04939_WHOLENESS_1925(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8589,8 +8426,8 @@ def Test_02043_18_04939_WHOLENESS_1926(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8624,8 +8461,8 @@ def Test_02043_18_04939_WHOLENESS_1927(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("tableau", index, refColIndex))
                         check = True
 
@@ -8659,8 +8496,8 @@ def Test_02043_18_04939_WHOLENESS_1950(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8695,8 +8532,8 @@ def Test_02043_18_04939_WHOLENESS_1951(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8730,8 +8567,8 @@ def Test_02043_18_04939_WHOLENESS_1952(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8765,8 +8602,8 @@ def Test_02043_18_04939_WHOLENESS_1953(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8800,8 +8637,8 @@ def Test_02043_18_04939_WHOLENESS_1954(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8835,8 +8672,8 @@ def Test_02043_18_04939_WHOLENESS_1955(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8870,8 +8707,8 @@ def Test_02043_18_04939_WHOLENESS_1956(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8905,8 +8742,8 @@ def Test_02043_18_04939_WHOLENESS_1957(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8940,8 +8777,8 @@ def Test_02043_18_04939_WHOLENESS_1958(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -8975,8 +8812,8 @@ def Test_02043_18_04939_WHOLENESS_1959(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9010,8 +8847,8 @@ def Test_02043_18_04939_WHOLENESS_1960(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9045,8 +8882,8 @@ def Test_02043_18_04939_WHOLENESS_1961(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9080,8 +8917,8 @@ def Test_02043_18_04939_WHOLENESS_1962(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9115,8 +8952,8 @@ def Test_02043_18_04939_WHOLENESS_1963(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9150,8 +8987,8 @@ def Test_02043_18_04939_WHOLENESS_1964(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9185,8 +9022,8 @@ def Test_02043_18_04939_WHOLENESS_1965(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9220,8 +9057,8 @@ def Test_02043_18_04939_WHOLENESS_1966(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9255,8 +9092,8 @@ def Test_02043_18_04939_WHOLENESS_1967(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9290,8 +9127,8 @@ def Test_02043_18_04939_WHOLENESS_1968(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9325,8 +9162,8 @@ def Test_02043_18_04939_WHOLENESS_1969(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Data trouble codes", index, refColIndex))
                         check = True
 
@@ -9360,8 +9197,8 @@ def Test_02043_18_04939_WHOLENESS_2000(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9395,8 +9232,8 @@ def Test_02043_18_04939_WHOLENESS_2001(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9430,8 +9267,8 @@ def Test_02043_18_04939_WHOLENESS_2002(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9465,8 +9302,8 @@ def Test_02043_18_04939_WHOLENESS_2003(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9500,8 +9337,8 @@ def Test_02043_18_04939_WHOLENESS_2004(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9535,8 +9372,8 @@ def Test_02043_18_04939_WHOLENESS_2005(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9570,8 +9407,8 @@ def Test_02043_18_04939_WHOLENESS_2006(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9605,8 +9442,8 @@ def Test_02043_18_04939_WHOLENESS_2007(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9640,8 +9477,8 @@ def Test_02043_18_04939_WHOLENESS_2008(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9675,8 +9512,8 @@ def Test_02043_18_04939_WHOLENESS_2009(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9710,8 +9547,8 @@ def Test_02043_18_04939_WHOLENESS_2010(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9746,8 +9583,8 @@ def Test_02043_18_04939_WHOLENESS_2011(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.readDataIOFirstInfoRow, TSDApp.WorkbookStats.ReadDataIOLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Read data and IO control", index, refColIndex))
                         check = True
 
@@ -9781,8 +9618,8 @@ def Test_02043_18_04939_WHOLENESS_2050(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9817,8 +9654,8 @@ def Test_02043_18_04939_WHOLENESS_2051(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9853,8 +9690,8 @@ def Test_02043_18_04939_WHOLENESS_2052(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9889,8 +9726,8 @@ def Test_02043_18_04939_WHOLENESS_2053(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9925,8 +9762,8 @@ def Test_02043_18_04939_WHOLENESS_2054(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9961,8 +9798,8 @@ def Test_02043_18_04939_WHOLENESS_2055(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -9997,8 +9834,8 @@ def Test_02043_18_04939_WHOLENESS_2056(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.notEmbDiagFirstInfoRow, TSDApp.WorkbookStats.NotEmbDiagLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Not embedded diagnosis", index, refColIndex))
                         check = True
 
@@ -10033,8 +9870,8 @@ def Test_02043_18_04939_WHOLENESS_2060(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Technical effect", index, refColIndex))
                         check = True
 
@@ -10069,8 +9906,8 @@ def Test_02043_18_04939_WHOLENESS_2061(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Technical effect", index, refColIndex))
                         check = True
 
@@ -10105,8 +9942,8 @@ def Test_02043_18_04939_WHOLENESS_2062(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Technical effect", index, refColIndex))
                         check = True
 
@@ -10141,8 +9978,8 @@ def Test_02043_18_04939_WHOLENESS_2070(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer effect", index, refColIndex))
                         check = True
 
@@ -10177,8 +10014,8 @@ def Test_02043_18_04939_WHOLENESS_2071(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer effect", index, refColIndex))
                         check = True
 
@@ -10214,8 +10051,8 @@ def Test_02043_18_04939_WHOLENESS_2072(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Customer effect", index, refColIndex))
                         check = True
 
@@ -10251,8 +10088,8 @@ def Test_02043_18_04939_WHOLENESS_2080(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Feared events", index, refColIndex))
                         check = True
 
@@ -10288,8 +10125,8 @@ def Test_02043_18_04939_WHOLENESS_2081(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Feared events", index, refColIndex))
                         check = True
 
@@ -10324,8 +10161,8 @@ def Test_02043_18_04939_WHOLENESS_2082(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Feared events", index, refColIndex))
                         check = True
 
@@ -10360,8 +10197,8 @@ def Test_02043_18_04939_WHOLENESS_2083(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Feared events", index, refColIndex))
                         check = True
 
@@ -10395,8 +10232,8 @@ def Test_02043_18_04939_WHOLENESS_2084(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Feared events", index, refColIndex))
                         check = True
 
@@ -10431,8 +10268,8 @@ def Test_02043_18_04939_WHOLENESS_2090(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Parts", index, refColIndex))
                         check = True
 
@@ -10467,8 +10304,8 @@ def Test_02043_18_04939_WHOLENESS_2091(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Parts", index, refColIndex))
                         check = True
 
@@ -10503,8 +10340,8 @@ def Test_02043_18_04939_WHOLENESS_2092(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Parts", index, refColIndex))
                         check = True
 
@@ -10539,8 +10376,8 @@ def Test_02043_18_04939_WHOLENESS_2100(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Variant", index, refColIndex))
                         check = True
 
@@ -10575,8 +10412,8 @@ def Test_02043_18_04939_WHOLENESS_2101(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Variant", index, refColIndex))
                         check = True
 
@@ -10611,8 +10448,8 @@ def Test_02043_18_04939_WHOLENESS_2102(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Variant", index, refColIndex))
                         check = True
 
@@ -10647,8 +10484,8 @@ def Test_02043_18_04939_WHOLENESS_2110(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Situation", index, refColIndex))
                         check = True
 
@@ -10683,8 +10520,8 @@ def Test_02043_18_04939_WHOLENESS_2111(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Situation", index, refColIndex))
                         check = True
 
@@ -10719,8 +10556,8 @@ def Test_02043_18_04939_WHOLENESS_2112(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Situation", index, refColIndex))
                         check = True
 
@@ -10755,8 +10592,8 @@ def Test_02043_18_04939_WHOLENESS_2120(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.degradedModeFirstInfoRow, TSDApp.WorkbookStats.DegradedModeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Degraded mode", index, refColIndex))
                         check = True
 
@@ -10791,8 +10628,8 @@ def Test_02043_18_04939_WHOLENESS_2121(workBook, TSDApp):
 
         if refColIndex != -1:
             for index in range(TSDApp.degradedModeFirstInfoRow, TSDApp.WorkbookStats.DegradedModeLastRow):
-                if workSheet.cell(index, 0).value is not None or workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value is None or workSheet.cell(index, refColIndex).value == "":
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "":
                         localisations.append(("Degraded mode", index, refColIndex))
                         check = True
 
