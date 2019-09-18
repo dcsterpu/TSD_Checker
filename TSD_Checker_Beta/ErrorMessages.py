@@ -8,7 +8,7 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0005"] = "The field “REFERENCE�
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0010"] = "The information “Ref plan type” is missing in the sheet “Informations Générales” (or “General information”)."
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0011"] = "The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales (or “General information”). As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666"
+errorMessagesDict["Test_02043_18_04939_STRUCT_0011"] = "The document does not specify the template or the template reference is not indicated in the sheet “Informations Générales (or “General information”). As indicated in to one of the 3 references AEEV_IAEE07_0033 or 02043_12_01665 or 02043_12_01666 in the cell B52 and version in cell C52."
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0020"] = "The sheet “Suppression ” (or “suppression ”) is not present or not written correctly"
 
@@ -243,13 +243,19 @@ errorMessagesDict["Test_02043_18_04939_COH_2000"] = "The information specified i
 
 errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr."
 
-errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The DID/RI specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document “Extract from CESARE” [DOC8]."
+errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The SubFamillyName shall be precised in front of the DTC code specified in the cell XXXX of the column 'Code défaut'  in the “Table” sheet  and this SubFamillyName shall be present in the  document 'Extract from CESARE' 02043_18_05471, column 'Nom de la sous famille' of the sheet 'sous familles Cesare' or for the exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: BSI-B132C-1B (UDS)\nex: BSI-B132C (KW)"
+errorMessagesDict["Test_02043_18_04939_COH_2004"] = "The information specified in the column “Code défaut induits” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts”. The information shall be separate only by ',' or ';'"
 
-errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Nom de la sous famille” of the sheet “sous familles Cesare” in the document ”Extract from CESARE” [DOC8]."
+errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: RCC-B132C-1B (UDS)\nex: RCC-B132C (KW)\nex exception: (family) BSI-B132C-1B (UDS)"
+
+errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The SubFamilyName precise in front of the DTC specified in the cell XXXX of the “Table” sheet shall be present in the column 'Nom de la sous famille' of the sheet 'sous familles Cesare' in the document 'Extract from CESARE'  (02043_18_05471), or for the exception see sheet 'ECU Exception'."
 
 errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]."
+
+errorMessagesDict["Test_02043_18_04939_COH_2008"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: RCC-B132C-1B (UDS)\nex: RCC-B132C (KW)\nex exception: (family) BSI-B132C-1B (UDS)"
+
+errorMessagesDict["Test_02043_18_04939_COH_2009"] = "The SubFamilyName precise in front of the DTC specified in the cell XXXX of the “Table” sheet shall be present in the column 'Nom de la sous famille' of the sheet 'sous familles Cesare' in the document 'Extract from CESARE'  (02043_18_05471), or for the exception see sheet 'ECU Exception'."
 
 errorMessagesDict["Test_02043_18_04939_COH_2010"] = "The information specified in the column “Code défaut” of the sheet “tableau”, is missing in the column “Code défaut” of the sheet “codes défauts”. The information shall be separate only by ',' or ';'"
 
@@ -293,13 +299,13 @@ errorMessagesDict["Test_02043_18_04939_COH_2190"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2200"] = "The information specified in the column “Situation” of the “Table” sheet shall be present in the column “Description” of the sheet “Situation” or precised as “N/A”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2210"] = "The information specified in the column “Diagnostic débarqué” of the “Tableau” sheet shall be present in the column “libellé (signification)” of the sheet “Diagnostic” or precised as “N/A”."
+errorMessagesDict["Test_02043_18_04939_COH_2210"] = "The information specified in the column “Diagnostic débarqué” of the “Tableau” sheet shall be present in the column “libellé (signification)” of the sheet “Diagnostic débarqué” or precised as “N/A”."
 
 errorMessagesDict["Test_02043_18_04939_COH_2220"] = "The information specified in the column “Non-embedded diagnosis” of the “Table” sheet shall be present in the column “Label” of the sheet “Non-embedded diagnosis” or precised as “N/A”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” (or “table”) shall be present in the diagnostic message."
+errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” (or “table”) shall be present in the diagnostic messages document(ODX)."
 
-errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'Code défauts' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
+errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'tableau' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
 errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information specified in the column 'Diversity' of the 'Diagnostic Needs' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 

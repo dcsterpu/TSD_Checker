@@ -1,4 +1,4 @@
-import TSD_Checker_V6_9
+import TSD_Checker_V7_0
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -197,6 +197,9 @@ def Test_02043_18_04939_STRUCT_0010(workBook, TSDApp):
             localisation = None
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
+def hasNumbers(inputString):
+    return any(char.isdigit() for char in inputString)
+
 def Test_02043_18_04939_STRUCT_0011(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     localisation = []
@@ -204,14 +207,29 @@ def Test_02043_18_04939_STRUCT_0011(workBook, TSDApp):
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.InfGenIndex)
-        cell = workSheet.cell(51,1)
+        rowIndex = -1
+        colIndex = -1
+        flag = False
+        for index1 in range(0, workSheet.nrows):
+            for index2 in range(0, workSheet.ncols):
+                if "Ref plan type".casefold() in str(workSheet.cell(index1, index2).value).casefold().strip() or "Standard plan reference".casefold() in str(workSheet.cell(index1, index2).value).casefold().strip() :
+                    rowIndex = index1
+                    colIndex = index2
+                if rowIndex != -1 and colIndex != -1:
+                    flag = True
+                    break
+            if flag:
+                break
+
         try:
-            if cell.value.strip() in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"}:
+            if str(workSheet.cell(rowIndex, colIndex + 1).value) in {"AEEV_IAEE07_0033", "02043_12_01665", "02043_12_01666"} and hasNumbers(str(workSheet.cell(rowIndex, colIndex + 2).value)):
                 localisation = None
             else:
-                localisation.append(("informations générales", 51, 1))
+                localisation.append(("informations générales", rowIndex, colIndex + 1))
+                localisation.append(("informations générales", rowIndex, colIndex + 2))
         except:
-            localisation.append(("informations générales", 51, 1))
+            localisation.append(("informations générales", rowIndex, colIndex + 1))
+            localisation.append(("informations générales", rowIndex, colIndex + 2))
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
 
 def Test_02043_18_04939_STRUCT_0020(workBook, TSDApp):
@@ -685,9 +703,9 @@ def Test_02043_18_04939_STRUCT_0130(ExcelApp, workBook, TSDApp, DOC3Name):
         for elem1 in list_ref:
             found = False
             for elem2 in list_test:
-                if elem1['2'] == elem2['2'] or elem1['2'] == "":
+                if elem1['2'] == elem2['2']:
                     found = True
-            if not found:
+            if not found and elem1['2'] != "":
                 name.append((elem1['2']))
         if not name:
             name = None
@@ -723,7 +741,7 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
         DOC3 = xlrd.open_workbook(DOC3Name, on_demand=True)
         workSheetRef = DOC3.sheet_by_name("mesures et commandes")
         nrCols = workSheetRef.ncols
-        list_ref = list()
+        list_ref = []
 
         for col in range(0, nrCols):
             dict = {}
@@ -739,7 +757,7 @@ def Test_02043_18_04939_STRUCT_0150(ExcelApp, workBook, TSDApp, DOC3Name):
             for elem2 in list_test:
                 if elem1['2'] == elem2['2']:
                     found = True
-            if not found:
+            if not found and elem1['2'] != "":
                 name.append((elem1['2']))
         if not name:
             name = None
