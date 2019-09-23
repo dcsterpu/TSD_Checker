@@ -1,7 +1,8 @@
-import TSD_Checker_V7_0
+import TSD_Checker_V7_1
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
+from ExcelEdit import TestReturnName as show
 import xlrd
 
 #Coherence checks requirements
@@ -68,6 +69,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                             else:
                                 localisations.append(("tableau",element["row"],element["col"]))
                                 check = True
+                                break
                     else:
                         if ';' in element["value"]:
                             elem = element["value"].split(";")
@@ -77,6 +79,7 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                                 else:
                                     localisations.append(("tableau", element["row"], element["col"]))
                                     check = True
+                                    break
                         else:
                             if element["value"].strip() in list_measure or element["value"] in list_measure:
                                 pass
@@ -234,21 +237,10 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
                 if workSheet.cell(index, 0).value != "":
                     try:
                         cel = workSheet.cell(index, codeColIndex).value.split("-")
-                        if len(cel) == 2:
-                            check = True
-                            mystring = cel[0]
-                            for char in mystring:
-                                if not (is_ascii(char)):
-                                    check1 = False
-                                    break
-
-                            if check is True and len(cel[1]) == 4 and cel[0] in DOC8List:
-                                pass
-                            else:
-                                localisations.append(("codes défauts", index, codeColIndex))
+                        if cel[0] in DOC8List:
+                            pass
                         else:
                             localisations.append(("codes défauts", index, codeColIndex))
-
                     except:
                         localisations.append(("codes défauts", index, codeColIndex))
 
@@ -275,7 +267,7 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
         var = 0
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold():
+            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 refColIndex = index
                 break
 
@@ -323,6 +315,7 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
                         else:
                             localisations.append(("tableau",element["row"],element["col"]))
                             check = True
+                            break
                 else:
                     if ';' in element["value"]:
                         elem = element["value"].split(";")
@@ -332,6 +325,7 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
                             else:
                                 localisations.append(("tableau", element["row"], element["col"]))
                                 check = True
+                                break
                     else:
                         if element["value"].strip() in list_code or element["value"] in list_code:
                             pass
@@ -367,17 +361,32 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                 if workSheet.cell(index, 0).value != "":
                     try:
                         cel = workSheet.cell(index, codeColIndex).value.split("-")
-                        if len(cel) == 2:
-                            if cel[0].isascii() and cel[1][0].isalpha() and len(cel[1]) == 5:
+                        check1 = False
+                        if len(cel) > 1:
+                            if cel[1][0].isalpha() and len(cel[1]) == 5:
                                 try:
                                     int(cel[1][1:], 16)
+                                    check1 = True
                                 except:
                                     localisations.append(("codes défauts",index,codeColIndex))
-                        else:
-                            if len(cel) == 3:
-                                pass
+                        check2 = False
+                        if len(cel) == 2:
+                            check2 = True
+
+                        if len(cel) == 3 and len(cel[2]) == 2:
+                            try:
+                                int(cel[2],16)
+                                check2 = True
+                            except:
+                                localisations.append(("codes défauts", index, codeColIndex))
+
                     except:
                         localisations.append(("codes défauts",index,codeColIndex))
+
+                    if check1 and check2:
+                        pass
+                    else:
+                        localisations.append(("codes défauts", index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -541,7 +550,7 @@ def Test_02043_18_04939_COH_2008(workBook, TSDApp):
         codeColIndex = -1
 
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
-            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold():
+            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 codeColIndex = index
                 break
 
@@ -592,7 +601,7 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
         codeColIndex = -1
 
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
-            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold():
+            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 codeColIndex = index
                 break
 
@@ -619,7 +628,9 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("The column 'Code défauts induits' does not exist")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
             check = True
 
     return check
@@ -686,6 +697,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                         else:
                             localisations.append(("tableau",element["row"],element["col"]))
                             check = True
+                            break
                 else:
                     if ';' in element["value"]:
                         elem = element["value"].split(";")
@@ -695,6 +707,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                             else:
                                 localisations.append(("tableau", element["row"], element["col"]))
                                 check = True
+                                break
                     else:
                         if element["value"].strip() in list_code or element["value"] in list_code:
                             pass
@@ -1026,7 +1039,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["value"] = workSheet.cell(index, effColIndex).value
+                        dict["value"] = str(workSheet.cell(index, effColIndex).value).casefold()
                         dict["row"] = index
                         dict["col"] = effColIndex
                         list_eff.append(dict)
@@ -1086,8 +1099,8 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N1EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N1ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N1EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N1ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:
@@ -1103,8 +1116,8 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N2EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N2ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N2EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N2ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:
@@ -1120,8 +1133,8 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N3EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N3ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N3EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N3ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:
@@ -1193,7 +1206,7 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["value"] = workSheet.cell(index, effColIndex).value
+                        dict["value"] = str(workSheet.cell(index, effColIndex).value).casefold()
                         dict["row"] = index
                         dict["col"] = effColIndex
                         list_eff.append(dict)
@@ -1253,8 +1266,8 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N1EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N1ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N1EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N1ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:
@@ -1270,8 +1283,8 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N2EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N2ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N2EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N2ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:
@@ -1287,8 +1300,8 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["effetClient"] = workSheetRef.cell(index, N3EffColIndex).value
-                        dict["libelle"] = workSheetRef.cell(index, N3ColIndex).value
+                        dict["effetClient"] = str(workSheetRef.cell(index, N3EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N3ColIndex).value).casefold()
                         if not list1:
                             list1.append(dict)
                         else:

@@ -90,7 +90,7 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0270"] = "In the sheet “Liste MD
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0400"] = "The sheet “Table” (or “tableau”) is not present or not written correctly"
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0410"] = "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. "
+errorMessagesDict["Test_02043_18_04939_STRUCT_0410"] = "In the sheet “Table” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document [DOC3]. "
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0420"] = "The sheet “Diagnostic Needs” is not present or not written correctly"
 
@@ -195,7 +195,7 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1061"] = "The project impact is
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1062"] = "The project impact is not specified for the project in the sheet “mesures et commandes”."
 
-errorMessagesDict["Test_02043_18_04939_WHOLENESS_1070"] = "In the sheet “tableau”, the column “Code défaut” is not completed by “NO DTC” or by the ECU name"
+errorMessagesDict["Test_02043_18_04939_WHOLENESS_1070"] = "In the sheet “Tableau”, the column “Code défaut”, the XXX cells are not completed. Please precise 'NO DTC' if there is no DTC applied."
 
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1080"] = "In the sheet “codes défauts”, the column “Code défaut” is not completed"
 
@@ -241,7 +241,7 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1280"] = "In the sheet “XXX�
 
 errorMessagesDict["Test_02043_18_04939_COH_2000"] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes”."
 
-errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr."
+errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr.\nwith:\nSubFamillyName: ASCII caracters\nThe SubFamillyName is coherent with the extract from CESARE (02043_18_05471), sheet 'sous familles Cesare', column 'Nom de la sous famille' B28.\nDINr OR RINr:4 caracters \nex: RCC-D402."
 
 errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The SubFamillyName shall be precised in front of the DTC code specified in the cell XXXX of the column 'Code défaut'  in the “Table” sheet  and this SubFamillyName shall be present in the  document 'Extract from CESARE' 02043_18_05471, column 'Nom de la sous famille' of the sheet 'sous familles Cesare' or for the exception see sheet 'ECU Exception'."
 
@@ -251,7 +251,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the ce
 
 errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The SubFamilyName precise in front of the DTC specified in the cell XXXX of the “Table” sheet shall be present in the column 'Nom de la sous famille' of the sheet 'sous familles Cesare' in the document 'Extract from CESARE'  (02043_18_05471), or for the exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI” [DOC14]."
+errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI”. With the following format:SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
 
 errorMessagesDict["Test_02043_18_04939_COH_2008"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: RCC-B132C-1B (UDS)\nex: RCC-B132C (KW)\nex exception: (family) BSI-B132C-1B (UDS)"
 
@@ -267,9 +267,9 @@ errorMessagesDict["Test_02043_18_04939_COH_2040"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2050"] = "The information (other than 'N/A') specified in the column “Evenement(s) redouté(s) (ER)” of the sheet “tableau” is missing in the column “nom” of the sheet “ER”"
 
-errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document 'Customer effects file' 02043_18_05499 in French or English or has the wrong format.\nFormat expected:  'Nr Customer effect': 'Description'. "
+errorMessagesDict["Test_02043_18_04939_COH_2060"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing in the document 'Customer effects file' 02043_18_05499 in French or English or has the wrong format.\nFormat expected:  'Nr Customer effect': 'Description'.“Nr Customer effect” is a number of the 3 column “Effet Client N1”  or “Effet Client N2” or “Effet Client N3” present in the document [DOC7] either in one of the sheets “FR” or “GB”\n“Description” is the description present in one of the 3 column “Libellé N1” or  “Libellé N2” or  “Libellé N3” present in the document [DOC7] either in one of the sheets “FR” or “GB”.\nex: EFC0533 : Lighting of the coolant level warning lamp\nPlease check it or ask ADRD people to add this new customer effect."
 
-errorMessagesDict["Test_02043_18_04939_COH_2061"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing or do not respect the format: \n'Nr Customer effect': 'Description' ['Nr Customer effect': 'Description'] ['Nr Customer effect': 'Description']."
+errorMessagesDict["Test_02043_18_04939_COH_2061"] = "The information specified in the column “Noms” of the sheet “Effets clients” is missing or do not respect the format:\n'Nr Customer effect': 'Description' ['Nr Customer effect': 'Description'] ['Nr Customer effect': 'Description'].\n2 additional levels are optionnal \nThe information are present in the document  'Customer effects file' 02043_18_05499 either in one of the sheets “FR” or “GB” in one of the 3 columns “Libellé N1” or  “Libellé N2” or  “Libellé N3”.\nex: EFC2038 : Noise (perception by hearing) : EFC2039 : Growling / Roar / Boom : EFC 2040 : Perceived coming from the front left exterior (Level1 : Level2 : Level3)\nex:  EFC2038 : Noise (perception by hearing) : EFC2039 : Growling / Roar / Boom  (Level1 : Level2)\nex:  EFC2039 : Growling / Roar / Boom  (Level2)\nex:  EFC2038 : Noise (perception by hearing)  (Level1)\nPlease check it or ask ADRD people to add this new customer effect."
 
 errorMessagesDict["Test_02043_18_04939_COH_2070"] = "The information specified in the column “Name” of the “Customer Effects” sheet is missing in the document 'Customer effects file' 02043_18_05499  in French or English. Please check it or ask ADRD people to add this new customer effect."
 
@@ -277,13 +277,13 @@ errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2091"] = " The text chain XXXX is present in the cell YYYY of the sheet ZZZZ. Please check it."
 
-errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare”"
+errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare”"
+errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2120"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document 'TSD System template' 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
+errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the function TSD (in the sheet Effets techniques, column “Référence amont”)."
 
-errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The reference indicated in the column “Référence” of the sheet “tableau”, is missing in document [DOC5] 02043_12_01666, in the column “Référence amont” of the sheet “Effets techniques”"
+errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The label precized in the column 'Noms' of the sheet  'Effets techniques' shall be present in the column 'Effet(s) technique(s)' of the sheet 'Table'."
 
 errorMessagesDict["Test_02043_18_04939_COH_2140"] = "The information specified in the column “code defaut induit” of the “tableau” sheet shall be present in the column “Code défaut” of the sheet “codes défauts” or precises as “N/A”"
 

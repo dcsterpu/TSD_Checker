@@ -1,4 +1,4 @@
-import TSD_Checker_V7_0
+import TSD_Checker_V7_1
 import time
 from PyQt5 import QtGui
 import xlwt
@@ -86,7 +86,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     workSheet_info_report = new_wb.add_sheet('Report information', cell_overwrite_ok=True)
 
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V7_0.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V7_1.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -183,7 +183,6 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
     warning_style = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
     text_style = xlwt.easyxf('font: colour white, bold False;')
-    text_style_b = xlwt.easyxf('font: colour black, bold False;')
 
     for elem in return_list:
 
@@ -202,14 +201,14 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
             workSheet_test_report.write(lastRow, 2, elem["message"])
 
         if elem["localisation"] is None or elem["localisation"] == "":
-            workSheet_test_report.write(lastRow, 3, elem["localisation"], text_style_b)
+            workSheet_test_report.write(lastRow, 3, elem["localisation"])
             lastRow += 1
 
         try:
             if elem["localisation"] is not None and elem["localisation"] != "":
                 if isinstance(elem["localisation"][0], str):
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.write(lastRow + index, 3, element, text_style_b)
+                        workSheet_test_report.write(lastRow + index, 3, element)
 
                     for index in range(1, len(elem["localisation"]) + 1):
                         workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
@@ -220,7 +219,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
                         link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\")"
-                        workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link), text_style_b)
+                        workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
 
                     for index in range(1, len(elem["localisation"]) + 1):
                         workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
@@ -257,7 +256,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_0.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_1.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -348,7 +347,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_0.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_1.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -452,8 +451,6 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         my_yellow = openpyxl.styles.colors.Color(rgb='00FFFF00')
         warning_style = openpyxl.styles.fills.PatternFill(patternType='solid', fgColor=my_yellow)
         text_style = Font(color='FFFFFFFF')
-        text_style_b = Font(color='00000000')
-
 
         for elem in return_list:
 
@@ -472,13 +469,13 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 workSheet_test_report.cell(lastRow, 3, elem["message"])
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 4, elem["localisation"]).font = text_style_b
+                workSheet_test_report.cell(lastRow, 4, elem["localisation"])
                 lastRow += 1
 
             if elem["localisation"] is not None and elem["localisation"] != "":
                 if isinstance(elem["localisation"][0], str):
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element).font = text_style_b
+                        workSheet_test_report.cell(lastRow + index, 4, element)
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
@@ -489,9 +486,8 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 else:
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4, '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)).font = text_style_b
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1) )
-
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
+                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
@@ -517,7 +513,6 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         my_yellow = openpyxl.styles.colors.Color(rgb='00FFFF00')
         warning_style = openpyxl.styles.fills.PatternFill(patternType='solid', fgColor=my_yellow)
         text_style = Font(color='FFFFFFFF')
-        text_style_b = Font(color='00000000')
 
         for elem in return_list:
 
@@ -536,13 +531,13 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 workSheet_test_report.cell(lastRow, 3, elem["message"])
 
             if elem["localisation"] is None or elem["localisation"] == "":
-                workSheet_test_report.cell(lastRow, 4, elem["localisation"]).font = text_style_b
+                workSheet_test_report.cell(lastRow, 4, elem["localisation"])
                 lastRow += 1
 
             if elem["localisation"] is not None and elem["localisation"] != "":
                 if isinstance(elem["localisation"][0], str):
                     for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element).font = text_style_b
+                        workSheet_test_report.cell(lastRow + index, 4, element)
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
@@ -553,7 +548,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 else:
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4, '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)).font = text_style_b
+                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
                         workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
