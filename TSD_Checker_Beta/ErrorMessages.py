@@ -251,7 +251,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2005"] = "The DTC specified in the ce
 
 errorMessagesDict["Test_02043_18_04939_COH_2006"] = "The SubFamilyName precise in front of the DTC specified in the cell XXXX of the “Table” sheet shall be present in the column 'Nom de la sous famille' of the sheet 'sous familles Cesare' in the document 'Extract from CESARE'  (02043_18_05471), or for the exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Table” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI”. With the following format:SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
+errorMessagesDict["Test_02043_18_04939_COH_2007"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall be present in the column “Data Trouble Code (DTC)” of the sheet “Matrix” of the “Diagnostic matrix extract from DOTI”. With the following format:SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format)."
 
 errorMessagesDict["Test_02043_18_04939_COH_2008"] = "The DTC specified in the cell XXXX of the “Code défaut” sheet shall respect the following format: SubFamillyName-DTCcodeNumber-Caracterisation (UDS format) OR SubFamillyName-DTCcodeNumber (KW format).\nwith:\nSubFamillyName: ASCII caracters\nDTCcodeNumber:5 caracters ==> One  letters and 4 hexadecimal number\nCaracterisation: 2 hexadecimal numbers\nex: RCC-B132C-1B (UDS)\nex: RCC-B132C (KW)\nex exception: (family) BSI-B132C-1B (UDS)"
 

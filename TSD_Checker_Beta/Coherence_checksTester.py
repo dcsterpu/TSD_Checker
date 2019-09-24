@@ -1151,10 +1151,39 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                 if len(elements) == 2:
                     flag = False
                     for pair in list1:
-                        if elements[0].strip().casefold() == pair["effetClient"].casefold() and elements[1].strip().casefold() == pair["libelle"].casefold():
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
                             flag = True
                             break
                     if flag is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 4:
+                    flag1 = False
+                    flag2 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if flag1 is True and flag2 is True:
+                            break
+                    if flag1 is False or flag2 is False:
+                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 6:
+                    flag1 = False
+                    flag2 = False
+                    flag3 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if elements[4].strip() == pair["effetClient"] and elements[5].strip() == pair["libelle"]:
+                            flag3 = True
+                        if flag1 is True and flag2 is True and flag3 is True:
+                            break
+                    if flag1 is False or flag2 is False or flag3 is False:
                         localisations.append(("Effets clients", element["row"], element["col"]))
                         check = True
                 else:
@@ -1674,13 +1703,36 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
             localisations = []
 
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
+                final_list = []
                 if workSheet.cell(index, 0).value != "":
-                    cel = workSheet.cell(index, ColIndex).value
-                    if cel is "":
-                        pass
-                    else:
-                        if cel not in DOC8List:
+                    if "," not in workSheet.cell(index, ColIndex).value and ";" not in workSheet.cell(index,ColIndex).value:
+                        if workSheet.cell(index, ColIndex).value in DOC8List:
+                            pass
+                        else:
                             localisations.append(("mesures et commandes",index, ColIndex))
+                    else:
+                        if "," in workSheet.cell(index, ColIndex).value and ";" not in workSheet.cell(index,ColIndex).value:
+                            final_list = workSheet.cell(index, ColIndex).value.split(",")
+                        elif "," not in workSheet.cell(index, ColIndex).value and ";" in workSheet.cell(index,ColIndex).value:
+                            final_list = workSheet.cell(index, ColIndex).value.split(";")
+                        elif "," in workSheet.cell(index, ColIndex).value and ";" in workSheet.cell(index,ColIndex).value:
+                            cel = workSheet.cell(index, ColIndex).value.split(",")
+                            for elem in cel:
+                                if ";" in elem:
+                                    cels = []
+                                    cels = elem.split(";")
+                                    for i in range(len(cels)):
+                                        final_list.append(cels[i])
+                                else:
+                                    final_list.append(elem)
+
+                        for element in final_list:
+                            if element in DOC8List:
+                                pass
+                            else:
+                                localisations.append(("mesures et commandes", index, ColIndex))
+                                break
+
 
             if not localisations:
                 localisations = None
@@ -1998,6 +2050,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
         localisations = list()
+        tempDict = []
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "code défauts induits".casefold():
@@ -2010,14 +2063,6 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         elif refColIndex != -1:
             list_table = list()
             list_effets = list()
-
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value != "":
-                    list_table_dict = {}
-                    list_table_dict["value"] = workSheet.cell(index, refColIndex).value
-                    list_table_dict["row"] = index
-                    list_table_dict["col"] = refColIndex
-                    list_table.append(dict(list_table_dict))
 
             if TSDApp.WorkbookStats.hasCode == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
@@ -2038,12 +2083,43 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                         else:
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
-                    for element in list_table:
-                        if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
-                            pass
-                        else:
-                            localisations.append(("tableau", element["row"], element["col"]))
-                            check = True
+                    workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+
+                    for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+                        if workSheet.cell(index, 0).value != "":
+                            if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold():
+                                pass
+                            else:
+                                final_list = []
+                                if "," not in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                                    if workSheet.cell(index, refColIndex).value in list_effets:
+                                        pass
+                                    else:
+                                        localisations.append(("tableau", index, refColIndex))
+                                        check = True
+                                else:
+                                    if "," in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                                        final_list = workSheet.cell(index, refColIndex).value.split(",")
+                                    elif "," not in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                        final_list = workSheet.cell(index, refColIndex).value.split(";")
+                                    elif "," in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                        cel = workSheet.cell(index, refColIndex).value.split(",")
+                                        for elem in cel:
+                                            if ";" in elem:
+                                                cels = []
+                                                cels = elem.split(";")
+                                                for i in range(len(cels)):
+                                                    final_list.append(cels[i])
+                                            else:
+                                                final_list.append(elem)
+
+                                    for element in final_list:
+                                        if element.strip() in list_effets:
+                                            pass
+                                        else:
+                                            localisations.append(("tableau", index, refColIndex))
+                                            check = True
+                                            break
 
                     if not localisations:
                         localisations = None
@@ -2151,17 +2227,6 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
             list_table = list()
             list_effets = list()
 
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
-                if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "":
-                        pass
-                    else:
-                        list_table_dict = {}
-                        list_table_dict["value"] = workSheet.cell(index, refColIndex).value
-                        list_table_dict["row"] = index
-                        list_table_dict["col"] = refColIndex
-                        list_table.append(dict(list_table_dict))
-
             if TSDApp.WorkbookStats.hasConstituants == False:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                 check = True
@@ -2181,12 +2246,44 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                         else:
                             list_effets.append(workSheet.cell(index, effColIndex).value)
 
-                    for element in list_table:
-                        if element["value"] in list_effets:
-                            pass
-                        else:
-                            localisations.append(("mesures et commandes",element["row"], element["col"]))
-                            check = True
+                    workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.measureIndex)
+
+                    for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
+                        if workSheet.cell(index, 0).value != "":
+                            if str(workSheet.cell(index, refColIndex).value) == "":
+                                pass
+                            else:
+                                final_list = []
+                                if "," not in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                                    if workSheet.cell(index, refColIndex).value in list_effets:
+                                        pass
+                                    else:
+                                        localisations.append(("mesures et commandes", index, refColIndex))
+                                        check = True
+                                else:
+                                    if "," in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                                        final_list = workSheet.cell(index, refColIndex).value.split(",")
+                                    elif "," not in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                        final_list = workSheet.cell(index, refColIndex).value.split(";")
+                                    elif "," in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                        cel = workSheet.cell(index, refColIndex).value.split(",")
+                                        for elem in cel:
+                                            if ";" in elem:
+                                                cels = []
+                                                cels = elem.split(";")
+                                                for i in range(len(cels)):
+                                                    final_list.append(cels[i])
+                                            else:
+                                                final_list.append(elem)
+
+                                    for element in final_list:
+                                        if element.strip() in list_effets:
+                                            pass
+                                        else:
+                                            localisations.append(("mesures et commandes", index, refColIndex))
+                                            check = True
+                                            break
+
 
                     if not localisations:
                         localisations = None
