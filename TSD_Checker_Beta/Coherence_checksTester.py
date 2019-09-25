@@ -1,4 +1,4 @@
-import TSD_Checker_V7_1
+import TSD_Checker_V7_2
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -460,6 +460,15 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
 
         DOC14 = xlrd.open_workbook(DOC14Name, on_demand=True)
+        workSheetRef = DOC14.sheet_by_name("Cover sheet")
+        for index1 in range(0, workSheetRef.nrows):
+            for index2 in range(0, workSheetRef.ncols):
+                if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Subfamily".casefold():
+                    indexRow = index1
+                    indexCol = index2
+        subfamily = str(workSheetRef.cell(indexRow, indexCol+1).value).strip()
+
+
         workSheetRef = DOC14.sheet_by_name("Matrix")
 
         nrCols = workSheetRef.ncols
@@ -518,14 +527,17 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
                 for element in code_defaut_list:
                     try:
                         elem = element['value'].split('-')
-                        if len(elem) == 2 and element['value'] in list_ref:
+                        if len(elem) == 1:
+                            pass
+                        elif len(elem) == 2 and element['value'] in list_ref:
                             pass
                         elif len(elem) == 3:
-                            element['value'] = elem[1] + "-" + elem[2]
-                            if element['value'] in list_ref:
-                                pass
-                            else:
-                                localisations.append(('codes défauts', element['row'], element['col']))
+                            if elem[0] == subfamily:
+                                element['value'] = elem[1] + "-" + elem[2]
+                                if element['value'] in list_ref:
+                                    pass
+                                else:
+                                    localisations.append(('codes défauts', element['row'], element['col']))
                         else:
                             localisations.append(('codes défauts', element['row'], element['col']))
 
@@ -593,22 +605,22 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasCode == False:
+    if TSDApp.WorkbookStats.hasTable == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         codeColIndex = -1
 
-        for index in range(0, TSDApp.WorkbookStats.codeLastCol):
-            if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
+        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
+            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 codeColIndex = index
                 break
 
         if codeColIndex != -1:
             localisations = []
 
-            for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
+            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     try:
                         cel = workSheet.cell(index, codeColIndex).value.split("-")
@@ -616,9 +628,9 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
                             pass
                         else:
                             if cel[0] not in DOC8List:
-                                localisations.append(("codes défauts",index, codeColIndex))
+                                localisations.append(("tableau",index, codeColIndex))
                     except:
-                        localisations.append(("codes défauts",index, codeColIndex))
+                        localisations.append(("tableau",index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -840,6 +852,8 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                         pass
                     else:
                         list_eff.append(workSheet.cell(index, effColIndex).value.strip())
+
+                list_eff.sort(key=len, reverse=True)
 
             list_chars = [',',';',' ']
             for element in tempList:
@@ -1363,9 +1377,20 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                             flag2 = True
                         if flag1 is True and flag2 is True:
                             break
-                    if flag1 is False or flag2 is False:
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                            if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                    if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                        flag_x = True
+                                        break
+
+                    if flag1 is False or flag2 is False or flag_x is False:
                         localisations.append(("Effets clients", element["row"], element["col"]))
                         check = True
+
                 elif len(elements) == 6:
                     flag1 = False
                     flag2 = False
@@ -1379,7 +1404,19 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                             flag3 = True
                         if flag1 is True and flag2 is True and flag3 is True:
                             break
-                    if flag1 is False or flag2 is False or flag3 is False:
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 4).value).casefold().strip() == elements[4].strip():
+                            if str(workSheetRef.cell(index, 5).value).casefold().strip() == elements[5].strip():
+                                if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                                    if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                        if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                            if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                                flag_x = True
+                                                break
+
+                    if flag1 is False or flag2 is False or flag3 is False or flag_x is False:
                         localisations.append(("Effets clients", element["row"], element["col"]))
                         check = True
                 else:
@@ -2742,27 +2779,35 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
                 break
 
         if refColIndex != -1:
-            localisations = []
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-                if workSheet.cell(index, 0).value != "":
-                    try:
-                        cel = workSheet.cell(index, refColIndex).value.split("-")
-                        if cel[0] == subfamily_name and cel[1].lstrip('_') in DOC15List:
-                            pass
-                        else:
-                            localisations.append(("tableau",index, refColIndex))
-                    except:
-                        localisations.append(("tableau", index, refColIndex))
+            if TSDApp.tab1.myTextBox61.toPlainText() != "":
+                localisations = []
+                for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+                    if workSheet.cell(index, 0).value != "":
+                        try:
+                            cel = workSheet.cell(index, refColIndex).value.split("-")
+                            if cel[0].casefold().strip() == TSDApp.tab1.myTextBox61.toPlainText().casefold().strip():
+                                if cel[0] == subfamily_name and cel[1].lstrip('_') in DOC15List:
+                                    pass
+                                else:
+                                    localisations.append(("tableau",index, refColIndex))
+                        except:
+                            localisations.append(("tableau", index, refColIndex))
 
-            if not localisations:
-                localisations = None
-            if not localisations:
-                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,
-                       TSDApp)
-                check = True
+                if not localisations:
+                    localisations = None
+                if not localisations:
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,
+                           TSDApp)
+                    check = True
+                else:
+                    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
+                           TSDApp)
             else:
-                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
-                       TSDApp)
+                name = []
+                name.append("The subfamily name field is not completed!")
+                show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
+                check = True
+
     return check
 
 def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
