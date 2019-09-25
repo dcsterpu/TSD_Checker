@@ -3207,8 +3207,10 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                                     final_list.append(elem)
                         else:
                             final_list.append(workSheet.cell(index, codeColIndex).value)
+                            lenght = 1
 
 
+                        lenght = len(final_list)
                         contor = 0
                         for element in final_list:
                             try:
@@ -3219,12 +3221,10 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                                             if element[1].strip() == DOC13List_2[element[0].strip()][index1]:
                                                 contor += 1
                                                 break
-                                else:
-                                    localisations.append(("tableau", index, codeColIndex))
                             except:
                                 break
 
-                        if contor != len(final_list) and len(final_list) != 1:
+                        if contor != lenght:
                             localisations.append(("tableau",index,codeColIndex))
                     except:
                         localisations.append(("tableau",index,codeColIndex))
