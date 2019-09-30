@@ -277,9 +277,9 @@ errorMessagesDict["Test_02043_18_04939_COH_2080"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2091"] = " The text chain XXXX is present in the cell YYYY of the sheet ZZZZ. Please check it."
 
-errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
+errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified in the column “supporté par constituant (s)” of the sheet “codes défauts” is missing in the document 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document [DOC8] 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
+errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
 
 errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the function TSD (in the sheet Effets techniques, column “Référence amont”)."
 
@@ -309,13 +309,13 @@ errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2241"] = "The information specified in the column 'Diversity' of the 'Diagnostic Needs' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
-errorMessagesDict["Test_02043_18_04939_COH_2251"] = "The information specified in the column 'Diversity' or 'Diversité' of the 'Code défauts'' sheet shall be with the following format:\nVariant_coding_LCDV words and in between the following words are supported: 'AND', 'OR', 'NOT', 'N/A', ';', ','\nWhere:\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
+errorMessagesDict["Test_02043_18_04939_COH_2251"] = "The information specified in the column 'Diversity' or 'Diversité' of the 'Code défauts' (or 'Data trouble code') sheet shall be with the following format:\nVariant_coding_LCDV words and in between the following words are supported: 'AND', 'OR', 'NOT', 'N/A', ';', ','\nWhere:\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
 errorMessagesDict["Test_02043_18_04939_COH_2260"] = "The information specified in the column 'Variante/option' of the 'Table' sheet shall be with the following format:\nCode_EC and their values with following autorized word in between  'AND', 'OR', 'NOT', 'N/A', ',', '(', ')', '='\nWhere:\n           Variant_coding_EC shall be present in the columns 'EC name / DesignationFR CF PLM' and 'Values' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: TYPE_ARCHITECTURE = NEA\nAND\nTYPE_CLE = VCE OR VML"
 
 errorMessagesDict["Test_02043_18_04939_COH_2261"] = "The information specified in the column 'Diversity' of the 'Diagnostic Needs' sheet shall be with the following format:\nCode_EC and their values with following autorized word in between  'AND', 'OR', 'NOT', 'N/A', ',', '(', ')', '='\nWhere:\n           Variant_coding_EC shall be present in the columns 'EC name / DesignationFR CF PLM' and 'Values' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: TYPE_ARCHITECTURE = NEA\nAND\nTYPE_CLE = VCE OR VML"
 
-errorMessagesDict["Test_02043_18_04939_COH_2270"] = "The information specified in the column 'Diversity' or 'Diversité' of the 'Table' sheet shall be with the following format:\n           Variant_coding_EC shall be present in the columns 'EC name / DesignationFR CF PLM' and 'Values' of the sheet 'Liste EC' of the diversity document 02016_11_04964\n           Code_EC with following autorized word in between   'AND', 'OR', 'NOT', 'N/A', ',', '(', ')', '='\nex: TYPE_ARCHITECTURE = NEA\nAND\nTYPE_CLE = VCE OR VML"
+errorMessagesDict["Test_02043_18_04939_COH_2270"] = "The information specified in the column 'Diversity' or 'Diversité' of the 'Data trouble code'(or 'Code défauts') sheet shall be with the following format:\n           Variant_coding_EC shall be present in the columns 'EC name / DesignationFR CF PLM' and 'Values' of the sheet 'Liste EC' of the diversity document 02016_11_04964\n           Code_EC with following autorized word in between   'AND', 'OR', 'NOT', 'N/A', ',', '(', ')', '='\nex: TYPE_ARCHITECTURE = NEA\nAND\nTYPE_CLE = VCE OR VML"
 
 #additional wholeness checks
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_1300"] = "In the sheet “Table”, the column “Reference” is not completed. The following cells are not completed:"

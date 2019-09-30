@@ -1,4 +1,4 @@
-import TSD_Checker_V7_2
+import TSD_Checker_V7_3
 import time
 from PyQt5 import QtGui
 import xlwt
@@ -83,10 +83,44 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
 
     DOC3 = workBook
     new_wb = deleteSheet(TSDApp, DOC3, "report information", "test report")
+
+    if TSDApp.convergence != "":
+        try:
+            workSheet = new_wb.get_sheet("tableau")
+        except:
+            workSheet = new_wb.get_sheet("Table")
+
+        if TSDApp.refSignature == -1:
+            workSheet.write(TSDApp.tableHeaderRow, TSDApp.WorkbookStats.tableLastCol, 'Unique Test Signature')
+            for element in TSDApp.unique_items:
+                if TSDApp.unique_list.count(element['value']) == 1:
+                    workSheet.write(element['localisation'], TSDApp.WorkbookStats.tableLastCol, '1')
+                    # NbUniqueSignatureTests += 1
+                else:
+                    for elem in TSDApp.unique_items:
+                        if element['value'] == elem['value']:
+                            workSheet.write(elem['localisation'], TSDApp.WorkbookStats.tableLastCol, '0')
+        else:
+            for element in TSDApp.unique_items:
+                if TSDApp.unique_list.count(element['value']) == 1:
+                    workSheet.write(element['localisation'], TSDApp.refSignature, '1')
+                    # NbUniqueSignatureTests += 1
+                else:
+                    for elem in TSDApp.unique_items:
+                        if element['value'] == elem['value']:
+                            workSheet.write(elem['localisation'], TSDApp.refSignature, '0')
+
     workSheet_info_report = new_wb.add_sheet('Report information', cell_overwrite_ok=True)
 
+    col1 = workSheet_info_report.col(0)
+    col1.width = 256 * 35
+    col2 = workSheet_info_report.col(1)
+    col2.width = 256 * 120
+    col3 = workSheet_info_report.col(2)
+    col3.width = 256 * 10
+
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V7_2.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V7_3.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -179,6 +213,16 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     workSheet_test_report.write(lastRow, 2, 'Message')
     workSheet_test_report.write(lastRow, 3, 'Localisation')
 
+    col1 = workSheet_test_report.col(0)
+    col1.width = 256 * 15
+    col2 = workSheet_test_report.col(1)
+    col2.width = 256 * 45
+    col3 = workSheet_test_report.col(2)
+    col3.width = 256 * 50
+    col4 = workSheet_test_report.col(3)
+    col4.width = 256 * 25
+
+
     lastRow += 1
     blocking_style = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
     warning_style = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
@@ -231,6 +275,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
             new_wb.save(path)
             return
 
+
     new_wb.save(path)
 
 
@@ -256,7 +301,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_2.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_3.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -347,7 +392,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_2.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_3.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
