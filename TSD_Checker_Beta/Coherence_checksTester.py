@@ -625,11 +625,14 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
                     else:
                         try:
                             cel = workSheet.cell(index, codeColIndex).value.split("-")
-                            if len(cel) == 2:
-                                pass
-                            else:
-                                if cel[0] not in DOC8List:
-                                    localisations.append(("tableau",index, codeColIndex))
+                            if len(cel) == 1:
+                                localisations.append(("tableau", index, codeColIndex))
+                            elif len(cel) == 2 and cel[0] not in DOC8List:
+                                localisations.append(("tableau", index, codeColIndex))
+                            elif len(cel) == 3 and cel[0] not in DOC8List:
+                                localisations.append(("tableau", index, codeColIndex))
+                            elif len(cel) > 3:
+                                localisations.append(("tableau", index, codeColIndex))
                         except:
                             localisations.append(("tableau",index, codeColIndex))
 
@@ -674,7 +677,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "NO DTC" or workSheet.cell(index, refColIndex).value == "":
+                    if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "NO DTC".casefold() or workSheet.cell(index, refColIndex).value == "":
                         pass
                     else:
                         list_table = dict()
@@ -996,7 +999,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 ERColIndex = -1
 
                 for index in range(0, TSDApp.WorkbookStats.ERLastCol):
-                    if str(workSheet.cell(TSDApp.ERHeaderRow, index).value).casefold().strip() == "nom".casefold():
+                    if str(workSheet.cell(TSDApp.ERHeaderRow, index).value).casefold().strip() == "nom".casefold() or str(workSheet.cell(TSDApp.ERHeaderRow, index).value).casefold().strip() == "noms".casefold():
                         ERColIndex = index
                         break
 
@@ -2833,86 +2836,94 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    list2 = ['AND', 'OR', "NOT", "N/A", ","]
+                    list2 = ['AND', 'OR', "NOT", "N/A", ",", "and", "or"]
                     cel = []
-                    try:
-                        cel = workSheet.cell(index, codeColIndex).value.split(" ")
-                        list = []
-                        for elem in cel:
-                            objElem = {}
-                            objElem['NAME'] = elem
-                            objElem['CHECK'] = False
-                            list.append(objElem)
+                    cel_value = workSheet.cell(index, codeColIndex).value
+                    if "NOT" in cel_value or "not" in cel_value:
+                        cel_value = cel_value.replace("NOT","")
+                        cel_value = cel_value.replace("not","")
 
-                        check_list1 = False
-                        for i in range(len(list)):
-                            leng = len(list[i]['NAME'])
-                            if leng == 0:
-                                list[i]['CHECK'] = True
-
-                            poz = 0
-                            if list[i]['NAME'] == "(":
-                                for j in range(i+1,len(list)):
-                                    if list[j]['NAME'] == '':
-                                        poz = poz + 1
-                                        list[i+poz]['CHECK'] = True
-                                        check_list1 = True
-                                    else:
-                                        for k in range(len(DOC13List)):
-                                            new_val = DOC13List[k] + ')'
-                                            if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                                list[i]['CHECK'] = True
-                                                check_list1 = True
-                                                break
-                                        break
-
-                            if list[i]['NAME'] == ")":
-                                for j in range(i - 1, -1, -1):
-                                    if list[j]['NAME'] == '':
-                                        poz = poz + 1
-                                        list[i - poz]['CHECK'] = True
-                                        check_list1 = True
-                                    else:
-                                        for k in range(len(DOC13List)):
-                                            new_val = '(' + DOC13List[k]
-                                            if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                                list[i]['CHECK'] = True
-                                                check_list1 = True
-                                                break
-                                        break
-
-                            if leng > 1:
-                                for j in range(len(DOC13List)):
-                                    if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                        new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                        if new_elem1 == DOC13List[j]:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-                                    else:
-                                        if list[i]['NAME'] == DOC13List[j]:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-
-                        check_list2 = False
-                        for elem1 in list:
-                            for elem2 in list2:
-                                if elem1['NAME'] == elem2:
-                                    elem1['CHECK'] = True
-                                    check_list2 = True
-                                    break
-
-                        cnt = 0
-                        for elem in list:
-                            if elem['CHECK'] == True:
-                                cnt = cnt + 1
-                        if cnt == len(list) and check_list1 == True and check_list2 == True:
-                            contor = contor + 1
-                        else:
-                            localisations.append(("tableau",index,codeColIndex))
-                    except:
+                    if cel_value in DOC13List:
                         pass
+                    else:
+                        try:
+                            cel = cel_value.split(" ")
+                            list = []
+                            for elem in cel:
+                                objElem = {}
+                                objElem['NAME'] = elem
+                                objElem['CHECK'] = False
+                                list.append(objElem)
+
+                            check_list1 = False
+                            for i in range(len(list)):
+                                leng = len(list[i]['NAME'])
+                                if leng == 0:
+                                    list[i]['CHECK'] = True
+
+                                poz = 0
+                                if list[i]['NAME'] == "(":
+                                    for j in range(i+1,len(list)):
+                                        if list[j]['NAME'] == '':
+                                            poz = poz + 1
+                                            list[i+poz]['CHECK'] = True
+                                            check_list1 = True
+                                        else:
+                                            for k in range(len(DOC13List)):
+                                                new_val = DOC13List[k] + ')'
+                                                if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                                    list[i]['CHECK'] = True
+                                                    check_list1 = True
+                                                    break
+                                            break
+
+                                if list[i]['NAME'] == ")":
+                                    for j in range(i - 1, -1, -1):
+                                        if list[j]['NAME'] == '':
+                                            poz = poz + 1
+                                            list[i - poz]['CHECK'] = True
+                                            check_list1 = True
+                                        else:
+                                            for k in range(len(DOC13List)):
+                                                new_val = '(' + DOC13List[k]
+                                                if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                                    list[i]['CHECK'] = True
+                                                    check_list1 = True
+                                                    break
+                                            break
+
+                                if leng > 1:
+                                    for j in range(len(DOC13List)):
+                                        if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                            new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                            if new_elem1 == DOC13List[j]:
+                                                list[i]['CHECK'] = True
+                                                check_list1 = True
+                                                break
+                                        else:
+                                            if list[i]['NAME'] == DOC13List[j]:
+                                                list[i]['CHECK'] = True
+                                                check_list1 = True
+                                                break
+
+                            check_list2 = False
+                            for elem1 in list:
+                                for elem2 in list2:
+                                    if elem1['NAME'] == elem2:
+                                        elem1['CHECK'] = True
+                                        check_list2 = True
+                                        break
+
+                            cnt = 0
+                            for elem in list:
+                                if elem['CHECK'] == True:
+                                    cnt = cnt + 1
+                            if cnt == len(list) and check_list1 == True and check_list2 == True:
+                                contor = contor + 1
+                            else:
+                                localisations.append(("tableau",index,codeColIndex))
+                        except:
+                            pass
 
             if not localisations:
                 localisations = None
@@ -3077,89 +3088,97 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
 
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    list2 = ['AND', 'OR', "NOT", "N/A", ","]
+                    list2 = ['AND', 'OR', "NOT", "N/A", ",", "or", "and"]
                     cel = []
-                    try:
-                        cel = workSheet.cell(index, codeColIndex).value.split(" ")
-                        list = []
-                        for elem in cel:
-                            objElem = {}
-                            objElem['NAME'] = elem
-                            objElem['CHECK'] = False
-                            list.append(objElem)
+                    cel_value = workSheet.cell(index, codeColIndex).value
+                    if "NOT" in cel_value or "not" in cel_value:
+                        cel_value = cel_value.replace("NOT","")
+                        cel_value = cel_value.replace("not","")
 
-                        check_list1 = False
-                        for i in range(len(list)):
-                            leng = len(list[i]['NAME'])
-                            if leng == 0:
-                                list[i]['CHECK'] = True
-
-                            poz = 0
-                            if list[i]['NAME'] == "(":
-                                for j in range(i+1,len(list)):
-                                    if list[j]['NAME'] == '':
-                                        poz = poz + 1
-                                        list[i+poz]['CHECK'] = True
-                                        check_list1 = True
-                                    else:
-                                        for k in range(len(DOC13List)):
-                                            new_val = DOC13List[k] + ')'
-                                            if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                                list[i]['CHECK'] = True
-                                                check_list1 = True
-                                                break
-                                        break
-
-                            if list[i]['NAME'] == ")":
-                                for j in range(i - 1, -1, -1):
-                                    if list[j]['NAME'] == '':
-                                        poz = poz + 1
-                                        list[i - poz]['CHECK'] = True
-                                        check_list1 = True
-                                    else:
-                                        for k in range(len(DOC13List)):
-                                            new_val = '(' + DOC13List[k]
-                                            if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
-                                                list[i]['CHECK'] = True
-                                                check_list1 = True
-                                                break
-                                        break
-
-                            if leng > 1:
-                                for j in range(len(DOC13List)):
-                                    if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
-                                        new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
-                                        if new_elem1 == DOC13List[j]:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-                                    else:
-                                        if list[i]['NAME'] == DOC13List[j]:
-                                            list[i]['CHECK'] = True
-                                            check_list1 = True
-                                            break
-
-                        check_list2 = False
-                        for elem1 in list:
-                            for elem2 in list2:
-                                if elem1['NAME'] == elem2:
-                                    elem1['CHECK'] = True
-                                    check_list2 = True
-                                    break
-
-                        cnt = 0
-                        for elem in list:
-                            if elem['CHECK'] == True:
-                                cnt = cnt + 1
-                        if cnt == len(list) and check_list1 == True and check_list2 == True:
-                            contor = contor + 1
-                        else:
-                            if language == "fr":
-                                localisations.append(("codes défauts",index,codeColIndex))
-                            else:
-                                localisations.append(("Data trouble codes", index, codeColIndex))
-                    except:
+                    if cel_value in DOC13List:
                         pass
+                    else:
+                        try:
+                            cel = cel_value.split(" ")
+                            list = []
+                            for elem in cel:
+                                objElem = {}
+                                objElem['NAME'] = elem
+                                objElem['CHECK'] = False
+                                list.append(objElem)
+
+                            check_list1 = False
+                            for i in range(len(list)):
+                                leng = len(list[i]['NAME'])
+                                if leng == 0:
+                                    list[i]['CHECK'] = True
+
+                                poz = 0
+                                if list[i]['NAME'] == "(":
+                                    for j in range(i+1,len(list)):
+                                        if list[j]['NAME'] == '':
+                                            poz = poz + 1
+                                            list[i+poz]['CHECK'] = True
+                                            check_list1 = True
+                                        else:
+                                            for k in range(len(DOC13List)):
+                                                new_val = DOC13List[k] + ')'
+                                                if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                                    list[i]['CHECK'] = True
+                                                    check_list1 = True
+                                                    break
+                                            break
+
+                                if list[i]['NAME'] == ")":
+                                    for j in range(i - 1, -1, -1):
+                                        if list[j]['NAME'] == '':
+                                            poz = poz + 1
+                                            list[i - poz]['CHECK'] = True
+                                            check_list1 = True
+                                        else:
+                                            for k in range(len(DOC13List)):
+                                                new_val = '(' + DOC13List[k]
+                                                if list[j]['NAME'] == DOC13List[k] or list[j]['NAME'] == new_val:
+                                                    list[i]['CHECK'] = True
+                                                    check_list1 = True
+                                                    break
+                                            break
+
+                                if leng > 1:
+                                    for j in range(len(DOC13List)):
+                                        if list[i]['NAME'][0] == '(' or list[i]['NAME'][-1] == ")":
+                                            new_elem1 = list[i]['NAME'].replace("(", "").replace(")", "")
+                                            if new_elem1 == DOC13List[j]:
+                                                list[i]['CHECK'] = True
+                                                check_list1 = True
+                                                break
+                                        else:
+                                            if list[i]['NAME'] == DOC13List[j]:
+                                                list[i]['CHECK'] = True
+                                                check_list1 = True
+                                                break
+
+                            check_list2 = False
+                            for elem1 in list:
+                                for elem2 in list2:
+                                    if elem1['NAME'] == elem2:
+                                        elem1['CHECK'] = True
+                                        check_list2 = True
+                                        break
+
+                            cnt = 0
+                            for elem in list:
+                                if elem['CHECK'] == True:
+                                    cnt = cnt + 1
+                            if cnt == len(list) and check_list1 == True and check_list2 == True:
+                                contor = contor + 1
+                            else:
+                                if language == "fr":
+                                    localisations.append(("codes défauts",index,codeColIndex))
+                                else:
+                                    localisations.append(("Data trouble codes", index, codeColIndex))
+                        except:
+                            pass
 
             if not localisations:
                 localisations = None
@@ -3201,12 +3220,19 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                     cel = []
                     final_list = []
                     try:
-                        if " AND " in workSheet.cell(index, codeColIndex).value and " OR " not in workSheet.cell(index, codeColIndex).value:
-                            final_list = workSheet.cell(index, codeColIndex).value.split("AND")
-                        elif " AND " not in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
-                            final_list = workSheet.cell(index, codeColIndex).value.split("OR")
-                        elif " AND " in workSheet.cell(index, codeColIndex).value and " OR " in workSheet.cell(index, codeColIndex).value:
-                            cel = workSheet.cell(index, codeColIndex).value.split("AND")
+                        cel_value = workSheet.cell(index, codeColIndex).value
+                        if "NOT" in cel_value:
+                            cel_value = cel_value.replace("NOT","")
+                        if "(" in cel_value:
+                            cel_value = cel_value.replace("(", "")
+                        if ")" in cel_value:
+                            cel_value = cel_value.replace(")", "")
+                        if " AND " in cel_value and " OR " not in cel_value:
+                            final_list = cel_value.split("AND")
+                        elif " AND " not in cel_value and " OR " in cel_value:
+                            final_list = cel_value.split("OR")
+                        elif " AND " in cel_value and " OR " in cel_value:
+                            cel = cel_value.split("AND")
                             for elem in cel:
                                 if " OR " in elem:
                                     cels = []

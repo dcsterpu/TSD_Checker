@@ -175,35 +175,41 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     workSheet_info_report.write(19, 1, TSDApp.DOC5Path)
 
     workSheet_info_report.write(21, 0, "AMDEC:")
-    workSheet_info_report.write(21, 1, TSDApp.AMDECName)
+    workSheet_info_report.write(21, 1, TSDApp.tab1.myTextBox4.toPlainText())
 
     workSheet_info_report.write(22, 0, "Export MedialecMatrice:")
-    workSheet_info_report.write(22, 1, TSDApp.MedialecName)
+    workSheet_info_report.write(22, 1, TSDApp.tab1.myTextBox5.toPlainText())
 
-    workSheet_info_report.write(24, 0, "Status:")
-    workSheet_info_report.write(24, 1, str(TSDApp.status))
+    workSheet_info_report.write(23, 0, "Diagnostic Messagerie (ODX):")
+    workSheet_info_report.write(23, 1, TSDApp.tab1.myTextBox6.toPlainText())
 
-    workSheet_info_report.write(25, 0, "Coverage Indicator:")
-    workSheet_info_report.write(25, 1, str(TSDApp.coverage)[0:4] + "%")
+    workSheet_info_report.write(24, 0, "SubFamily:")
+    workSheet_info_report.write(24, 1, TSDApp.tab1.myTextBox61.toPlainText())
+
+    workSheet_info_report.write(26, 0, "Status:")
+    workSheet_info_report.write(26, 1, str(TSDApp.status))
+
+    workSheet_info_report.write(27, 0, "Coverage Indicator:")
+    workSheet_info_report.write(27, 1, str(TSDApp.coverage)[0:4] + "%")
     if str(TSDApp.coverage)[0:4] + "%" == "0.00%":
-        workSheet_info_report.write(25, 2, "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing.")
+        workSheet_info_report.write(27, 2, "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing.")
 
-    workSheet_info_report.write(26, 0, "Convergence Indicator:")
-    workSheet_info_report.write(26, 1, str(TSDApp.convergence)[0:4] + "%")
+    workSheet_info_report.write(28, 0, "Convergence Indicator:")
+    workSheet_info_report.write(28, 1, str(TSDApp.convergence)[0:4] + "%")
     if str(TSDApp.convergence)[0:4] + "%" == "0.00%":
-        workSheet_info_report.write(26, 2, "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing.")
+        workSheet_info_report.write(28, 2, "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing.")
 
-    workSheet_info_report.write(28, 0, "Blocking Points Failed")
-    workSheet_info_report.write(28, 1, str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed))
+    workSheet_info_report.write(30, 0, "Blocking Points Failed")
+    workSheet_info_report.write(30, 1, str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed))
 
-    workSheet_info_report.write(29, 0, "Warning Points Failed")
-    workSheet_info_report.write(29, 1, str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed))
+    workSheet_info_report.write(31, 0, "Warning Points Failed")
+    workSheet_info_report.write(31, 1, str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed))
 
-    workSheet_info_report.write(30, 0, "Information Points Failed")
-    workSheet_info_report.write(30, 1, str(TSDApp.criticity_information - TSDApp.criticity_information_passed))
+    workSheet_info_report.write(32, 0, "Information Points Failed")
+    workSheet_info_report.write(32, 1, str(TSDApp.criticity_information - TSDApp.criticity_information_passed))
 
-    workSheet_info_report.write(31, 0, "Total number of tests performed")
-    workSheet_info_report.write(31, 1, str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information))
+    workSheet_info_report.write(33, 0, "Total number of tests performed")
+    workSheet_info_report.write(33, 1, str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information))
 
     workSheet_test_report = new_wb.add_sheet('Test report', cell_overwrite_ok=True)
 
@@ -356,35 +362,41 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report['B20'] = TSDApp.DOC5Path
 
         workSheet_info_report['A22'] = "AMDEC:"
-        workSheet_info_report['B22'] = TSDApp.AMDECName
+        workSheet_info_report['B22'] = TSDApp.tab1.myTextBox4.toPlainText()
 
         workSheet_info_report['A23'] = "Export MedialecMatrice:"
-        workSheet_info_report['B23'] = TSDApp.MedialecName
+        workSheet_info_report['B23'] = TSDApp.tab1.myTextBox5.toPlainText()
 
-        workSheet_info_report['A25'] = "Status:"
-        workSheet_info_report['B25'] = str(TSDApp.status)
+        workSheet_info_report['A24'] = "Diagnostic Messagerie (ODX):"
+        workSheet_info_report['B24'] = TSDApp.tab1.myTextBox6.toPlainText()
 
-        workSheet_info_report['A26'] = "Coverage Indicator:"
-        workSheet_info_report['B26'] = str(TSDApp.coverage)[0:4] + "%"
+        workSheet_info_report['A25'] = "SubFamily:"
+        workSheet_info_report['B25'] = TSDApp.tab1.myTextBox61.toPlainText()
+
+        workSheet_info_report['A27'] = "Status:"
+        workSheet_info_report['B27'] = str(TSDApp.status)
+
+        workSheet_info_report['A28'] = "Coverage Indicator:"
+        workSheet_info_report['B28'] = str(TSDApp.coverage)[0:4] + "%"
         if str(TSDApp.coverage)[0:4] + "%" == "0.00%":
-            workSheet_info_report['C26'] = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
+            workSheet_info_report['C28'] = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
 
-        workSheet_info_report['A27'] = "Convergence Indicator:"
-        workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
+        workSheet_info_report['A29'] = "Convergence Indicator:"
+        workSheet_info_report['B29'] = str(TSDApp.convergence)[0:4] + "%"
         if str(TSDApp.convergence)[0:4] + "%" == "0.00%":
-            workSheet_info_report['C27'] = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
+            workSheet_info_report['C29'] = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
 
-        workSheet_info_report['A29'] = "Blocking Points Failed"
-        workSheet_info_report['B29'] = str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed)
+        workSheet_info_report['A31'] = "Blocking Points Failed"
+        workSheet_info_report['B31'] = str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed)
 
-        workSheet_info_report['A30'] = "Warning Points Failed"
-        workSheet_info_report['B30'] = str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed)
+        workSheet_info_report['A32'] = "Warning Points Failed"
+        workSheet_info_report['B32'] = str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed)
 
-        workSheet_info_report['A31'] = "Information Points Failed"
-        workSheet_info_report['B31'] = str(TSDApp.criticity_information - TSDApp.criticity_information_passed)
+        workSheet_info_report['A33'] = "Information Points Failed"
+        workSheet_info_report['B33'] = str(TSDApp.criticity_information - TSDApp.criticity_information_passed)
 
-        workSheet_info_report['A32'] = "Total number of tests performed"
-        workSheet_info_report['B32'] = str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information)
+        workSheet_info_report['A34'] = "Total number of tests performed"
+        workSheet_info_report['B34'] = str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information)
 
     else:
         workSheet_info_report = wb.get_sheet_by_name("Report information")
@@ -447,35 +459,41 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report['B20'] = TSDApp.DOC5Path
 
         workSheet_info_report['A22'] = "AMDEC:"
-        workSheet_info_report['B22'] = TSDApp.AMDECName
+        workSheet_info_report['B22'] = TSDApp.tab1.myTextBox4.toPlainText()
 
         workSheet_info_report['A23'] = "Export MedialecMatrice:"
-        workSheet_info_report['B23'] = TSDApp.MedialecName
+        workSheet_info_report['B23'] = TSDApp.tab1.myTextBox5.toPlainText()
 
-        workSheet_info_report['A25'] = "Status:"
-        workSheet_info_report['B25'] = str(TSDApp.status)
+        workSheet_info_report['A24'] = "Diagnostic Messagerie (ODX):"
+        workSheet_info_report['B24'] = TSDApp.tab1.myTextBox6.toPlainText()
 
-        workSheet_info_report['A26'] = "Coverage Indicator:"
-        workSheet_info_report['B26'] = str(TSDApp.coverage)[0:4] + "%"
+        workSheet_info_report['A25'] = "SubFamily:"
+        workSheet_info_report['B25'] = TSDApp.tab1.myTextBox61.toPlainText()
+
+        workSheet_info_report['A27'] = "Status:"
+        workSheet_info_report['B27'] = str(TSDApp.status)
+
+        workSheet_info_report['A28'] = "Coverage Indicator:"
+        workSheet_info_report['B28'] = str(TSDApp.coverage)[0:4] + "%"
         if str(TSDApp.coverage)[0:4] + "%" == "0.00%":
-            workSheet_info_report['C26'] = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
+            workSheet_info_report['C28'] = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
 
-        workSheet_info_report['A27'] = "Convergence Indicator:"
-        workSheet_info_report['B27'] = str(TSDApp.convergence)[0:4] + "%"
+        workSheet_info_report['A29'] = "Convergence Indicator:"
+        workSheet_info_report['B29'] = str(TSDApp.convergence)[0:4] + "%"
         if str(TSDApp.convergence)[0:4] + "%" == "0.00%":
-            workSheet_info_report['C27'] = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
+            workSheet_info_report['C29'] = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
 
-        workSheet_info_report['A29'] = "Blocking Points Failed"
-        workSheet_info_report['B29'] = str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed)
+        workSheet_info_report['A31'] = "Blocking Points Failed"
+        workSheet_info_report['B31'] = str(TSDApp.criticity_blocking - TSDApp.criticity_blocking_passed)
 
-        workSheet_info_report['A30'] = "Warning Points Failed"
-        workSheet_info_report['B30'] = str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed)
+        workSheet_info_report['A32'] = "Warning Points Failed"
+        workSheet_info_report['B32'] = str(TSDApp.criticity_warning - TSDApp.criticity_warning_passed)
 
-        workSheet_info_report['A31'] = "Information Points Failed"
-        workSheet_info_report['B31'] = str(TSDApp.criticity_information - TSDApp.criticity_information_passed)
+        workSheet_info_report['A33'] = "Information Points Failed"
+        workSheet_info_report['B33'] = str(TSDApp.criticity_information - TSDApp.criticity_information_passed)
 
-        workSheet_info_report['A32'] = "Total number of tests performed"
-        workSheet_info_report['B32'] = str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information)
+        workSheet_info_report['A34'] = "Total number of tests performed"
+        workSheet_info_report['B34'] = str(TSDApp.criticity_blocking + TSDApp.criticity_warning + TSDApp.criticity_information)
 
     workSheet_info_report.column_dimensions['A'].width = 40
     workSheet_info_report.column_dimensions['B'].width = 140
