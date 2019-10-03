@@ -1,4 +1,4 @@
-import TSD_Checker_V7_3
+import TSD_Checker_V7_4
 import time
 from PyQt5 import QtGui
 import xlwt
@@ -120,7 +120,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     col3.width = 256 * 10
 
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V7_3.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V7_4.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -301,7 +301,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_3.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_4.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -392,7 +392,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_3.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_4.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -479,6 +479,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
 
     workSheet_info_report.column_dimensions['A'].width = 40
     workSheet_info_report.column_dimensions['B'].width = 140
+
 
     if index_test_report == -1:
         workSheet_test_report = wb.create_sheet("Test report")
@@ -607,6 +608,8 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
     workSheet_test_report.column_dimensions['B'].width = 40
     workSheet_test_report.column_dimensions['C'].width = 80
     workSheet_test_report.column_dimensions['D'].width = 20
+
+    workSheet_test_report.auto_filter.ref = workSheet_test_report.dimensions
 
     wb.save(workBook)
 

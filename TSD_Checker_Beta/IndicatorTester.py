@@ -1,4 +1,4 @@
-import TSD_Checker_V7_3
+import TSD_Checker_V7_4
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -27,24 +27,27 @@ def coverageIndicator(workBook, TSDApp):
     refColDTC = -1
     refCelParam = -1
     refCelDiag = -1
+    refRowBase = -1
 
-    for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-        cel = str(workSheet.cell(TSDApp.tableHeaderRow,index).value).casefold().strip().replace("\n","")
-        if cel == "Constituant défaillant détecté".casefold():
-            refColBase = index
-        if cel == "Code défaut".casefold():
-            refColDTC = index
-        if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
-            refCelParam = index
-        if cel == "DIAGNOSTIC DEBARQUE".casefold():
-            refCelDiag = index
+    for index1 in range(0, TSDApp.WorkbookStats.tableLastRow):
+        for index2 in range(0, TSDApp.WorkbookStats.tableLastCol):
+            cel = str(workSheet.cell(index1, index2).value).casefold().strip().replace("\n","")
+            if cel == "Constituant défaillant détecté".casefold():
+                refColBase = index2
+                refRowBase = index1
+            if cel == "Code défaut".casefold():
+                refColDTC = index2
+            if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+                refCelParam = index2
+            if cel == "DIAGNOSTIC DEBARQUE".casefold():
+                refCelDiag = index2
 
 
     NbComponentsOfTheFunction = 0
     NbComponentWithDiagPossible = 0
 
     if refColBase != -1 and refColDTC != -1 and refCelParam != -1 and refCelDiag != -1:
-        for index in range(TSDApp.tableFirstInfoRow, nrRows):
+        for index in range(refRowBase + 2, nrRows):
             if workSheet.cell(index, refColBase).value is not None and workSheet.cell(index,refColBase).value != "":
                 NbComponentsOfTheFunction += 1
                 if (workSheet.cell(index, refColDTC).value is not None and workSheet.cell(index, refColDTC).value !="" and workSheet.cell(index,refColDTC).value != "NO DTC") or (
@@ -82,7 +85,7 @@ def convergenceIndicator(workBook, TSDApp, path):
     refCelEff = -1
     refCelVoyant = -1
 
-    refSignature = -1
+    TSDApp.refSignature = -1
     refCritere = -1
 
     for index1 in range(0, nrRows):
@@ -94,7 +97,7 @@ def convergenceIndicator(workBook, TSDApp, path):
             if cel == "Unique Test Signature".casefold():
                 TSDApp.refSignature = index2
                 refRowIndex = index1
-        if refCritere != -1 or TSDApp.refSignature != -1:
+        if refCritere != -1 and TSDApp.refSignature != -1:
             break
 
     for index1 in range(0, nrRows):
