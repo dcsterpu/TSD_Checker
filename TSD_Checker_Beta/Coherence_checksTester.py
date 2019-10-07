@@ -18,6 +18,11 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
                 refColIndex = index
@@ -77,14 +82,14 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                                 if i.strip() in list_measure:
                                     pass
                                 else:
-                                    localisations.append(("tableau", element["row"], element["col"]))
+                                    localisations.append((language, element["row"], element["col"]))
                                     check = True
                                     break
                         else:
                             if element["value"].strip() in list_measure or element["value"] in list_measure:
                                 pass
                             else:
-                                localisations.append(("tableau",element["row"],element["col"]))
+                                localisations.append((language, element["row"],element["col"]))
 
             if not localisations:
                 localisations = None
@@ -110,6 +115,11 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow,index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
@@ -145,13 +155,13 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                                     if check1 == True and check2 == True and cel[0] in DOC8List:
                                         pass
                                     else:
-                                        localisations.append(("tableau", index, refColIndex))
+                                        localisations.append((language, index, refColIndex))
                                         break
                                 else:
-                                    localisations.append(("tableau",index, refColIndex))
+                                    localisations.append((language, index, refColIndex))
                                     break
                             except:
-                                localisations.append(("tableau",index, refColIndex))
+                                localisations.append((language, index, refColIndex))
                     elif ';' in workSheet.cell(index, refColIndex).value:
                         elems = workSheet.cell(index, refColIndex).value.split(';')
                         for elem in elems:
@@ -174,10 +184,10 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                                     else:
                                         break
                                 else:
-                                    localisations.append(("tableau", index, refColIndex))
+                                    localisations.append((language, index, refColIndex))
                                     break
                             except:
-                                localisations.append(("tableau", index, refColIndex))
+                                localisations.append((language, index, refColIndex))
                     else:
                         try:
                             cel = workSheet.cell(index, refColIndex).value.split("-")
@@ -196,11 +206,11 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                                 if check1 == True and check2 == True and cel[0] in DOC8List:
                                     pass
                                 else:
-                                    localisations.append(("tableau", index, refColIndex))
+                                    localisations.append((language, index, refColIndex))
                             else:
-                                localisations.append(("tableau", index, refColIndex))
+                                localisations.append((language, index, refColIndex))
                         except:
-                            localisations.append(("tableau", index, refColIndex))
+                            localisations.append((language, index, refColIndex))
 
 
             if not localisations:
@@ -222,8 +232,12 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
         check = True
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
-
         codeColIndex = -1
+
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
 
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
@@ -240,9 +254,9 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
                         if cel[0] in DOC8List:
                             pass
                         else:
-                            localisations.append(("codes défauts", index, codeColIndex))
+                            localisations.append((language, index, codeColIndex))
                     except:
-                        localisations.append(("codes défauts", index, codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -265,6 +279,11 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
         list_code = list()
         tempList = list()
         var = 0
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
@@ -313,7 +332,7 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
                         if i.strip() in list_code:
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
                             break
                 else:
@@ -323,14 +342,14 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
                             if i.strip() in list_code:
                                 pass
                             else:
-                                localisations.append(("tableau", element["row"], element["col"]))
+                                localisations.append((language, element["row"], element["col"]))
                                 check = True
                                 break
                     else:
                         if element["value"].strip() in list_code or element["value"] in list_code:
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
 
             if not localisations:
                 localisations = None
@@ -348,6 +367,11 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
+
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
 
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
@@ -368,7 +392,7 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                                     int(cel[1][1:], 16)
                                     check1 = True
                                 except:
-                                    localisations.append(("codes défauts",index,codeColIndex))
+                                    localisations.append((language, index, codeColIndex))
                         check2 = False
                         if len(cel) == 2:
                             check2 = True
@@ -378,15 +402,15 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                                 int(cel[2],16)
                                 check2 = True
                             except:
-                                localisations.append(("codes défauts", index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
 
                     except:
-                        localisations.append(("codes défauts",index,codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
                     if check1 and check2:
                         pass
                     else:
-                        localisations.append(("codes défauts", index, codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -415,6 +439,11 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
+
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
                 codeColIndex = index
@@ -431,9 +460,9 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
                             pass
                         else:
                             if cel[0] not in DOC8List:
-                                localisations.append(("codes défauts",index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                     except:
-                        localisations.append(("codes défauts",index, codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -510,6 +539,11 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
                     codeRefCol = index
                     break
 
+            if TSDApp.WorkbookStats.codeLanguage == "en":
+                language = "Data trouble codes"
+            elif TSDApp.WorkbookStats.codeLanguage == "fr":
+                language = "codes défauts"
+
             if codeRefCol != -1:
                 code_defaut_list = []
                 for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
@@ -535,9 +569,9 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
                                 if element['value'] in list_ref:
                                     pass
                                 else:
-                                    localisations.append(('codes défauts', element['row'], element['col']))
+                                    localisations.append((language, element['row'], element['col']))
                         else:
-                            localisations.append(('codes défauts', element['row'], element['col']))
+                            localisations.append((language, element['row'], element['col']))
 
                     except:
                         pass
@@ -559,6 +593,11 @@ def Test_02043_18_04939_COH_2008(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
+
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 codeColIndex = index
@@ -576,12 +615,12 @@ def Test_02043_18_04939_COH_2008(workBook, TSDApp):
                                 try:
                                     int(cel[1][1:], 16)
                                 except:
-                                    localisations.append(("codes défauts",index,codeColIndex))
+                                    localisations.append((language, index, codeColIndex))
                         else:
                             if len(cel) == 3:
                                 pass
                     except:
-                        localisations.append(("codes défauts",index,codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -610,6 +649,11 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut induits".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défauts induits".casefold():
                 codeColIndex = index
@@ -626,15 +670,15 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
                         try:
                             cel = workSheet.cell(index, codeColIndex).value.split("-")
                             if len(cel) == 1:
-                                localisations.append(("tableau", index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                             elif len(cel) == 2 and cel[0] not in DOC8List:
-                                localisations.append(("tableau", index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                             elif len(cel) == 3 and cel[0] not in DOC8List:
-                                localisations.append(("tableau", index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                             elif len(cel) > 3:
-                                localisations.append(("tableau", index, codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                         except:
-                            localisations.append(("tableau",index, codeColIndex))
+                            localisations.append((language,index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -663,6 +707,11 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
         list_code = list()
         tempList = list()
         var = 0
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
@@ -711,7 +760,7 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                         if i.strip() in list_code:
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
                             break
                 else:
@@ -721,14 +770,14 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                             if i.strip() in list_code:
                                 pass
                             else:
-                                localisations.append(("tableau", element["row"], element["col"]))
+                                localisations.append((language, element["row"], element["col"]))
                                 check = True
                                 break
                     else:
                         if element["value"].strip() in list_code or element["value"] in list_code:
                             pass
                         else:
-                            localisations.append(("tableau",element["row"],element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
 
             if not localisations:
                 localisations = None
@@ -746,6 +795,11 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Constituant défaillant détecté".casefold():
@@ -794,7 +848,7 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 if element["value"] in list_constituants:
                     pass
                 else:
-                    localisations.append(("tableau",element["row"],element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
             if not localisations:
@@ -813,6 +867,11 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Effet(s) client(s)".casefold():
@@ -867,7 +926,7 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
 
                 for char in element["value"]:
                     if char not in list_chars:
-                        localisations.append(("tableau", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                         break
 
@@ -888,6 +947,11 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "DIAGNOSTIC DEBARQUE".casefold():
@@ -936,17 +1000,17 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                     elems = element['value'].split(',')
                     for elem in elems:
                         if elem.strip() not in list_diag:
-                            localisations.append(("tableau", element["row"], element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
                 elif ';' in element['value']:
                     elems = element['value'].split(';')
                     for elem in elems:
                         if elem.strip() not in list_diag:
-                            localisations.append(("tableau", element["row"], element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
                 else:
                     if element['value'].strip() not in list_diag:
-                        localisations.append(("tableau", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
 
             if not localisations:
@@ -965,6 +1029,11 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Evenement(s) redouté(s) (ER)".casefold():
@@ -1013,7 +1082,7 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 if element["value"] in list_ER:
                     pass
                 else:
-                    localisations.append(("tableau",element["row"],element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
             if not localisations:
@@ -1032,8 +1101,14 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.EffClientsIndex)
-
         effColIndex = -1
+
+        if TSDApp.WorkbookStats.EffClientsLanguage == "en1":
+            language = "Customer effect"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "en2":
+            language = "Customer effects"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "fr":
+            language = "Effets clients"
 
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
             if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
@@ -1173,7 +1248,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                             flag = True
                             break
                     if flag is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                 elif len(elements) == 4:
                     flag1 = False
@@ -1186,7 +1261,7 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         if flag1 is True and flag2 is True:
                             break
                     if flag1 is False or flag2 is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                 elif len(elements) == 6:
                     flag1 = False
@@ -1202,10 +1277,10 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                         if flag1 is True and flag2 is True and flag3 is True:
                             break
                     if flag1 is False or flag2 is False or flag3 is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                 else:
-                    localisations.append(("Effets clients", element["row"], element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
         if not localisations:
@@ -1228,8 +1303,14 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.EffClientsIndex)
-
         effColIndex = -1
+
+        if TSDApp.WorkbookStats.EffClientsLanguage == "en1":
+            language = "Customer effect"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "en2":
+            language = "Customer effects"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "fr":
+            language = "Effets clients"
 
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
             if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
@@ -1369,7 +1450,7 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                             flag = True
                             break
                     if flag is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                 elif len(elements) == 4:
                     flag1 = False
@@ -1392,7 +1473,7 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                                         break
 
                     if flag1 is False or flag2 is False or flag_x is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
 
                 elif len(elements) == 6:
@@ -1421,10 +1502,10 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                                                 break
 
                     if flag1 is False or flag2 is False or flag3 is False or flag_x is False:
-                        localisations.append(("Effets clients", element["row"], element["col"]))
+                        localisations.append((language, element["row"], element["col"]))
                         check = True
                 else:
-                    localisations.append(("Effets clients", element["row"], element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
         if not localisations:
@@ -1448,11 +1529,17 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.EffClientsIndex)
-
         effColIndex = -1
 
+        if TSDApp.WorkbookStats.EffClientsLanguage == "en1":
+            language = "Customer effect"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "en2":
+            language = "Customer effects"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "fr":
+            language = "Effets clients"
+
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
-            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
+            if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
                 effColIndex = index
                 break
 
@@ -1460,8 +1547,11 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
         elif effColIndex != -1:
+
             list_eff = list()
-            list_ref = list()
+            list1 = []
+            list2 = []
+            list3 = []
 
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, 0).value != "":
@@ -1469,7 +1559,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["value"] = workSheet.cell(index, effColIndex).value
+                        dict["value"] = str(workSheet.cell(index, effColIndex).value).casefold()
                         dict["row"] = index
                         dict["col"] = effColIndex
                         list_eff.append(dict)
@@ -1485,7 +1575,11 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             N1ColIndex = -1
             N2ColIndex = -1
             N2ColIndex = -1
+            N1EffColIndex = -1
+            N2EffColIndex = -1
+            N3EffColIndex = -1
             col = 0
+
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
                     if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
@@ -1500,43 +1594,147 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
-                    if col == 3:
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N1".casefold():
+                        N1EffColIndex = index2
+                        N1EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N2".casefold():
+                        N2EffColIndex = index2
+                        N2EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N3".casefold():
+                        N3EffColIndex = index2
+                        N3EffRowIndex = index1
+                        col += 1
+                    if col == 6:
                         break
-                if col == 3:
+                if col == 6:
                     break
 
-            if N1RowIndex != -1:
+            if N1ColIndex != -1 and N1EffColIndex != -1:
                 for index in range(N1RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N1ColIndex).value == "":
+                    if workSheetRef.cell(index, N1EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N1ColIndex).value)
-            if N2RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N1EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N1ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N2ColIndex != -1 and N2EffColIndex != -1:
                 for index in range(N2RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N2ColIndex).value == "":
+                    if workSheetRef.cell(index, N2EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N2ColIndex).value)
-            if N3RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N2EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N2ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N3ColIndex != -1 and N3EffColIndex != -1:
                 for index in range(N3RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N3ColIndex).value == "":
+                    if workSheetRef.cell(index, N3EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N3ColIndex).value)
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N3EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N3ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
 
             for element in list_eff:
-                if element["value"] in list_ref:
-                    pass
+                elements = element["value"].split(":")
+                if len(elements) == 2:
+                    flag = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag = True
+                            break
+                    if flag is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 4:
+                    flag1 = False
+                    flag2 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if flag1 is True and flag2 is True:
+                            break
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                            if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                    if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                        flag_x = True
+                                        break
+
+                    if flag1 is False or flag2 is False or flag_x is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
+
+                elif len(elements) == 6:
+                    flag1 = False
+                    flag2 = False
+                    flag3 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if elements[4].strip() == pair["effetClient"] and elements[5].strip() == pair["libelle"]:
+                            flag3 = True
+                        if flag1 is True and flag2 is True and flag3 is True:
+                            break
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 4).value).casefold().strip() == elements[4].strip():
+                            if str(workSheetRef.cell(index, 5).value).casefold().strip() == elements[5].strip():
+                                if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                                    if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                        if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                            if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                                flag_x = True
+                                                break
+
+                    if flag1 is False or flag2 is False or flag3 is False or flag_x is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
                 else:
-                    localisations.append(("Customer Effects", element["row"], element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
         if not localisations:
             localisations = None
 
         if localisations is not None:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
-                   TSDApp)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
@@ -1552,8 +1750,14 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         check = True
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.EffClientsIndex)
-
         effColIndex = -1
+
+        if TSDApp.WorkbookStats.EffClientsLanguage == "en1":
+            language = "Customer effect"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "en2":
+            language = "Customer effects"
+        elif TSDApp.WorkbookStats.EffClientsLanguage == "fr":
+            language = "Effets clients"
 
         for index in range(0, TSDApp.WorkbookStats.EffClientsLastCol):
             if str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Noms".casefold() or str(workSheet.cell(TSDApp.effClientsHeaderRow, index).value).casefold().strip() == "Name".casefold():
@@ -1566,7 +1770,9 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
         elif effColIndex != -1:
 
             list_eff = list()
-            list_ref = list()
+            list1 = []
+            list2 = []
+            list3 = []
 
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, 0).value != "":
@@ -1574,7 +1780,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                         pass
                     else:
                         dict = {}
-                        dict["value"] = workSheet.cell(index, effColIndex).value
+                        dict["value"] = str(workSheet.cell(index, effColIndex).value).casefold()
                         dict["row"] = index
                         dict["col"] = effColIndex
                         list_eff.append(dict)
@@ -1590,7 +1796,11 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
             N1ColIndex = -1
             N2ColIndex = -1
             N2ColIndex = -1
+            N1EffColIndex = -1
+            N2EffColIndex = -1
+            N3EffColIndex = -1
             col = 0
+
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
                     if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Libellé N1".casefold():
@@ -1605,43 +1815,147 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                         N3ColIndex = index2
                         N3RowIndex = index1
                         col += 1
-                    if col == 3:
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N1".casefold():
+                        N1EffColIndex = index2
+                        N1EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N2".casefold():
+                        N2EffColIndex = index2
+                        N2EffRowIndex = index1
+                        col += 1
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet Client N3".casefold():
+                        N3EffColIndex = index2
+                        N3EffRowIndex = index1
+                        col += 1
+                    if col == 6:
                         break
-                if col == 3:
+                if col == 6:
                     break
 
-            if N1RowIndex != -1:
+            if N1ColIndex != -1 and N1EffColIndex != -1:
                 for index in range(N1RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N1ColIndex).value == "":
+                    if workSheetRef.cell(index, N1EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N1ColIndex).value)
-            if N2RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N1EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N1ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N2ColIndex != -1 and N2EffColIndex != -1:
                 for index in range(N2RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N2ColIndex).value == "":
+                    if workSheetRef.cell(index, N2EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N2ColIndex).value)
-            if N3RowIndex != -1:
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N2EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N2ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
+            if N3ColIndex != -1 and N3EffColIndex != -1:
                 for index in range(N3RowIndex + 1, nrRows):
-                    if workSheetRef.cell(index, N3ColIndex).value == "":
+                    if workSheetRef.cell(index, N3EffColIndex).value == "":
                         pass
                     else:
-                        list_ref.append(workSheetRef.cell(index, N3ColIndex).value)
+                        dict = {}
+                        dict["effetClient"] = str(workSheetRef.cell(index, N3EffColIndex).value).casefold()
+                        dict["libelle"] = str(workSheetRef.cell(index, N3ColIndex).value).casefold()
+                        if not list1:
+                            list1.append(dict)
+                        else:
+                            flag = False
+                            for element in list1:
+                                if dict["effetClient"] == element["effetClient"]:
+                                    flag = True
+                            if flag is False:
+                                list1.append(dict)
 
             for element in list_eff:
-                if element["value"] in list_ref:
-                    pass
+                elements = element["value"].split(":")
+                if len(elements) == 2:
+                    flag = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag = True
+                            break
+                    if flag is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
+                elif len(elements) == 4:
+                    flag1 = False
+                    flag2 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if flag1 is True and flag2 is True:
+                            break
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                            if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                    if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                        flag_x = True
+                                        break
+
+                    if flag1 is False or flag2 is False or flag_x is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
+
+                elif len(elements) == 6:
+                    flag1 = False
+                    flag2 = False
+                    flag3 = False
+                    for pair in list1:
+                        if elements[0].strip() == pair["effetClient"] and elements[1].strip() == pair["libelle"]:
+                            flag1 = True
+                        if elements[2].strip() == pair["effetClient"] and elements[3].strip() == pair["libelle"]:
+                            flag2 = True
+                        if elements[4].strip() == pair["effetClient"] and elements[5].strip() == pair["libelle"]:
+                            flag3 = True
+                        if flag1 is True and flag2 is True and flag3 is True:
+                            break
+
+                    flag_x = False
+                    for index in range(0, workSheetRef.nrows):
+                        if str(workSheetRef.cell(index, 4).value).casefold().strip() == elements[4].strip():
+                            if str(workSheetRef.cell(index, 5).value).casefold().strip() == elements[5].strip():
+                                if str(workSheetRef.cell(index, 2).value).casefold().strip() == elements[2].strip():
+                                    if str(workSheetRef.cell(index, 3).value).casefold().strip() == elements[3].strip():
+                                        if str(workSheetRef.cell(index, 0).value).casefold().strip() == elements[0].strip():
+                                            if str(workSheetRef.cell(index, 1).value).casefold().strip() == elements[1].strip():
+                                                flag_x = True
+                                                break
+
+                    if flag1 is False or flag2 is False or flag3 is False or flag_x is False:
+                        localisations.append((language, element["row"], element["col"]))
+                        check = True
                 else:
-                    localisations.append(("Effets clients", element["row"], element["col"]))
+                    localisations.append((language, element["row"], element["col"]))
                     check = True
 
         if not localisations:
             localisations = None
 
         if localisations is not None:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
-                   TSDApp)
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
         else:
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
             check = True
@@ -1703,6 +2017,11 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
         localisations = []
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
+
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "supporté par constituant (s)".casefold():
                 codeColIndex = index
@@ -1713,7 +2032,7 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
                 if workSheet.cell(index, 0).value != "":
                     cel = workSheet.cell(index, codeColIndex).value
                     if cel not in DOC8List:
-                        localisations.append(("codes défauts", index, codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -1893,7 +2212,8 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                                 else:
                                     final_list.append(elem)
                         for element in final_list:
-                            list_amont.append(element)
+                            element = element.replace("\n","")
+                            list_amont.append(element.strip())
 
             for element in tempDict:
                 if element["value"] in list_amont:
@@ -2094,6 +2414,11 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
         localisations = list()
         tempDict = []
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "code défauts induits".casefold():
                 refColIndex = index
@@ -2137,7 +2462,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                                     if workSheet.cell(index, refColIndex).value in list_effets:
                                         pass
                                     else:
-                                        localisations.append(("tableau", index, refColIndex))
+                                        localisations.append((language, index, refColIndex))
                                         check = True
                                 else:
                                     if "," in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
@@ -2159,7 +2484,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                                         if element.strip() in list_effets:
                                             pass
                                         else:
-                                            localisations.append(("tableau", index, refColIndex))
+                                            localisations.append((language, index, refColIndex))
                                             check = True
                                             break
 
@@ -2184,6 +2509,11 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         refColIndex = -1
         localisations = list()
+
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
 
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow,index).value).casefold().strip() == "supporté par constituant (s)".casefold():
@@ -2231,7 +2561,7 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                         if element["value"] in list_effets:
                             pass
                         else:
-                            localisations.append(("codes défauts",element["row"],element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2488,6 +2818,11 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
         refColIndex = -1
         localisations = list()
 
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "situation de vie".casefold():
                 refColIndex = index
@@ -2534,7 +2869,7 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                         if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("tableau", element["row"], element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2559,6 +2894,11 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
         localisations = list()
+
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Situation".casefold():
@@ -2607,7 +2947,7 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                         if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("tableau", element["row"], element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2631,6 +2971,11 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
         localisations = list()
+
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Diagnostic debarque".casefold():
@@ -2682,7 +3027,7 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
 
                         for char in element["value"]:
                             if char not in list_chars:
-                                localisations.append(("tableau", element["row"], element["col"]))
+                                localisations.append((language, element["row"], element["col"]))
                                 check = True
                                 break
 
@@ -2707,6 +3052,11 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
         localisations = list()
+
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Non-embedded diagnosis".casefold():
@@ -2752,7 +3102,7 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                         if element["value"] in list_effets or element["value"].casefold() == "N/A".casefold():
                             pass
                         else:
-                            localisations.append(("Table", element["row"], element["col"]))
+                            localisations.append((language, element["row"], element["col"]))
                             check = True
 
                     if not localisations:
@@ -2778,6 +3128,11 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         refColIndex = -1
 
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
                 refColIndex = index
@@ -2793,9 +3148,9 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
                             if cel[0].casefold().strip() == TSDApp.tab1.myTextBox61.toPlainText().casefold().strip() and cel[1].lstrip('_') in DOC15List:
                                 pass
                             else:
-                                localisations.append(("tableau",index, refColIndex))
+                                localisations.append((language,index, refColIndex))
                         except:
-                            localisations.append(("tableau", index, refColIndex))
+                            localisations.append((language, index, refColIndex))
 
                 if not localisations:
                     localisations = None
@@ -2824,6 +3179,11 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         codeColIndex = -1
+
+        if TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+        elif TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
@@ -2921,7 +3281,7 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
                             if cnt == len(list) and check_list1 == True and check_list2 == True:
                                 contor = contor + 1
                             else:
-                                localisations.append(("tableau",index,codeColIndex))
+                                localisations.append((language, index, codeColIndex))
                         except:
                             pass
 
@@ -3206,6 +3566,11 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variant/\noption".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Variante/\noption".casefold():
                 codeColIndex = index
@@ -3261,9 +3626,9 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
                                 break
 
                         if contor != lenght:
-                            localisations.append(("tableau",index,codeColIndex))
+                            localisations.append((language, index, codeColIndex))
                     except:
-                        localisations.append(("tableau",index,codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -3368,6 +3733,11 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.codeIndex)
         codeColIndex = -1
 
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
+
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Diversity".casefold() or str(workSheet.cell(TSDApp.codeHeaderRow, index).value).casefold().strip() == "Diversité".casefold():
                 codeColIndex = index
@@ -3403,10 +3773,7 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                                 else:
                                     final_list.append(elem)
                         else:
-                            if language == "fr":
-                                localisations.append(("codes défauts”", index, codeColIndex))
-                            else:
-                                localisations.append(("Data trouble codes", index, codeColIndex))
+                            localisations.append((language, index, codeColIndex))
 
 
                         contor = 0
@@ -3423,15 +3790,10 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                                 break
 
                         if contor != len(final_list):
-                            if language == "fr":
-                                localisations.append(("codes défauts", index, codeColIndex))
-                            else:
-                                localisations.append(("Data trouble codes", index, codeColIndex))
+                            localisations.append((language, index, codeColIndex))
+
                     except:
-                        if language == "fr":
-                            localisations.append(("codes défauts", index, codeColIndex))
-                        else:
-                            localisations.append(("Data trouble codes", index, codeColIndex))
+                        localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None

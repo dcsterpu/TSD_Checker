@@ -26,8 +26,13 @@ def Test_02043_18_04939_WHOLENESS_1000(workBook, TSDApp):
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
-                    localisations.append(("tableau", index, refColIndex))
-                    check = True
+                    if TSDApp.WorkbookStats.tableLanguage == "en":
+                        localisations.append(("Table", index, refColIndex))
+                        check = True
+                    elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                        localisations.append(("tableau", index, refColIndex))
+                        check = True
+
             if not localisations:
                 localisations = None
 
@@ -57,8 +62,13 @@ def Test_02043_18_04939_WHOLENESS_1001(workBook, TSDApp):
         if refColIndex != -1:
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
-                    localisations.append(("tableau", index, refColIndex))
-                    check = True
+                    if TSDApp.WorkbookStats.tableLanguage == "en":
+                        localisations.append(("Table", index, refColIndex))
+                        check = True
+                    elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                        localisations.append(("tableau", index, refColIndex))
+                        check = True
+
             if not localisations:
                 localisations = None
 
@@ -89,8 +99,12 @@ def Test_02043_18_04939_WHOLENESS_1010(workBook, TSDApp):
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
-                    localisations.append(("codes défauts", index, refColIndex))
-                    check = True
+                    if TSDApp.WorkbookStats.codeLanguage == "en":
+                        localisations.append(("Data trouble codes", index, refColIndex))
+                        check = True
+                    elif TSDApp.WorkbookStats.codeLanguage == "fr":
+                        localisations.append(("codes défauts", index, refColIndex))
+                        check = True
 
             if not localisations:
                 localisations = None
@@ -121,8 +135,12 @@ def Test_02043_18_04939_WHOLENESS_1011(workBook, TSDApp):
         if refColIndex != -1:
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.cell(index, refColIndex).value == None or workSheet.cell(index, refColIndex).value == "":
-                    localisations.append(("codes défauts", index, refColIndex))
-                    check = True
+                    if TSDApp.WorkbookStats.codeLanguage == "en":
+                        localisations.append(("Data trouble codes", index, refColIndex))
+                        check = True
+                    elif TSDApp.WorkbookStats.codeLanguage == "fr":
+                        localisations.append(("codes défauts", index, refColIndex))
+                        check = True
 
             if not localisations:
                 localisations = None
@@ -478,6 +496,12 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
         refColIndex = -1
         localisations = list()
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow - 1, index).value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow - 1,index).value).casefold().strip() == "Project applicability".casefold():
                 refColIndex = index
@@ -496,11 +520,11 @@ def Test_02043_18_04939_WHOLENESS_1060(workBook, TSDApp):
                         if workSheet.cell(index2, 0).value != "":
                             try:
                                 if workSheet.cell(index2, index1).value is None:
-                                    localisations.append(("tableau",index2, index1))
+                                    localisations.append((language,index2, index1))
                                 elif workSheet.cell(index2, index1).value.strip() in values:
                                     pass
                             except:
-                                localisations.append(("tableau",index2, index1))
+                                localisations.append((language,index2, index1))
 
         if not localisations:
             localisations = None
@@ -525,6 +549,11 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
         refColIndex = -1
         localisations = list()
 
+        if TSDApp.WorkbookStats.codeLanguage == "en":
+            language = "Data trouble codes"
+        elif TSDApp.WorkbookStats.codeLanguage == "fr":
+            language = "codes défauts"
+
         for index in range(0, TSDApp.WorkbookStats.codeLastCol):
             if str(workSheet.cell(TSDApp.codeHeaderRow - 1,
                                   index).value).casefold().strip() == "Applicabilité projet".casefold() or str(
@@ -546,11 +575,11 @@ def Test_02043_18_04939_WHOLENESS_1061(workBook, TSDApp):
                         if workSheet.cell(index2, 0).value != "":
                             try:
                                 if workSheet.cell(index2, index1).value is None:
-                                    localisations.append(("codes défauts", index2, index1))
+                                    localisations.append((language, index2, index1))
                                 elif workSheet.cell(index2, index1).value.strip() in values:
                                     pass
                             except:
-                                localisations.append(("codes défauts", index2, index1))
+                                localisations.append((language, index2, index1))
 
         if not localisations:
             localisations = None
@@ -626,6 +655,11 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
         var = 0
         localisations = []
 
+        if TSDApp.WorkbookStats.tableLanguage == "en":
+            language = "Table"
+        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+            language = "tableau"
+
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Code défaut".casefold():
                 refColIndex = index
@@ -635,7 +669,7 @@ def Test_02043_18_04939_WHOLENESS_1070(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau",index, refColIndex))
+                        localisations.append((language, index, refColIndex))
                         check = True
 
             if not localisations:
@@ -1253,8 +1287,12 @@ def Test_02043_18_04939_WHOLENESS_1300(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1288,8 +1326,12 @@ def Test_02043_18_04939_WHOLENESS_1301(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1323,8 +1365,12 @@ def Test_02043_18_04939_WHOLENESS_1302(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1358,8 +1404,12 @@ def Test_02043_18_04939_WHOLENESS_1303(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1394,8 +1444,12 @@ def Test_02043_18_04939_WHOLENESS_1304(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1430,8 +1484,12 @@ def Test_02043_18_04939_WHOLENESS_1305(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1466,8 +1524,12 @@ def Test_02043_18_04939_WHOLENESS_1306(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1502,8 +1564,12 @@ def Test_02043_18_04939_WHOLENESS_1307(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1538,8 +1604,12 @@ def Test_02043_18_04939_WHOLENESS_1308(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1574,8 +1644,12 @@ def Test_02043_18_04939_WHOLENESS_1309(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1610,8 +1684,12 @@ def Test_02043_18_04939_WHOLENESS_1310(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1646,8 +1724,12 @@ def Test_02043_18_04939_WHOLENESS_1311(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1682,8 +1764,12 @@ def Test_02043_18_04939_WHOLENESS_1312(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1718,8 +1804,12 @@ def Test_02043_18_04939_WHOLENESS_1313(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1754,8 +1844,12 @@ def Test_02043_18_04939_WHOLENESS_1314(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1790,8 +1884,12 @@ def Test_02043_18_04939_WHOLENESS_1315(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1826,8 +1924,12 @@ def Test_02043_18_04939_WHOLENESS_1316(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1862,8 +1964,12 @@ def Test_02043_18_04939_WHOLENESS_1317(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1897,8 +2003,12 @@ def Test_02043_18_04939_WHOLENESS_1318(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1933,8 +2043,12 @@ def Test_02043_18_04939_WHOLENESS_1319(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -1969,8 +2083,12 @@ def Test_02043_18_04939_WHOLENESS_1320(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2005,8 +2123,12 @@ def Test_02043_18_04939_WHOLENESS_1321(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2041,8 +2163,12 @@ def Test_02043_18_04939_WHOLENESS_1322(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2077,8 +2203,12 @@ def Test_02043_18_04939_WHOLENESS_1323(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2113,8 +2243,12 @@ def Test_02043_18_04939_WHOLENESS_1324(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2149,8 +2283,12 @@ def Test_02043_18_04939_WHOLENESS_1325(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2185,8 +2323,12 @@ def Test_02043_18_04939_WHOLENESS_1326(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2221,8 +2363,12 @@ def Test_02043_18_04939_WHOLENESS_1327(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2257,8 +2403,12 @@ def Test_02043_18_04939_WHOLENESS_1328(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2293,8 +2443,12 @@ def Test_02043_18_04939_WHOLENESS_1329(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2329,8 +2483,12 @@ def Test_02043_18_04939_WHOLENESS_1330(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2365,8 +2523,12 @@ def Test_02043_18_04939_WHOLENESS_1331(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2401,8 +2563,12 @@ def Test_02043_18_04939_WHOLENESS_1332(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2437,8 +2603,12 @@ def Test_02043_18_04939_WHOLENESS_1333(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -2473,8 +2643,12 @@ def Test_02043_18_04939_WHOLENESS_1334(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Table", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3291,8 +3465,12 @@ def Test_02043_18_04939_WHOLENESS_1450(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3327,8 +3505,12 @@ def Test_02043_18_04939_WHOLENESS_1451(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3363,8 +3545,12 @@ def Test_02043_18_04939_WHOLENESS_1452(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3399,8 +3585,12 @@ def Test_02043_18_04939_WHOLENESS_1453(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3435,8 +3625,12 @@ def Test_02043_18_04939_WHOLENESS_1454(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3471,8 +3665,12 @@ def Test_02043_18_04939_WHOLENESS_1455(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3507,8 +3705,12 @@ def Test_02043_18_04939_WHOLENESS_1456(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3543,8 +3745,12 @@ def Test_02043_18_04939_WHOLENESS_1500(workBook, TSDApp):
             for index in range(TSDApp.systemFirstInfoRow, TSDApp.WorkbookStats.SystemLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("System", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.SystemLanguage == "en":
+                            localisations.append(("System", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.SystemLanguage == "fr":
+                            localisations.append(("Système", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -3579,8 +3785,12 @@ def Test_02043_18_04939_WHOLENESS_1501(workBook, TSDApp):
             for index in range(TSDApp.systemFirstInfoRow, TSDApp.WorkbookStats.SystemLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("System", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.SystemLanguage == "en":
+                            localisations.append(("System", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.SystemLanguage == "fr":
+                            localisations.append(("Système", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7517,8 +7727,12 @@ def Test_02043_18_04939_WHOLENESS_1900(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7552,8 +7766,12 @@ def Test_02043_18_04939_WHOLENESS_1901(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7587,8 +7805,12 @@ def Test_02043_18_04939_WHOLENESS_1902(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7622,8 +7844,12 @@ def Test_02043_18_04939_WHOLENESS_1903(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7657,8 +7883,12 @@ def Test_02043_18_04939_WHOLENESS_1904(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7692,8 +7922,12 @@ def Test_02043_18_04939_WHOLENESS_1905(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7727,8 +7961,12 @@ def Test_02043_18_04939_WHOLENESS_1906(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7762,8 +8000,12 @@ def Test_02043_18_04939_WHOLENESS_1907(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7797,8 +8039,12 @@ def Test_02043_18_04939_WHOLENESS_1908(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7832,8 +8078,12 @@ def Test_02043_18_04939_WHOLENESS_1909(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7867,8 +8117,12 @@ def Test_02043_18_04939_WHOLENESS_1910(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7902,8 +8156,12 @@ def Test_02043_18_04939_WHOLENESS_1911(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7937,8 +8195,12 @@ def Test_02043_18_04939_WHOLENESS_1912(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -7973,8 +8235,12 @@ def Test_02043_18_04939_WHOLENESS_1913(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8008,8 +8274,12 @@ def Test_02043_18_04939_WHOLENESS_1914(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8043,8 +8313,12 @@ def Test_02043_18_04939_WHOLENESS_1915(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8078,8 +8352,12 @@ def Test_02043_18_04939_WHOLENESS_1916(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8113,8 +8391,12 @@ def Test_02043_18_04939_WHOLENESS_1917(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8148,8 +8430,12 @@ def Test_02043_18_04939_WHOLENESS_1918(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8183,8 +8469,12 @@ def Test_02043_18_04939_WHOLENESS_1919(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8218,8 +8508,12 @@ def Test_02043_18_04939_WHOLENESS_1920(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8253,8 +8547,12 @@ def Test_02043_18_04939_WHOLENESS_1921(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8288,8 +8586,12 @@ def Test_02043_18_04939_WHOLENESS_1922(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8323,8 +8625,12 @@ def Test_02043_18_04939_WHOLENESS_1923(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8358,8 +8664,12 @@ def Test_02043_18_04939_WHOLENESS_1924(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8393,8 +8703,12 @@ def Test_02043_18_04939_WHOLENESS_1925(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8428,8 +8742,12 @@ def Test_02043_18_04939_WHOLENESS_1926(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8463,8 +8781,12 @@ def Test_02043_18_04939_WHOLENESS_1927(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("tableau", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.tableLanguage == "fr":
+                            localisations.append(("tableau", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.tableLanguage == "en":
+                            localisations.append(("Table", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8498,8 +8820,12 @@ def Test_02043_18_04939_WHOLENESS_1950(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8534,8 +8860,12 @@ def Test_02043_18_04939_WHOLENESS_1951(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8569,8 +8899,12 @@ def Test_02043_18_04939_WHOLENESS_1952(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8604,8 +8938,12 @@ def Test_02043_18_04939_WHOLENESS_1953(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8639,8 +8977,12 @@ def Test_02043_18_04939_WHOLENESS_1954(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8674,8 +9016,12 @@ def Test_02043_18_04939_WHOLENESS_1955(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8709,8 +9055,12 @@ def Test_02043_18_04939_WHOLENESS_1956(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8744,8 +9094,12 @@ def Test_02043_18_04939_WHOLENESS_1957(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8779,8 +9133,12 @@ def Test_02043_18_04939_WHOLENESS_1958(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8814,8 +9172,12 @@ def Test_02043_18_04939_WHOLENESS_1959(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8849,8 +9211,12 @@ def Test_02043_18_04939_WHOLENESS_1960(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8884,8 +9250,12 @@ def Test_02043_18_04939_WHOLENESS_1961(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8919,8 +9289,12 @@ def Test_02043_18_04939_WHOLENESS_1962(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8954,8 +9328,12 @@ def Test_02043_18_04939_WHOLENESS_1963(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -8989,8 +9367,12 @@ def Test_02043_18_04939_WHOLENESS_1964(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9024,8 +9406,12 @@ def Test_02043_18_04939_WHOLENESS_1965(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9059,8 +9445,12 @@ def Test_02043_18_04939_WHOLENESS_1966(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9094,8 +9484,12 @@ def Test_02043_18_04939_WHOLENESS_1967(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9129,8 +9523,12 @@ def Test_02043_18_04939_WHOLENESS_1968(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9164,8 +9562,12 @@ def Test_02043_18_04939_WHOLENESS_1969(workBook, TSDApp):
             for index in range(TSDApp.dataCodesFirstInfoRow, TSDApp.WorkbookStats.DataCodesLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Data trouble codes", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DataCodesLanguage == "fr":
+                            localisations.append(("codes défauts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DataCodesLanguage == "en":
+                            localisations.append(("Data trouble codes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9872,8 +10274,12 @@ def Test_02043_18_04939_WHOLENESS_2060(workBook, TSDApp):
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Technical effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets techniques", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en":
+                            localisations.append(("Technical effect", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9908,8 +10314,12 @@ def Test_02043_18_04939_WHOLENESS_2061(workBook, TSDApp):
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Technical effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets techniques", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en":
+                            localisations.append(("Technical effect", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9944,8 +10354,12 @@ def Test_02043_18_04939_WHOLENESS_2062(workBook, TSDApp):
             for index in range(TSDApp.techEffFirstInfoRow, TSDApp.WorkbookStats.TechEffLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Technical effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets techniques", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en":
+                            localisations.append(("Technical effect", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -9980,8 +10394,15 @@ def Test_02043_18_04939_WHOLENESS_2070(workBook, TSDApp):
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Customer effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets clients", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en1":
+                            localisations.append(("Customer effect", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en2":
+                            localisations.append(("Customer effects", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10016,8 +10437,15 @@ def Test_02043_18_04939_WHOLENESS_2071(workBook, TSDApp):
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Customer effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets clients", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en1":
+                            localisations.append(("Customer effect", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en2":
+                            localisations.append(("Customer effects", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10053,8 +10481,15 @@ def Test_02043_18_04939_WHOLENESS_2072(workBook, TSDApp):
             for index in range(TSDApp.effClientsFirstInfoRow, TSDApp.WorkbookStats.EffClientsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Customer effect", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.TechEffLanguage == "fr":
+                            localisations.append(("Effets clients", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en1":
+                            localisations.append(("Customer effect", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.TechEffLanguage == "en2":
+                            localisations.append(("Customer effects", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10090,8 +10525,12 @@ def Test_02043_18_04939_WHOLENESS_2080(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10127,8 +10566,12 @@ def Test_02043_18_04939_WHOLENESS_2081(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10163,8 +10606,12 @@ def Test_02043_18_04939_WHOLENESS_2082(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10199,8 +10646,12 @@ def Test_02043_18_04939_WHOLENESS_2083(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10234,8 +10685,12 @@ def Test_02043_18_04939_WHOLENESS_2084(workBook, TSDApp):
             for index in range(TSDApp.fearedEventFirstInfoRow, TSDApp.WorkbookStats.FearedEventLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Feared events", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.FearedEventLanguage == "en":
+                            localisations.append(("Feared events", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.FearedEventLanguage == "fr":
+                            localisations.append(("ER", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10270,8 +10725,12 @@ def Test_02043_18_04939_WHOLENESS_2090(workBook, TSDApp):
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Parts", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.PartsLanguage == "en":
+                            localisations.append(("Parts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.PartsLanguage == "fr":
+                            localisations.append(("Constituants", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10306,8 +10765,12 @@ def Test_02043_18_04939_WHOLENESS_2091(workBook, TSDApp):
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Parts", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.PartsLanguage == "en":
+                            localisations.append(("Parts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.PartsLanguage == "fr":
+                            localisations.append(("Constituants", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10342,8 +10805,12 @@ def Test_02043_18_04939_WHOLENESS_2092(workBook, TSDApp):
             for index in range(TSDApp.partsFirstInfoRow, TSDApp.WorkbookStats.PartsLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Parts", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.PartsLanguage == "en":
+                            localisations.append(("Parts", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.PartsLanguage == "fr":
+                            localisations.append(("Constituants", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10378,8 +10845,12 @@ def Test_02043_18_04939_WHOLENESS_2100(workBook, TSDApp):
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Variant", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.VariantLanguage == "en":
+                            localisations.append(("Variant", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.VariantLanguage == "fr":
+                            localisations.append(("Variantes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10414,8 +10885,12 @@ def Test_02043_18_04939_WHOLENESS_2101(workBook, TSDApp):
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Variant", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.VariantLanguage == "en":
+                            localisations.append(("Variant", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.VariantLanguage == "fr":
+                            localisations.append(("Variantes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10450,8 +10925,12 @@ def Test_02043_18_04939_WHOLENESS_2102(workBook, TSDApp):
             for index in range(TSDApp.variantFirstInfoRow, TSDApp.WorkbookStats.VariantLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Variant", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.VariantLanguage == "en":
+                            localisations.append(("Variant", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.VariantLanguage == "fr":
+                            localisations.append(("Variantes", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10477,8 +10956,7 @@ def Test_02043_18_04939_WHOLENESS_2110(workBook, TSDApp):
         localisations = []
 
         for index in range(0, TSDApp.WorkbookStats.SituationLastCol):
-            if str(workSheet.cell(TSDApp.situationHeaderRow,
-                                  index).value).casefold().strip() == "Description".casefold():
+            if str(workSheet.cell(TSDApp.situationHeaderRow, index).value).casefold().strip() == "Description".casefold():
                 refColIndex = index
                 break
 
@@ -10486,8 +10964,12 @@ def Test_02043_18_04939_WHOLENESS_2110(workBook, TSDApp):
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Situation", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.SituationLanguage == "en":
+                            localisations.append(("Situation", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.SituationLanguage == "fr":
+                            localisations.append(("situations de vie", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10522,8 +11004,12 @@ def Test_02043_18_04939_WHOLENESS_2111(workBook, TSDApp):
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Situation", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.SituationLanguage == "en":
+                            localisations.append(("Situation", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.SituationLanguage == "fr":
+                            localisations.append(("situations de vie", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10558,8 +11044,12 @@ def Test_02043_18_04939_WHOLENESS_2112(workBook, TSDApp):
             for index in range(TSDApp.situationFirstInfoRow, TSDApp.WorkbookStats.SituationLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Situation", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.SituationLanguage == "en":
+                            localisations.append(("Situation", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.SituationLanguage == "fr":
+                            localisations.append(("situations de vie", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10594,8 +11084,12 @@ def Test_02043_18_04939_WHOLENESS_2120(workBook, TSDApp):
             for index in range(TSDApp.degradedModeFirstInfoRow, TSDApp.WorkbookStats.DegradedModeLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Degraded mode", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DegradedModeLanguage == "en":
+                            localisations.append(("Degraded mode", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DegradedModeLanguage == "fr":
+                            localisations.append(("Liste MDD", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None
@@ -10630,8 +11124,12 @@ def Test_02043_18_04939_WHOLENESS_2121(workBook, TSDApp):
             for index in range(TSDApp.degradedModeFirstInfoRow, TSDApp.WorkbookStats.DegradedModeLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
-                        localisations.append(("Degraded mode", index, refColIndex))
-                        check = True
+                        if TSDApp.WorkbookStats.DegradedModeLanguage == "en":
+                            localisations.append(("Degraded mode", index, refColIndex))
+                            check = True
+                        elif TSDApp.WorkbookStats.DegradedModeLanguage == "fr":
+                            localisations.append(("Liste MDD", index, refColIndex))
+                            check = True
 
             if not localisations:
                 localisations = None

@@ -41,8 +41,10 @@ def getTableInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.hasTable = True
         try:
             index = sheetNames.index("tableau")
+            TSDApp.WorkbookStats.tableLanguage = "fr"
         except:
             index = sheetNames.index("table")
+            TSDApp.WorkbookStats.tableLanguage = "en"
         TSDApp.WorkbookStats.tableIndex = index
     else:
         TSDApp.WorkbookStats.hasTable = False
@@ -61,8 +63,10 @@ def getCodesDefautsInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.hasCode = True
         try:
             index = sheetNames.index("codes défauts")
+            TSDApp.WorkbookStats.codeLanguage = "fr"
         except:
             index = sheetNames.index("data trouble codes")
+            TSDApp.WorkbookStats.codeLanguage = "en"
         TSDApp.WorkbookStats.codeIndex = index
     else:
         TSDApp.WorkbookStats.hasCode = False
@@ -137,11 +141,14 @@ def getEffetsClientsInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.hasEffClients = True
         try:
             index = sheetNames.index("effets clients")
+            TSDApp.WorkbookStats.EffClientsLanguage = "fr"
         except:
             if "customer effect" in sheetNames:
                 index = sheetNames.index("customer effect")
+                TSDApp.WorkbookStats.EffClientsLanguage = "en1"
             else:
                 index = sheetNames.index("customer effects")
+                TSDApp.WorkbookStats.EffClientsLanguage = "en2"
         TSDApp.WorkbookStats.EffClientsIndex = index
     else:
         TSDApp.WorkbookStats.hasEffClients = False
@@ -174,12 +181,14 @@ def getDataTroubleCodesInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "data trouble codes" in sheetNames:
+    if "data trouble codes" in sheetNames or "codes défauts" in sheetNames:
         TSDApp.WorkbookStats.hasDataCodes = True
         try:
             index = sheetNames.index("data trouble codes")
+            TSDApp.WorkbookStats.DataCodesLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("codes défauts")
+            TSDApp.WorkbookStats.DataCodesLanguage = "fr"
         TSDApp.WorkbookStats.DataCodesIndex = index
     else:
         TSDApp.WorkbookStats.hasDataCodes = False
@@ -307,12 +316,14 @@ def getFearedEventInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "feared events" in sheetNames:
+    if "feared events" in sheetNames or "er" in sheetNames:
         TSDApp.WorkbookStats.hasFearedEvent = True
         try:
             index = sheetNames.index("feared events")
+            TSDApp.WorkbookStats.FearedEventLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("er")
+            TSDApp.WorkbookStats.FearedEventLanguage = "fr"
         TSDApp.WorkbookStats.FearedEventIndex = index
     else:
         TSDApp.WorkbookStats.hasFearedEvent = False
@@ -326,12 +337,14 @@ def getSystemInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "system" in sheetNames:
+    if "system" in sheetNames or "système" in sheetNames:
         TSDApp.WorkbookStats.hasSystem = True
         try:
             index = sheetNames.index("system")
+            TSDApp.WorkbookStats.SystemLanguage = "en"
         except:
             index = sheetNames.index("système")
+            TSDApp.WorkbookStats.SystemLanguage = "fr"
         TSDApp.WorkbookStats.SystemIndex = index
     else:
         TSDApp.WorkbookStats.hasSystem = False
@@ -368,8 +381,10 @@ def getTechnicalEffectInfo(workBook, TSDApp):
         TSDApp.WorkbookStats.hasTechEff = True
         try:
             index = sheetNames.index("technical effect")
+            TSDApp.WorkbookStats.TechEffLanguage = "en"
         except:
             index = sheetNames.index("effets techniques")
+            TSDApp.WorkbookStats.TechEffLanguage = "fr"
         TSDApp.WorkbookStats.TechEffIndex = index
     else:
         TSDApp.WorkbookStats.hasTechEff = False
@@ -383,12 +398,14 @@ def getPartsInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "parts" in sheetNames:
+    if "parts" in sheetNames or "constituants" in sheetNames:
         TSDApp.WorkbookStats.hasParts = True
         try:
             index = sheetNames.index("parts")
+            TSDApp.WorkbookStats.PartsLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("constituants")
+            TSDApp.WorkbookStats.PartsLanguage = "fr"
         TSDApp.WorkbookStats.PartsIndex = index
     else:
         TSDApp.WorkbookStats.hasParts = False
@@ -402,12 +419,14 @@ def getVariantInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "variant" in sheetNames:
+    if "variant" in sheetNames or "variantes" in sheetNames:
         TSDApp.WorkbookStats.hasVariant = True
         try:
             index = sheetNames.index("variant")
+            TSDApp.WorkbookStats.VariantLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("variantes")
+            TSDApp.WorkbookStats.VariantLanguage = "fr"
         TSDApp.WorkbookStats.VariantIndex = index
     else:
         TSDApp.WorkbookStats.hasVariant = False
@@ -421,12 +440,14 @@ def getSituationInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "situation" in sheetNames:
+    if "situation" in sheetNames or "situations de vie" in sheetNames:
         TSDApp.WorkbookStats.hasSituation = True
         try:
             index = sheetNames.index("situation")
+            TSDApp.WorkbookStats.SituationLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("situations de vie")
+            TSDApp.WorkbookStats.SituationLanguage = "fr"
         TSDApp.WorkbookStats.SituationIndex = index
     else:
         TSDApp.WorkbookStats.hasSituation = False
@@ -440,12 +461,14 @@ def getDegradedModeInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "degraded mode" in sheetNames:
+    if "degraded mode" in sheetNames or "liste mdd":
         TSDApp.WorkbookStats.hasDegradedMode = True
         try:
             index = sheetNames.index("degraded mode")
+            TSDApp.WorkbookStats.DegradedModeLanguage = "en"
         except:
-            pass
+            index = sheetNames.index("liste mdd")
+            TSDApp.WorkbookStats.DegradedModeLanguage = "fr"
         TSDApp.WorkbookStats.DegradedModeIndex = index
     else:
         TSDApp.WorkbookStats.hasDegradedMode = False

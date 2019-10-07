@@ -188,7 +188,13 @@ def DOC15Parser(TSDApp ,DOC15Path):
         dids = root.findall(".//DATA-OBJECT-PROP")
         returnList = []
         for did in dids:
-            returnList.append(did.attrib['ID'])
+            name = did.find(".//SHORT-NAME").text.split("_")[-1]
+            if len(name) == 4:
+                try:
+                    int(name,16)
+                    returnList.append(name)
+                except:
+                    pass
         return subfamily_name, returnList
     else:
         return None, None

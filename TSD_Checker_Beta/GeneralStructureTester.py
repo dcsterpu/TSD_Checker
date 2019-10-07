@@ -24,6 +24,17 @@ class WorkbookProperties:
         self.hasSituation = False
         self.hasDegradedMode = False
 
+        self.tableLanguage = ""
+        self.codeLanguage = ""
+        self.DataCodesLanguage = ""
+        self.TechEffLanguage = ""
+        self.EffClientsLanguage = ""
+        self.FearedEventLanguage = ""
+        self.PartsLanguage = ""
+        self.VariantLanguage = ""
+        self.SituationLanguage = ""
+        self.DegradedModeLanguage = ""
+        self.SystemLanguage = ""
 
         self.DegradedModeIndex = 0
         self.DegradedModeLastRow = 0
