@@ -21,6 +21,7 @@ import win32api
 import getpass
 import io
 import sys
+import xlwt
 
 appName = "TSD Checker V7.4"
 pBarIncrement = 100/174
@@ -1011,13 +1012,7 @@ class Test(Application):
 
     def buttonClicked(self):
 
-        # del self.tab1.pbar
-        #
-        # self.tab1.pbar = QProgressBar(self.tab1)
-        # self.tab1.pbar.setGeometry(10, 310, 1110, 20)
-        # self.tab1.pbar.setAlignment(QtCore.Qt.AlignCenter)
-        # self.tab1.pbar.setValue(0)
-        # self.tab1.pbar.move(10, 460)
+
         self.unique_items = []
         self.unique_list = []
         self.refSignature = -1
@@ -1066,7 +1061,7 @@ class Test(Application):
             win32api.MessageBox(0, 'The  Diagnostic messagery (odx) file is not selected!')
             self.flag_subfamily_odx = True
 
-        if not self.flag_load_configuration and not self.flag_opened_file and not self.flag_subfamily_odx:
+        if not self.flag_opened_file and not self.flag_subfamily_odx:
 
             if self.tab1.myTextBox1.toPlainText() != "":
                 self.DOC3Exists = True
@@ -1209,185 +1204,185 @@ class Test(Application):
             archi_type = self.tab1.combo2.currentText()
             diversity_management = self.tab1.combo3.currentText()
 
-        elif self.flag_load_configuration and not self.flag_opened_file and not self.flag_subfamily_odx:
-
-            if self.list_element["FSE TSD File"]["value"] != "null":
-                self.DOC3Exists = True
-            elif self.list_element["TSD Vehicle Function File"]["value"] != "null":
-                self.DOC4Exists = True
-            elif self.list_element["TSD System File"]["value"] != "null":
-                self.DOC5Exists = True
-
-            if self.list_element["Network type"]["value"] == "Intranet":
-                Application.setIntranet(self)
-            else:
-                Application.setInternet(self)
-
-            if self.list_element["Check level"]["value"] == "Previsional":
-                self.tab1.combo.setCurrentIndex(1)
-            elif self.list_element["Check level"]["value"] == "Consolidated":
-                self.tab1.combo.setCurrentIndex(2)
-            elif self.list_element["Check level"]["value"] == "Final":
-                self.tab1.combo.setCurrentIndex(0)
-
-            if self.list_element["Project name"]["value"] == "Generic":
-                self.tab1.combo1.setCurrentIndex(0)
-            elif self.list_element["Project name"]["value"] == "All":
-                self.tab1.combo1.setCurrentIndex(1)
-
-            if self.list_element["Architecture type"]["value"] == "Archi 2010":
-                self.tab1.combo2.setCurrentIndex(0)
-                archi_type = "Archi 2010"
-            elif self.list_element["Architecture type"]["value"] == "Archi NEA R1":
-                self.tab1.combo2.setCurrentIndex(1)
-                archi_type = "Archi NEA R1"
-            elif self.list_element["Architecture type"]["value"] == "Archi NEA R2":
-                self.tab1.combo2.setCurrentIndex(2)
-                archi_type = "Archi NEA R2"
-
-            if self.list_element["Diversity management"]["value"] == "Codes LCDV":
-                self.tab1.combo3.setCurrentIndex(0)
-                diversity_management = "Codes LCDV"
-            elif self.list_element["Diversity management"]["value"] == "Codes EC":
-                self.tab1.combo3.setCurrentIndex(1)
-                diversity_management = "Codes EC"
-
-
-            self.tab1.textbox.setText("")
-            self.tab1.pbar.setValue(0)
-
-            if self.list_element["Diagnostic messagery (odx)"]['value'] != "null":
-                self.Doc15Path = self.list_element["Diagnostic messagery (odx)"]['value']
-            else:
-                 self.Doc15Path = None
-
-            if self.list_element["CESARE Export"]["value"] == "null":
-                self.DOC8Path = self.download_file(self.DOC8Link)
-
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC8Path.split(".")[-1] in extensions:
-                    ext = self.DOC8Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
-
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_cesare_file = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-                            shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
-            else:
-                self.DOC8Path = self.list_element["CESARE Export"]["value"]
-
-            if self.DOC8Path == "Error":
-                self.tab1.textbox.setText(
-                    "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
-                return
-            if self.DOC8Path == "False":
-                return
-
-            if self.list_element["Criticity"]["value"] == "null":
-                self.DOC9Path = self.download_file(self.DOC9Link)
-
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC9Path.split(".")[-1] in extensions:
-                    ext = self.DOC9Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
-
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_criticity_file = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-                            shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
-            else:
-                self.DOC9Path = self.list_element["Criticity"]["value"]
-
-            if self.list_element["Customer Effect File"]["value"] == "null":
-                self.DOC7Path = self.download_file(self.DOC7Link)
-
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC7Path.split(".")[-1] in extensions:
-                    ext = self.DOC7Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
-
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_cutomer_effect = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-                            shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
-            else:
-                self.DOC7Path = self.list_element["Customer Effect File"]["value"]
-
-            if self.list_element["Diversity"]["value"] == "null":
-                self.DOC13Path = self.download_file(self.DOC13Link)
-
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC13Path.split(".")[-1] in extensions:
-                    ext = self.DOC13Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
-
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_diversity_file = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-                            shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
-            else:
-                self.DOC13Path = self.list_element["Diversity"]["value"]
-
-            self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
-            if self.DOC9Dict == None:
-                return
-
-            self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
-            if self.DOC13List == None:
-                return
-
-            self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
-            if self.DOC8List == None:
-                return
-
-            if self.Doc15Path is not None and self.Doc15Path != "":
-                self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self, self.Doc15Path)
-                if self.subfamily_name == None or self.Doc15List == None:
-                    return
-            else:
-                self.Doc15List = None
-                self.subfamily_name = None
-
-            # self.DOC8Name = self.download_file(self.DOC8Link)
-
-            if self.list_element["Diagnostic matrix"]["value"] != "null":
-                self.DOC14Name = self.list_element["Diagnostic matrix"]["value"]
-            else:
-                self.DOC14Name = None
-
-            self.DOC7Name = self.download_file(self.DOC7Link)
+        # elif self.flag_load_configuration and not self.flag_opened_file and not self.flag_subfamily_odx:
+        #
+        #     if self.list_element["FSE TSD File"]["value"] != "null":
+        #         self.DOC3Exists = True
+        #     elif self.list_element["TSD Vehicle Function File"]["value"] != "null":
+        #         self.DOC4Exists = True
+        #     elif self.list_element["TSD System File"]["value"] != "null":
+        #         self.DOC5Exists = True
+        #
+        #     if self.list_element["Network type"]["value"] == "Intranet":
+        #         Application.setIntranet(self)
+        #     else:
+        #         Application.setInternet(self)
+        #
+        #     if self.list_element["Check level"]["value"] == "Previsional":
+        #         self.tab1.combo.setCurrentIndex(1)
+        #     elif self.list_element["Check level"]["value"] == "Consolidated":
+        #         self.tab1.combo.setCurrentIndex(2)
+        #     elif self.list_element["Check level"]["value"] == "Final":
+        #         self.tab1.combo.setCurrentIndex(0)
+        #
+        #     if self.list_element["Project name"]["value"] == "Generic":
+        #         self.tab1.combo1.setCurrentIndex(0)
+        #     elif self.list_element["Project name"]["value"] == "All":
+        #         self.tab1.combo1.setCurrentIndex(1)
+        #
+        #     if self.list_element["Architecture type"]["value"] == "Archi 2010":
+        #         self.tab1.combo2.setCurrentIndex(0)
+        #         archi_type = "Archi 2010"
+        #     elif self.list_element["Architecture type"]["value"] == "Archi NEA R1":
+        #         self.tab1.combo2.setCurrentIndex(1)
+        #         archi_type = "Archi NEA R1"
+        #     elif self.list_element["Architecture type"]["value"] == "Archi NEA R2":
+        #         self.tab1.combo2.setCurrentIndex(2)
+        #         archi_type = "Archi NEA R2"
+        #
+        #     if self.list_element["Diversity management"]["value"] == "Codes LCDV":
+        #         self.tab1.combo3.setCurrentIndex(0)
+        #         diversity_management = "Codes LCDV"
+        #     elif self.list_element["Diversity management"]["value"] == "Codes EC":
+        #         self.tab1.combo3.setCurrentIndex(1)
+        #         diversity_management = "Codes EC"
+        #
+        #
+        #     self.tab1.textbox.setText("")
+        #     self.tab1.pbar.setValue(0)
+        #
+        #     if self.list_element["Diagnostic messagery (odx)"]['value'] != "null":
+        #         self.Doc15Path = self.list_element["Diagnostic messagery (odx)"]['value']
+        #     else:
+        #          self.Doc15Path = None
+        #
+        #     if self.list_element["CESARE Export"]["value"] == "null":
+        #         self.DOC8Path = self.download_file(self.DOC8Link)
+        #
+        #         extensions = ["xlsx", "xlsm"]
+        #         if self.DOC8Path.split(".")[-1] in extensions:
+        #             ext = self.DOC8Path.split(".")[0]
+        #             with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
+        #                 zip_ref.extractall(ext)
+        #
+        #             try:
+        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
+        #                     path = ext + "\docProps\custom.xml"
+        #                     parser = etree.XMLParser(remove_comments=True)
+        #                     tree = objectify.parse(path, parser=parser)
+        #                     root = tree.getroot()
+        #                     self.version_cesare_file = root.find(
+        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+        #                     shutil.rmtree(ext, ignore_errors=True)
+        #             except:
+        #                 shutil.rmtree(ext, ignore_errors=True)
+        #     else:
+        #         self.DOC8Path = self.list_element["CESARE Export"]["value"]
+        #
+        #     if self.DOC8Path == "Error":
+        #         self.tab1.textbox.setText(
+        #             "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
+        #         return
+        #     if self.DOC8Path == "False":
+        #         return
+        #
+        #     if self.list_element["Criticity"]["value"] == "null":
+        #         self.DOC9Path = self.download_file(self.DOC9Link)
+        #
+        #         extensions = ["xlsx", "xlsm"]
+        #         if self.DOC9Path.split(".")[-1] in extensions:
+        #             ext = self.DOC9Path.split(".")[0]
+        #             with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
+        #                 zip_ref.extractall(ext)
+        #
+        #             try:
+        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
+        #                     path = ext + "\docProps\custom.xml"
+        #                     parser = etree.XMLParser(remove_comments=True)
+        #                     tree = objectify.parse(path, parser=parser)
+        #                     root = tree.getroot()
+        #                     self.version_criticity_file = root.find(
+        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+        #                     shutil.rmtree(ext, ignore_errors=True)
+        #             except:
+        #                 shutil.rmtree(ext, ignore_errors=True)
+        #     else:
+        #         self.DOC9Path = self.list_element["Criticity"]["value"]
+        #
+        #     if self.list_element["Customer Effect File"]["value"] == "null":
+        #         self.DOC7Path = self.download_file(self.DOC7Link)
+        #
+        #         extensions = ["xlsx", "xlsm"]
+        #         if self.DOC7Path.split(".")[-1] in extensions:
+        #             ext = self.DOC7Path.split(".")[0]
+        #             with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
+        #                 zip_ref.extractall(ext)
+        #
+        #             try:
+        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
+        #                     path = ext + "\docProps\custom.xml"
+        #                     parser = etree.XMLParser(remove_comments=True)
+        #                     tree = objectify.parse(path, parser=parser)
+        #                     root = tree.getroot()
+        #                     self.version_cutomer_effect = root.find(
+        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+        #                     shutil.rmtree(ext, ignore_errors=True)
+        #             except:
+        #                 shutil.rmtree(ext, ignore_errors=True)
+        #     else:
+        #         self.DOC7Path = self.list_element["Customer Effect File"]["value"]
+        #
+        #     if self.list_element["Diversity"]["value"] == "null":
+        #         self.DOC13Path = self.download_file(self.DOC13Link)
+        #
+        #         extensions = ["xlsx", "xlsm"]
+        #         if self.DOC13Path.split(".")[-1] in extensions:
+        #             ext = self.DOC13Path.split(".")[0]
+        #             with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
+        #                 zip_ref.extractall(ext)
+        #
+        #             try:
+        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
+        #                     path = ext + "\docProps\custom.xml"
+        #                     parser = etree.XMLParser(remove_comments=True)
+        #                     tree = objectify.parse(path, parser=parser)
+        #                     root = tree.getroot()
+        #                     self.version_diversity_file = root.find(
+        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+        #                     shutil.rmtree(ext, ignore_errors=True)
+        #             except:
+        #                 shutil.rmtree(ext, ignore_errors=True)
+        #     else:
+        #         self.DOC13Path = self.list_element["Diversity"]["value"]
+        #
+        #     self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
+        #     if self.DOC9Dict == None:
+        #         return
+        #
+        #     self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
+        #     if self.DOC13List == None:
+        #         return
+        #
+        #     self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
+        #     if self.DOC8List == None:
+        #         return
+        #
+        #     if self.Doc15Path is not None and self.Doc15Path != "":
+        #         self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self, self.Doc15Path)
+        #         if self.subfamily_name == None or self.Doc15List == None:
+        #             return
+        #     else:
+        #         self.Doc15List = None
+        #         self.subfamily_name = None
+        #
+        #     # self.DOC8Name = self.download_file(self.DOC8Link)
+        #
+        #     if self.list_element["Diagnostic matrix"]["value"] != "null":
+        #         self.DOC14Name = self.list_element["Diagnostic matrix"]["value"]
+        #     else:
+        #         self.DOC14Name = None
+        #
+        #     self.DOC7Name = self.download_file(self.DOC7Link)
 
 
         if self.DOC3Exists is True and not self.flag_opened_file and not self.flag_subfamily_odx:
@@ -1417,10 +1412,8 @@ class Test(Application):
             self.return_list = []
             self.DOC3Name = self.download_file(self.DOC3Link)
 
-            if self.flag_load_configuration is False:
-                self.DOC3Path = self.tab1.myTextBox1.toPlainText()
-            else:
-                self.DOC3Path = self.list_element["FSE TSD File"]["value"]
+            self.DOC3Path = self.tab1.myTextBox1.toPlainText()
+
             try:
                 extension = self.DOC3Path.split(".")[-1]
                 if extension == "xls":
@@ -2745,10 +2738,7 @@ class Test(Application):
             self.DOC4Name = self.download_file(self.DOC4Link)
             self.DOC5Name = self.download_file(self.DOC5Link)
 
-            if self.flag_load_configuration is False:
-                self.DOC4Path = self.tab1.myTextBox2.toPlainText()
-            else:
-                self.DOC4Path = self.list_element["TSD Vehicle Function File"]["value"]
+            self.DOC4Path = self.tab1.myTextBox2.toPlainText()
 
             try:
                 extension = self.DOC4Path.split(".")[-1]
@@ -3684,10 +3674,8 @@ class Test(Application):
 
             self.return_list = []
             self.DOC5Name = self.download_file(self.DOC5Link)
-            if self.flag_load_configuration is False:
-               self.DOC5Path = self.tab1.myTextBox3.toPlainText()
-            else:
-                self.DOC5Path = self.list_element["TSD System File"]["value"]
+
+            self.DOC5Path = self.tab1.myTextBox3.toPlainText()
 
             try:
                 extension = self.DOC5Path.split(".")[-1]

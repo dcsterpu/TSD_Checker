@@ -667,18 +667,39 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
                     if workSheet.cell(index, codeColIndex).value == "" or str(workSheet.cell(index, codeColIndex).value).casefold().strip() == "N/A".casefold():
                         pass
                     else:
-                        try:
-                            cel = workSheet.cell(index, codeColIndex).value.split("-")
-                            if len(cel) == 1:
+                        if "," not in workSheet.cell(index, codeColIndex).value and ";" not in workSheet.cell(index, codeColIndex).value:
+                            cel = workSheet.cell(index, codeColIndex).value.strip().split("-")
+                            if len(cel) == 2 and cel[0] in DOC8List:
+                                pass
+                            elif len(cel) == 3 and cel[0] in DOC8List:
+                                pass
+                            else:
                                 localisations.append((language, index, codeColIndex))
-                            elif len(cel) == 2 and cel[0] not in DOC8List:
-                                localisations.append((language, index, codeColIndex))
-                            elif len(cel) == 3 and cel[0] not in DOC8List:
-                                localisations.append((language, index, codeColIndex))
-                            elif len(cel) > 3:
-                                localisations.append((language, index, codeColIndex))
-                        except:
-                            localisations.append((language,index, codeColIndex))
+                        else:
+                            if "," in workSheet.cell(index, codeColIndex).value and ";" not in workSheet.cell(index, codeColIndex).value:
+                                final_list = workSheet.cell(index, codeColIndex).value.strip().split(",")
+                            elif "," not in workSheet.cell(index, codeColIndex).value and ";" in workSheet.cell(index, codeColIndex).value:
+                                final_list = workSheet.cell(index, codeColIndex).value.strip().split(";")
+                            elif "," in workSheet.cell(index, codeColIndex).value and ";" in workSheet.cell(index, codeColIndex).value:
+                                cel = workSheet.cell(index, codeColIndex).value.strip().split(",")
+                                for elem in cel:
+                                    if ";" in elem:
+                                        cels = []
+                                        cels = elem.split(";")
+                                        for i in range(len(cels)):
+                                            final_list.append(cels[i].strip())
+                                    else:
+                                        final_list.append(elem)
+
+                            for element in final_list:
+                                cel = element.split("-")
+                                if len(cel) == 2 and cel[0].strip() in DOC8List:
+                                    pass
+                                elif len(cel) == 3 and cel[0].strip() in DOC8List:
+                                    pass
+                                else:
+                                    localisations.append((language, index, codeColIndex))
+                                    break
 
             if not localisations:
                 localisations = None
@@ -2454,7 +2475,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
                     for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                         if workSheet.cell(index, 0).value != "":
-                            if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold():
+                            if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "":
                                 pass
                             else:
                                 final_list = []
@@ -3145,9 +3166,9 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
                     if workSheet.cell(index, 0).value != "":
                         try:
                             cel = workSheet.cell(index, refColIndex).value.split("-")
-                            if cel[0].casefold().strip() == TSDApp.tab1.myTextBox61.toPlainText().casefold().strip() and cel[1].lstrip('_') in DOC15List:
+                            if cel[0].casefold().strip() == TSDApp.tab1.myTextBox61.toPlainText().casefold().strip() and cel[1].strip() in DOC15List:
                                 pass
-                            else:
+                            elif cel[0].casefold().strip() == TSDApp.tab1.myTextBox61.toPlainText().casefold().strip() and cel[1].strip() not in DOC15List:
                                 localisations.append((language,index, refColIndex))
                         except:
                             localisations.append((language, index, refColIndex))
@@ -3685,7 +3706,7 @@ def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
                                 else:
                                     final_list.append(elem)
                         else:
-                            localisations.append(("Diagnostic Needs", index, codeColIndex))
+                            final_list.append(workSheet.cell(index, codeColIndex).value)
 
 
                         contor = 0
@@ -3743,12 +3764,6 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                 codeColIndex = index
                 break
 
-        language = ""
-        if str(workSheet.cell(TSDApp.codeHeaderRow, codeColIndex).value).casefold().strip() == "Diversity".casefold():
-            language = "en"
-        elif str(workSheet.cell(TSDApp.codeHeaderRow, codeColIndex).value).casefold().strip() == "Diversité".casefold():
-            language = "fr"
-
         localisations = []
         if codeColIndex != -1:
 
@@ -3773,8 +3788,7 @@ def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
                                 else:
                                     final_list.append(elem)
                         else:
-                            localisations.append((language, index, codeColIndex))
-
+                            final_list.append(workSheet.cell(index, codeColIndex).value)
 
                         contor = 0
                         for element in final_list:
