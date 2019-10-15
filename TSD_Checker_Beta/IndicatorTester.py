@@ -1,4 +1,4 @@
-import TSD_Checker_V7_4
+import TSD_Checker_V7_5
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
