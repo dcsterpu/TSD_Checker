@@ -1,4 +1,4 @@
-import TSD_Checker_V7_5
+import TSD_Checker_V7_6
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show

@@ -1,4 +1,4 @@
-import TSD_Checker_V7_5
+import TSD_Checker_V7_6
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -298,7 +298,7 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "NO DTC" or workSheet.cell(index, refColIndex).value == "":
+                    if str(workSheet.cell(index, refColIndex).value).strip().casefold() == "NO DTC".casefold() or workSheet.cell(index, refColIndex).value == "":
                         pass
                     else:
                         list_table = dict()
@@ -454,15 +454,18 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
 
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    try:
-                        cel = workSheet.cell(index, codeColIndex).value.split("-")
-                        if len(cel) == 2:
-                            pass
-                        else:
-                            if cel[0] not in DOC8List:
-                                localisations.append((language, index, codeColIndex))
-                    except:
-                        localisations.append((language, index, codeColIndex))
+                    if str(workSheet.cell(index, codeColIndex).value).strip().casefold() == "NO DTC".casefold():
+                        pass
+                    else:
+                        try:
+                            cel = workSheet.cell(index, codeColIndex).value.split("-")
+                            if len(cel) == 2:
+                                pass
+                            else:
+                                if cel[0] not in DOC8List:
+                                    localisations.append((language, index, codeColIndex))
+                        except:
+                            localisations.append((language, index, codeColIndex))
 
             if not localisations:
                 localisations = None
@@ -664,7 +667,7 @@ def Test_02043_18_04939_COH_2009(workBook, TSDApp, DOC8List):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, codeColIndex).value == "" or str(workSheet.cell(index, codeColIndex).value).casefold().strip() == "N/A".casefold():
+                    if workSheet.cell(index, codeColIndex).value == "" or str(workSheet.cell(index, codeColIndex).value).casefold().strip() == "N/A".casefold() or str(workSheet.cell(index, codeColIndex).value).casefold().strip() == "NO DTC".casefold():
                         pass
                     else:
                         if "," not in workSheet.cell(index, codeColIndex).value and ";" not in workSheet.cell(index, codeColIndex).value:
@@ -1371,7 +1374,7 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
             nrRows = workSheetRef.nrows
             N1ColIndex = -1
             N2ColIndex = -1
-            N2ColIndex = -1
+            N3ColIndex = -1
             N1EffColIndex = -1
             N2EffColIndex = -1
             N3EffColIndex = -1
@@ -1595,7 +1598,7 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
             nrRows = workSheetRef.nrows
             N1ColIndex = -1
             N2ColIndex = -1
-            N2ColIndex = -1
+            N3ColIndex = -1
             N1EffColIndex = -1
             N2EffColIndex = -1
             N3EffColIndex = -1
@@ -1816,7 +1819,7 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
             nrRows = workSheetRef.nrows
             N1ColIndex = -1
             N2ColIndex = -1
-            N2ColIndex = -1
+            N3ColIndex = -1
             N1EffColIndex = -1
             N2EffColIndex = -1
             N3EffColIndex = -1
@@ -2475,7 +2478,7 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
 
                     for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                         if workSheet.cell(index, 0).value != "":
-                            if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "":
+                            if str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "" or str(workSheet.cell(index, refColIndex).value).casefold().strip() == "NO DTC".casefold():
                                 pass
                             else:
                                 final_list = []
@@ -3219,7 +3222,7 @@ def Test_02043_18_04939_COH_2240(workBook, TSDApp, DOC13List):
                 if workSheet.cell(index, 0).value != "":
                     list2 = ['AND', 'OR', "NOT", "N/A", ",", "and", "or"]
                     cel = []
-                    cel_value = workSheet.cell(index, codeColIndex).value
+                    cel_value = str(workSheet.cell(index, codeColIndex).value)
                     if "NOT" in cel_value or "not" in cel_value:
                         cel_value = cel_value.replace("NOT","")
                         cel_value = cel_value.replace("not","")

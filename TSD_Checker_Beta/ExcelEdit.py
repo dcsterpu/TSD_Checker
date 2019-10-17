@@ -1,4 +1,4 @@
-import TSD_Checker_V7_5
+import TSD_Checker_V7_6
 import time
 from PyQt5 import QtGui
 import xlwt
@@ -84,6 +84,10 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     DOC3 = workBook
     new_wb = deleteSheet(TSDApp, DOC3, "report information", "test report")
 
+    for link in TSDApp.links:
+        sheet_to_check = new_wb._Workbook__worksheets[link[0]]
+        sheet_to_check.write(link[2], link[3], xlwt.Formula(link[4]))
+
     if TSDApp.convergence != "":
         try:
             workSheet = new_wb.get_sheet("tableau")
@@ -91,15 +95,19 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
             workSheet = new_wb.get_sheet("Table")
 
         if TSDApp.refSignature == -1:
-            workSheet.write(TSDApp.tableHeaderRow, TSDApp.WorkbookStats.tableLastCol, 'Unique Test Signature')
-            for element in TSDApp.unique_items:
-                if TSDApp.unique_list.count(element['value']) == 1:
-                    workSheet.write(element['localisation'], TSDApp.WorkbookStats.tableLastCol, '1')
-                    # NbUniqueSignatureTests += 1
-                else:
-                    for elem in TSDApp.unique_items:
-                        if element['value'] == elem['value']:
-                            workSheet.write(elem['localisation'], TSDApp.WorkbookStats.tableLastCol, '0')
+            try:
+                workSheet.write(TSDApp.tableHeaderRow, TSDApp.WorkbookStats.tableLastCol, 'Unique Test Signature')
+                for element in TSDApp.unique_items:
+                    if TSDApp.unique_list.count(element['value']) == 1:
+                        workSheet.write(element['localisation'], TSDApp.WorkbookStats.tableLastCol, '1')
+                        # NbUniqueSignatureTests += 1
+                    else:
+                        for elem in TSDApp.unique_items:
+                            if element['value'] == elem['value']:
+                                workSheet.write(elem['localisation'], TSDApp.WorkbookStats.tableLastCol, '0')
+            except:
+                text = TSDApp.tab1.textbox.toPlainText()
+                TSDApp.tab1.textbox.setText(text + '\n' + "Warning: Only 256 first columns filled in 'tableau' sheet (xls format limitation)")
         else:
             for element in TSDApp.unique_items:
                 if TSDApp.unique_list.count(element['value']) == 1:
@@ -120,7 +128,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     col3.width = 256 * 10
 
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V7_5.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V7_6.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -316,7 +324,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_5.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_6.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -422,7 +430,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_5.appName
+        workSheet_info_report['B1'] = TSD_Checker_V7_6.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path

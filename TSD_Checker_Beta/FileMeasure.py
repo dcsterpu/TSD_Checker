@@ -1,4 +1,4 @@
-import TSD_Checker_V7_5
+import TSD_Checker_V7_6
 import inspect
 
 def resetFlags(TSDApp):
