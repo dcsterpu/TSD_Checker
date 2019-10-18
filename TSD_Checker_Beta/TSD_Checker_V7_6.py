@@ -1025,6 +1025,7 @@ class Test(Application):
         self.tab1.textbox_convergence_2.setText("")
 
         self.tab1.buttonNew.setEnabled(False)
+        self.pBarValue = 0
         self.tab1.pbar.setValue(0)
         self.tab1.textbox.setText("File analysis started...")
         QApplication.processEvents()
