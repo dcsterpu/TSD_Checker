@@ -5,6 +5,7 @@ import xlwt
 from xlutils.copy import copy
 import openpyxl
 from openpyxl.styles import Color, Font
+from openpyxl.drawing.image import Image
 import zipfile
 from shutil import copyfile
 from shutil import rmtree
@@ -311,6 +312,11 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
             return
     else:
         wb = openpyxl.load_workbook(path, keep_vba=False)
+
+    first_sheet = wb.get_sheet_by_name("Informations Générales")
+    # for i in range(0, first_sheet.max_row):
+    #     for j in range(0, first_sheet.max_column):
+
 
     index_test_report = -1
     index_info_report = -1
@@ -665,6 +671,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
     workSheet_test_report.auto_filter.ref = workSheet_test_report.dimensions
 
     wb.save(workBook)
+    #wb.save("C:\\Users\\msnecula\\Downloads\\documente_TSD\\aaa.xlsx")
 
 def TestReturnName(criticity, testName, message, name, workBook, TSDApp):
     return_dict = {}

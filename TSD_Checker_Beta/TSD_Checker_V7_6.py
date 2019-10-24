@@ -99,6 +99,10 @@ class Application(QWidget):
             self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
+            self.tab2.link5.setText('''<a href=''' + self.DOC3Link + '''>DocInfo Reference: AEEV_IAEE07_0033</a>''')
+            self.tab2.link6.setText('''<a href=''' + self.DOC4Link + '''>DocInfo Reference: 02043_12_01665</a>''')
+            self.tab2.link7.setText('''<a href=''' + self.DOC5Link + '''>DocInfo Reference: 02043_12_01666</a>''')
+
         elif self.tab2.RadioButtonIntranet.isChecked() == True:
             self.DOC8Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05471/v.vc/pj"
             self.DOC9Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05474/v.vc/pj"
@@ -113,6 +117,10 @@ class Application(QWidget):
             self.tab2.link1.setText('''<a href=''' + self.DOC9Link + '''>DocInfo Reference: 02043_18_05474</a>''')
             self.tab2.link3.setText('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''')
             self.tab2.link4.setText('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''')
+            self.tab2.link5.setText('''<a href=''' + self.DOC3Link + '''>DocInfo Reference: AEEV_IAEE07_0033</a>''')
+            self.tab2.link6.setText('''<a href=''' + self.DOC4Link + '''>DocInfo Reference: 02043_12_01665</a>''')
+            self.tab2.link7.setText('''<a href=''' + self.DOC5Link + '''>DocInfo Reference: 02043_12_01666</a>''')
+
 
     def setIntranet(self):
         self.DOC8Link = "http://docinfogroupe.inetpsa.com/ead/doc/ref.02043_18_05471/v.vc/pj"
@@ -195,6 +203,18 @@ class Application(QWidget):
     def openFileNameDialog40(self):
         fileName40, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
         self.tab2.myTextBox8.setText(fileName40)
+
+    def openFileNameDialog11(self):
+        fileName11, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab2.myTextBox11.setText(fileName11)
+
+    def openFileNameDialog12(self):
+        fileName12, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab2.myTextBox12.setText(fileName12)
+
+    def openFileNameDialog13(self):
+        fileName13, _filter = QtWidgets.QFileDialog.getOpenFileName(self.tab2, 'Open File', QtCore.QDir.rootPath(), '*.*')
+        self.tab2.myTextBox13.setText(fileName13)
 
     def initUI(self, tab):
 
@@ -355,7 +375,7 @@ class Application(QWidget):
         tab.load_config.clicked.connect(self.ButtonLoadConfigClick)
 
         # File Selection Dialog1
-        tab.lbl2 = QLabel("FSE TSD File:", tab)
+        tab.lbl2 = QLabel("FSE TSD file:", tab)
         tab.lbl2.move(5, 15)
         tab.myTextBox1 = QtWidgets.QTextEdit(tab)
         tab.myTextBox1.resize(460, 25)
@@ -368,7 +388,7 @@ class Application(QWidget):
         tab.button1.resize(45, 22)
 
         # File Selection Dialog2
-        tab.lbl3 = QLabel("TSD vehicle Function file:", tab)
+        tab.lbl3 = QLabel("TSD Vehicle Function file:", tab)
         tab.lbl3.move(5, 45)
         tab.myTextBox2 = QtWidgets.QTextEdit(tab)
         tab.myTextBox2.resize(460, 25)
@@ -381,7 +401,7 @@ class Application(QWidget):
         tab.button2.resize(45, 22)
 
         # File Selection Dialog3
-        tab.lbl4 = QLabel("TSD system file:", tab)
+        tab.lbl4 = QLabel("TSD System file:", tab)
         tab.lbl4.move(5, 75)
         tab.myTextBox3 = QtWidgets.QTextEdit(tab)
         tab.myTextBox3.resize(460, 25)
@@ -514,7 +534,6 @@ class Application(QWidget):
                 self.tab1.combo1.addItem(project)
         except:
             self.tab1.textbox.setText("ERROR: when trying to import project names" + DOCPath.split('/')[-1])
-
 
     def ButtonSaveConfigClick(self):
 
@@ -664,6 +683,30 @@ class Application(QWidget):
                 data['value'] = self.tab2.myTextBox10.toPlainText()
             list_elements.append(data)
 
+            data = {}
+            data['name'] = 'FSE TSD template'
+            if self.tab2.myTextBox11.toPlainText() is None or self.tab2.myTextBox11.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox11.toPlainText()
+            list_elements.append(data)
+
+            data = {}
+            data['name'] = 'TSD Vehicle Function template'
+            if self.tab2.myTextBox12.toPlainText() is None or self.tab2.myTextBox12.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox12.toPlainText()
+            list_elements.append(data)
+
+            data = {}
+            data['name'] = 'TSD System template'
+            if self.tab2.myTextBox13.toPlainText() is None or self.tab2.myTextBox13.toPlainText() == "":
+                data['value'] = 'null'
+            else:
+                data['value'] = self.tab2.myTextBox13.toPlainText()
+            list_elements.append(data)
+
 
             save_config_fileName, _filter = QtWidgets.QFileDialog.getSaveFileName(self.tab1, 'Save File',QtCore.QDir.rootPath(), 'JSON(*.json)')
             with open(save_config_fileName,'w') as outfile:
@@ -775,6 +818,20 @@ class Application(QWidget):
                 else:
                     self.tab2.myTextBox10.setText("")
 
+                if self.list_element["FSE TSD template"]["value"] != "null":
+                    self.tab2.myTextBox11.setText(self.list_element["FSE TSD template"]["value"])
+                else:
+                    self.tab2.myTextBox11.setText("")
+
+                if self.list_element["TSD Vehicle Function template"]["value"] != "null":
+                    self.tab2.myTextBox12.setText(self.list_element["TSD Vehicle Function template"]["value"])
+                else:
+                    self.tab2.myTextBox12.setText("")
+
+                if self.list_element["TSD System template"]["value"] != "null":
+                    self.tab2.myTextBox13.setText(self.list_element["TSD System template"]["value"])
+                else:
+                    self.tab2.myTextBox13.setText("")
 
         except:
             pass
@@ -801,80 +858,142 @@ class Application(QWidget):
         tab.TextBoxPass.setText("Cst98988")
 
 
-        # File Selection Dialog5
-        tab.lbl6 = QLabel("Family list export(CESARE):", tab)
-        tab.lbl6.move(205, 145)
+        # File Selection Dialog
+        tab.lbl6 = QLabel("Family list export (CESARE):", tab)
+        tab.lbl6.move(205, 125)
         tab.myTextBox7 = QtWidgets.QTextEdit(tab)
         tab.myTextBox7.resize(460, 25)
-        tab.myTextBox7.move(410, 140)
+        tab.myTextBox7.move(410, 120)
         tab.myTextBox7.setReadOnly(True)
 
         tab.link2 = QLabel('''<a href=''' + self.DOC8Link + '''>DocInfo Reference: 02043_18_05471</a>''', tab)
         tab.link2.setOpenExternalLinks(True)
-        tab.link2.move(420, 167)
-
+        tab.link2.move(420, 147)
 
         tab.button7 = QPushButton('...', tab)
-        tab.button7.move(870, 141)
+        tab.button7.move(870, 121)
         tab.button7.resize(45, 22)
         tab.button7.clicked.connect(self.openFileNameDialog30)
 
 
-        # File Selection Dialog4
+
+        # File Selection Dialog
         tab.lbl5 = QLabel("Criticity configuration file:", tab)
-        tab.lbl5.move(205,215)
+        tab.lbl5.move(205,180)
         tab.myTextBox8 = QtWidgets.QTextEdit(tab)
         tab.myTextBox8.resize(460, 25)
-        tab.myTextBox8.move(410, 210)
+        tab.myTextBox8.move(410, 175)
         tab.myTextBox8.setReadOnly(True)
 
         tab.link1 = QLabel('''<a href='''+self.DOC9Link+'''>DocInfo Reference: 02043_18_05474</a>''', tab)
         tab.link1.setOpenExternalLinks(True)
-        tab.link1.move(420, 237)
+        tab.link1.move(420, 202)
 
         tab.button8 = QPushButton('...', tab)
         tab.button8.clicked.connect(self.openFileNameDialog40)
-        tab.button8.move(870, 211)
+        tab.button8.move(870, 176)
         tab.button8.resize(45, 22)
 
 
-        # File Selection Dialog6
+
+        # File Selection Dialog
         tab.lbl7 = QLabel("Customer effect file:", tab)
-        tab.lbl7.move(205, 275)
+        tab.lbl7.move(205, 235)
         tab.myTextBox9 = QtWidgets.QTextEdit(tab)
         tab.myTextBox9.resize(460, 25)
-        tab.myTextBox9.move(410, 270)
+        tab.myTextBox9.move(410, 230)
         tab.myTextBox9.setReadOnly(True)
 
         tab.link3 = QLabel('''<a href=''' + self.DOC7Link + '''>DocInfo Reference: 02043_18_05499</a>''', tab)
         tab.link3.setOpenExternalLinks(True)
-        tab.link3.move(420, 297)
+        tab.link3.move(420, 257)
 
         tab.button9 = QPushButton('...', tab)
         tab.button9.clicked.connect(self.openFileNameDialog9)
-        tab.button9.move(870, 271)
+        tab.button9.move(870, 231)
         tab.button9.resize(45, 22)
 
-        # File Selection Dialog9
+
+
+        # File Selection Dialog
         tab.lbl10 = QLabel("Diversity management file:", tab)
-        tab.lbl10.move(205, 335)
+        tab.lbl10.move(205, 290)
         tab.myTextBox10 = QtWidgets.QTextEdit(tab)
         tab.myTextBox10.resize(460, 25)
-        tab.myTextBox10.move(410,330)
+        tab.myTextBox10.move(410,285)
         tab.myTextBox10.setReadOnly(True)
 
         tab.link4 = QLabel('''<a href=''' + self.DOC13Link + '''>DocInfo Reference: 02016_11_04964</a>''', tab)
         tab.link4.setOpenExternalLinks(True)
-        tab.link4.move(420, 357)
-
+        tab.link4.move(420, 312)
 
         tab.button10 = QPushButton('...', tab)
         tab.button10.clicked.connect(self.openFileNameDialog10)
-        tab.button10.move(870, 331)
+        tab.button10.move(870, 286)
         tab.button10.resize(45, 22)
 
+
+
+        # File Selection Dialog
+        tab.lbl11 = QLabel("FSE TSD template:", tab)
+        tab.lbl11.move(205, 345)
+        tab.myTextBox11 = QtWidgets.QTextEdit(tab)
+        tab.myTextBox11.resize(460, 25)
+        tab.myTextBox11.move(410, 340)
+        tab.myTextBox11.setReadOnly(True)
+
+        tab.link5 = QLabel('''<a href=''' + self.DOC3Link + '''>DocInfo Reference: AEEV_IAEE07_0033</a>''', tab)
+        tab.link5.setOpenExternalLinks(True)
+        tab.link5.move(420, 367)
+
+        tab.button11 = QPushButton('...', tab)
+        tab.button11.clicked.connect(self.openFileNameDialog11)
+        tab.button11.move(870, 341)
+        tab.button11.resize(45, 22)
+
+
+
+
+        # File Selection Dialog
+        tab.lbl12 = QLabel("TSD Vehicle Function template:", tab)
+        tab.lbl12.move(205, 400)
+        tab.myTextBox12 = QtWidgets.QTextEdit(tab)
+        tab.myTextBox12.resize(460, 25)
+        tab.myTextBox12.move(410, 395)
+        tab.myTextBox12.setReadOnly(True)
+
+        tab.link6 = QLabel('''<a href=''' + self.DOC4Link + '''>DocInfo Reference: 02043_12_01665</a>''', tab)
+        tab.link6.setOpenExternalLinks(True)
+        tab.link6.move(420, 422)
+
+        tab.button12 = QPushButton('...', tab)
+        tab.button12.clicked.connect(self.openFileNameDialog12)
+        tab.button12.move(870, 396)
+        tab.button12.resize(45, 22)
+
+
+
+
+        # File Selection Dialog
+        tab.lbl13 = QLabel("TSD System template:", tab)
+        tab.lbl13.move(205, 455)
+        tab.myTextBox13 = QtWidgets.QTextEdit(tab)
+        tab.myTextBox13.resize(460, 25)
+        tab.myTextBox13.move(410, 450)
+        tab.myTextBox13.setReadOnly(True)
+
+        tab.link7 = QLabel('''<a href=''' + self.DOC5Link + '''>DocInfo Reference: 02043_12_01666</a>''', tab)
+        tab.link7.setOpenExternalLinks(True)
+        tab.link7.move(420, 477)
+
+        tab.button13 = QPushButton('...', tab)
+        tab.button13.clicked.connect(self.openFileNameDialog13)
+        tab.button13.move(870, 451)
+        tab.button13.resize(45, 22)
+
+
         tab.labelInternetAndIntranet = QLabel("Network type:", tab)
-        tab.labelInternetAndIntranet.move(300, 60)
+        tab.labelInternetAndIntranet.move(400, 70)
         tab.RadioButtonInternet = QRadioButton(self.tab2)
         tab.RadioButtonInternet.setText("Internet link")
         tab.RadioButtonInternet.setChecked(True)
@@ -882,8 +1001,8 @@ class Application(QWidget):
         tab.RadioButtonIntranet.setText("Intranet link")
         tab.RadioButtonInternet.toggled.connect(self.ToggleLink)
         tab.RadioButtonIntranet.toggled.connect(self.ToggleLink)
-        tab.RadioButtonInternet.move(400, 58)
-        tab.RadioButtonIntranet.move(400, 90)
+        tab.RadioButtonInternet.move(500, 70)
+        tab.RadioButtonIntranet.move(600, 70)
 
     def download_file(self, url):
         user = self.tab2.TextBoxUser.text()
@@ -1082,22 +1201,27 @@ class Test(Application):
             if not self.tab2.myTextBox7.toPlainText():
                 self.DOC8Path = self.download_file(self.DOC8Link)
 
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC8Path.split(".")[-1] in extensions:
-                    ext = self.DOC8Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
+                if self.DOC8Path == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
+                else:
 
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_cesare_file = root.find(".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                    extensions = ["xlsx", "xlsm"]
+                    if self.DOC8Path.split(".")[-1] in extensions:
+                        ext = self.DOC8Path.split(".")[0]
+                        with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
+                            zip_ref.extractall(ext)
+
+                        try:
+                            if os.path.isfile(ext + "\docProps\custom.xml"):
+                                path = ext + "\docProps\custom.xml"
+                                parser = etree.XMLParser(remove_comments=True)
+                                tree = objectify.parse(path, parser=parser)
+                                root = tree.getroot()
+                                self.version_cesare_file = root.find(".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                                shutil.rmtree(ext, ignore_errors=True)
+                        except:
                             shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC8Path = self.tab2.myTextBox7.toPlainText()
 
@@ -1111,69 +1235,81 @@ class Test(Application):
             if not self.tab2.myTextBox8.toPlainText():
                 self.DOC9Path = self.download_file(self.DOC9Link)
 
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC9Path.split(".")[-1] in extensions:
-                    ext = self.DOC9Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
+                if self.DOC9Path == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
+                else:
+                    extensions = ["xlsx", "xlsm"]
+                    if self.DOC9Path.split(".")[-1] in extensions:
+                        ext = self.DOC9Path.split(".")[0]
+                        with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
+                            zip_ref.extractall(ext)
 
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_criticity_file = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                        try:
+                            if os.path.isfile(ext + "\docProps\custom.xml"):
+                                path = ext + "\docProps\custom.xml"
+                                parser = etree.XMLParser(remove_comments=True)
+                                tree = objectify.parse(path, parser=parser)
+                                root = tree.getroot()
+                                self.version_criticity_file = root.find(
+                                    ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                                shutil.rmtree(ext, ignore_errors=True)
+                        except:
                             shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC9Path = self.tab2.myTextBox8.toPlainText()
 
             if not self.tab2.myTextBox9.toPlainText():
                 self.DOC7Path = self.download_file(self.DOC7Link)
 
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC7Path.split(".")[-1] in extensions:
-                    ext = self.DOC7Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
+                if self.DOC7Path == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
+                else:
+                    extensions = ["xlsx", "xlsm"]
+                    if self.DOC7Path.split(".")[-1] in extensions:
+                        ext = self.DOC7Path.split(".")[0]
+                        with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
+                            zip_ref.extractall(ext)
 
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_cutomer_effect = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                        try:
+                            if os.path.isfile(ext + "\docProps\custom.xml"):
+                                path = ext + "\docProps\custom.xml"
+                                parser = etree.XMLParser(remove_comments=True)
+                                tree = objectify.parse(path, parser=parser)
+                                root = tree.getroot()
+                                self.version_cutomer_effect = root.find(
+                                    ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                                shutil.rmtree(ext, ignore_errors=True)
+                        except:
                             shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC7Path = self.tab2.myTextBox9.toPlainText()
 
             if not self.tab2.myTextBox10.toPlainText():
                 self.DOC13Path = self.download_file(self.DOC13Link)
 
-                extensions = ["xlsx", "xlsm"]
-                if self.DOC13Path.split(".")[-1] in extensions:
-                    ext = self.DOC13Path.split(".")[0]
-                    with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
-                        zip_ref.extractall(ext)
+                if self.DOC13Path == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
+                else:
+                    extensions = ["xlsx", "xlsm"]
+                    if self.DOC13Path.split(".")[-1] in extensions:
+                        ext = self.DOC13Path.split(".")[0]
+                        with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
+                            zip_ref.extractall(ext)
 
-                    try:
-                        if os.path.isfile(ext + "\docProps\custom.xml"):
-                            path = ext + "\docProps\custom.xml"
-                            parser = etree.XMLParser(remove_comments=True)
-                            tree = objectify.parse(path, parser=parser)
-                            root = tree.getroot()
-                            self.version_diversity_file = root.find(
-                                ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                        try:
+                            if os.path.isfile(ext + "\docProps\custom.xml"):
+                                path = ext + "\docProps\custom.xml"
+                                parser = etree.XMLParser(remove_comments=True)
+                                tree = objectify.parse(path, parser=parser)
+                                root = tree.getroot()
+                                self.version_diversity_file = root.find(
+                                    ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
+                                shutil.rmtree(ext, ignore_errors=True)
+                        except:
                             shutil.rmtree(ext, ignore_errors=True)
-                    except:
-                        shutil.rmtree(ext, ignore_errors=True)
             else:
                 self.DOC13Path = self.tab2.myTextBox10.toPlainText()
 
@@ -1202,7 +1338,7 @@ class Test(Application):
             else:
                 self.DOC14Name = None
 
-            self.DOC7Name = self.download_file(self.DOC7Link)
+            # self.DOC7Name = self.download_file(self.DOC7Link)
             archi_type = self.tab1.combo2.currentText()
             diversity_management = self.tab1.combo3.currentText()
 
@@ -1412,7 +1548,14 @@ class Test(Application):
             self.listeMDDFirstInfoRow = 2
 
             self.return_list = []
-            self.DOC3Name = self.download_file(self.DOC3Link)
+
+            if self.tab2.myTextBox11.toPlainText() != "":
+                self.DOC3Name = self.tab2.myTextBox11.toPlainText()
+            else:
+                self.DOC3Name = self.download_file(self.DOC3Link)
+                if self.DOC3Name == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
 
             self.DOC3Path = self.tab1.myTextBox1.toPlainText()
 
@@ -2765,8 +2908,14 @@ class Test(Application):
             self.reqTechFirstInfoRow = 1
 
             self.return_list = []
-            self.DOC4Name = self.download_file(self.DOC4Link)
-            self.DOC5Name = self.download_file(self.DOC5Link)
+
+            if self.tab2.myTextBox12.toPlainText() != "":
+                self.DOC4Name = self.tab2.myTextBox12.toPlainText()
+            else:
+                self.DOC4Name = self.download_file(self.DOC4Link)
+                if self.DOC4Name == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
 
             self.DOC4Path = self.tab1.myTextBox2.toPlainText()
 
@@ -3728,7 +3877,14 @@ class Test(Application):
             self.degradedModeFirstInfoRow = 1
 
             self.return_list = []
-            self.DOC5Name = self.download_file(self.DOC5Link)
+
+            if self.tab2.myTextBox13.toPlainText() != "":
+                self.DOC5Name = self.tab2.myTextBox13.toPlainText()
+            else:
+                self.DOC5Name = self.download_file(self.DOC5Link)
+                if self.DOC5Name == "Error":
+                    self.tab1.textbox.setText("Error: The application requires an internet connection.")
+                    return
 
             self.DOC5Path = self.tab1.myTextBox3.toPlainText()
 
