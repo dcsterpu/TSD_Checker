@@ -366,11 +366,6 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
     else:
         wb = openpyxl.load_workbook(path, keep_vba=False)
 
-    first_sheet = wb.get_sheet_by_name("Informations Générales")
-    # for i in range(0, first_sheet.max_row):
-    #     for j in range(0, first_sheet.max_column):
-
-
     index_test_report = -1
     index_info_report = -1
     for sheetname in TSDApp.WorkbookStats.sheetNames:
