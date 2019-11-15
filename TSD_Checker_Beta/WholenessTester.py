@@ -1,4 +1,4 @@
-import TSD_Checker_V7_7
+import TSD_Checker_V7_8
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -605,10 +605,7 @@ def Test_02043_18_04939_WHOLENESS_1062(workBook, TSDApp):
         localisations = list()
 
         for index in range(0, TSDApp.WorkbookStats.measureLastCol):
-            if str(workSheet.cell(TSDApp.measureHeaderRow - 1,
-                                  index).value).casefold().strip() == "Applicabilité projet".casefold() or str(
-                workSheet.cell(TSDApp.measureHeaderRow - 1,
-                               index).value).casefold().strip() == "Project applicability".casefold():
+            if str(workSheet.cell(TSDApp.measureHeaderRow - 1,index).value).casefold().strip() == "Applicabilité projet".casefold() or str(workSheet.cell(TSDApp.measureHeaderRow - 1,index).value).casefold().strip() == "Project applicability".casefold():
                 refColIndex = index
                 break
 
@@ -5032,7 +5029,7 @@ def Test_02043_18_04939_WHOLENESS_1631(workBook, TSDApp):
             check = True
     return check
 
-def Test_02043_18_04939_WHOLENESS_1632(workBook, TSDApp):
+def Test_02043_18_04939_WHOLENESS_1633(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
@@ -5045,7 +5042,7 @@ def Test_02043_18_04939_WHOLENESS_1632(workBook, TSDApp):
         localisations = []
 
         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow - 1, index).value).casefold().strip() == "Pris en compte dans logigramme".casefold():
+            if str(workSheet.cell(TSDApp.tableHeaderRow - 1, index).value).casefold().strip() == "Needs justification for factory tests".casefold():
                 refColIndex = index
                 break
 
@@ -6609,7 +6606,7 @@ def Test_02043_18_04939_WHOLENESS_1718(workBook, TSDApp):
             check = True
     return check
 
-def Test_02043_18_04939_WHOLENESS_1719(workBook, TSDApp):
+def Test_02043_18_04939_WHOLENESS_1720(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
@@ -6622,7 +6619,7 @@ def Test_02043_18_04939_WHOLENESS_1719(workBook, TSDApp):
         localisations = []
 
         for index in range(0, TSDApp.WorkbookStats.measureLastCol):
-            if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "Validation".casefold():
+            if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "DID or I/O Control Number".casefold():
                 refColIndex = index
                 break
 
@@ -9979,7 +9976,7 @@ def Test_02043_18_04939_WHOLENESS_2011(workBook, TSDApp):
         localisations = []
 
         for index in range(0, TSDApp.WorkbookStats.ReadDataIOLastCol):
-            if str(workSheet.cell(TSDApp.readDataIOHeaderRow, index).value).casefold().strip() == "projet X".casefold():
+            if str(workSheet.cell(TSDApp.readDataIOHeaderRow, index).value).casefold().strip() == "DID or I/O Control Number".casefold():
                 refColIndex = index
                 break
 

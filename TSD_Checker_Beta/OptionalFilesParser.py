@@ -1,4 +1,4 @@
-import TSD_Checker_V7_7
+import TSD_Checker_V7_8
 from lxml import etree, objectify
 import xlrd
 

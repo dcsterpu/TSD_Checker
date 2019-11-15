@@ -1,4 +1,4 @@
-import TSD_Checker_V7_7
+import TSD_Checker_V7_8
 import inspect
 
 def resetFlags(TSDApp):
@@ -80,12 +80,14 @@ def getMesuresEtCommandesInfo(workBook, TSDApp):
     sheetNames = []
     for sheet in workBook.sheet_names():
         sheetNames.append(sheet.casefold())
-    if "mesures et commandes" in sheetNames:
+    if "mesures et commandes" in sheetNames or "read data and io control" in sheetNames:
         TSDApp.WorkbookStats.hasMeasure = True
         try:
             index = sheetNames.index("mesures et commandes")
+            TSDApp.WorkbookStats.measureLanguage = "fr"
         except:
-            pass
+            index = sheetNames.index("read data and io control")
+            TSDApp.WorkbookStats.measureLanguage = "en"
         TSDApp.WorkbookStats.measureIndex = index
     else:
         TSDApp.WorkbookStats.hasMeasure = False
@@ -513,3 +515,4 @@ def DOC5Info1(workBook, TSDApp):
     getVariantInfo(workBook, TSDApp)
     getSituationInfo(workBook, TSDApp)
     getDegradedModeInfo(workBook, TSDApp)
+    getMesuresEtCommandesInfo(workBook, TSDApp)

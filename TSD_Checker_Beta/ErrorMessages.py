@@ -241,7 +241,7 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_1280"] = "In the sheet “XXX�
 
 errorMessagesDict["Test_02043_18_04939_COH_2000"] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” is missing in the column “libellé (signification)” of the sheet “mesures et commandes”."
 
-errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr.\nwith:\nSubFamillyName: ASCII caracters\nThe SubFamillyName is coherent with the extract from CESARE (02043_18_05471), sheet 'sous familles Cesare', column 'Nom de la sous famille' B28.\nDINr OR RINr:4 caracters \nex: RCC-D402."
+errorMessagesDict['Test_02043_18_04939_COH_2001'] = "The information specified in the column “DID or I/O Control Number” of the sheet “mesures et commandes” does not follow the format  SubFamillyName-DIDNr or SubFamillyName-RINr.\nwith:\nSubFamillyName: ASCII caracters\nThe SubFamillyName is coherent with the extract from CESARE (02043_18_05471), sheet 'sous familles Cesare', column 'Nom de la sous famille' B28.\nDINr OR RINr:4 caracters \nex: RCC-D402."
 
 errorMessagesDict['Test_02043_18_04939_COH_2002'] = "The SubFamillyName shall be precised in front of the DTC code specified in the cell XXXX of the column 'Code défaut'  in the “Table” sheet  and this SubFamillyName shall be present in the  document 'Extract from CESARE' 02043_18_05471, column 'Nom de la sous famille' of the sheet 'sous familles Cesare' or for the exception see sheet 'ECU Exception'."
 
@@ -285,7 +285,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technica
 
 errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The label precized in the column 'Noms' of the sheet  'Effets techniques' shall be present in the column 'Effet(s) technique(s)' of the sheet 'Table'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2140"] = "The information specified in the column “code defaut induit” of the “tableau” sheet shall be present in the column “Code défaut” of the sheet “codes défauts” or precises as “N/A”"
+errorMessagesDict["Test_02043_18_04939_COH_2140"] = "The information specified in the column “code defaut induit” of the “tableau” sheet shall be present in the column “Code défaut” of the sheet “codes défauts” or precised as “No DTC”"
 
 errorMessagesDict["Test_02043_18_04939_COH_2150"] = "The information specified in the column “Supporté par constituent(s)” of the “code defaut” sheet is not coherent with the column “Noms” of the sheet “constituants”."
 
@@ -303,7 +303,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2210"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2220"] = "The information specified in the column “Non-embedded diagnosis” of the “Table” sheet shall be present in the column “Label” of the sheet “Non-embedded diagnosis” or precised as “N/A”."
 
-errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX specified in the column “mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence” of the sheet “tableau” (or “table”) shall be present in the diagnostic messages document(ODX)."
+errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX  (with the SubFamilly name precised in the field) specified in the column 'DID or I/O Control Number' of the sheet 'mesures et commandes' (or 'Read data and IO control')  shall be present in the diagnostic messages document (ODX)."
 
 errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'tableau' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
@@ -589,3 +589,6 @@ errorMessagesDict["Test_02043_18_04939_WHOLENESS_2111"] = "In the sheet “Situa
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2112"] = "In the sheet “Situation”, the column “Comments” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2120"] = "In the sheet “Degraded mode”, the column “Modes dégradés” is not completed. The following cells are not completed:"
 errorMessagesDict["Test_02043_18_04939_WHOLENESS_2121"] = "In the sheet “Degraded mode”, the column “Taken into account” is not completed. The following cells are not completed:"
+
+errorMessagesDict["Test_02043_18_04939_IND_6030"] = "The coverage indicator will not be calculated because at least one of required columns is missing."
+errorMessagesDict["Test_02043_18_04939_IND_6140"] = "The convergence indicator will not be calculated because at least one of required columns is missing."

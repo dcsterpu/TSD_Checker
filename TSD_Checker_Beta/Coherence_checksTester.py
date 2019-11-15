@@ -1,4 +1,4 @@
-import TSD_Checker_V7_7
+import TSD_Checker_V7_8
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -109,20 +109,20 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
     check = False
-    if TSDApp.WorkbookStats.hasTable == False:
+    if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.measureIndex)
         refColIndex = -1
 
-        if TSDApp.WorkbookStats.tableLanguage == "en":
-            language = "Table"
+        if TSDApp.WorkbookStats.measureLanguage == "en":
+            language = "Read data and IO control"
         elif TSDApp.WorkbookStats.tableLanguage == "fr":
-            language = "tableau"
+            language = "mesures et commandes"
 
-        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow,index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+        for index in range(0, TSDApp.WorkbookStats.measureLastCol):
+            if str(workSheet.cell(TSDApp.measureHeaderRow,index).value).casefold().strip() == "DID or I/O Control Number".casefold():
                 refColIndex = index
                 break
 
@@ -130,7 +130,7 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
             localisations = []
             contor = 0
 
-            for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+            for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
                         pass
@@ -993,10 +993,10 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
 
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value.casefold() == "N/A".casefold() or workSheet.cell(index, refColIndex).value == "":
+                    if str(workSheet.cell(index, refColIndex).value).casefold() == "N/A".casefold() or str(workSheet.cell(index, refColIndex).value) == "":
                         pass
                     else:
-                        list_table["value"] = workSheet.cell(index, refColIndex).value
+                        list_table["value"] = str(workSheet.cell(index, refColIndex).value)
                         list_table["row"] = index
                         list_table["col"] = refColIndex
                         tempList.append(dict(list_table))
@@ -3016,10 +3016,10 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
                 if workSheet.cell(index, 0).value != "":
                     list_table_dict = {}
-                    if workSheet.cell(index, refColIndex).value == "" or str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold():
+                    if str(workSheet.cell(index, refColIndex).value) == "" or str(workSheet.cell(index, refColIndex).value).casefold().strip() == "N/A".casefold():
                         pass
                     else:
-                        list_table_dict["value"] = workSheet.cell(index, refColIndex).value
+                        list_table_dict["value"] = str(workSheet.cell(index, refColIndex).value)
                         list_table_dict["row"] = index
                         list_table_dict["col"] = refColIndex
                         list_table.append(dict(list_table_dict))
@@ -3145,27 +3145,27 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
     check = False
     if subfamily_name is None and DOC15List is None:
         return True
-    if TSDApp.WorkbookStats.hasTable == False:
+    if TSDApp.WorkbookStats.hasMeasure == False:
         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
         check = True
     else:
-        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.measureIndex)
         refColIndex = -1
 
-        if TSDApp.WorkbookStats.tableLanguage == "fr":
-            language = "tableau"
-        elif TSDApp.WorkbookStats.tableLanguage == "en":
-            language = "Table"
+        if TSDApp.WorkbookStats.measureLanguage == "fr":
+            language = "mesures et commandes"
+        elif TSDApp.WorkbookStats.measureLanguage == "en":
+            language = "Read data and IO control"
 
-        for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-            if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+        for index in range(0, TSDApp.WorkbookStats.measureLastCol):
+            if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "DID or I/O Control Number".casefold():
                 refColIndex = index
                 break
 
         if refColIndex != -1:
             if TSDApp.tab1.myTextBox61.toPlainText() != "":
                 localisations = []
-                for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
+                for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
                     if workSheet.cell(index, 0).value != "":
                         try:
                             cel = workSheet.cell(index, refColIndex).value.split("-")

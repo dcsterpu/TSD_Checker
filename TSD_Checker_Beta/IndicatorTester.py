@@ -1,7 +1,8 @@
-import TSD_Checker_V7_7
+import TSD_Checker_V7_8
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
+from ExcelEdit import TestReturnName as show
 from ErrorMessages import errorMessagesDict as error
 import xlrd
 import xlwt
@@ -10,6 +11,7 @@ import openpyxl
 
 
 def coverageIndicator(workBook, TSDApp):
+    testName = "Test_02043_18_04939_IND_6030"
     index = 0
     for sheetname in TSDApp.WorkbookStats.sheetNames:
         if sheetname == 'tableau':
@@ -32,19 +34,32 @@ def coverageIndicator(workBook, TSDApp):
     for index1 in range(0, TSDApp.WorkbookStats.tableLastRow):
         for index2 in range(0, TSDApp.WorkbookStats.tableLastCol):
             cel = str(workSheet.cell(index1, index2).value).casefold().strip().replace("\n","")
-            if cel == "Constituant défaillant détecté".casefold():
+            if cel == "Constituant défaillant détecté".casefold() or cel == "Defective part".casefold():
                 refColBase = index2
                 refRowBase = index1
-            if cel == "Code défaut".casefold():
+            if cel == "Code défaut".casefold() or cel == "Data Trouble code".casefold():
                 refColDTC = index2
-            if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+            if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold() or cel == "Read data or I/O control".casefold():
                 refCelParam = index2
-            if cel == "DIAGNOSTIC DEBARQUE".casefold():
+            if cel == "DIAGNOSTIC DEBARQUE".casefold() or cel == "Non-embedded diagnosis".casefold():
                 refCelDiag = index2
 
 
     NbComponentsOfTheFunction = 0
     NbComponentWithDiagPossible = 0
+
+    name = []
+    if refColBase == -1:
+        name.append("Constituant défaillant détecté/Defective part")
+    if refColDTC == -1:
+        name.append("Code défaut/Data Trouble code")
+    if refCelParam == -1:
+        name.append("mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence/Read data or I/O control")
+    if refCelDiag == -1:
+        name.append("DIAGNOSTIC DEBARQUE/Non-embedded diagnosis")
+    if not name:
+        name = None
+
 
     if refColBase != -1 and refColDTC != -1 and refCelParam != -1 and refCelDiag != -1:
         for index in range(refRowBase + 2, nrRows):
@@ -54,16 +69,19 @@ def coverageIndicator(workBook, TSDApp):
                         workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
                         workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
                     NbComponentWithDiagPossible += 1
+        show("", testName, error[testName], name, workBook, TSDApp)
         return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
     else:
-        warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
-        textBoxText = TSDApp.tab1.textbox.toPlainText()
-        textBoxText = textBoxText + "\n" + warning
-        TSDApp.tab1.textbox.setText(textBoxText)
+        # warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
+        # textBoxText = TSDApp.tab1.textbox.toPlainText()
+        # textBoxText = textBoxText + "\n" + warning
+        # TSDApp.tab1.textbox.setText(textBoxText)
+        show("", testName, error[testName], name, workBook, TSDApp)
         return str(0.00000)
 
 
 def convergenceIndicator(workBook, TSDApp, path):
+    testName = "Test_02043_18_04939_IND_6140"
 
     index = -1
     for sheetname in TSDApp.WorkbookStats.sheetNames:
@@ -91,7 +109,7 @@ def convergenceIndicator(workBook, TSDApp, path):
     for index1 in range(0, nrRows):
         for index2 in range(0, nrCols):
             cel = str(rb_sheet.cell(index1, index2).value).casefold().strip().replace("\n", "")
-            if cel == "Critère de decision".casefold():
+            if cel == "Critère de decision".casefold() or cel == "decision criterion":
                 refCritere = index2
                 refRowIndex = index1
             if cel == "Unique Test Signature".casefold():
@@ -103,27 +121,44 @@ def convergenceIndicator(workBook, TSDApp, path):
     for index1 in range(0, nrRows):
         for index2 in range(0, nrCols):
             cel = str(rb_sheet.cell(index1, index2).value).casefold().strip().replace("\n","")
-            if cel == "Constituant défaillant détecté".casefold():
+            if cel == "Constituant défaillant détecté".casefold() or cel == "Defective part".casefold():
                 refColBase = index2
                 refRowIndex = index1
-            if cel == "Code défaut".casefold():
+            if cel == "Code défaut".casefold() or cel == "Data Trouble code".casefold():
                 refColDTC = index2
-            if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold():
+            if cel == "mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence".casefold() or cel == "Read data or I/O control".casefold():
                 refCelParam = index2
-            if cel == "DIAGNOSTIC DEBARQUE".casefold():
+            if cel == "DIAGNOSTIC DEBARQUE".casefold() or cel == "Non-embedded diagnosis".casefold():
                 refCelDiag = index2
-            if cel == "Effet(s) client(s)".casefold():
+            if cel == "Effet(s) client(s)".casefold() or cel == "Technical effect".casefold():
                 refCelEff = index2
-            if cel == "Voyant(s) ou message(s)".casefold():
+            if cel == "Voyant(s) ou message(s)".casefold() or cel == "HMI(Indicator lights/messages)".casefold():
                 refCelVoyant = index2
         if refColBase != -1 or refColDTC != -1 or refCelParam != -1 or refCelDiag != -1 or refCelEff != -1 or refCelVoyant != -1:
             break
 
+    name = []
+    if refColBase == -1:
+        name.append("Constituant défaillant détecté/Defective part")
+    if refColDTC == -1:
+        name.append("Code défaut/Data Trouble code")
+    if refCelParam == -1:
+        name.append("mesures et commandes (Mesure Parametre et Test Actionneur) / Tests de cohérence/Read data or I/O control")
+    if refCelDiag == -1:
+        name.append("DIAGNOSTIC DEBARQUE/Non-embedded diagnosis")
+    if refCelEff == -1:
+        name.append("Effet(s) client(s)/Technical effect")
+    if refCelVoyant == -1:
+        name.append("Voyant(s) ou message(s)/HMI(Indicator lights/messages)")
+    if not name:
+        name = None
+
     if refColBase == -1 or refColDTC == -1 or refCelParam == -1 or refCelDiag == -1 or refCelEff == -1 or refCelVoyant == -1:
-        warning = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
-        textBoxText = TSDApp.tab1.textbox.toPlainText()
-        textBoxText = textBoxText + "\n" + warning
-        TSDApp.tab1.textbox.setText(textBoxText)
+        # warning = "WARNING: The convergence indicator will not be calculated because at least one of its parameters is missing."
+        # textBoxText = TSDApp.tab1.textbox.toPlainText()
+        # textBoxText = textBoxText + "\n" + warning
+        # TSDApp.tab1.textbox.setText(textBoxText)
+        show("", testName, error[testName], name, workBook, TSDApp)
         return str(0.00000)
     else:
         if path.split('.')[-1] == 'xls':
@@ -216,4 +251,5 @@ def convergenceIndicator(workBook, TSDApp, path):
                                 workSheet.cell(element['localisation'], TSDApp.refSignature + 1, '0')
                 wb.save(path)
 
+        show("", testName, error[testName], name, workBook, TSDApp)
         return (NbUniqueSignatureTests / NbAMDECLine)
