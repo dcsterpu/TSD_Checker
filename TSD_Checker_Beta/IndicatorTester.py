@@ -1,4 +1,4 @@
-import TSD_Checker_V7_8
+import TSD_Checker_V7_9
 import inspect
 import win32com.client as win32
 from ExcelEdit import TestReturn as result
@@ -63,14 +63,19 @@ def coverageIndicator(workBook, TSDApp):
 
     if refColBase != -1 and refColDTC != -1 and refCelParam != -1 and refCelDiag != -1:
         for index in range(refRowBase + 2, nrRows):
-            if workSheet.cell(index, refColBase).value is not None and workSheet.cell(index,refColBase).value != "":
+            if str(workSheet.cell(index, refColBase).value) is not None and str(workSheet.cell(index,refColBase).value) != "":
                 NbComponentsOfTheFunction += 1
-                if (workSheet.cell(index, refColDTC).value is not None and workSheet.cell(index, refColDTC).value !="" and workSheet.cell(index,refColDTC).value != "NO DTC") or (
-                        workSheet.cell(index, refCelParam).value is not None and workSheet.cell(index, refCelParam).value != "" and workSheet.cell(index,refCelParam).value != "N/A") or (
-                        workSheet.cell(index, refCelDiag).value is not None and workSheet.cell(index, refCelDiag).value != "" and workSheet.cell(index,refCelDiag).value != "N/A"):
+                if  (str(workSheet.cell(index, refColDTC).value) is not None and str(workSheet.cell(index, refColDTC).value) !="" and str(workSheet.cell(index,refColDTC).value) != "NO DTC") or (
+                        str(workSheet.cell(index, refCelParam).value) is not None and str(workSheet.cell(index, refCelParam).value) != "" and str(workSheet.cell(index,refCelParam).value) != "N/A") or (
+                        str(workSheet.cell(index, refCelDiag).value) is not None and str(workSheet.cell(index, refCelDiag).value) != "" and str(workSheet.cell(index,refCelDiag).value) != "N/A"):
                     NbComponentWithDiagPossible += 1
         show("", testName, error[testName], name, workBook, TSDApp)
-        return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
+        try:
+            return (NbComponentWithDiagPossible / NbComponentsOfTheFunction)
+        except:
+            text = TSDApp.tab1.textbox.toPlainText()
+            TSDApp.tab1.textbox.setText(text + '\n' + "Warning: The coverage indicator will not be calculated because there are no records!")
+            return str(0.00000)
     else:
         # warning = "WARNING: The coverage indicator will not be calculated because at least one of its parameters is missing."
         # textBoxText = TSDApp.tab1.textbox.toPlainText()
@@ -252,4 +257,9 @@ def convergenceIndicator(workBook, TSDApp, path):
                 wb.save(path)
 
         show("", testName, error[testName], name, workBook, TSDApp)
-        return (NbUniqueSignatureTests / NbAMDECLine)
+        try:
+            return (NbUniqueSignatureTests / NbAMDECLine)
+        except:
+            text = TSDApp.tab1.textbox.toPlainText()
+            TSDApp.tab1.textbox.setText(text + '\n' + "Warning: The covergence indicator will not be calculated because there are no records!")
+            return str(0.00000)

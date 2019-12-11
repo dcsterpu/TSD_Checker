@@ -281,7 +281,7 @@ errorMessagesDict["Test_02043_18_04939_COH_2100"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified in the column “supporté par constituant (s)” of the sheet “mesures et commandes” is missing in the document 02043_18_05471, in the column “Nom de la sous famille” of the sheet “sous familles Cesare” or for exception see sheet 'ECU Exception'."
 
-errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the function TSD (in the sheet Effets techniques, column “Référence amont”)."
+errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the system TSD (in the sheet Effets techniques, column “Référence amont”)."
 
 errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The label precized in the column 'Noms' of the sheet  'Effets techniques' shall be present in the column 'Effet(s) technique(s)' of the sheet 'Table'."
 

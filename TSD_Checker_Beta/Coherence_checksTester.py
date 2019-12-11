@@ -1,4 +1,4 @@
-import TSD_Checker_V7_8
+import TSD_Checker_V7_9
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -134,8 +134,8 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                 if workSheet.cell(index, 0).value != "":
                     if workSheet.cell(index, refColIndex).value == "":
                         pass
-                    elif ',' in workSheet.cell(index, refColIndex).value:
-                        elems = workSheet.cell(index, refColIndex).value.split(',')
+                    elif ',' in str(workSheet.cell(index, refColIndex).value):
+                        elems = str(workSheet.cell(index, refColIndex).value).split(',')
                         contor = 0
                         for elem in elems:
                             try:
@@ -162,8 +162,8 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                                     break
                             except:
                                 localisations.append((language, index, refColIndex))
-                    elif ';' in workSheet.cell(index, refColIndex).value:
-                        elems = workSheet.cell(index, refColIndex).value.split(';')
+                    elif ';' in str(workSheet.cell(index, refColIndex).value):
+                        elems = str(workSheet.cell(index, refColIndex).value).split(';')
                         for elem in elems:
                             try:
                                 cel = elem.split("-")
@@ -3471,10 +3471,10 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
             contor = 0
 
             for index in range(TSDApp.codeFirstInfoRow, TSDApp.WorkbookStats.codeLastRow):
-                if workSheet.cell(index, 0).value != "":
+                if str(workSheet.cell(index, 0).value) != "":
                     list2 = ['AND', 'OR', "NOT", "N/A", ",", "or", "and"]
                     cel = []
-                    cel_value = workSheet.cell(index, codeColIndex).value
+                    cel_value = str(workSheet.cell(index, codeColIndex).value)
                     if "NOT" in cel_value or "not" in cel_value:
                         cel_value = cel_value.replace("NOT","")
                         cel_value = cel_value.replace("not","")
