@@ -1,12 +1,6 @@
 import TSD_Checker_V7_9
-import inspect
-import win32com.client as win32
-from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
 from ErrorMessages import errorMessagesDict as error
-import xlrd
-import xlwt
-from xlutils.copy import copy
 import openpyxl
 
 

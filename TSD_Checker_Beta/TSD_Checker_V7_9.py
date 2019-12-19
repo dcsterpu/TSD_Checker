@@ -239,8 +239,6 @@ class Application(QWidget):
         tab.textbox_convergence.setReadOnly(True)
 
         # Create coverage textbox
-        # tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
-        # tab.lb2_coverage.move(750, 42)
         tab.message = ""
         tab.textbox_coverage_1 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage_1.setText(tab.message)
@@ -249,8 +247,6 @@ class Application(QWidget):
         tab.textbox_coverage_1.setReadOnly(True)
 
         # Create convergence textbox
-        # tab.lb2_convergence = QLabel("Convergence Indicator:", tab)
-        # tab.lb2_convergence.move(930, 42)
         tab.message = ""
         tab.textbox_convergence_1 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence_1.setText(tab.message)
@@ -258,8 +254,6 @@ class Application(QWidget):
         tab.textbox_convergence_1.resize(70, 20)
         tab.textbox_convergence_1.setReadOnly(True)
 
-        # tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
-        # tab.lb2_coverage.move(750, 72)
         tab.message = ""
         tab.textbox_coverage_2 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage_2.setText(tab.message)
@@ -268,8 +262,6 @@ class Application(QWidget):
         tab.textbox_coverage_2.setReadOnly(True)
 
         # Create convergence textbox
-        # tab.lb3_convergence = QLabel("Convergence Indicator:", tab)
-        # tab.lb3_convergence.move(930, 72)
         tab.message = ""
         tab.textbox_convergence_2 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence_2.setText(tab.message)
@@ -473,7 +465,6 @@ class Application(QWidget):
         tab.button.move(512, 490)
         tab.button.resize(90, 25)
         tab.button.clicked.connect(self.buttonClicked)
-        #button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         tab.buttonNew = QPushButton("Open \nReport", tab)
         tab.buttonNew.resize(120, 40)
         tab.buttonNew.move(740, 280)
@@ -1041,10 +1032,6 @@ class Application(QWidget):
             try:
                 FileName = response.headers['Content-Disposition'].split('"')[1]
             except:
-                # error_message = "\nThe file's metadata cannot be properly identified. Please check the network connection!"
-                # text_box = self.tab1.textbox.toPlainText()
-                # self.tab1.textbox.setText(text_box + error_message)
-                # sys.exit(0)
                 if self.DOC3Exists:
                     FileName = "DOC3_template.xls"
                 elif self.DOC4Exists:
@@ -1355,190 +1342,8 @@ class Test(Application):
             else:
                 self.DOC14Name = None
 
-            # self.DOC7Name = self.download_file(self.DOC7Link)
             archi_type = self.tab1.combo2.currentText()
             diversity_management = self.tab1.combo3.currentText()
-
-        # elif self.flag_load_configuration and not self.flag_opened_file and not self.flag_subfamily_odx:
-        #
-        #     if self.list_element["FSE TSD File"]["value"] != "null":
-        #         self.DOC3Exists = True
-        #     elif self.list_element["TSD Vehicle Function File"]["value"] != "null":
-        #         self.DOC4Exists = True
-        #     elif self.list_element["TSD System File"]["value"] != "null":
-        #         self.DOC5Exists = True
-        #
-        #     if self.list_element["Network type"]["value"] == "Intranet":
-        #         Application.setIntranet(self)
-        #     else:
-        #         Application.setInternet(self)
-        #
-        #     if self.list_element["Check level"]["value"] == "Previsional":
-        #         self.tab1.combo.setCurrentIndex(1)
-        #     elif self.list_element["Check level"]["value"] == "Consolidated":
-        #         self.tab1.combo.setCurrentIndex(2)
-        #     elif self.list_element["Check level"]["value"] == "Final":
-        #         self.tab1.combo.setCurrentIndex(0)
-        #
-        #     if self.list_element["Project name"]["value"] == "Generic":
-        #         self.tab1.combo1.setCurrentIndex(0)
-        #     elif self.list_element["Project name"]["value"] == "All":
-        #         self.tab1.combo1.setCurrentIndex(1)
-        #
-        #     if self.list_element["Architecture type"]["value"] == "Archi 2010":
-        #         self.tab1.combo2.setCurrentIndex(0)
-        #         archi_type = "Archi 2010"
-        #     elif self.list_element["Architecture type"]["value"] == "Archi NEA R1":
-        #         self.tab1.combo2.setCurrentIndex(1)
-        #         archi_type = "Archi NEA R1"
-        #     elif self.list_element["Architecture type"]["value"] == "Archi NEA R2":
-        #         self.tab1.combo2.setCurrentIndex(2)
-        #         archi_type = "Archi NEA R2"
-        #
-        #     if self.list_element["Diversity management"]["value"] == "Codes LCDV":
-        #         self.tab1.combo3.setCurrentIndex(0)
-        #         diversity_management = "Codes LCDV"
-        #     elif self.list_element["Diversity management"]["value"] == "Codes EC":
-        #         self.tab1.combo3.setCurrentIndex(1)
-        #         diversity_management = "Codes EC"
-        #
-        #
-        #     self.tab1.textbox.setText("")
-        #     self.tab1.pbar.setValue(0)
-        #
-        #     if self.list_element["Diagnostic messagery (odx)"]['value'] != "null":
-        #         self.Doc15Path = self.list_element["Diagnostic messagery (odx)"]['value']
-        #     else:
-        #          self.Doc15Path = None
-        #
-        #     if self.list_element["CESARE Export"]["value"] == "null":
-        #         self.DOC8Path = self.download_file(self.DOC8Link)
-        #
-        #         extensions = ["xlsx", "xlsm"]
-        #         if self.DOC8Path.split(".")[-1] in extensions:
-        #             ext = self.DOC8Path.split(".")[0]
-        #             with zipfile.ZipFile(self.DOC8Path, 'r') as zip_ref:
-        #                 zip_ref.extractall(ext)
-        #
-        #             try:
-        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
-        #                     path = ext + "\docProps\custom.xml"
-        #                     parser = etree.XMLParser(remove_comments=True)
-        #                     tree = objectify.parse(path, parser=parser)
-        #                     root = tree.getroot()
-        #                     self.version_cesare_file = root.find(
-        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-        #                     shutil.rmtree(ext, ignore_errors=True)
-        #             except:
-        #                 shutil.rmtree(ext, ignore_errors=True)
-        #     else:
-        #         self.DOC8Path = self.list_element["CESARE Export"]["value"]
-        #
-        #     if self.DOC8Path == "Error":
-        #         self.tab1.textbox.setText(
-        #             "ERROR: No network available\nTo continue, please select files for field in the Options tab ")
-        #         return
-        #     if self.DOC8Path == "False":
-        #         return
-        #
-        #     if self.list_element["Criticity"]["value"] == "null":
-        #         self.DOC9Path = self.download_file(self.DOC9Link)
-        #
-        #         extensions = ["xlsx", "xlsm"]
-        #         if self.DOC9Path.split(".")[-1] in extensions:
-        #             ext = self.DOC9Path.split(".")[0]
-        #             with zipfile.ZipFile(self.DOC9Path, 'r') as zip_ref:
-        #                 zip_ref.extractall(ext)
-        #
-        #             try:
-        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
-        #                     path = ext + "\docProps\custom.xml"
-        #                     parser = etree.XMLParser(remove_comments=True)
-        #                     tree = objectify.parse(path, parser=parser)
-        #                     root = tree.getroot()
-        #                     self.version_criticity_file = root.find(
-        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-        #                     shutil.rmtree(ext, ignore_errors=True)
-        #             except:
-        #                 shutil.rmtree(ext, ignore_errors=True)
-        #     else:
-        #         self.DOC9Path = self.list_element["Criticity"]["value"]
-        #
-        #     if self.list_element["Customer Effect File"]["value"] == "null":
-        #         self.DOC7Path = self.download_file(self.DOC7Link)
-        #
-        #         extensions = ["xlsx", "xlsm"]
-        #         if self.DOC7Path.split(".")[-1] in extensions:
-        #             ext = self.DOC7Path.split(".")[0]
-        #             with zipfile.ZipFile(self.DOC7Path, 'r') as zip_ref:
-        #                 zip_ref.extractall(ext)
-        #
-        #             try:
-        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
-        #                     path = ext + "\docProps\custom.xml"
-        #                     parser = etree.XMLParser(remove_comments=True)
-        #                     tree = objectify.parse(path, parser=parser)
-        #                     root = tree.getroot()
-        #                     self.version_cutomer_effect = root.find(
-        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-        #                     shutil.rmtree(ext, ignore_errors=True)
-        #             except:
-        #                 shutil.rmtree(ext, ignore_errors=True)
-        #     else:
-        #         self.DOC7Path = self.list_element["Customer Effect File"]["value"]
-        #
-        #     if self.list_element["Diversity"]["value"] == "null":
-        #         self.DOC13Path = self.download_file(self.DOC13Link)
-        #
-        #         extensions = ["xlsx", "xlsm"]
-        #         if self.DOC13Path.split(".")[-1] in extensions:
-        #             ext = self.DOC13Path.split(".")[0]
-        #             with zipfile.ZipFile(self.DOC13Path, 'r') as zip_ref:
-        #                 zip_ref.extractall(ext)
-        #
-        #             try:
-        #                 if os.path.isfile(ext + "\docProps\custom.xml"):
-        #                     path = ext + "\docProps\custom.xml"
-        #                     parser = etree.XMLParser(remove_comments=True)
-        #                     tree = objectify.parse(path, parser=parser)
-        #                     root = tree.getroot()
-        #                     self.version_diversity_file = root.find(
-        #                         ".//{http://schemas.openxmlformats.org/officeDocument/2006/custom-properties}property[@name = 'psa_version']/{http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes}lpwstr").text
-        #                     shutil.rmtree(ext, ignore_errors=True)
-        #             except:
-        #                 shutil.rmtree(ext, ignore_errors=True)
-        #     else:
-        #         self.DOC13Path = self.list_element["Diversity"]["value"]
-        #
-        #     self.DOC9Dict = OptionalFilesParser.DOC9Parser(self, self.excelApp, self.DOC9Path)
-        #     if self.DOC9Dict == None:
-        #         return
-        #
-        #     self.DOC13List = OptionalFilesParser.DOC13Parser(self, self.excelApp, self.DOC13Path)
-        #     if self.DOC13List == None:
-        #         return
-        #
-        #     self.DOC8List = OptionalFilesParser.DOC8Parser(self, self.excelApp, self.DOC8Path)
-        #     if self.DOC8List == None:
-        #         return
-        #
-        #     if self.Doc15Path is not None and self.Doc15Path != "":
-        #         self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self, self.Doc15Path)
-        #         if self.subfamily_name == None or self.Doc15List == None:
-        #             return
-        #     else:
-        #         self.Doc15List = None
-        #         self.subfamily_name = None
-        #
-        #     # self.DOC8Name = self.download_file(self.DOC8Link)
-        #
-        #     if self.list_element["Diagnostic matrix"]["value"] != "null":
-        #         self.DOC14Name = self.list_element["Diagnostic matrix"]["value"]
-        #     else:
-        #         self.DOC14Name = None
-        #
-        #     self.DOC7Name = self.download_file(self.DOC7Link)
-
 
         if self.DOC3Exists is True and not self.flag_opened_file and not self.flag_subfamily_odx:
 
@@ -3783,13 +3588,6 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                # if "Test_02043_18_04939_COH_2001" in self.DOC9Dict:
-                #     if self.DOC9Dict["Test_02043_18_04939_COH_2001"][self.checkLevel].casefold().strip() != "n/a":
-                #         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2001(self.DOC4Workbook, self, self.DOC8List)
-                #         QApplication.processEvents()
-                #         if check_indicator == True:
-                #             ok_indicator = 1
-
                 if "Test_02043_18_04939_COH_2004" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2004"][self.checkLevel].casefold().strip() != "n/a":
                         check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2004(self.DOC4Workbook, self)
@@ -3854,7 +3652,6 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                #check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
 
                 if "Test_02043_18_04939_COH_2120" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2120"][self.checkLevel].casefold().strip() != "n/a":
@@ -3881,17 +3678,6 @@ class Test(Application):
                             QApplication.processEvents()
                             if check_indicator == True:
                                 ok_indicator = 1
-
-
-                # self.coverage = IndicatorTester.coverageIndicator(self.DOC4Workbook, self) * 100
-                # self.tab1.textbox_coverage_1.setText(str(self.coverage)[0:4] + "%")
-                # self.IncrementProgressBar()
-                # QApplication.processEvents()
-                #
-                # self.convergence = IndicatorTester.convergenceIndicator(self.DOC4Workbook, self, self.DOC4Path) * 100
-                # self.tab1.textbox_convergence_1.setText(str(self.convergence)[0:4] + "%")
-                # self.IncrementProgressBar()
-                # QApplication.processEvents()
 
                 if ok_indicator == 1:
                     self.tab1.colorTextBox2.setStyleSheet("background-color: red")
