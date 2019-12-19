@@ -220,60 +220,60 @@ class Application(QWidget):
 
         # Create coverage textbox
         tab.lbl_coverage = QLabel("Coverage Indicator:", tab)
-        tab.lbl_coverage.move(750, 12)
+        tab.lbl_coverage.move(900, 3)
         tab.message = ""
         tab.textbox_coverage = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage.setText(tab.message)
-        tab.textbox_coverage.move(850, 10)
+        tab.textbox_coverage.move(910, 20)
         tab.textbox_coverage.resize(70, 20)
         tab.textbox_coverage.setReadOnly(True)
 
         # Create convergence textbox
         tab.lbl_convergence = QLabel("Convergence Indicator:", tab)
-        tab.lbl_convergence.move(930, 12)
+        tab.lbl_convergence.move(1015, 3)
         tab.message = ""
         tab.textbox_convergence = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence.setText(tab.message)
-        tab.textbox_convergence.move(1050, 10)
+        tab.textbox_convergence.move(1035, 20)
         tab.textbox_convergence.resize(70, 20)
         tab.textbox_convergence.setReadOnly(True)
-        # Create coverage textbox
 
-        tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
-        tab.lb2_coverage.move(750, 42)
+        # Create coverage textbox
+        # tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
+        # tab.lb2_coverage.move(750, 42)
         tab.message = ""
         tab.textbox_coverage_1 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage_1.setText(tab.message)
-        tab.textbox_coverage_1.move(850, 40)
+        tab.textbox_coverage_1.move(910, 50)
         tab.textbox_coverage_1.resize(70, 20)
         tab.textbox_coverage_1.setReadOnly(True)
 
         # Create convergence textbox
-        tab.lb2_convergence = QLabel("Convergence Indicator:", tab)
-        tab.lb2_convergence.move(930, 42)
+        # tab.lb2_convergence = QLabel("Convergence Indicator:", tab)
+        # tab.lb2_convergence.move(930, 42)
         tab.message = ""
         tab.textbox_convergence_1 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence_1.setText(tab.message)
-        tab.textbox_convergence_1.move(1050, 40)
+        tab.textbox_convergence_1.move(1035, 50)
         tab.textbox_convergence_1.resize(70, 20)
         tab.textbox_convergence_1.setReadOnly(True)
 
-        tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
-        tab.lb2_coverage.move(750, 72)
+        # tab.lb2_coverage = QLabel("Coverage Indicator:", tab)
+        # tab.lb2_coverage.move(750, 72)
         tab.message = ""
         tab.textbox_coverage_2 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_coverage_2.setText(tab.message)
-        tab.textbox_coverage_2.move(850, 72)
+        tab.textbox_coverage_2.move(910, 80)
         tab.textbox_coverage_2.resize(70, 20)
         tab.textbox_coverage_2.setReadOnly(True)
 
         # Create convergence textbox
-        tab.lb3_convergence = QLabel("Convergence Indicator:", tab)
-        tab.lb3_convergence.move(930, 72)
+        # tab.lb3_convergence = QLabel("Convergence Indicator:", tab)
+        # tab.lb3_convergence.move(930, 72)
         tab.message = ""
         tab.textbox_convergence_2 = QtWidgets.QTextEdit(self.tab1)
         tab.textbox_convergence_2.setText(tab.message)
-        tab.textbox_convergence_2.move(1050, 70)
+        tab.textbox_convergence_2.move(1035, 80)
         tab.textbox_convergence_2.resize(70, 20)
         tab.textbox_convergence_2.setReadOnly(True)
 
@@ -296,19 +296,19 @@ class Application(QWidget):
         tab.colorTextBox1 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox1.setStyleSheet(" background-color: grey ")
         tab.colorTextBox1.resize(20, 20)
-        tab.colorTextBox1.move(725, 10)
+        tab.colorTextBox1.move(190, 22)
 
         # Create a color textbox2
         tab.colorTextBox2 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox2.setStyleSheet(" background-color: grey ")
         tab.colorTextBox2.resize(20, 20)
-        tab.colorTextBox2.move(725, 40)
+        tab.colorTextBox2.move(190, 52)
 
         # Create a color textbox3
         tab.colorTextBox3 = QtWidgets.QTextEdit(self.tab1)
         tab.colorTextBox3.setStyleSheet(" background-color: grey ")
         tab.colorTextBox3.resize(20, 20)
-        tab.colorTextBox3.move(725, 70)
+        tab.colorTextBox3.move(190, 82)
 
         # Create a drop down list
         tab.lbl = QLabel("Check level", tab)
@@ -317,8 +317,8 @@ class Application(QWidget):
         tab.combo.addItem("Previsional")
         tab.combo.addItem("Consolidated")
         tab.combo.resize(508, 20.4)  # rezise the drop down list
-        tab.combo.move(215, 200)
-        tab.lbl.move(5, 205)
+        tab.combo.move(215, 210)
+        tab.lbl.move(5, 215)
         tab.combo.activated[str].connect(self.onActivated)
 
         # Create a drop down list
@@ -327,8 +327,8 @@ class Application(QWidget):
         tab.combo3.addItem("Codes LCDV")
         tab.combo3.addItem("Codes EC")
         tab.combo3.resize(508, 20.4)  # rezise the drop down list
-        tab.combo3.move(215, 260)
-        tab.lbl3.move(5, 265)
+        tab.combo3.move(215, 270)
+        tab.lbl3.move(5, 275)
         tab.combo3.activated[str].connect(self.onActivated)
 
         # Create a drop down list
@@ -337,8 +337,8 @@ class Application(QWidget):
         tab.combo1.addItem("Generic")
         tab.combo1.addItem("All")
         tab.combo1.resize(330, 20.4)  # rezise the drop down list
-        tab.combo1.move(215, 290)
-        tab.lbl1.move(5, 295)
+        tab.combo1.move(215, 300)
+        tab.lbl1.move(5, 305)
         tab.combo1.activated[str].connect(self.onActivated)
 
         # Create a dropdown list
@@ -348,8 +348,8 @@ class Application(QWidget):
         tab.combo2.addItem("Archi NEA R1")
         tab.combo2.addItem("Archi NEA R2")
         tab.combo2.resize(508, 20.4)
-        tab.combo2.move(215, 230)
-        tab.lbl2.move(5, 235)
+        tab.combo2.move(215, 240)
+        tab.lbl2.move(5, 245)
         tab.combo2.activated[str].connect(self.onActivated)
 
         self.setGeometry(self.left, self.top, self.width, self.height)
@@ -358,107 +358,115 @@ class Application(QWidget):
         tab.importNames = QPushButton(tab)
         tab.importNames.setText("Import Project names")
         tab.importNames.resize(160, 20.4)
-        tab.importNames.move(565, 290)
+        tab.importNames.move(565, 300)
         tab.importNames.clicked.connect(self.ImportProjectNames)
 
         tab.save_config = QPushButton(tab)
         tab.save_config.setText("Save \nconfiguration")
         tab.save_config.resize(120,40)
-        tab.save_config.move(870, 270)
+        tab.save_config.move(870, 280)
         tab.save_config.setEnabled(False)
         tab.save_config.clicked.connect(self.ButtonSaveConfigClick)
 
         tab.load_config = QPushButton(tab)
         tab.load_config.setText("Load \nconfiguration")
         tab.load_config.resize(120, 40)
-        tab.load_config.move(1000, 270)
+        tab.load_config.move(1000, 280)
         tab.load_config.clicked.connect(self.ButtonLoadConfigClick)
 
         # File Selection Dialog1
         tab.lbl2 = QLabel("FSE TSD file:", tab)
-        tab.lbl2.move(5, 15)
+        tab.lbl2.move(5, 25)
         tab.myTextBox1 = QtWidgets.QTextEdit(tab)
         tab.myTextBox1.resize(460, 25)
-        tab.myTextBox1.move(215, 10)
+        tab.myTextBox1.move(215, 20)
         tab.myTextBox1.setReadOnly(True)
         tab.myTextBox1.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button1 = QPushButton('...', tab)
         tab.button1.clicked.connect(self.openFileNameDialog1)
-        tab.button1.move(675, 10)
+        tab.button1.move(675, 20)
         tab.button1.resize(45, 22)
 
         # File Selection Dialog2
         tab.lbl3 = QLabel("TSD Vehicle Function file:", tab)
-        tab.lbl3.move(5, 45)
+        tab.lbl3.move(5, 55)
         tab.myTextBox2 = QtWidgets.QTextEdit(tab)
         tab.myTextBox2.resize(460, 25)
-        tab.myTextBox2.move(215, 40)
+        tab.myTextBox2.move(215, 50)
         tab.myTextBox2.setReadOnly(True)
         tab.myTextBox2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button2 = QPushButton('...', tab)
         tab.button2.clicked.connect(self.openFileNameDialog2)
-        tab.button2.move(675, 40)
+        tab.button2.move(675, 50)
         tab.button2.resize(45, 22)
 
         # File Selection Dialog3
         tab.lbl4 = QLabel("TSD System file:", tab)
-        tab.lbl4.move(5, 75)
+        tab.lbl4.move(5, 85)
         tab.myTextBox3 = QtWidgets.QTextEdit(tab)
         tab.myTextBox3.resize(460, 25)
-        tab.myTextBox3.move(215, 70)
+        tab.myTextBox3.move(215, 80)
         tab.myTextBox3.setReadOnly(True)
         tab.myTextBox3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button3 = QPushButton('...', tab)
         tab.button3.clicked.connect(self.openFileNameDialog3)
-        tab.button3.move(675, 70)
+        tab.button3.move(675, 80)
         tab.button3.resize(45, 22)
 
         # File Selection Dialog4
         tab.lbl8 = QLabel("AMDEC:", tab)
-        tab.lbl8.move(5, 105)
+        tab.lbl8.move(5, 115)
         tab.myTextBox4 = QtWidgets.QTextEdit(tab)
         tab.myTextBox4.resize(460, 25)
-        tab.myTextBox4.move(215, 100)
+        tab.myTextBox4.move(215, 110)
         tab.myTextBox4.setReadOnly(True)
         tab.myTextBox4.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button4 = QPushButton('...', tab)
         tab.button4.clicked.connect(self.openFileNameDialog7)
-        tab.button4.move(675, 100)
+        tab.button4.move(675, 110)
         tab.button4.resize(45, 22)
 
         # File Selection Dialog5
         tab.lbl9 = QLabel("Diagnostic matrix (Export MedialecMatrice):", tab)
-        tab.lbl9.move(5, 135)
+        tab.lbl9.move(5, 145)
         tab.myTextBox5 = QtWidgets.QTextEdit(tab)
         tab.myTextBox5.resize(460, 25)
-        tab.myTextBox5.move(215, 130)
+        tab.myTextBox5.move(215, 140)
         tab.myTextBox5.setReadOnly(True)
         tab.button5 = QPushButton('...', tab)
         tab.button5.clicked.connect(self.openFileNameDialog8)
-        tab.button5.move(675, 130)
+        tab.button5.move(675, 140)
         tab.button5.resize(45, 22)
         tab.myTextBox5.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
         # File Selection Dialog6
         tab.lbl11 = QLabel("Diagnostic messagery (odx):", tab)
-        tab.lbl11.move(5, 165)
+        tab.lbl11.move(5, 175)
         tab.myTextBox6 = QtWidgets.QTextEdit(tab)
         tab.myTextBox6.resize(460, 25)
-        tab.myTextBox6.move(215, 160)
+        tab.myTextBox6.move(215, 170)
         tab.myTextBox6.setReadOnly(True)
         tab.myTextBox6.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tab.button6 = QPushButton('...', tab)
         tab.button6.clicked.connect(self.openFileNameDialog20)
-        tab.button6.move(675, 160)
+        tab.button6.move(675, 170)
         tab.button6.resize(45, 22)
 
         tab.lbl61 = QLabel("SubFamilly :", tab)
-        tab.lbl61.move(725, 164)
+        tab.lbl61.move(725, 175)
         tab.myTextBox61 = QtWidgets.QTextEdit(tab)
-        tab.myTextBox61.resize(90, 25)
-        tab.myTextBox61.move(785, 160)
+        tab.myTextBox61.resize(90, 20)
+        tab.myTextBox61.move(785, 170)
         # tab.myTextBox61.setReadOnly(True)
         tab.myTextBox61.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+
+        tab.lbl31 = QLabel("System :", tab)
+        tab.lbl31.move(725, 85)
+        tab.myTextBox31 = QtWidgets.QTextEdit(tab)
+        tab.myTextBox31.resize(90, 20)
+        tab.myTextBox31.move(785, 80)
+        # tab.myTextBox61.setReadOnly(True)
+        tab.myTextBox31.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
 
         # Check button
         tab.button = QPushButton('Check', tab)
@@ -468,7 +476,7 @@ class Application(QWidget):
         #button.setStyleSheet('QPushButton {background-color: white; color: black;}')
         tab.buttonNew = QPushButton("Open \nReport", tab)
         tab.buttonNew.resize(120, 40)
-        tab.buttonNew.move(740, 270)
+        tab.buttonNew.move(740, 280)
         tab.buttonNew.setEnabled(False)
         tab.buttonNew.clicked.connect(self.ButtonReportClick)
 
@@ -1335,7 +1343,7 @@ class Test(Application):
                 return
 
             if self.Doc15Path is not None and self.Doc15Path != "":
-                self.subfamily_name, self.Doc15List = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
+                self.subfamily_name, self.Doc15List, self.mnemonique = OptionalFilesParser.DOC15Parser(self ,self.Doc15Path)
                 if self.subfamily_name == None or self.Doc15List == None:
                     return
             else:
@@ -2835,6 +2843,14 @@ class Test(Application):
                     if self.Doc15Path is not None and self.Doc15Path != "":
                         if self.DOC9Dict["Test_02043_18_04939_COH_2230"][self.checkLevel].casefold().strip() != "n/a":
                             check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2230(self.DOC3Workbook, self, self.subfamily_name, self.Doc15List)
+                            QApplication.processEvents()
+                            if check_indicator == True:
+                                ok_indicator = 1
+
+                if "Test_02043_18_04939_COH_2231" in self.DOC9Dict:
+                    if self.Doc15Path is not None and self.Doc15Path != "":
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2231"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2231(self.DOC3Workbook, self, self.mnemonique)
                             QApplication.processEvents()
                             if check_indicator == True:
                                 ok_indicator = 1
@@ -5050,6 +5066,14 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
+                if "Test_02043_18_04939_COH_2121" in self.DOC9Dict:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2121"][self.checkLevel].casefold().strip() != "n/a":
+                        if self.DOC4Exists:
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2121(self.excelApp, self.DOC5Workbook, self, self.DOC4Name)
+                            QApplication.processEvents()
+                            if check_indicator == True:
+                                ok_indicator = 1
+
                 #check_indicator =  Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC5Workbook, self)
 
                 if "Test_02043_18_04939_COH_2130" in self.DOC9Dict:
@@ -5094,6 +5118,15 @@ class Test(Application):
                             QApplication.processEvents()
                             if check_indicator == True:
                                ok_indicator = 1
+
+                if "Test_02043_18_04939_COH_2231" in self.DOC9Dict:
+                    if self.Doc15Path is not None and self.Doc15Path != "":
+                        if self.DOC9Dict["Test_02043_18_04939_COH_2231"][self.checkLevel].casefold().strip() != "n/a":
+                            check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2231(self.DOC5Workbook, self, self.mnemonique)
+                            QApplication.processEvents()
+                            if check_indicator == True:
+                                ok_indicator = 1
+
 
                 if diversity_management == "Codes LCDV":
 

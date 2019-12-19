@@ -187,14 +187,16 @@ def DOC15Parser(TSDApp ,DOC15Path):
         subfamily_name = subfamily.attrib['ID']
         dids = root.findall(".//DATA-OBJECT-PROP")
         returnList = []
+        mnemonique = []
         for did in dids:
             name = did.find(".//SHORT-NAME").text.split("_")[-1]
+            mnemonique.append(did.find(".//SHORT-NAME").text)
             if len(name) == 4:
                 try:
                     int(name,16)
                     returnList.append(name)
                 except:
                     pass
-        return subfamily_name, returnList
+        return subfamily_name, returnList, mnemonique
     else:
         return None, None

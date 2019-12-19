@@ -2137,6 +2137,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.ReqTechIndex)
         refColIndex = -1
+        SystemColIndex = -1
         list_amont = list()
         tempDict = list()
         localisations = list()
@@ -2144,6 +2145,9 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
         for index in range (0, TSDApp.WorkbookStats.ReqTechLastCol):
             if str(workSheet.cell(TSDApp.reqTechHeaderRow, index).value).casefold().strip() == "Reference".casefold():
                 refColIndex = index
+            if str(workSheet.cell(TSDApp.reqTechHeaderRow, index).value).casefold().strip() == "Allocated to".casefold():
+                SystemColIndex = index
+            if SystemColIndex != -1 and refColIndex != -1:
                 break
 
         if refColIndex == -1:
@@ -2152,7 +2156,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
         else:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    if workSheet.cell(index, refColIndex).value == "":
+                    if workSheet.cell(index, refColIndex).value == "" or str(workSheet.cell(index, SystemColIndex).value).strip().casefold() != TSDApp.tab1.myTextBox31.toPlainText().casefold():
                         pass
                     else:
                         final_list = []
@@ -2251,6 +2255,140 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
 
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
     return check
+
+def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+
+    TSDApp.DOC4Path = TSDApp.tab1.myTextBox2.toPlainText()
+    try:
+        extension = TSDApp.DOC4Path.split(".")[-1]
+        if extension == "xls":
+            DOC4 = xlrd.open_workbook(TSDApp.DOC4Path, formatting_info=True)
+        else:
+            DOC4 = xlrd.open_workbook(TSDApp.DOC4Path)
+    except:
+        TSDApp.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Function file file " + TSDApp.DOC4Path.split('/')[-1])
+        return
+
+    workSheet = ""
+    workSheet = DOC4.sheet_by_name("Req. of tech. effects")
+    nrCols = workSheet.ncols
+    nrRows = workSheet.nrows
+
+    if workSheet == "":
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        refColIndex = -1
+        SystemColIndex = -1
+        list_amont = list()
+        tempDict = list()
+        localisations = list()
+
+        for index in range (0, nrCols):
+            if str(workSheet.cell(0, index).value).casefold().strip() == "Reference".casefold():
+                refColIndex = index
+            if str(workSheet.cell(0, index).value).casefold().strip() == "Allocated to".casefold():
+                SystemColIndex = index
+            if SystemColIndex != -1 and refColIndex != -1:
+                break
+
+        if refColIndex == -1:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
+        else:
+            for index in range(1, nrRows):
+                if workSheet.cell(index, 0).value != "":
+                    if workSheet.cell(index, refColIndex).value == "" or str(workSheet.cell(index, SystemColIndex).value).strip().casefold() != TSDApp.tab1.myTextBox31.toPlainText().casefold():
+                        pass
+                    else:
+                        final_list = []
+                        if "," not in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                            final_list = workSheet.cell(index, refColIndex).value
+                            dict = {}
+                            dict["value"] = workSheet.cell(index, refColIndex).value
+                            dict["row"] = index
+                            dict["col"] = refColIndex
+                            tempDict.append(dict)
+                        else:
+                            if "," in workSheet.cell(index, refColIndex).value and ";" not in workSheet.cell(index, refColIndex).value:
+                                final_list = workSheet.cell(index, refColIndex).value.split(",")
+                            elif "," not in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                final_list = workSheet.cell(index, refColIndex).value.split(";")
+                            elif "," in workSheet.cell(index, refColIndex).value and ";" in workSheet.cell(index, refColIndex).value:
+                                cel = workSheet.cell(index, refColIndex).value.split(",")
+                                for elem in cel:
+                                    if ";" in elem:
+                                        cels = []
+                                        cels = elem.split(";")
+                                        for i in range(len(cels)):
+                                            final_list.append(cels[i])
+                                    else:
+                                        final_list.append(elem)
+
+                            for element in final_list:
+                                dict = {}
+                                dict["value"] = element
+                                dict["row"] = index
+                                dict["col"] = refColIndex
+                                tempDict.append(dict)
+
+            workSheetRef = workBook.sheet_by_name("Effets techniques")
+            nrCols = workSheetRef.ncols
+            nrRows = workSheetRef.nrows
+            amontColIndex = -1
+            amontRowIndex = -1
+
+            for index1 in range(0, nrRows):
+                for index2 in range(0, nrCols):
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Référence amont".casefold() or str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Upstream requirements".casefold():
+                        amontColIndex = index2
+                        amontRowIndex = index1
+                        break
+                if amontColIndex != -1 and amontRowIndex != -1:
+                    break
+
+            for index in range(amontRowIndex + 1, nrRows):
+                if workSheetRef.cell(index, amontColIndex).value == "":
+                    pass
+                else:
+                    if "," not in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
+                        list_amont.append(workSheetRef.cell(index, amontColIndex).value)
+                    else:
+                        final_list = []
+                        if "," in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
+                            final_list = workSheetRef.cell(index, amontColIndex).value.split(",")
+                        elif "," not in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
+                            final_list = workSheetRef.cell(index, amontColIndex).value.split(";")
+                        elif "," in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
+                            cel = workSheet.cell(index, refColIndex).value.split(",")
+                            for elem in cel:
+                                if ";" in elem:
+                                    cels = []
+                                    cels = elem.split(";")
+                                    for i in range(len(cels)):
+                                        final_list.append(cels[i])
+                                else:
+                                    final_list.append(elem)
+                        for element in final_list:
+                            element = element.replace("\n","")
+                            list_amont.append(element.strip())
+
+            for element in tempDict:
+                if element["value"] in list_amont:
+                    pass
+                else:
+                   localisations.append(("Req. of tech. effects",element["row"], element["col"]))
+                   check = True
+
+            if not localisations:
+                localisations = None
+
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
+    return check
+
 
 def Test_02043_18_04939_COH_2130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
@@ -3190,6 +3328,63 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
                 name.append("The subfamily name field is not completed!")
                 show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
                 check = True
+
+    return check
+
+def Test_02043_18_04939_COH_2231(workBook, TSDApp, mnemonique):
+    testName = inspect.currentframe().f_code.co_name
+    print(testName)
+    check = False
+    if mnemonique is None:
+        return True
+    if TSDApp.WorkbookStats.hasMeasure == False:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
+    else:
+        workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.measureIndex)
+        refColIndex = -1
+
+        if TSDApp.WorkbookStats.measureLanguage == "fr":
+            language = "mesures et commandes"
+        elif TSDApp.WorkbookStats.measureLanguage == "en":
+            language = "Read data and IO control"
+
+        for index in range(0, TSDApp.WorkbookStats.measureLastCol):
+            if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "Label".casefold() or str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "libellé (signification)".casefold():
+                refColIndex = index
+                break
+
+        mnemonique_values = []
+        if refColIndex != -1:
+            localisations = []
+            for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
+                if workSheet.cell(index, 0).value != "":
+                    dict = {}
+                    dict["value"] = str(workSheet.cell(index, refColIndex).value).strip()
+                    dict["row"] = index
+                    mnemonique_values.append(dict)
+
+            for elem in mnemonique_values:
+                if elem["value"] in mnemonique:
+                    pass
+                else:
+                    localisations.append((language, elem["row"], refColIndex))
+
+            if not localisations:
+                localisations = None
+
+            if not localisations:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], localisations, workBook,
+                       TSDApp)
+                check = True
+            else:
+                result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
+                       TSDApp)
+        else:
+            name = []
+            name.append("The subfamily name field is not completed!")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
+            check = True
 
     return check
 

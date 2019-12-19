@@ -5,11 +5,6 @@ import xlwt
 from xlutils.copy import copy
 import openpyxl
 from openpyxl.styles import Color, Font
-from openpyxl.drawing.image import Image
-import zipfile
-from shutil import copyfile
-from shutil import rmtree
-import os
 
 def TestReturn(criticity, testName, message, localisation, workBook, TSDApp):
 
@@ -325,33 +320,49 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
             workSheet_test_report.write(lastRow, 3, elem["localisation"])
             lastRow += 1
 
-        try:
-            if elem["localisation"] is not None and elem["localisation"] != "":
-                if isinstance(elem["localisation"][0], str):
-                    for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.write(lastRow + index, 3, element)
+        if elem["testName"] != "Test_02043_18_04939_COH_2121":
+            try:
+                if elem["localisation"] is not None and elem["localisation"] != "":
+                    if isinstance(elem["localisation"][0], str):
+                        for index, element in enumerate(elem["localisation"]):
+                            workSheet_test_report.write(lastRow + index, 3, element)
 
-                    for index in range(1, len(elem["localisation"]) + 1):
-                        workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
-                        workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+                        for index in range(1, len(elem["localisation"]) + 1):
+                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
-                    lastRow += index
-                else:
+                        lastRow += index
+                    else:
+                        for index, element in enumerate(elem["localisation"]):
+                            index_coloana = element[2]
+                            link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\")"
+                            workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
+
+                        for index in range(1, len(elem["localisation"]) + 1):
+                            workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
+                            workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
+
+                        lastRow = lastRow + index
+            except:
+                TSDApp.tab1.textbox.setText("Warning: Only 65536 first rows filled in Test report (xls format limitation)")
+                new_wb.save(path)
+                return
+        else:
+            try:
+                if elem["localisation"] is not None and elem["localisation"] != "":
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        link = "HYPERLINK(\"#\'" + str(element[0]) + "\'!$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\",\"$" + column_string(index_coloana + 1) + "$" + str(element[1] + 1) + "\")"
-                        workSheet_test_report.write(lastRow + index, 3, xlwt.Formula(link))
+                        workSheet_test_report.write(lastRow + index, 3,"The cel " + column_string(index_coloana + 1) + str(element[1] + 1) + " from the sheet " + element[0] + " form the file " + TSDApp.DOC4Path.split("/")[-1])
 
                     for index in range(1, len(elem["localisation"]) + 1):
                         workSheet_test_report.write(lastRow + index, 0, elem["criticity"], text_style)
                         workSheet_test_report.write(lastRow + index, 1, elem["testName"], text_style)
 
                     lastRow = lastRow + index
-        except:
-            TSDApp.tab1.textbox.setText("Warning: Only 65536 first rows filled in Test report (xls format limitation)")
-            new_wb.save(path)
-            return
-
+            except:
+                TSDApp.tab1.textbox.setText("Warning: Only 65536 first rows filled in Test report (xls format limitation)")
+                new_wb.save(path)
+                return
 
     new_wb.save(path)
 
@@ -723,22 +734,36 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 workSheet_test_report.cell(lastRow, 4, elem["localisation"])
                 lastRow += 1
 
-            if elem["localisation"] is not None and elem["localisation"] != "":
-                if isinstance(elem["localisation"][0], str):
-                    for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element)
+            if elem["testName"] != "Test_02043_18_04939_COH_2121":
+                if elem["localisation"] is not None and elem["localisation"] != "":
+                    if isinstance(elem["localisation"][0], str):
+                        for index, element in enumerate(elem["localisation"]):
+                            workSheet_test_report.cell(lastRow + index, 4, element)
 
-                    if len(elem['localisation']) > 1:
-                        for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                        if len(elem['localisation']) > 1:
+                            for index in range(1, len(elem["localisation"])):
+                                workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                                workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
 
-                    lastRow += index + 1
-                else:
+                        lastRow += index + 1
+                    else:
+                        for index, element in enumerate(elem["localisation"]):
+                            index_coloana = element[2]
+                            workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
+                            workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
+
+                        if len(elem['localisation']) > 1:
+                            for index in range(1, len(elem["localisation"])):
+                                workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                                workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+
+                        lastRow += index + 1
+            else:
+                if elem["localisation"] is not None and elem["localisation"] != "":
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
+                        workSheet_test_report.cell(lastRow + index, 4).value = 'The cel ' + column_string(index_coloana + 1) + str(element[1] + 1) + " from the sheet " + element[0] + " from the file " + TSDApp.DOC4Path.split("/")[-1]
+                        # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):
@@ -785,22 +810,36 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 workSheet_test_report.cell(lastRow, 4, elem["localisation"])
                 lastRow += 1
 
-            if elem["localisation"] is not None and elem["localisation"] != "":
-                if isinstance(elem["localisation"][0], str):
-                    for index, element in enumerate(elem["localisation"]):
-                        workSheet_test_report.cell(lastRow + index, 4, element)
+            if elem["testName"] != "Test_02043_18_04939_COH_2121":
+                if elem["localisation"] is not None and elem["localisation"] != "":
+                    if isinstance(elem["localisation"][0], str):
+                        for index, element in enumerate(elem["localisation"]):
+                            workSheet_test_report.cell(lastRow + index, 4, element)
 
-                    if len(elem['localisation']) > 1:
-                        for index in range(1, len(elem["localisation"])):
-                            workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
-                            workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+                        if len(elem['localisation']) > 1:
+                            for index in range(1, len(elem["localisation"])):
+                                workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                                workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
 
-                    lastRow += index + 1
-                else:
+                        lastRow += index + 1
+                    else:
+                        for index, element in enumerate(elem["localisation"]):
+                            index_coloana = element[2]
+                            workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
+                            workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
+
+                        if len(elem['localisation']) > 1:
+                            for index in range(1, len(elem["localisation"])):
+                                workSheet_test_report.cell(lastRow + index, 1, elem["criticity"]).font = text_style
+                                workSheet_test_report.cell(lastRow + index, 2, elem["testName"]).font = text_style
+
+                        lastRow += index + 1
+            else:
+                if elem["localisation"] is not None and elem["localisation"] != "":
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4).value = '$' + column_string(index_coloana + 1) + '$' + str(element[1] + 1)
-                        workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
+                        workSheet_test_report.cell(lastRow + index, 4).value = 'The cel ' + column_string(index_coloana + 1) + str(element[1] + 1) + " from the sheet" + element[0] + " from the file " + TSDApp.DOC4Path.split("/")[-1]
+                        # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:
                         for index in range(1, len(elem["localisation"])):

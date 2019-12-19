@@ -283,6 +283,8 @@ errorMessagesDict["Test_02043_18_04939_COH_2110"] = "The information specified i
 
 errorMessagesDict["Test_02043_18_04939_COH_2120"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the system TSD (in the sheet Effets techniques, column “Référence amont”)."
 
+errorMessagesDict["Test_02043_18_04939_COH_2121"] = "Incoherence of the technical effects between the function TSD and the system TSD.\nThe Technical effect reference (in the sheet 'Req. of tech. effects', column “Reference”) of the function TSD shall be present in the system TSD (in the sheet Effets techniques, column “Référence amont”)."
+
 errorMessagesDict["Test_02043_18_04939_COH_2130"] = "The label precized in the column 'Noms' of the sheet  'Effets techniques' shall be present in the column 'Effet(s) technique(s)' of the sheet 'Table'."
 
 errorMessagesDict["Test_02043_18_04939_COH_2140"] = "The information specified in the column “code defaut induit” of the “tableau” sheet shall be present in the column “Code défaut” of the sheet “codes défauts” or precised as “No DTC”"
@@ -304,6 +306,8 @@ errorMessagesDict["Test_02043_18_04939_COH_2210"] = "The information specified i
 errorMessagesDict["Test_02043_18_04939_COH_2220"] = "The information specified in the column “Non-embedded diagnosis” of the “Table” sheet shall be present in the column “Label” of the sheet “Non-embedded diagnosis” or precised as “N/A”."
 
 errorMessagesDict["Test_02043_18_04939_COH_2230"] = "The DID/RI code XXXX  (with the SubFamilly name precised in the field) specified in the column 'DID or I/O Control Number' of the sheet 'mesures et commandes' (or 'Read data and IO control')  shall be present in the diagnostic messages document (ODX)."
+
+errorMessagesDict["Test_02043_18_04939_COH_2231"] = "The Mnémonique XXXX  (with the SubFamilly name precised in the field) specified in the column 'libellé (signification)' of the sheet 'mesures et commandes' (or 'Read data and IO control')  shall be present in the diagnostic messages document (ODX)."
 
 errorMessagesDict["Test_02043_18_04939_COH_2240"] = "The information specified in the column 'Variante/option' of the 'tableau' sheet shall be with the following format:\nCode_LCDV with following autorized word in between 'AND'', 'OR', 'NOT', 'N/A', ',', '(', ')',\nWhere:\n           Code_LCDV shall be present in the column 'Nom CF / Nom CO PLM (CF_CO)' of the sheet 'Liste EC' of the diversity document 02016_11_04964\nex: CHB_00 AND ( EBP_01 OR JWD_00)"
 
