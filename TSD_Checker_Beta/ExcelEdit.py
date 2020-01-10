@@ -1,4 +1,4 @@
-import TSD_Checker_V7_9
+import TSD_Checker_V8_1
 import time
 from PyQt5 import QtGui
 import xlwt
@@ -128,7 +128,7 @@ def ExcelWrite_del_information(return_list, path, TSDApp, workBook):
     col3.width = 256 * 10
 
     workSheet_info_report.write(0, 0, "Tool version:")
-    workSheet_info_report.write(0, 1, TSD_Checker_V7_9.appName)
+    workSheet_info_report.write(0, 1, TSD_Checker_V8_1.appName)
 
     workSheet_info_report.write(2, 0, "Criticity configuration file:")
     workSheet_info_report.write(2, 1, TSDApp.DOC9Path)
@@ -389,7 +389,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_9.appName
+        workSheet_info_report['B1'] = TSD_Checker_V8_1.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -544,7 +544,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
         workSheet_info_report = wb.create_sheet("Report information")
 
         workSheet_info_report['A1'] = "Tool version:"
-        workSheet_info_report['B1'] = TSD_Checker_V7_9.appName
+        workSheet_info_report['B1'] = TSD_Checker_V8_1.appName
 
         workSheet_info_report['A3'] = "Criticity configuration file:"
         workSheet_info_report['B3'] = TSDApp.DOC9Path
@@ -838,7 +838,7 @@ def ExcelWrite2(return_list, workBook, TSDApp, path):
                 if elem["localisation"] is not None and elem["localisation"] != "":
                     for index, element in enumerate(elem["localisation"]):
                         index_coloana = element[2]
-                        workSheet_test_report.cell(lastRow + index, 4).value = 'The cel ' + column_string(index_coloana + 1) + str(element[1] + 1) + " from the sheet" + element[0] + " from the file " + TSDApp.DOC4Path.split("/")[-1]
+                        workSheet_test_report.cell(lastRow + index, 4).value = 'The cel ' + column_string(index_coloana + 1) + str(element[1] + 1) + " from the sheet " + element[0] + " from the file " + TSDApp.DOC4Path.split("/")[-1]
                         # workSheet_test_report.cell(lastRow + index, 4).hyperlink = '#%s!%s' % ("'" + str(element[0]) + "'", column_string(index_coloana + 1) + str(element[1] + 1))
 
                     if len(elem['localisation']) > 1:

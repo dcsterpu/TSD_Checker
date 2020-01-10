@@ -1,4 +1,4 @@
-import TSD_Checker_V7_9
+import TSD_Checker_V8_1
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -2202,7 +2202,10 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                 TSDApp.tab1.textbox.setText("ERROR: when trying to parse the plan type TSD Système file file " + TSDApp.DOC5Path.split('/')[-1])
                 return
 
-            workSheetRef = DOC5.sheet_by_name("Effets techniques")
+            try:
+                workSheetRef = DOC5.sheet_by_name("Effets techniques")
+            except:
+                workSheetRef = DOC5.sheet_by_name("Technical effect")
             nrCols = workSheetRef.ncols
             nrRows = workSheetRef.nrows
             amontColIndex = -1
@@ -2210,7 +2213,7 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
 
             for index1 in range(0, nrRows):
                 for index2 in range(0, nrCols):
-                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Référence amont".casefold():
+                    if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Référence amont".casefold() or str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Upstream requirements".casefold():
                         amontColIndex = index2
                         amontRowIndex = index1
                         break
@@ -2221,27 +2224,10 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                 if workSheetRef.cell(index, amontColIndex).value == "":
                     pass
                 else:
-                    if "," not in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
-                        list_amont.append(workSheetRef.cell(index, amontColIndex).value)
-                    else:
-                        final_list = []
-                        if "," in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
-                            final_list = workSheetRef.cell(index, amontColIndex).value.split(",")
-                        elif "," not in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
-                            final_list = workSheetRef.cell(index, amontColIndex).value.split(";")
-                        elif "," in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
-                            cel = workSheet.cell(index, refColIndex).value.split(",")
-                            for elem in cel:
-                                if ";" in elem:
-                                    cels = []
-                                    cels = elem.split(";")
-                                    for i in range(len(cels)):
-                                        final_list.append(cels[i])
-                                else:
-                                    final_list.append(elem)
-                        for element in final_list:
-                            element = element.replace("\n","")
-                            list_amont.append(element.strip())
+                    cell = str(workSheetRef.cell(index, amontColIndex).value).replace(",", " ").replace(";", " ").replace("\n", " ")
+                    cells = cell.split(" ")
+                    for elem in cells:
+                        list_amont.append(elem.strip())
 
             for element in tempDict:
                 if element["value"] in list_amont:
@@ -2335,7 +2321,11 @@ def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
                                 dict["col"] = refColIndex
                                 tempDict.append(dict)
 
-            workSheetRef = workBook.sheet_by_name("Effets techniques")
+            try:
+                workSheetRef = workBook.sheet_by_name("Effets techniques")
+            except:
+                workSheetRef = workBook.sheet_by_name("Technical effect")
+
             nrCols = workSheetRef.ncols
             nrRows = workSheetRef.nrows
             amontColIndex = -1
@@ -2354,27 +2344,10 @@ def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
                 if workSheetRef.cell(index, amontColIndex).value == "":
                     pass
                 else:
-                    if "," not in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
-                        list_amont.append(workSheetRef.cell(index, amontColIndex).value)
-                    else:
-                        final_list = []
-                        if "," in workSheetRef.cell(index, amontColIndex).value and ";" not in workSheetRef.cell(index, amontColIndex).value:
-                            final_list = workSheetRef.cell(index, amontColIndex).value.split(",")
-                        elif "," not in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
-                            final_list = workSheetRef.cell(index, amontColIndex).value.split(";")
-                        elif "," in workSheetRef.cell(index, amontColIndex).value and ";" in workSheetRef.cell(index, amontColIndex).value:
-                            cel = workSheet.cell(index, refColIndex).value.split(",")
-                            for elem in cel:
-                                if ";" in elem:
-                                    cels = []
-                                    cels = elem.split(";")
-                                    for i in range(len(cels)):
-                                        final_list.append(cels[i])
-                                else:
-                                    final_list.append(elem)
-                        for element in final_list:
-                            element = element.replace("\n","")
-                            list_amont.append(element.strip())
+                    cell = str(workSheetRef.cell(index, amontColIndex).value).replace(","," ").replace(";"," ").replace("\n"," ")
+                    cells = cell.split(" ")
+                    for elem in cells:
+                        list_amont.append(elem.strip())
 
             for element in tempDict:
                 if element["value"] in list_amont:
@@ -2403,6 +2376,11 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
         prisColIndex = -1
         refRowIndex = -1
         localisations = list()
+
+        if TSDApp.WorkbookStats.TechEffLanguage == "en":
+            language = "technical effect"
+        elif TSDApp.WorkbookStats.TechEffLanguage == "fr":
+            language = "effets techniques"
 
         for index1 in range(0, TSDApp.WorkbookStats.TechEffLastRow):
             for index2 in range(0, TSDApp.WorkbookStats.TechEffLastCol):
@@ -2451,7 +2429,7 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
 
                 for index1 in range(0, nrRows):
                     for index2 in range(0, nrCols):
-                        if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet(s) technique(s)".casefold() or str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Technical effect".casefold():
+                        if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Effet(s) technique(s)".casefold() or str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Technical effect".casefold() or str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Technical effect(s)".casefold():
                             effColIndex = index2
                             effRowIndex = index1
                             break
@@ -2466,102 +2444,28 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
                             list_effets.append(workSheetRef.cell(index, effColIndex).value)
 
                     for element in list_table:
-                        if element["value"] in list_effets:
-                            pass
-                        else:
-                            if flag_lg:
-                                localisations.append(("tableau",element["row"], element["col"]))
-                                check = True
+                        flag = False
+                        for element2 in list_effets:
+                            if element["value"] in element2:
+                                flag = True
+                                break
                             else:
-                                localisations.append(("Table",element["row"], element["col"]))
-                                check = True
+                                pass
+                        if flag is False:
+                            localisations.append((language,element["row"], element["col"]))
+                            check = True
+
 
                     if not localisations:
                         localisations = None
 
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
 
-                elif effColIndex == 0:
+                else:
                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
                     check =True
     return check
 
-# def Test_02043_18_04939_COH_2130(workBook, TSDApp):
-#     testName = inspect.currentframe().f_code.co_name
-#     print(testName)
-#     check = False
-#     if TSDApp.WorkbookStats.hasTable == False:
-#         result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-#         check = True
-#     else:
-#         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.tableIndex)
-#         refColIndex = -1
-#         localisations = list()
-#
-#         for index in range(0, TSDApp.WorkbookStats.tableLastCol):
-#             if str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Référence".casefold() or str(workSheet.cell(TSDApp.tableHeaderRow, index).value).casefold().strip() == "Reference".casefold():
-#                 refColIndex = index
-#                 break
-#
-#         if refColIndex == -1:
-#             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-#             check = True
-#         elif refColIndex != -1:
-#             list_table = list()
-#             list_effets = list()
-#
-#             for index in range(TSDApp.tableFirstInfoRow, TSDApp.WorkbookStats.tableLastRow):
-#                 if workSheet.cell(index, 0).value != "":
-#                     if workSheet.cell(index, refColIndex).value == "":
-#                         pass
-#                     else:
-#                         dict = {}
-#                         dict["value"] = workSheet.cell(index, refColIndex).value
-#                         dict["row"] = index
-#                         dict["col"] = refColIndex
-#                         list_table.append(dict)
-#
-#             if TSDApp.WorkbookStats.hasTechEff == False:
-#                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-#                 check = True
-#             else:
-#                 workSheetRef = workBook.sheet_by_index(TSDApp.WorkbookStats.TechEffIndex)
-#                 nrCols = workSheetRef.ncols
-#                 nrRows = workSheetRef.nrows
-#                 effColIndex = -1
-#
-#                 for index1 in range(0, nrRows):
-#                     for index2 in range(0, nrCols):
-#                         if str(workSheetRef.cell(index1, index2).value).casefold().strip() == "Référence amont".casefold():
-#                             effColIndex = index2
-#                             effRowIndex = index1
-#                             break
-#                     if effColIndex != -1 and effRowIndex != -1:
-#                         break
-#
-#                 if effColIndex != -1 and effRowIndex != -1:
-#                     for index in range(TSDApp.techEffFirstInfoRow, nrRows):
-#                         if workSheet.cell(index, effColIndex).value == "":
-#                             pass
-#                         else:
-#                             list_effets.append(workSheet.cell(index, effColIndex).value)
-#
-#                     for element in list_table:
-#                         if element["value"] in list_effets:
-#                             pass
-#                         else:
-#                             localisations.append(("tableau",element["row"],element["col"]))
-#                             check = True
-#
-#                     if not localisations:
-#                         localisations = None
-#
-#                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
-#
-#                 elif effColIndex == 0:
-#                     result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
-#                     check =True
-#     return check
 
 def Test_02043_18_04939_COH_2140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
