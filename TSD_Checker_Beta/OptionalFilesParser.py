@@ -1,4 +1,4 @@
-import TSD_Checker_V8_1
+import TSD_Checker_V8_4
 from lxml import etree, objectify
 import xlrd
 
@@ -34,6 +34,8 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
                 cons = index
             elif workSheet.cell(refRow, index).value.casefold().strip() == "final":
                 val = index
+            elif workSheet.cell(refRow, index).value.casefold().strip() == "consolidated aee2010":
+                cons_aee = index
 
 
     DOC9Dict = dict()
@@ -43,6 +45,7 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
             tempDict["previsional"] = workSheet.cell(index, prev).value.strip()
             tempDict["consolidated"] = workSheet.cell(index, cons).value.strip()
             tempDict["final"] = workSheet.cell(index, val).value.strip()
+            tempDict["consolidated aee2010"] = workSheet.cell(index, cons_aee).value.strip()
             try:
                 testName = "Test_" + workSheet.cell(index, refCol).value.strip()
                 DOC9Dict[testName] = tempDict
@@ -190,7 +193,7 @@ def DOC15Parser(TSDApp ,DOC15Path):
         mnemonique = []
         for did in dids:
             name = did.find(".//SHORT-NAME").text.split("_")[-1]
-            mnemonique.append(did.find(".//SHORT-NAME").text)
+            mnemonique.append(did.find(".//LONG-NAME").text)
             if len(name) == 4:
                 try:
                     int(name,16)

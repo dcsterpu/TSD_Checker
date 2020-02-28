@@ -1,4 +1,4 @@
-import TSD_Checker_V8_1
+import TSD_Checker_V8_4
 
 def resetFlags(TSDApp):
     TSDApp.WorkbookStats.hasInfGen = False

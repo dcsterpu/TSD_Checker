@@ -121,7 +121,7 @@ errorMessagesDict["Test_02043_18_04939_STRUCT_0530"] = "In the sheet “Req. of 
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0700"] = "The sheet “Table” (or “tableau”) is not present or not written correctly."
 
-errorMessagesDict["Test_02043_18_04939_STRUCT_0710"] = "In the sheet “tableau” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document on the line 2."
+errorMessagesDict["Test_02043_18_04939_STRUCT_0710"] = "In the sheet “table” (or “tableau”), the column XXXX (to be indicated) is not present or not written correctly as in the document on the line 2."
 
 errorMessagesDict["Test_02043_18_04939_STRUCT_0720"] = "The sheet “Data trouble codes” (or “codes défauts”) is not present or not written correctly"
 

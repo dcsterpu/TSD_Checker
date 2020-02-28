@@ -1,4 +1,4 @@
-import TSD_Checker_V8_1
+import TSD_Checker_V8_4
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -3247,6 +3247,7 @@ def Test_02043_18_04939_COH_2231(workBook, TSDApp, mnemonique):
     else:
         workSheet = workBook.sheet_by_index(TSDApp.WorkbookStats.measureIndex)
         refColIndex = -1
+        divColIndex = -1
 
         if TSDApp.WorkbookStats.measureLanguage == "fr":
             language = "mesures et commandes"
@@ -3256,6 +3257,9 @@ def Test_02043_18_04939_COH_2231(workBook, TSDApp, mnemonique):
         for index in range(0, TSDApp.WorkbookStats.measureLastCol):
             if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "Label".casefold() or str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "libellé (signification)".casefold():
                 refColIndex = index
+            if str(workSheet.cell(TSDApp.measureHeaderRow, index).value).casefold().strip() == "Diversité / Diversity".casefold():
+                divColIndex = index
+            if refColIndex != -1 and divColIndex != -1:
                 break
 
         mnemonique_values = []
@@ -3263,10 +3267,30 @@ def Test_02043_18_04939_COH_2231(workBook, TSDApp, mnemonique):
             localisations = []
             for index in range(TSDApp.measureFirstInfoRow, TSDApp.WorkbookStats.measureLastRow):
                 if workSheet.cell(index, 0).value != "":
-                    dict = {}
-                    dict["value"] = str(workSheet.cell(index, refColIndex).value).strip()
-                    dict["row"] = index
-                    mnemonique_values.append(dict)
+                    cell = str(workSheet.cell(index, divColIndex).value).strip().casefold()
+                    values = []
+                    if ";" in cell or "," in cell or "\n" in cell:
+                        split1 = cell.split(";")
+                        for elem in split1:
+                            values.append(elem.strip())
+                            split2 = elem.split(",")
+                            for elem2 in split2:
+                                values.append(elem2.strip())
+                                split3 = elem2.split("\n")
+                                for elem3 in split3:
+                                    values.append(elem3.strip())
+                        if TSDApp.tab1.myTextBox61.toPlainText().strip().casefold() in values:
+                            dict = {}
+                            dict["value"] = str(workSheet.cell(index, refColIndex).value).strip()
+                            dict["row"] = index
+                            mnemonique_values.append(dict)
+
+                    elif str(workSheet.cell(index, divColIndex).value).strip().casefold() == TSDApp.tab1.myTextBox61.toPlainText().strip().casefold():
+                        dict = {}
+                        dict["value"] = str(workSheet.cell(index, refColIndex).value).strip()
+                        dict["row"] = index
+                        mnemonique_values.append(dict)
+
 
             for elem in mnemonique_values:
                 if elem["value"] in mnemonique:

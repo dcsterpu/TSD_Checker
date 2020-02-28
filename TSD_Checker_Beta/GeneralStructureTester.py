@@ -1,4 +1,4 @@
-import TSD_Checker_V8_1
+import TSD_Checker_V8_4
 import inspect
 from ExcelEdit import TestReturn as result
 from ExcelEdit import TestReturnName as show
@@ -1551,9 +1551,9 @@ def Test_02043_18_04939_STRUCT_0710(ExcelApp, workBook, TSDApp, DOC5Name):
         for elem1 in list_ref:
             found = False
             for elem2 in list_test:
-                if elem1['1'] == elem2['1'] and elem1['2'] == elem2['2']:
+                if elem1['1'] == elem2['1'] and elem1['2'] == elem2['2'] and elem1['2'] != "":
                     found = True
-            if not found:
+            if not found and elem1['2'] != "":
                 name.append(workSheetRef.cell(elem1['4'], elem1['3']).value)
 
         if not name:
