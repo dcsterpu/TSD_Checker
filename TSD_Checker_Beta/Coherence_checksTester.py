@@ -221,6 +221,9 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
@@ -1987,47 +1990,28 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
 
 def Test_02043_18_04939_COH_2091(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
-    print(testName)
-    temp = workBook.Sheets
-    sheetNames = list()
-    localisation = list()
     check = False
-    for sheet in temp:
-        sheetNames.append(sheet.Name.strip().casefold())
+    print(testName)
+    forbidden = ["?", "tbd", "tbc"]
+    sheet_list = workBook.sheet_names()
+    localisations = []
+    for sheet in sheet_list:
+        currentSheet = workBook.sheet_by_name(sheet)
+        for index1 in range(0, currentSheet.nrows):
+            for index2 in range(0, currentSheet.ncols):
+                if str(currentSheet.cell(index1, index2).value).casefold().strip() in forbidden:
+                    localisations.append((sheet, index1, index2))
 
-    for name in sheetNames:
-        index = sheetNames.index(name) + 1
-        workSheet = workBook.Sheets(index)
-        workSheetRange = workSheet.UsedRange
-        nrLines = workSheetRange.Rows.Count
-        nrCols = workSheetRange.Columns.Count
-        localisation = list()
-        firtCell = workSheet.cell(1, 1)
-        lastCell = workSheet.cell(nrLines, nrCols)
-        workSheetRange = workSheet.Range(firtCell, lastCell)
-        flag = False
+    if not localisations:
+        localisations = None
 
-        for row in workSheetRange.Rows:
-            flag = False
-            for valueTuple in row.value:
-                for value in valueTuple:
-                    if value != None:
-                        flag = True
-            if flag == False:
-                lastRow = row.Row
-                break
-
-            for rowIndex in range(1, nrLines):
-                for colIndex in range(1, nrCols):
-                    if workSheet.cell(rowIndex, colIndex).value == "?" or workSheet.cell(rowIndex, colIndex).value.casefold() == "tbd" or workSheet.cell(rowIndex, colIndex).value.casefold() == "tbc":
-                        localisation.append(workSheet.cell(rowIndex, colIndex))
-                        check = True
-
-    if localisation == "[]":
-        localisation = None
-
-    result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisation, workBook, TSDApp)
+    if localisations is not None:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
+    else:
+        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        check = True
     return check
+
 
 def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name

@@ -849,8 +849,8 @@ class Application(QWidget):
         tab.TextBoxUser = QtWidgets.QLineEdit(tab)
         tab.TextBoxUser.resize(200, 25)
         tab.TextBoxUser.move(350, 20)
-        tab.TextBoxUser.setText(getpass.getuser())
-        # tab.TextBoxUser.setText("E518720")
+        # tab.TextBoxUser.setText(getpass.getuser())
+        tab.TextBoxUser.setText("E518720")
 
 
         tab.lblPass = QLabel("PASSWORD:", tab)
@@ -859,8 +859,8 @@ class Application(QWidget):
         tab.TextBoxPass.resize(180, 25)
         tab.TextBoxPass.move(660, 20)
         tab.TextBoxPass.setEchoMode((QLineEdit.Password))
-        # tab.TextBoxPass.setText("Cst12323")
-        tab.TextBoxPass.setText("")
+        tab.TextBoxPass.setText("Cst12323")
+        # tab.TextBoxPass.setText("")
 
         # File Selection Dialog
         tab.lbl6 = QLabel("Family list export (CESARE):", tab)
@@ -2604,7 +2604,12 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
-                #check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC3Workbook, self)
+                if "Test_02043_18_04939_COH_2091" in self.DOC9Dict:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2091"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC3Workbook, self)
+                        QApplication.processEvents()
+                        if check_indicator == True:
+                            ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2100" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2100"][self.checkLevel].casefold().strip() != "n/a":
@@ -3663,6 +3668,12 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
+                if "Test_02043_18_04939_COH_2091" in self.DOC9Dict:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2091"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC4Workbook, self)
+                        QApplication.processEvents()
+                        if check_indicator == True:
+                            ok_indicator = 1
 
                 if "Test_02043_18_04939_COH_2120" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2120"][self.checkLevel].casefold().strip() != "n/a":
@@ -4863,6 +4874,13 @@ class Test(Application):
                         if check_indicator == True:
                             ok_indicator = 1
 
+                if "Test_02043_18_04939_COH_2091" in self.DOC9Dict:
+                    if self.DOC9Dict["Test_02043_18_04939_COH_2091"][self.checkLevel].casefold().strip() != "n/a":
+                        check_indicator = Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC5Workbook, self)
+                        QApplication.processEvents()
+                        if check_indicator == True:
+                            ok_indicator = 1
+
                 if "Test_02043_18_04939_COH_2121" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2121"][self.checkLevel].casefold().strip() != "n/a":
                         if self.DOC4Exists:
@@ -4870,8 +4888,6 @@ class Test(Application):
                             QApplication.processEvents()
                             if check_indicator == True:
                                 ok_indicator = 1
-
-                #check_indicator =  Coherence_checksTester.Test_02043_18_04939_COH_2091(self.DOC5Workbook, self)
 
                 if "Test_02043_18_04939_COH_2130" in self.DOC9Dict:
                     if self.DOC9Dict["Test_02043_18_04939_COH_2130"][self.checkLevel].casefold().strip() != "n/a":
