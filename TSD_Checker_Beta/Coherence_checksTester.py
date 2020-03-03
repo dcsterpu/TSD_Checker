@@ -1,4 +1,4 @@
-import TSD_Checker_V8_4
+import TSD_Checker_V8_5
 import inspect
 from ExcelEdit import TestReturn as result
 from ErrorMessages import errorMessagesDict as error
@@ -29,7 +29,9 @@ def Test_02043_18_04939_COH_2000(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             localisations = list()
@@ -222,7 +224,9 @@ def Test_02043_18_04939_COH_2001(workBook, TSDApp, DOC8List):
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
     return check
 
@@ -268,6 +272,11 @@ def Test_02043_18_04939_COH_2002(workBook, TSDApp, DOC8List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2004(workBook, TSDApp):
@@ -294,7 +303,9 @@ def Test_02043_18_04939_COH_2004(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             localisations = list()
@@ -426,7 +437,9 @@ def Test_02043_18_04939_COH_2005(workBook, TSDApp):
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
                        TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
 
     return check
@@ -478,7 +491,9 @@ def Test_02043_18_04939_COH_2006(workBook, TSDApp, DOC8List):
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
 
     return check
@@ -525,7 +540,9 @@ def Test_02043_18_04939_COH_2007(ExcelApp, workBook, TSDApp, DOC14Name):
             var = 1
 
         if var == 1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif var == 0:
             localisations = []
@@ -639,7 +656,9 @@ def Test_02043_18_04939_COH_2008(workBook, TSDApp):
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
                        TSDApp)
         else:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
 
     return check
@@ -746,7 +765,9 @@ def Test_02043_18_04939_COH_2010(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             localisations = list()
@@ -834,7 +855,9 @@ def Test_02043_18_04939_COH_2020(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
 
@@ -906,7 +929,9 @@ def Test_02043_18_04939_COH_2030(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             localisations = list()
@@ -986,7 +1011,9 @@ def Test_02043_18_04939_COH_2040(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             localisations = list()
@@ -1068,7 +1095,9 @@ def Test_02043_18_04939_COH_2050(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
 
@@ -1143,7 +1172,9 @@ def Test_02043_18_04939_COH_2060(ExcelApp, workBook, TSDApp, DOC7Name):
                 break
 
         if effColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif effColIndex != -1:
 
@@ -1345,7 +1376,9 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
                 break
 
         if effColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif effColIndex != -1:
 
@@ -1545,7 +1578,6 @@ def Test_02043_18_04939_COH_2061(ExcelApp, workBook, TSDApp, DOC7Name):
             check = True
     return check
 
-
 def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
     testName = inspect.currentframe().f_code.co_name
     localisations = list()
@@ -1571,7 +1603,9 @@ def Test_02043_18_04939_COH_2070(ExcelApp, workBook, TSDApp, DOC7Name):
                 break
 
         if effColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif effColIndex != -1:
 
@@ -1792,7 +1826,9 @@ def Test_02043_18_04939_COH_2080(ExcelApp, workBook, TSDApp, DOC7Name):
                 break
 
         if effColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif effColIndex != -1:
 
@@ -2012,7 +2048,6 @@ def Test_02043_18_04939_COH_2091(workBook, TSDApp):
         check = True
     return check
 
-
 def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -2049,6 +2084,11 @@ def Test_02043_18_04939_COH_2100(workBook, TSDApp, DOC8List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
@@ -2109,6 +2149,11 @@ def Test_02043_18_04939_COH_2110(workBook, TSDApp, DOC8List):
                 check = True
             else:
                 result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
+        else:
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
@@ -2135,7 +2180,9 @@ def Test_02043_18_04939_COH_2120(ExcelApp, workBook, TSDApp, DOC5Name):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         else:
             for index in range(TSDApp.reqTechFirstInfoRow, TSDApp.WorkbookStats.ReqTechLastRow):
@@ -2248,7 +2295,9 @@ def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
     nrRows = workSheet.nrows
 
     if workSheet == "":
-        result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+        name = []
+        name.append("Not possible")
+        show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
         check = True
     else:
         refColIndex = -1
@@ -2266,7 +2315,9 @@ def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         else:
             for index in range(1, nrRows):
@@ -2346,7 +2397,6 @@ def Test_02043_18_04939_COH_2121(ExcelApp, workBook, TSDApp, DOC4Name):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook, TSDApp)
     return check
 
-
 def Test_02043_18_04939_COH_2130(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -2383,7 +2433,9 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
             flag_lg = True
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2450,7 +2502,6 @@ def Test_02043_18_04939_COH_2130(workBook, TSDApp):
                     check =True
     return check
 
-
 def Test_02043_18_04939_COH_2140(workBook, TSDApp):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -2475,7 +2526,9 @@ def Test_02043_18_04939_COH_2140(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2571,7 +2624,9 @@ def Test_02043_18_04939_COH_2150(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2643,7 +2698,9 @@ def Test_02043_18_04939_COH_2160(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2735,7 +2792,9 @@ def Test_02043_18_04939_COH_2170(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2804,7 +2863,9 @@ def Test_02043_18_04939_COH_2180(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2879,7 +2940,9 @@ def Test_02043_18_04939_COH_2190(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -2956,7 +3019,9 @@ def Test_02043_18_04939_COH_2200(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
 
         elif refColIndex != -1:
@@ -3033,7 +3098,9 @@ def Test_02043_18_04939_COH_2210(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -3114,7 +3181,9 @@ def Test_02043_18_04939_COH_2220(workBook, TSDApp):
                 break
 
         if refColIndex == -1:
-            result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], "", workBook, TSDApp)
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
             check = True
         elif refColIndex != -1:
             list_table = list()
@@ -3216,7 +3285,11 @@ def Test_02043_18_04939_COH_2230(workBook, TSDApp, subfamily_name, DOC15List):
                 name.append("The subfamily name field is not completed!")
                 show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], name, workBook, TSDApp)
                 check = True
-
+        else:
+            name = []
+            name.append("Not possible")
+            show(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error["None"], name, workBook, TSDApp)
+            check = True
     return check
 
 def Test_02043_18_04939_COH_2231(workBook, TSDApp, mnemonique):
@@ -3549,8 +3622,6 @@ def Test_02043_18_04939_COH_2241(workBook, TSDApp, DOC13List):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
-
-
 def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -3685,7 +3756,6 @@ def Test_02043_18_04939_COH_2251(workBook, TSDApp, DOC13List):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
-
 def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -3775,7 +3845,6 @@ def Test_02043_18_04939_COH_2260(workBook, TSDApp, DOC13List_2):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,TSDApp)
     return check
 
-
 def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
     testName = inspect.currentframe().f_code.co_name
     print(testName)
@@ -3851,7 +3920,6 @@ def Test_02043_18_04939_COH_2261(workBook, TSDApp, DOC13List_2):
             result(TSDApp.DOC9Dict[testName][TSDApp.checkLevel], testName, error[testName], localisations, workBook,
                    TSDApp)
     return check
-
 
 def Test_02043_18_04939_COH_2270(workBook, TSDApp, DOC13List_2):
     testName = inspect.currentframe().f_code.co_name
