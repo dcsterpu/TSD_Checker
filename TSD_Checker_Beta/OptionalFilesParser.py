@@ -1,4 +1,4 @@
-import TSD_Checker_V8_5
+import TSD_Checker_V8_6
 from lxml import etree, objectify
 import xlrd
 
@@ -34,7 +34,7 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
                 cons = index
             elif workSheet.cell(refRow, index).value.casefold().strip() == "final":
                 val = index
-            elif workSheet.cell(refRow, index).value.casefold().strip() == "consolidated aee2010":
+            elif workSheet.cell(refRow, index).value.casefold().strip() == "final aee2010":
                 cons_aee = index
 
 
@@ -45,7 +45,7 @@ def DOC9Parser(TSDApp, ExcelApp, DOC9Path):
             tempDict["previsional"] = workSheet.cell(index, prev).value.strip()
             tempDict["consolidated"] = workSheet.cell(index, cons).value.strip()
             tempDict["final"] = workSheet.cell(index, val).value.strip()
-            tempDict["consolidated aee2010"] = workSheet.cell(index, cons_aee).value.strip()
+            tempDict["final aee2010"] = workSheet.cell(index, cons_aee).value.strip()
             try:
                 testName = "Test_" + workSheet.cell(index, refCol).value.strip()
                 DOC9Dict[testName] = tempDict
